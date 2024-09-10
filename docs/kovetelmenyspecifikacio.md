@@ -20,6 +20,17 @@
 
 ## 1. Jelenlegi helyzet leírása
 
+Jelenleg a menhelyen az örökbefogadható kutyák adatainak kezelése és az örökbefogadási folyamat nagyrészt manuálisan,
+papír alapon
+történik. Az érdeklődők személyesen látogatják meg a menhelyet, hogy új kedvencet válasszanak maguknak, vagy pedig
+telefonon,
+illetve e-mailben kérnek tájékoztatást. Az örökbefogadási kérelmek feldolgozása hosszadalmas lehet, és
+a menhely munkatársai számára jelentős adminisztrációs terhet jelent, hiszen a kutyák előrejelzett adoptálása és
+lefoglalása személyesen történik.
+A potenciális gazdik számára a jelenleg örökbefogadható kutyákról való tájékozodás és alapvető adatainak megismerése
+korlátozott, ami csökkenti az örökbefogadások hatékonyságát és
+sebességét.
+
 ## 2. Vágyálomrendszer leírása
 
 ## 3. Megfeleltetés a jogi szabályoknak
