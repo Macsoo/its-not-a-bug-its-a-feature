@@ -3,6 +3,7 @@
 ---
 
 ## Tartalomjegyzék:
+
 1. [Jelenlegi helyzet leírása](#1-jelenlegi-helyzet-leírása)
 
 2. [Vágyálomrendszer leírása](#2-vágyálomrendszer-leírása)
@@ -25,8 +26,22 @@
 
 ---
 
-
 ## 1. Jelenlegi helyzet leírása
+
+A menhely jelenlegi működése során az örökbefogadható kutyák adatainak kezelése és az örökbefogadási folyamat alapvetően
+manuális és papír alapú történik. Az érdeklődők a kutya kiválasztása érdekében személyesen látogatják meg a menhelyet,
+vagy pedig telefonon, illetve e-mailben kérnek tájékoztatást.
+A jelenlegi papír alapú rendszer miatt az örökbefogadható kutyák adatainak frissítése és elérhetősége nem mindig
+aktuális. Az adatok gyakori frissítése nehézkes, ami miatt az érdeklődők gyakran elavult információkat kapnak.
+Az érdeklődők telefonos és e-mailes érdeklődései miatt a menhely munkatársainak sok időt kell fordítaniuk a
+kommunikációra, ami csökkenti a feldolgozási hatékonyságot és növeli az adminisztrációs terheket.
+Az örökbefogadási kérelmek feldolgozása a fent említett okokból hosszadalmas, és jelentős adminisztrációs terhet jelent
+a menhely dolgozóinak, mivel a kutyák előrejelzett adoptálása és lefoglalása személyesen történik.
+A potenciális gazdik számára az örökbefogadható kutyákról elérhető információk jelenlegi korlátozottsága hátráltatja az
+örökbefogadási folyamatok hatékonyságát és gyorsaságát. Megrendelőnknek ezért igénye lenne egy felületre, ahol az
+örökbefogadható kutyák adaitai szabadon elérhetőek.
+Az örökbefogadási folyamat során és után a kapcsolattartás és utókövetés nehézkes lehet, mivel a jelenlegi rendszer nem
+támogatja hatékonyan az örökbefogadók nyomon követését és támogatását.
 
 ## 2. Vágyálomrendszer leírása
 
