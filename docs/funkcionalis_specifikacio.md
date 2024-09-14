@@ -20,6 +20,14 @@
 
 8. [Képernyőtervek](#8-képernyőtervek)
 
+   8.1. ["Kutyáink" menüpont](#81-kutyáink-menüpont)
+
+   8.2. ["Rólunk" menüpont](#82-rólunk-menüpont)
+
+   8.3. ["Fiókom" menüpont](#83-fiókom-menüpont)
+
+   8.4. [Melléklet](#84-melléklet)
+
 9. [Forgatókönyvek](#9-forgatókönyvek)
 
 10. [Funkció – követelmény megfeleltetés](#10-funkció--követelmény-megfeleltetés)
@@ -86,6 +94,57 @@ sikerességéhez és hatékonyságához.
 ## 7. Használati esetek
 
 ## 8. Képernyőtervek
+
+### 8.1. "Kutyáink" menüpont:
+
+Az oldal központi része a kutyák böngészésére szolgáló felület. A felhasználók itt tekinthetik meg az örökbefogadható
+kutyák listáját. A listában minden kutya képe, neve és rövid leírása látható. A felhasználók szűrő- és keresési
+lehetőségek segítségével könnyen megtalálhatják az érdeklődésüknek megfelelő kutyát.
+Minden kutyának saját adatlapja van, amely tartalmazza a kutya fényképeit, leírását.
+
+#### 8.1.1 Felhasználói nézet:
+
+Grafikus tervet lásd itt: [8.4.1 Melléklet](#841-kutyáink-menüpont---felhasználói-nézet)
+
+- **"Adoptálás" gomb:** Ezen a gombon keresztül a felhasználók elérhetik az örökbefogadási űrlapot. Itt megadhatják
+  nevüket, telefonszámukat, e-mail címüket és kérdéseiket. Az űrlap kitöltése után az adatok automatikusan elküldésre
+  kerülnek a menhely adminisztrátoraihoz, akik válaszolnak a beérkező kérdésekre.
+
+#### 8.1.2 Adminisztrátori nézet:
+
+Grafikus tervet lásd itt: [8.4.2 Melléklet](#842-kutyáink-menüpont---adminisztrátori-nézet)
+
+- **"Szerkesztés" gomb:** Minden kutya adatlapján található egy "Szerkesztés" gomb, amely lehetővé teszi az
+  adminisztrátorok számára, hogy frissítsék a kutyával kapcsolatos információkat, például a leírást, képeket.
+- **"Törlés" gomb:** Az "Adoptálás" menüpont alatt egy "Törlés" gomb is elérhető, amely lehetővé teszi az
+  adminisztrátorok számára, hogy eltávolítsák a kutyát az adatbázisból, ha például már nem elérhető örökbefogadásra.
+
+### 8.2. "Rólunk" menüpont:
+
+Ez a menüpont tartalmazza a menhely kapcsolattartási adatait, például telefonszámot, e-mail címet és a menhely
+címét. A felhasználók itt találhatják meg az információkat, ha közvetlenül szeretnének kapcsolatba lépni a menhellyel.
+Adminisztrátorként a tartalom szerkeszthető.
+
+### 8.3. "Fiókom" menüpont:
+
+#### 8.3.1 Felhasználói nézet:
+
+A felhasználók a "Fiókom" gombra kattintva hozzáférhetnek az általuk leadott örökbefogadási kérelmek státuszához. Itt
+nyomon követhetik a kéréseik előrehaladását.
+
+#### 8.3.2 Adminisztrátori nézet:
+
+Az adminisztrátorok számára a "Fiókom" gomb alatt egy adminisztrátori panel található, ahol kezelhetik és nyomon
+követhetik az összes beérkező örökbefogadási kérelmet. Itt láthatják az összes új
+kérelmet, és kezelhetik azok státuszát.
+
+### 8.4 Melléklet:
+
+#### 8.4.1 "Kutyáink" menüpont - Felhasználói nézet:
+![felhasznalo.jpg](img%2Ffelhasznalo.jpg)
+
+#### 8.4.2 "Kutyáink" menüpont - Adminisztrátori nézet:
+![admin.jpg](img%2Fadmin.jpg)
 
 ## 9. Forgatókönyvek
 
