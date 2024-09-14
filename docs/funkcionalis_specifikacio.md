@@ -45,6 +45,36 @@ támogatja hatékonyan az örökbefogadók nyomon követését és támogatásá
 
 ## 2. Vágyálomrendszer leírása
 
+A jövőbeni rendszer célja, hogy jelentősen javítsa az örökbefogadási folyamat hatékonyságát és felhasználói élményét a
+menhelyen. A rendszer egy teljeskörű digitális megoldást kínál, amely lehetővé teszi az örökbefogadható kutyák
+adatainak valós idejű kezelést és könnyű hozzáférést, online platformon keresztül.
+
+Az örökbefogadható kutyák részletes adatainak, beleértve a fényképeket és leírásokat, központi digitális
+adatbázisban tárolnánk.
+
+A rendszer két szerepköre:
+
+- **Adminisztrátor:**
+    - A menhely dolgozói, akik hozzáadhatják, szerkeszthetik a kutyák adatait, és látják az
+      örökbefogadási kérelmeket.
+
+    - Az adatok folyamatosan frissíthetőek adminisztrátorként, így az érdeklődők mindig aktuális információkat kapnak.
+
+- **Felhasználó:**
+    - Az érdeklődők online katalógusban böngészhetnek az örökbefogadható kutyák között, kereshetnek
+      különböző szűrők (például életkor, méret, fajtajellemzők) alapján, és könnyen megtalálhatják az igényeiknek
+      megfelelő
+      kedvenceket.
+
+    - Az érdeklődők számára lehetőséget biztosít egy online űrlap kitöltésére, ahol érdeklődést nyújthatnak be, valamint
+      kérdéseket tehetnek fel az örökbefogadható kutyákról. Ez gyorsítja a kommunikációs folyamatokat, és csökkenti az
+      adminisztrációs terheket.
+
+Ez a rendszer automatizálná és digitalizálná a kutyák örökbefogadásának folyamatát, megkönnyítve a menhely és az
+örökbefogadók közötti kommunikációt.Jelentősen csökkenti az adminisztrációs terheket, növeli az örökbefogadási folyamat
+hatékonyságát, és javítja az érdeklődők és az örökbefogadók élményét, hozzájárulva ezzel a menhely munkájának
+sikerességéhez és hatékonyságához.
+
 ## 3. Megfeleltetés a jogi szabályoknak
 
 ## 4. Jelenlegi üzelti folyamatok modellje
