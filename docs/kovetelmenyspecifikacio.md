@@ -55,6 +55,58 @@ Ez a rendszer automatizálná és digitalizálná a kutyák örökbefogadásána
 
 ## 4. Jelenlegi üzelti folyamatok modellje
 
+### 4.1. Örökbefogadható kutyák regisztrálása
+
+A menhelyre amint bekerül egy kutya, az elsődleges egészségügyi eljárásokat követően máris örökbe lehet fogadni,
+azaz a regisztrálási folyamat jelenleg egybe van kötve a kutyák behozatalával.
+
+### 4.2. Örökbefogadható kutyák listája
+
+Az örökbefogadható kutyák listjáját személyesen, vagy e-mail esetleg telefonos formában a menhely egy munkatársa
+segítségével lehet lekérdezni. A bent lévő kutyák közül amelyikhez nincs fent a "Örökbefogadtak!" felíratú tábla,
+azok örökbefogadhatók.
+
+### 4.3 Kutyák leírásai
+
+Az menhely összes kutyájának van egy leírása (kor, nem, stb.), amely a kutyáknál megtalálhatók és elolvashatók
+személyesen.
+
+### 4.4 Örökbefogadás
+
+A menhelyen található örökbefogadható kutyák listájából egy vagy több kutya örökbefogadásához a helyszínen kell
+megkérni a menhely egy munkatársát, aki segítségével örökbefogadhatót később, vagy akár azonnal.
+
+### 4.5 Kapcsolat
+
+A menhely dolgozóival a kapcsolatot e-mailel vagy telefonon keresztül lehet felvenni. 
+
 ## 5. Igényelt üzleti folyamatok modellje
+
+### 5.1 Örökbefogadható kutyák regisztrálása
+
+A menhelyre amint behoznak egy kutyát, az egészségügyi eljárásokat követően az menhely weboldalának
+adminisztrátora beregisztrálja azt, így onnantól kezdve örökbefogadható lesz a kutya. A regisztráció
+elhagyható, későbbiekben így több funkciót is vállalhat a menhely melyek nem csak gazdátlan kutyákra
+vonatkozna.
+
+### 5.2 Örökbefogadható kutyák listája
+
+A menhely weboldalán a beregisztrált örökbefogadható kutyák listája könnyen megtekinthető.
+
+### 5.3 Kutyák leírásai
+
+A weboldalon minden kutyának az adatait és leírásai könnyen megtekinthetők, nincs szükség személyes
+megtekintésre.
+
+### 5.4 Örökbefogadás
+
+A menhely weboldalán található kutyákat a felhasználók jelezhetik, hogy szeretnék örökbefogadni.
+Más felhasználók láthatják, hogy egy kutyát már valaki örökbe szeretne fogadni. Biztonsági okokból
+a menhely gondozói személyesen tisztázzák az örökbefogadást, melyet követően a kutya lekerül a weboldalról.
+
+### 5.5 Kapcsolat
+
+A menhely dolgozóival felvenni a kapcsolatot e-mailel vagy telefonon keresztül lehet felvenni.
+A weboldalon ezek az adatok könnyen megtalálhatók.
 
 ## 6. Követelménylista
