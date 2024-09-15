@@ -53,6 +53,8 @@ Ez a rendszer automatizálná és digitalizálná a kutyák örökbefogadásána
 
 ## 3. Megfeleltetés a jogi szabályoknak
 
+Mivel, személyes adatok tárolása nem történik az alkalmazásunkon keresztül. Teljes név megadása nem kell, illetve az email cím nem tartozik GDPR jogszabály alá, így az nem ütközik GDPR rendelet megsértésébe.
+
 ## 4. Jelenlegi üzelti folyamatok modellje
 
 ### 4.1. Örökbefogadható kutyák regisztrálása
@@ -110,3 +112,11 @@ A menhely dolgozóival felvenni a kapcsolatot e-mailel vagy telefonon keresztül
 A weboldalon ezek az adatok könnyen megtalálhatók.
 
 ## 6. Követelménylista
+
+| Modul | ID | Név | Kifejtés |
+|-------|----|-----|----------|
+| Jogosultság | P1 | Regisztráció | Minden felhasználó számára szükségesnek kell lennie, hogy tudjon regisztrálni. Ezt külön felület segítségével lehessen elérni. Felhasználónév, jelszó segítségével lehessen belépni. |
+| Jogosultság | P2 | Belépés | Minden sikeresen regisztrált felhasználónak lehetséges legyen, a felhasználói adatok birtokában belépni. |
+| Kutya | D1 | Kutya feltöltés | Az admin jogú felhasználók tudjanak új örökbefogadható kutyákat feltölteni, azok leírásával illetve képek feltöltésével nekik profilt létrehozni. |
+| Kutya | D2 | Kutya örökbefogasdási igény jelzése | A felhasználók képesek legyenek az örökbefogadási szándékuk jelzésére bejelentkezés után, és ez megjelenjen a kutya profilján. |
+| Értesítés | E1 | Értesítési email tárolása | Ha a felhasználó hozzájárul az email címének megadásához, örökbefogadási szándékának jelzése után kap extra emailt az örökbefogadás menetéről és egyéb segítő adatokról. |
