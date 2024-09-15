@@ -87,7 +87,46 @@ sikerességéhez és hatékonyságához.
 
 ## 4. Jelenlegi üzelti folyamatok modellje
 
+Jelenleg minden üzleti folyamat manuálian történik.
+
 ## 5. Igényelt üzleti folyamatok modellje
+
+### 5.2. Felhasználó regisztrációja
+
+A weboldalon lehetőség van felhasználó beléptetésére, vagy új regisztrálására.
+A regisztrációhoz e-mail cím és telefonszám, illetve jelszó megadása szükséges.
+
+### 5.1. Örökbefogadható kutyák regisztrálása
+
+Amennyiben egy adminisztrátor van bejelentkezve, egy "Új kutya regisztrálása" menüpont elérhetővé
+válik. Az oldalon megkell adnia az adminisztrátornak a kutya nevét, adatait, leírását és egy képet
+kell csatolnia hozzá. Amennyiben ezek mind teljesültek, a kutya regisztrálható a "Regisztrálás"
+gombra kattintva.
+
+### 5.2. Örökbefogadható kutyák listája
+
+Bármely felhasználható megtekintheti az örökbefogadható kutyák listáját. A listán minden kutyának
+a neve, fényképe és adatai szerepelnek, illetve hogy valaki örökbe szeretné-e már fogadni.
+
+### 5.3. Kutyák leírásai
+
+Az örökbefogadható kutyák listájában egy adott kutya listaelemére kattintva megnyílik annak bővebb
+részletei. Itt megtalálható a kutya adatainak részletesebb leírása, a kutya leírása.
+
+### 5.4. Örökbefogadás
+
+Egy örökbefogadható kutyának a részletesebb nézetében megtalálható egy "Örökbefogadom!" gomb.
+Amennyiben a felhasználó nincs bejelentkezve, a gomb nem kattintható, és a
+"Örökbefogadáshoz jelentkezz be!" felirata van.
+Amennyiben a kutyát valaki már szeretné örökbefogadni, a gomb felirata "Örökbefogadnak!",
+és nem lehet rákattintani.
+
+Amennyiben örökbefogadás gombra kattint a felhasználó, egy megerősítő dialógust követően a menhely
+dolgozói felveszik a kapcsolatot a felhasználóval, és elintézik a szükséges adatkezelési
+követelményeket az örökbefogadáshoz.
+Amennyiben a felhasználóval nem lehet felvenni a kapcsolatot egy héten belül, a kutya elveszti az
+örökbefogadásban lévő állapotát. Amennyiben az örökbefogadás során a menhely dolgozói problémába
+ütköznek, a kutya állapotát az adminisztrátor bármikor visszaállíthatja.
 
 ## 6. Követelménylista
 
