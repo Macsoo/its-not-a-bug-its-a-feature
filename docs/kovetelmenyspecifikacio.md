@@ -119,4 +119,4 @@ A weboldalon ezek az adatok könnyen megtalálhatók.
 | Jogosultság | P2 | Belépés | Minden sikeresen regisztrált felhasználónak lehetséges legyen, a felhasználói adatok birtokában belépni. |
 | Kutya | D1 | Kutya feltöltés | Az admin jogú felhasználók tudjanak új örökbefogadható kutyákat feltölteni, azok leírásával illetve képek feltöltésével nekik profilt létrehozni. |
 | Kutya | D2 | Kutya örökbefogasdási igény jelzése | A felhasználók képesek legyenek az örökbefogadási szándékuk jelzésére bejelentkezés után, és ez megjelenjen a kutya profilján. |
-| Értesítés | E1 | Értesítési email tárolása | Ha a felhasználó hozzájárul az email címének megadásához, örökbefogadási szándékának jelzése után kap extra emailt az örökbefogadás menetéről és egyéb segítő adatokról. |
+| Értesítés | E1 | Értesítési email | A felhasználó által megadott email címének alapján, örökbefogadási szándékának jelzése után kap extra emailt az örökbefogadás menetéről és egyéb segítő adatokról. |

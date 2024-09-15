@@ -138,7 +138,7 @@ Amennyiben a felhasználóval nem lehet felvenni a kapcsolatot egy héten belül
 | Jogosultság | P2 | Belépés | Minden sikeresen regisztrált felhasználónak lehetséges legyen, a felhasználói adatok birtokában belépni. |
 | Kutya | D1 | Kutya feltöltés | Az admin jogú felhasználók tudjanak új örökbefogadható kutyákat feltölteni, azok leírásával illetve képek feltöltésével nekik profilt létrehozni. |
 | Kutya | D2 | Kutya örökbefogasdási igény jelzése | A felhasználók képesek legyenek az örökbefogadási szándékuk jelzésére bejelentkezés után, és ez megjelenjen a kutya profilján. |
-| Értesítés | E1 | Értesítési email tárolása | Ha a felhasználó hozzájárul az email címének megadásához, örökbefogadási szándékának jelzése után kap extra emailt az örökbefogadás menetéről és egyéb segítő adatokról. |
+| Értesítés | E1 | Értesítési email | A felhasználó által megadott email címének alapján, örökbefogadási szándékának jelzése után kap extra emailt az örökbefogadás menetéről és egyéb segítő adatokról. |
 
 A jogosultság modul implementálása során a bejelentkezés és regisztráció mellett az admin felhasználók el tudják érni a reisztrált felhasználók listáját. A weboldalon elérhetőnek és könnyen láthatónak kell lennie a regisztráció/bejelentekezési lehetőségnek. Hiszen ennek a segítségével lehet könnyen jelezni az örökbefogadási szándékát a leendő új gazda. Ez lenne az alkalmazás elsődleges dolga.
 A kutyák profiljának létrehozásának egyszerűnek és magától értetendőnek kell lennie, hogy akár az új alkalmazottak is könnyen egyéb betanítás nélkül tudjhák az oldalt kezelni. Képesnek kell lennie az adminoknak szöveges információt, illetve képeket feltölteni.
