@@ -171,9 +171,8 @@ Minden kutyának saját adatlapja van, amely tartalmazza a kutya fényképeit, l
 
 Grafikus tervet lásd itt: [8.4.1 Melléklet](#841-kutyáink-menüpont---felhasználói-nézet)
 
-- **"Adoptálás" gomb:** Ezen a gombon keresztül a felhasználók elérhetik az örökbefogadási űrlapot. Itt megadhatják
-  nevüket, telefonszámukat, e-mail címüket és kérdéseiket. Az űrlap kitöltése után az adatok automatikusan elküldésre
-  kerülnek a menhely adminisztrátoraihoz, akik válaszolnak a beérkező kérdésekre.
+- **"Adoptálás" gomb:** Ezen a gombon keresztül a felhasználók elérhetik az örökbefogadási űrlapot. Ez után az adatok 
+  automatikusan elküldésre kerülnek a menhely adminisztrátoraihoz, akik válaszolnak a beérkező kérdésekre.
 
 #### 8.1.2 Adminisztrátori nézet:
 
