@@ -30,10 +30,24 @@
 
 13. [Karbantartási terv](#13-karbantartási-terv)
 
-
 ---
 
 ## 1. A rendszer célja
+
+A rendszer célja, hogy egy webalapú alkalmazást biztosítson a menhely számára, amely hatékonyan kezeli és prezentálja az
+örökbefogadható kutyák adatait a potenciális gazdiknak. A rendszer lehetővé teszi a felhasználók számára, hogy
+böngésszenek a kutyák között, megismerjék azok alapvető jellemzőit – mint például név, kor, nem –, és online
+lefoglalhassák őket örökbefogadásra. Az adminisztrátorok, a menhely dolgozói, hozzáadhatják, szerkeszthetik a kutyák
+adatait, és feldolgozhatják az örökbefogadási kérelmeket. Ezen kívül, a rendszer támogatja az örökbefogadók és a menhely
+közötti kapcsolatfelvételt is, egy egyszerű üzenetküldési felületen keresztül.
+
+Nem célja a rendszernek, a kutyák állapotának vagy egészségügyi adatainak részletes orvosi nyilvántartása. Az orvosi
+adatok
+kezelése nem képezi részét az alkalmazás funkcionalitásának.
+Nem célja, hogy pénzügyi tranzakciókat vagy adománygyűjtést bonyolítson le a felhasználók és a menhely között. A
+rendszer nem tartalmaz online fizetési rendszert vagy adományozási modult.
+A rendszer nem biztosít logisztikai szolgáltatásokat, például a kutyák szállításának megszervezését. Az örökbefogadás
+folyamata kizárólag a menhely és az örökbefogadó között zajlik.
 
 ## 2. Projekt terv
 
