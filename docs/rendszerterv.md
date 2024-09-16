@@ -107,7 +107,6 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 - **Tesztelés megkezdése** – 3. hét eleje
 - **Hibajavítások lezárása** – 3. hét vége
 
-
 ## 3. Üzleti folyamatok modellje
 
 ## 4. Követelmények
@@ -123,6 +122,47 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 ## 8. Architekturális terv
 
 ## 9. Adatbázis terv
+
+### 9.1 Logikai Adatmodell
+
+![database_schema.png](img%2Fdatabase_schema.png)
+
+**Dogs (Kutyák)**
+
+| Oszlop neve | Adattípus      | Tulajdonságok                                            | 
+|-------------|----------------|----------------------------------------------------------|
+| dog_id      | `SERIAL`       | `PRIMARY KEY`                                            |
+| chip_id     | `VARCHAR(15)`  | `UNIQUE`, `NOT NULL`, egyedi, 15 számból álló chip szám. |
+| name        | `VARCHAR(100)` | `NOT NULL`, a kutya neve.                                |
+| age         | `INT`          | `NOT NULL`, a kutya kora.                                |
+| gender      | `VARCHAR(6)`   | `CHECK (gender in ('Male','Female'))`, a kutya neme.     |
+| breed       | `VARCHAR(100)` | Kutya fajtája.                                           |
+| description | `TEXT`         | Kutya leírása.                                           |
+| available   | `BOOLEAN`      | `DEFAULT TRUE` , elérhetőség (örökbefogadható-e).        |
+
+**Users (Felhasználók)**
+
+| Oszlop neve  | Adattípus      | Tulajdonságok                                                                                |
+|--------------|----------------|----------------------------------------------------------------------------------------------|
+| user_id      | `SERIAL`       | `PRIMARY KEY`, egyedi felhasználói azonosító (automatikusan nő).                             |
+| email        | `VARCHAR(100)` | `UNIQUE`,`NOT NULL`, felhasználó email címe.                                                 |
+| phone_number | `VARCHAR(20)`  | Felhasználó telefonszáma.                                                                    |
+| password     | `VARCHAR(255)` | `NOT NULL`, jelszó (hashelt formában).                                                       |
+| admin        | `BOOLEAN`      | `DEFAULT FALSE`, megadja, hogy a felhasználó rendelkezik-e adminisztrátori jogosultságokkal. |
+
+**AdoptionRequests (Örökbefogadási kérelmek)**
+
+| Oszlop neve  | Adattípus | Tulajdonságok                                                                    |
+|--------------|-----------|----------------------------------------------------------------------------------|
+| request_id   | `SERIAL`  | `PRIMARY KEY`, egyedi kérelem azonosító (automatikusan nő).                      |
+| user_id      | `INT`     | `REFERENCES Users(user_id)`, a felhasználó, aki az örökbefogadást kezdeményezte. |
+| dog_id       | `INT`     | `REFERENCES Dogs(dog_id)`, a lefoglalt kutya chip száma.                         | 
+| request_date | `DATE`    | `NOT NULL`,kérelem elküldésének dátuma.                                          |
+| approved     | `BOOLEAN` | `DEFAULT FALSE`, megadja, hogy a kérelem elfogadásra került-e.                   |
+
+#### 9.2 **Tárolt Eljárások**
+
+#### 9.3 **Fizikai Adatmodellt Legeneráló SQL Szkript**
 
 ## 10. Implementációs terv
 
