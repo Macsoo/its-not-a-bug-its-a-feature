@@ -114,6 +114,8 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 
 ## 5. Funkcionális terv
 
+![FunctionalPlan.png](img%2FFunctionalPlan.png)
+
 ## 6. Fizikai környezet
 
 ## 7. Absztarkt domain modell
