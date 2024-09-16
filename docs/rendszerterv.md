@@ -38,8 +38,7 @@ A rendszer célja, hogy egy webalapú alkalmazást biztosítson a menhely szám�
 örökbefogadható kutyák adatait a potenciális gazdiknak. A rendszer lehetővé teszi a felhasználók számára, hogy
 böngésszenek a kutyák között, megismerjék azok alapvető jellemzőit – mint például név, kor, nem –, és online
 lefoglalhassák őket örökbefogadásra. Az adminisztrátorok, a menhely dolgozói, hozzáadhatják, szerkeszthetik a kutyák
-adatait, és feldolgozhatják az örökbefogadási kérelmeket. Ezen kívül, a rendszer támogatja az örökbefogadók és a menhely
-közötti kapcsolatfelvételt is, egy egyszerű üzenetküldési felületen keresztül.
+adatait, és feldolgozhatják az örökbefogadási kérelmeket.
 
 Nem célja a rendszernek, a kutyák állapotának vagy egészségügyi adatainak részletes orvosi nyilvántartása. Az orvosi
 adatok
