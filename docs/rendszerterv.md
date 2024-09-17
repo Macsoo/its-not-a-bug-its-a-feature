@@ -126,6 +126,11 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 - Automatikus e-mail értesítés eltusításkor
 - Automatikus e-mail verification regisztráláskor
 
+### 4.2. Nem funkcionális követelmények
+
+- A belépés csak egy sessionig tart, így nem szeretnénk cookie-kat tárolni
+- Regisztrált felhasználók nem jelezhetik az örökbefogadási kérésüket már örökbefogadott kutyákhoz
+
 ## 5. Funkcionális terv
 
 ![FunctionalPlan.png](img%2FFunctionalPlan.png)
