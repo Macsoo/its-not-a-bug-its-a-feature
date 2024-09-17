@@ -308,7 +308,6 @@ erDiagram
     );
 ```
 
-
 **AdoptionRequests (Örökbefogadási kérelmek) Tábla**
 
 ```sql
@@ -327,7 +326,6 @@ erDiagram
     );
 ```
 
-
 **DogsImages (Kutyák képei) Tábla**
 
 ```sql
@@ -342,10 +340,58 @@ erDiagram
     );
 ```
 
-
 ## 10. Implementációs terv
 
 ## 11. Tesztterv
+
+```mermaid
+graph TD;
+    A[Start] --> B[Test Plan Creation];
+    B --> C[Functional Testing];
+    B --> D[Integration Testing];
+    C --> F[Test Results Evaluation];
+    D --> F;
+    F --> G[Bug Fix and Retest];
+    G --> H[Final Test];
+    H --> I[End];
+
+```
+
+### 11.1 Tesztelés Elve
+
+**Korai és folyamatos tesztelés:** Már a fejlesztési ciklus kezdeti szakaszában elkezdődik a tesztelés, és a fejlesztés
+minden lépésénél folyamatosan figyelemmel kísérjük a rendszer működését.
+
+### 11.2 Tesztelés végrehajtása
+
+- **Funkcionális tesztelés:** Ellenőrizzük a funkciók helyes működését (pl. kutyák böngészése, örökbefogadási kérelmek
+  kezelése).
+
+- **Integrációs tesztelés:** Teszteljük az egyes modulok közötti kapcsolódást (pl. adatbázis kapcsolat, felhasználói
+  felület
+  és backend).
+
+### 11.3 Fő Tesztesetek
+
+- **Felhasználó regisztrációja és bejelentkezése:** Regisztráció, bejelentkezés különböző felhasználókkal (felhasználó
+  szerepkörrel).
+- **Kutyák böngészése:** Különböző kritériumok alapján történő kutyakeresés (pl. név, kor, fajta).
+- **Kutyák hozzáadása, szerkesztése (admin):** Kutyák adatainak adminisztrátori felületen való hozzáadása, szerkesztése.
+- **Örökbefogadási kérelmek:** Örökbefogadási kérelem leadása, státusz módosítása, törlése. Automatikus e-mail
+  kiküldésének ellenőrzése.
+- **Adatbázis integráció:** Ellenőrizzük, hogy a felhasználói és kutyaadatok megfelelően tárolódnak és frissülnek az
+  adatbázisban.
+- **Biztonsági teszt:** Hibás belépési próbálkozások kezelése, jelszóvédelem, érzékeny adatok titkosítása.
+
+### 11.4 Sikeres Teszt Kritériumai
+
+- **Funkcionális tesztek sikeres teljesítése:** Az összes funkcionális teszt esetében a várt eredmény megegyezik a
+  tényleges eredménnyel.
+- **Hibamentes működés:** A tesztelés során talált hibák mind kijavításra kerültek, és ezek után nincs kritikus hiba.
+- **Teljesítmény megfelelőség:** A rendszer működése megfelel a megadott teljesítménykövetelményeknek (betöltési idő,
+  válaszidő).
+- **Biztonsági megfelelőség:** A rendszer megfelel az alapvető biztonsági követelményeknek (pl. adatvédelem,
+  hozzáférés-kezelés).
 
 ## 12. Telepítési terv
 
