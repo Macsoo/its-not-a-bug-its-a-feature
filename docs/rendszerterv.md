@@ -111,6 +111,21 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 
 ## 4. Követelmények
 
+### 4.1. Funkcionális követelmények
+
+- Egyetlen admin szervisz felhasználó
+- Bármennyi felhasználó regisztrálása
+- Regisztrált felhasználók belépése
+- Admin felhasználó feltölthet új kutyákat az weboldalon
+- Regisztrált felhasználók jelezhetik az örökbefogadási igényüket
+- A kutyák örökbefogadási állapota a weboldalon szabadon elérhető
+- Kutyák rövid leírásának listája
+- Adott kutya részletes leírása
+- Az örökbefogadott kutyák törlése az oldalról
+- Admin felhasználó láthatja az örökbefogadási kérvényeket egy bizonyos kutyához
+- Automatikus e-mail értesítés eltusításkor
+- Automatikus e-mail verification regisztráláskor
+
 ## 5. Funkcionális terv
 
 ![FunctionalPlan.png](img%2FFunctionalPlan.png)
