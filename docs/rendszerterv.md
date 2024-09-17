@@ -190,7 +190,7 @@ erDiagram
         TEXT description
         BOOLEAN available
         BOOLEAN adopted
-        VARCHAR(510) primary_img_path
+        SERIAL primary_img_path FK
     }
     
     AdoptionRequests {
@@ -202,13 +202,15 @@ erDiagram
     }
     
     DogsImages {
+        SERIAL image_id PK
         INT dog_id FK
         VARCHAR(510) img_path
     }
 
     Users ||--o{ AdoptionRequests: "submit"
     Dogs ||--o{ AdoptionRequests: "has adoption request"
-    Dogs ||--o{ DogsImages: "has pictures"
+    Dogs ||--|{ DogsImages: "has"
+    Dogs ||--|| DogsImages: "has primary"
 ```
 
 **Dogs (Kutyák)**
