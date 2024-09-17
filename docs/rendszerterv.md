@@ -123,9 +123,9 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 - Automatikus e-mail értesítés eltusításkor
 - Automatikus e-mail verification regisztráláskor
 - Egyetlen admin jogosultsággal rendelkező fiók
-- Admin felhasználó feltölthet új kutyákat az weboldalon
+- Admin felhasználó feltölthet új kutyákat a weboldalon
 - Admin felhasználó láthatja az örökbefogadási kérvényeket egy bizonyos kutyához
-- Az örökbefogadott kutyák törlése az oldalról az adin fiókon keresztül
+- Az örökbefogadott kutyák törlése az oldalról az admin fiókon keresztül
 
 ### 4.2. Nem funkcionális követelmények
 
