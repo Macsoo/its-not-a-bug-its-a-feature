@@ -190,7 +190,7 @@ erDiagram
         TEXT description
         BOOLEAN available
         BOOLEAN adopted
-        SERIAL primary_img_path FK
+        INT primary_img_id FK
     }
     
     AdoptionRequests {
@@ -215,25 +215,25 @@ erDiagram
 
 #### 9.1.1 Dogs (Kutyák) Tábla
 
-| Oszlop neve      | Adattípus      | Tulajdonságok                                              | 
-|------------------|----------------|------------------------------------------------------------|
-| dog_id           | `SERIAL`       | `PRIMARY KEY`                                              |
-| chip_id          | `CHAR(15)`     | `UNIQUE`, `NOT NULL`, egyedi, 15 számból álló chip szám.   |
-| name             | `VARCHAR(100)` | `NOT NULL`, a kutya neve.                                  |
-| age              | `INT`          | `NOT NULL`, a kutya kora.                                  |
-| gender           | `VARCHAR(6)`   | `CHECK (gender in ('Male','Female'))`, a kutya neme.       |
-| breed            | `VARCHAR(100)` | `NOT NULL`, a kutya fajtája.                               |
-| description      | `TEXT`         | `NOT NULL`, a kutya leírása.                               |
-| available        | `BOOLEAN`      | `DEFAULT TRUE`, elérhetőség (örökbefogadható-e).           |
-| adoted           | `BOOLEAN`      | `DEFAULT FALSE`, a kutya adobtált-e (archiválás céljából). |
-| primary_img_path | `VARCHAR(510)` | `NOT NULL`, a kutya adatlapján megjelenő elsődleges kép.   | 
+| Oszlop neve    | Adattípus      | Tulajdonságok                                                                   | 
+|----------------|----------------|---------------------------------------------------------------------------------|
+| dog_id         | `SERIAL`       | `PRIMARY KEY`                                                                   |
+| chip_id        | `CHAR(15)`     | `UNIQUE`, `NOT NULL`, egyedi, 15 számból álló chip szám.                        |
+| name           | `VARCHAR(100)` | `NOT NULL`, a kutya neve.                                                       |
+| age            | `INT`          | `NOT NULL`, a kutya kora.                                                       |
+| gender         | `VARCHAR(6)`   | `CHECK (gender in ('Male','Female'))`, a kutya neme.                            |
+| breed          | `VARCHAR(100)` | `NOT NULL`, a kutya fajtája.                                                    |
+| description    | `TEXT`         | `NOT NULL`, a kutya leírása.                                                    |
+| available      | `BOOLEAN`      | `DEFAULT TRUE`, elérhetőség (örökbefogadható-e).                                |
+| adoted         | `BOOLEAN`      | `DEFAULT FALSE`, a kutya adobtált-e (archiválás céljából).                      |
+| primary_img_id | `INT`          | `REFERENCES DogsImages(image_id)`, a kutya adatlapján megjelenő elsődleges kép. | 
 
 #### 9.1.2 Users (Felhasználók) Tábla
 
 | Oszlop neve  | Adattípus      | Tulajdonságok                                                    |
 |--------------|----------------|------------------------------------------------------------------|
 | user_id      | `SERIAL`       | `PRIMARY KEY`, egyedi felhasználói azonosító (automatikusan nő). |
-| email        | `VARCHAR(100)` | `UNIQUE`,`NOT NULL`, felhasználó email címe.                     |
+| email        | `VARCHAR(100)` | `UNIQUE`, `NOT NULL`, felhasználó email címe.                    |
 | phone_number | `VARCHAR(20)`  | Felhasználó telefonszáma.                                        |
 | password     | `VARCHAR(255)` | `NOT NULL`, jelszó (hashelt formában).                           |
 
@@ -244,13 +244,14 @@ erDiagram
 | request_id   | `SERIAL`  | `PRIMARY KEY`, egyedi kérelem azonosító (automatikusan nő).                      |
 | user_id      | `INT`     | `REFERENCES Users(user_id)`, a felhasználó, aki az örökbefogadást kezdeményezte. |
 | dog_id       | `INT`     | `REFERENCES Dogs(dog_id)`, a lefoglalt kutya chip száma.                         | 
-| request_date | `DATE`    | `NOT NULL`,kérelem elküldésének dátuma.                                          |
+| request_date | `DATE`    | `NOT NULL`, kérelem elküldésének dátuma.                                         |
 | approved     | `BOOLEAN` | `DEFAULT FALSE`, megadja, hogy a kérelem elfogadásra került-e.                   |
 
 #### 9.1.4 DogsImages (Kutyák képei) Tábla
 
 | Oszlop neve | Adattípus      | Tulajdonságok                                            |
 |-------------|----------------|----------------------------------------------------------|
+| image_id    | `SERIAL`       | `PRIMARY KEY`, egyedi kép azonosító (automatikusan nő).  |
 | dog_id      | `INT`          | `REFERENCES Dogs(dog_id)`, a lefoglalt kutya chip száma. | 
 | img_path    | `VARCHAR(510)` | A kutya adatlapján megjelenő kép.                        | 
 
@@ -273,7 +274,7 @@ erDiagram
 **Dogs (Kutyák) Tábla**
 
 ```sql
-    CREATE TABLE shelter."Dogs"
+    CREATE TABLE "Dogs"
     (
         dog_id serial NOT NULL,
         chip_id character(15) NOT NULL,
@@ -284,17 +285,19 @@ erDiagram
         description text NOT NULL,
         available boolean DEFAULT TRUE,
         adopted boolean DEFAULT FALSE,
-        primary_img_path character varying(510) NOT NULL,
+        primary_img_id integer NOT NULL,
         CONSTRAINT "PK dog" PRIMARY KEY (dog_id),
         CONSTRAINT "chip_id unique" UNIQUE (chip_id),
-        CONSTRAINT gender_check CHECK (gender in ('Male','Female')) NOT VALID
+        CONSTRAINT gender_check CHECK (gender in ('Male','Female')),
+        CONSTRAINT "FK primary_img" FOREIGN_KEY (primary_img_id)
+            REFERENCES "DogsImages" (image_id) 
     );    
 ```
 
 **Users (Felhasználók) Tábla**
 
 ```sql
-    CREATE TABLE shelter."Users"
+    CREATE TABLE "Users"
     (
         user_id serial NOT NULL,
         email character varying(100) NOT NULL,
@@ -309,7 +312,7 @@ erDiagram
 **AdoptionRequests (Örökbefogadási kérelmek) Tábla**
 
 ```sql
-    CREATE TABLE shelter."AdoptionRequests"
+    CREATE TABLE "AdoptionRequests"
     (
         request_id serial NOT NULL,
         user_id integer NOT NULL,
@@ -318,9 +321,9 @@ erDiagram
         approved boolean DEFAULT false,
         CONSTRAINT "PK request" PRIMARY KEY (request_id),
         CONSTRAINT "FK dog" FOREIGN KEY (dog_id)
-            REFERENCES shelter."Dogs" (dog_id),
+            REFERENCES "Dogs" (dog_id),
         CONSTRAINT "FK user" FOREIGN KEY (user_id)
-            REFERENCES shelter."Users" (user_id)
+            REFERENCES "Users" (user_id)
     );
 ```
 
@@ -328,12 +331,14 @@ erDiagram
 **DogsImages (Kutyák képei) Tábla**
 
 ```sql
-    CREATE TABLE shelter."DogsImages"
+    CREATE TABLE "DogsImages"
     (
+        image_id serial NOT NULL,
         dog_id integer NOT NULL,
         img_path character varying(510),
+        CONSTRAINT "PK image" PRIMARY KEY (image_id),
         CONSTRAINT "FK dog" FOREIGN KEY (dog_id)
-            REFERENCES shelter."Dogs" (dog_id)
+            REFERENCES "Dogs" (dog_id)
     );
 ```
 
