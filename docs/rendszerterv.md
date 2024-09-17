@@ -125,30 +125,69 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 
 ### 9.1 Logikai Adatmodell
 
-![database_schema.png](img%2Fdatabase_schema.png)
+```mermaid
+erDiagram
+    Users {
+        SERIAL user_id PK
+        VARCHAR(100) email
+        VARCHAR(20) phone_number
+        VARCHAR(255) password
+    }
+    
+    Dogs {
+        SERIAL dog_id PK
+        CHAR(15) chip_id
+        VARCHAR(100) name
+        INT age
+        VARCHAR(6) gender
+        VARCHAR(100) breed
+        TEXT description
+        BOOLEAN available
+        BOOLEAN adopted
+        VARCHAR(510) primary_img_path
+    }
+    
+    AdoptionRequests {
+        SERIAL request_id PK
+        INT user_id FK
+        INT dog_id FK
+        DATE request_date
+        BOOLEAN approved
+    }
+    
+    DogsImages {
+        INT dog_id FK
+        VARCHAR(510) img_path
+    }
+
+    Users ||--o{ AdoptionRequests: "submit"
+    Dogs ||--o{ AdoptionRequests: "has adoption request"
+    Dogs ||--o{ DogsImages: "has pictures"
+```
 
 **Dogs (Kutyák)**
 
-| Oszlop neve | Adattípus      | Tulajdonságok                                            | 
-|-------------|----------------|----------------------------------------------------------|
-| dog_id      | `SERIAL`       | `PRIMARY KEY`                                            |
-| chip_id     | `VARCHAR(15)`  | `UNIQUE`, `NOT NULL`, egyedi, 15 számból álló chip szám. |
-| name        | `VARCHAR(100)` | `NOT NULL`, a kutya neve.                                |
-| age         | `INT`          | `NOT NULL`, a kutya kora.                                |
-| gender      | `VARCHAR(6)`   | `CHECK (gender in ('Male','Female'))`, a kutya neme.     |
-| breed       | `VARCHAR(100)` | Kutya fajtája.                                           |
-| description | `TEXT`         | Kutya leírása.                                           |
-| available   | `BOOLEAN`      | `DEFAULT TRUE` , elérhetőség (örökbefogadható-e).        |
+| Oszlop neve      | Adattípus      | Tulajdonságok                                              | 
+|------------------|----------------|------------------------------------------------------------|
+| dog_id           | `SERIAL`       | `PRIMARY KEY`                                              |
+| chip_id          | `CHAR(15)`     | `UNIQUE`, `NOT NULL`, egyedi, 15 számból álló chip szám.   |
+| name             | `VARCHAR(100)` | `NOT NULL`, a kutya neve.                                  |
+| age              | `INT`          | `NOT NULL`, a kutya kora.                                  |
+| gender           | `VARCHAR(6)`   | `CHECK (gender in ('Male','Female'))`, a kutya neme.       |
+| breed            | `VARCHAR(100)` | Kutya fajtája.                                             |
+| description      | `TEXT`         | Kutya leírása.                                             |
+| available        | `BOOLEAN`      | `DEFAULT TRUE`, elérhetőség (örökbefogadható-e).           |
+| adoted           | `BOOLEAN`      | `DEFAULT FALSE`, a kutya adobtált-e (archiválás céljából). |
+| primary_img_path | `VARCHAR(510)` | A kutya adatlapján megjelenő elsődleges kép.               | 
 
 **Users (Felhasználók)**
 
-| Oszlop neve  | Adattípus      | Tulajdonságok                                                                                |
-|--------------|----------------|----------------------------------------------------------------------------------------------|
-| user_id      | `SERIAL`       | `PRIMARY KEY`, egyedi felhasználói azonosító (automatikusan nő).                             |
-| email        | `VARCHAR(100)` | `UNIQUE`,`NOT NULL`, felhasználó email címe.                                                 |
-| phone_number | `VARCHAR(20)`  | Felhasználó telefonszáma.                                                                    |
-| password     | `VARCHAR(255)` | `NOT NULL`, jelszó (hashelt formában).                                                       |
-| admin        | `BOOLEAN`      | `DEFAULT FALSE`, megadja, hogy a felhasználó rendelkezik-e adminisztrátori jogosultságokkal. |
+| Oszlop neve  | Adattípus      | Tulajdonságok                                                    |
+|--------------|----------------|------------------------------------------------------------------|
+| user_id      | `SERIAL`       | `PRIMARY KEY`, egyedi felhasználói azonosító (automatikusan nő). |
+| email        | `VARCHAR(100)` | `UNIQUE`,`NOT NULL`, felhasználó email címe.                     |
+| phone_number | `VARCHAR(20)`  | Felhasználó telefonszáma.                                        |
+| password     | `VARCHAR(255)` | `NOT NULL`, jelszó (hashelt formában).                           |
 
 **AdoptionRequests (Örökbefogadási kérelmek)**
 
@@ -159,6 +198,13 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 | dog_id       | `INT`     | `REFERENCES Dogs(dog_id)`, a lefoglalt kutya chip száma.                         | 
 | request_date | `DATE`    | `NOT NULL`,kérelem elküldésének dátuma.                                          |
 | approved     | `BOOLEAN` | `DEFAULT FALSE`, megadja, hogy a kérelem elfogadásra került-e.                   |
+
+**DogsImages (Kutyák képei)**
+
+| Oszlop neve | Adattípus      | Tulajdonságok                                            |
+|-------------|----------------|----------------------------------------------------------|
+| dog_id      | `INT`          | `REFERENCES Dogs(dog_id)`, a lefoglalt kutya chip száma. | 
+| img_path    | `VARCHAR(510)` | A kutya adatlapján megjelenő kép.                        | 
 
 #### 9.2 **Tárolt Eljárások**
 
