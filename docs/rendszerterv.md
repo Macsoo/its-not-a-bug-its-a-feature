@@ -213,7 +213,7 @@ erDiagram
     Dogs ||--|| DogsImages: "has primary"
 ```
 
-**Dogs (Kutyák)**
+#### 9.1.1 Dogs (Kutyák) Tábla
 
 | Oszlop neve      | Adattípus      | Tulajdonságok                                              | 
 |------------------|----------------|------------------------------------------------------------|
@@ -222,13 +222,13 @@ erDiagram
 | name             | `VARCHAR(100)` | `NOT NULL`, a kutya neve.                                  |
 | age              | `INT`          | `NOT NULL`, a kutya kora.                                  |
 | gender           | `VARCHAR(6)`   | `CHECK (gender in ('Male','Female'))`, a kutya neme.       |
-| breed            | `VARCHAR(100)` | Kutya fajtája.                                             |
-| description      | `TEXT`         | Kutya leírása.                                             |
+| breed            | `VARCHAR(100)` | `NOT NULL`, a kutya fajtája.                               |
+| description      | `TEXT`         | `NOT NULL`, a kutya leírása.                               |
 | available        | `BOOLEAN`      | `DEFAULT TRUE`, elérhetőség (örökbefogadható-e).           |
 | adoted           | `BOOLEAN`      | `DEFAULT FALSE`, a kutya adobtált-e (archiválás céljából). |
-| primary_img_path | `VARCHAR(510)` | A kutya adatlapján megjelenő elsődleges kép.               | 
+| primary_img_path | `VARCHAR(510)` | `NOT NULL`, a kutya adatlapján megjelenő elsődleges kép.   | 
 
-**Users (Felhasználók)**
+#### 9.1.2 Users (Felhasználók) Tábla
 
 | Oszlop neve  | Adattípus      | Tulajdonságok                                                    |
 |--------------|----------------|------------------------------------------------------------------|
@@ -237,7 +237,7 @@ erDiagram
 | phone_number | `VARCHAR(20)`  | Felhasználó telefonszáma.                                        |
 | password     | `VARCHAR(255)` | `NOT NULL`, jelszó (hashelt formában).                           |
 
-**AdoptionRequests (Örökbefogadási kérelmek)**
+#### 9.1.3 AdoptionRequests (Örökbefogadási kérelmek) Tábla
 
 | Oszlop neve  | Adattípus | Tulajdonságok                                                                    |
 |--------------|-----------|----------------------------------------------------------------------------------|
@@ -247,16 +247,96 @@ erDiagram
 | request_date | `DATE`    | `NOT NULL`,kérelem elküldésének dátuma.                                          |
 | approved     | `BOOLEAN` | `DEFAULT FALSE`, megadja, hogy a kérelem elfogadásra került-e.                   |
 
-**DogsImages (Kutyák képei)**
+#### 9.1.4 DogsImages (Kutyák képei) Tábla
 
 | Oszlop neve | Adattípus      | Tulajdonságok                                            |
 |-------------|----------------|----------------------------------------------------------|
 | dog_id      | `INT`          | `REFERENCES Dogs(dog_id)`, a lefoglalt kutya chip száma. | 
 | img_path    | `VARCHAR(510)` | A kutya adatlapján megjelenő kép.                        | 
 
-#### 9.2 **Tárolt Eljárások**
+#### 9.2 Tárolt Eljárások
 
-#### 9.3 **Fizikai Adatmodellt Legeneráló SQL Szkript**
+#### 9.3 Fizikai Adatmodellt Legeneráló SQL Szkript
+
+#### 9.3.1 Adatbázis létrehozása**
+
+```sql
+    CREATE DATABASE "LakatosBrendonDogShelterDB"
+        WITH
+        OWNER = admin
+        ENCODING = 'UTF8'
+        CONNECTION LIMIT = -1;
+```
+
+#### 9.3.2 Táblák létrehozása
+
+**Dogs (Kutyák) Tábla**
+
+```sql
+    CREATE TABLE shelter."Dogs"
+    (
+        dog_id serial NOT NULL,
+        chip_id character(15) NOT NULL,
+        name character varying(100) NOT NULL,
+        age integer NOT NULL,
+        gender character varying(6) NOT NULL,
+        breed character varying(100) NOT NULL,
+        description text NOT NULL,
+        available boolean DEFAULT TRUE,
+        adopted boolean DEFAULT FALSE,
+        primary_img_path character varying(510) NOT NULL,
+        CONSTRAINT "PK dog" PRIMARY KEY (dog_id),
+        CONSTRAINT "chip_id unique" UNIQUE (chip_id),
+        CONSTRAINT gender_check CHECK (gender in ('Male','Female')) NOT VALID
+    );    
+```
+
+**Users (Felhasználók) Tábla**
+
+```sql
+    CREATE TABLE shelter."Users"
+    (
+        user_id serial NOT NULL,
+        email character varying(100) NOT NULL,
+        phone_number character varying(20),
+        password character varying(255) NOT NULL,
+        CONSTRAINT "PK user" PRIMARY KEY (user_id),
+        CONSTRAINT email_unique UNIQUE (email)
+    );
+```
+
+
+**AdoptionRequests (Örökbefogadási kérelmek) Tábla**
+
+```sql
+    CREATE TABLE shelter."AdoptionRequests"
+    (
+        request_id serial NOT NULL,
+        user_id integer NOT NULL,
+        dog_id integer NOT NULL,
+        request_date date NOT NULL,
+        approved boolean DEFAULT false,
+        CONSTRAINT "PK request" PRIMARY KEY (request_id),
+        CONSTRAINT "FK dog" FOREIGN KEY (dog_id)
+            REFERENCES shelter."Dogs" (dog_id),
+        CONSTRAINT "FK user" FOREIGN KEY (user_id)
+            REFERENCES shelter."Users" (user_id)
+    );
+```
+
+
+**DogsImages (Kutyák képei) Tábla**
+
+```sql
+    CREATE TABLE shelter."DogsImages"
+    (
+        dog_id integer NOT NULL,
+        img_path character varying(510),
+        CONSTRAINT "FK dog" FOREIGN KEY (dog_id)
+            REFERENCES shelter."Dogs" (dog_id)
+    );
+```
+
 
 ## 10. Implementációs terv
 
