@@ -113,18 +113,19 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 
 ### 4.1. Funkcionális követelmények
 
-- Egyetlen admin szervisz felhasználó
-- Bármennyi felhasználó regisztrálása
-- Regisztrált felhasználók belépése
-- Admin felhasználó feltölthet új kutyákat az weboldalon
-- Regisztrált felhasználók jelezhetik az örökbefogadási igényüket
 - A kutyák örökbefogadási állapota a weboldalon szabadon elérhető
 - Kutyák rövid leírásának listája
 - Adott kutya részletes leírása
-- Az örökbefogadott kutyák törlése az oldalról
-- Admin felhasználó láthatja az örökbefogadási kérvényeket egy bizonyos kutyához
+- Keresés szűrése: kor, fajta és nem alapján
+- Bármennyi általános felhasználó regisztrálása
+- Regisztrált felhasználók belépése
+- Regisztrált felhasználók jelezhetik az örökbefogadási igényüket
 - Automatikus e-mail értesítés eltusításkor
 - Automatikus e-mail verification regisztráláskor
+- Egyetlen admin jogosultsággal rendelkező fiók
+- Admin felhasználó feltölthet új kutyákat az weboldalon
+- Admin felhasználó láthatja az örökbefogadási kérvényeket egy bizonyos kutyához
+- Az örökbefogadott kutyák törlése az oldalról az adin fiókon keresztül
 
 ### 4.2. Nem funkcionális követelmények
 
