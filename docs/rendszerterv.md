@@ -133,7 +133,33 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 
 ## 5. Funkcionális terv
 
-![FunctionalPlan.png](img%2FFunctionalPlan.png)
+```mermaid
+flowchart LR
+    admin(Admin)
+    user(User)
+    visitor(Visitor)
+    subgraph Database
+        user_db[(Users)]
+        dogs_db[(Dogs)]
+        pictures_db[(Pictures)]
+        dogs_db-- Uses pictures -->pictures_db
+    end
+    subgraph Functions 
+        fn_register_user((Register user))
+        fn_login((Login))
+        fn_register_dog((Register dog))
+        fn_adopt((Want to adopt))
+    end
+    visitor-- Can use -->fn_register_user
+    visitor-- Can use -->fn_login
+    fn_register_user-- Creates new user -->user_db
+    fn_login-- Validates using -->user_db
+    admin-- Can use -->fn_register_dog
+    fn_register_dog-- Creates new dog -->dogs_db
+    fn_register_dog-- Creates new pictures -->pictures_db
+    user-- Can use -->fn_adopt
+    fn_adopt-- Refers to -->dogs_db
+```
 
 ## 6. Fizikai környezet
 
