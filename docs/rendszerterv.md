@@ -457,6 +457,134 @@ erDiagram
 
 ## 10. Implementációs terv
 
+```mermaid
+classDiagram
+    class Router {
+        <<singleton>>
+        getIndex() HTML
+        getLogin() HTML
+        postLogin(JSON requestBody) JSON
+        getRegister() HTML
+        postRegister(JSON requestBody)
+        getEmailVerified(string auth)
+        getDogs(Map filter) HTML
+        getDog(int id) HTML
+        getPicture(int id) Image
+        postAdoptionRequest(int id)
+        postPicture(Image image) int
+        postDog(JSON details)
+        putDog(Map query)
+    }
+
+    class Dog {
+        <<entity>>
+        -id int
+        +name string
+        +age int
+        +gender string
+        +breed string
+        +description string
+        +adopted bool
+        +primary_image Picture
+        +images List~Picture~
+    }
+    
+    class Picture {
+        <<entity>>
+        -id int
+        +dog Dog
+        +value Image
+    }
+    
+    class User {
+        <<entity>>
+        -id int
+        +email string
+        +phone_number string
+    }
+    
+    class AdoptionResult {
+        <<enumeration>>
+        NONE
+        APPROVED
+        REJECTED
+    }
+    
+    class AdoptionRequest {
+        <<entity>>
+        -id int
+        +user User
+        +dog Dog
+        +request_date Date
+        +approved AdoptionResult
+    }
+    AdoptionResult<..AdoptionRequest
+    
+    class Repository~Entity~ {
+        <<abstract>>
+        #add(Entity entity)
+        #get(int id) Entity
+        #list() List~Entity~
+        #delete(Entity entity)
+        #update(Entity entity)
+    }
+    
+    class DogRepository {
+        <<service>>
+        +add(Dog entity)
+        +get(int id) Dog
+        #list() List~Dog~
+        #delete(Dog entity)
+        #update(Dog entity)
+        +filterDogs(Map filterOptions) List~Dog~
+        +adopted(Dog adoptedDog)
+        +addPictures(Dog dog, List~Picture~ pictures)
+    }
+    Repository<|..DogRepository
+    Dog<..DogRepository
+    
+    class PictureRepository {
+        <<service>>
+        +add(Picture entity)
+        #get(int id) Picture
+        #list() List~Picture~
+        #delete(Picture entity)
+        #update(Picture entity)
+        +listDogPictures(Dog entity) List~Picture~
+    }
+    Repository<|..PictureRepository
+    Picture<..PictureRepository
+    
+    class UserRepository {
+        <<service>>
+        #add(User entity)
+        #get(int id) User
+        #list() List~User~
+        #delete(User entity)
+        #update(User entity)
+        +listVerified() List~User~
+        +register(User user)
+        +verifyLogin(string email, string password)
+        +verifiedEmail(string email)
+    }
+    Repository<|..UserRepository
+    User<..UserRepository
+    
+    class AdoptionRequestRepository {
+        <<service>>
+        #add(AdoptionRequest entity)
+        #get(int id) AdoptionRequest
+        #list() List~AdoptionRequest~
+        #delete(AdoptionRequest entity)
+        #update(AdoptionRequest entity)
+        +requestAdoption(User user, Dog dog)
+        +approve(AdoptionRequest request)
+        +reject(AdoptionRequest request)
+    }
+    Repository<|..AdoptionRequestRepository
+    AdoptionRequest<..AdoptionRequestRepository
+```
+
 ## 11. Tesztterv
 
 ```mermaid
