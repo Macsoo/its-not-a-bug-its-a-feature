@@ -542,6 +542,7 @@ classDiagram
     }
     Repository<|..DogRepository
     Dog<..DogRepository
+    DogRepository<..Router
     
     class PictureRepository {
         <<service>>
@@ -554,6 +555,7 @@ classDiagram
     }
     Repository<|..PictureRepository
     Picture<..PictureRepository
+    PictureRepository<..Router
     
     class UserRepository {
         <<service>>
@@ -569,6 +571,7 @@ classDiagram
     }
     Repository<|..UserRepository
     User<..UserRepository
+    UserRepository<..Router
     
     class AdoptionRequestRepository {
         <<service>>
@@ -583,6 +586,7 @@ classDiagram
     }
     Repository<|..AdoptionRequestRepository
     AdoptionRequest<..AdoptionRequestRepository
+    AdoptionRequestRepository<..Router
 ```
 
 ## 11. Tesztterv
