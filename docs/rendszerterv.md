@@ -170,6 +170,26 @@ flowchart LR
 
 ## 6. Fizikai környezet
 
+- A webszerver Vercel rendszerein lesz futtatva felhőben
+- Az adatbázis Supabase rendszerein lesz tárolva felhőben
+
+```mermaid
+flowchart LR
+    subgraph Internet 
+        direction LR
+        subgraph Vercel 
+            webserver(Webserver)
+        end
+        subgraph Supabase 
+            db(Database)
+        end
+        webserver<-- Securely connected -->db
+        third_party(Third party users)
+        third_party-- Can connect -->webserver
+        third_party-. Cannot connect .->db
+    end
+```
+
 ## 7. Absztarkt domain modell
 
 ## 8. Architekturális terv
