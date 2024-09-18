@@ -108,6 +108,24 @@ A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell ér
 - **Hibajavítások lezárása** – 3. hét vége
 
 ## 3. Üzleti folyamatok modellje
+```mermaid
+flowchart LR
+    admin(Admin)
+    user(User)
+    visitor(Visitor)
+    dog(Dog profile)
+    apply(Adopting intention)
+    visitor-- Can see -->dog
+    user-- Can see -->dog
+    user-- Can use -->apply
+    admin-- Can modify -->dog
+    admin-- Can see -->apply
+    dog-- Has -->apply
+    apply-- Sends email -->user
+```
+- A látogatók böngészhetnek az elérhető kutyák között, és megtekinthetik a részletes profilokat, amelyek olyan információkat tartalmaznak, mint a fajta, kor, méret, temperamentum és képek.
+- A felhasználók különböző kritériumok (pl. fajta, típus, életkor) alapján szűrhetik a kutyákat, és további részletekért felfedezhetik az egyes kutyák profilját. Minden egyes kutya profilján egy gomb segítségével a látogatók kifejezhetik érdeklődésüket a kutya örökbefogadása iránt.
+- A menhelyi dolgozó szemszögéből nézve a kutyamenhely honlapja intuitív háttérrendszert biztosít a kutyaprofilok kezeléséhez és az örökbefogadási érdeklődés nyomon követéséhez. A menhely munkatársai egy felhasználóbarát adminisztrációs felületen keresztül könnyen hozzáadhatnak, szerkeszthetnek vagy eltávolíthatnak kutyaprofilokat, frissítve az olyan adatokat, mint a fajta, kor, méret, temperamentum és fényképek. A háttértár rendszerezi és tárolja az összes beérkezett anyagot, így a menhely dolgozói nyomon követhetik az érdeklődés szintjét, és hatékonyan követhetik a potenciális örökbefogadókkal való kapcsolattartást. Ez a rendszer minimalizálja az adminisztratív terheket, és zökkenőmentes kommunikációt biztosít a menhely és a nyilvánosság között.
 
 ## 4. Követelmények
 
