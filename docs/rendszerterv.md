@@ -190,7 +190,77 @@ flowchart LR
     end
 ```
 
-## 7. Absztarkt domain modell
+## 7. Absztrakt domain modell
+
+### 7.1. Modell diagramja
+
+```mermaid
+flowchart TD
+    subgraph Webserver
+        subgraph Backend 
+            db_connector(Database connector)
+            request_handler(Request handler)
+            request_handler-- Uses -->db_connector
+        end
+        subgraph Frontend
+            login(Login page)
+            register(Register page)
+            admin_editor(Admin editor)
+            dogs_list(Dogs list view)
+            dog_details(Dog detailed view)
+            dogs_list-->dog_details
+            admin_editor-->dogs_list
+            admin_editor-->dog_details
+        end
+        request_handler-- Provides -->Frontend
+    end
+    subgraph Database
+        dogs(Dogs)
+        pictures(Pictures)
+        users(Users)
+        adoption_requests(Adoption requests)
+        dogs-- Refers to -->pictures
+        pictures-- Refers to -->dogs
+        adoption_requests-- Refers to -->dogs & users
+    end
+    db_connector-- Uses -->Database
+```
+
+### 7.2. Modell részei
+
+Request handler
+: A beérkező HTTP és HTTPS kapcsolatokat szolgálja ki.
+
+Database connector
+: Az adatbázissal történő kommunikációért felelős.
+
+Admin editor
+: Kutyákat regisztrálhat és törölhet, illetve szerkesztheti is.
+
+Dogs list view
+: Az örökbefogadható kutyák listáját jeleníti meg, képes szűrésre.
+
+Dog detailed view
+: Egy kutya részletes leírását jeleníti meg, és regisztrált felhasználók
+itt jelezhetik örökbefogadási kérésüket.
+
+Login page
+: Regisztrált felhasználók bejelentkezését szolgálja.
+
+Register page
+: Felhasználók regisztrálását szolgálja.
+
+Users
+: A regisztrált felhasználók adatait tárolja.
+
+Dogs
+: A kutyák adatait tárolja.
+
+Pictures
+: A kutyák képeit tárolja.
+
+Adoption requests
+: Az örökbefogadási kéréseket tárolja.
 
 ## 8. Architekturális terv
 
