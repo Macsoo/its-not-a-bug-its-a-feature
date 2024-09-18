@@ -378,4 +378,8 @@ graph TD;
 
 ## 12. Telepítési terv
 
+Mivel a teljes projekt felhőalapú lesz. A felhőalapú telepítési terv a webszerver Vercelen, az adatbázis pedig a Supabase-on történő elhelyezését foglalja magában. Először is szükségünk van egy Vercel fiókra, ahová a forráskódot fogjuk feltölteni. A Vercel automatikusan elkészíti és telepíti a webkiszolgálót, amikor a változtatásokat a tárolóba tesszük. Szükség van egy Supabase fiókra is, amely a PostgreSQL adatbázist, a hitelesítést és a tárolási szolgáltatásokat fogja kezelni. A Supabase biztosít egy API URL-t és egy nyilvános API-kulcsot, amelyet a forráskódba kell integrálni, hogy lehetővé tegye a kommunikációt az adatbázissal. Ezeket a hitelesítő adatokat biztonságosan hozzá kell adni a Vercelhez környezeti változóként a Vercel műszerfalon keresztül. A webalkalmazás a Supabase klienst fogja használni az adatbázissal való összes interakció kezelésére, beleértve a hitelesítést, az adatlekérdezést és a tárolást. Semmi másra nincs szükség, mivel a Vercel kezeli a tárhelyet, a frontendet és a backendet, míg a Supabase kezeli az adatbázist.
+
 ## 13. Karbantartási terv
+
+A rendszer karbantartási terve kizárólag a meglévő funkciók hibajavításaira összpontosít, biztosítva az alkalmazás stabilitását és teljesítményét. A Supabase adatbázis frissítéseit vagy konfigurációit szükség szerint karbantartják a hibák megoldása érdekében, biztosítva, hogy a backend-szolgáltatások ne szenvedjenek fennakadást. E terv keretében nem kerül sor új funkciók fejlesztésére vagy bevezetésére; az új funkciók vagy nagyobb frissítések iránti kérelmek külön projektet igényelnek, amelyhez külön projektet kell indítani, saját hatáskörrel, költségvetéssel és fejlesztési ütemtervvel.
