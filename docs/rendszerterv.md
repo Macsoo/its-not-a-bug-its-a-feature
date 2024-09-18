@@ -150,16 +150,22 @@ flowchart LR
         fn_login((Login))
         fn_register_dog((Register dog))
         fn_adopt((Want to adopt))
+        fn_view_dogs((View dogs))
     end
     visitor-- Can use -->fn_register_user
     visitor-- Can use -->fn_login
+    visitor-- Can use -->fn_view_dogs
     fn_register_user-- Creates new user -->user_db
     fn_login-- Validates using -->user_db
     admin-- Can use -->fn_register_dog
+    admin-- Can use -->fn_view_dogs
     fn_register_dog-- Creates new dog -->dogs_db
     fn_register_dog-- Creates new pictures -->pictures_db
     user-- Can use -->fn_adopt
+    user-- Can use -->fn_view_dogs
     fn_adopt-- Refers to -->dogs_db
+    fn_view_dogs-- Refers to -->dogs_db
+    fn_view_dogs-- Refers to -->pictures_db
 ```
 
 ## 6. Fizikai környezet
