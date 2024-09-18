@@ -143,29 +143,29 @@ flowchart LR
         user_db[(Users)]
         dogs_db[(Dogs)]
         pictures_db[(Pictures)]
-        dogs_db-- Uses pictures -->pictures_db
+        dogs_db -- Uses pictures --> pictures_db
     end
-    subgraph Functions 
+    subgraph Functions
         fn_register_user((Register user))
         fn_login((Login))
         fn_register_dog((Register dog))
         fn_adopt((Want to adopt))
         fn_view_dogs((View dogs))
     end
-    visitor-- Can use -->fn_register_user
-    visitor-- Can use -->fn_login
-    visitor-- Can use -->fn_view_dogs
-    fn_register_user-- Creates new user -->user_db
-    fn_login-- Validates using -->user_db
-    admin-- Can use -->fn_register_dog
-    admin-- Can use -->fn_view_dogs
-    fn_register_dog-- Creates new dog -->dogs_db
-    fn_register_dog-- Creates new pictures -->pictures_db
-    user-- Can use -->fn_adopt
-    user-- Can use -->fn_view_dogs
-    fn_adopt-- Refers to -->dogs_db
-    fn_view_dogs-- Refers to -->dogs_db
-    fn_view_dogs-- Refers to -->pictures_db
+    visitor -- Can use --> fn_register_user
+    visitor -- Can use --> fn_login
+    visitor -- Can use --> fn_view_dogs
+    fn_register_user -- Creates new user --> user_db
+    fn_login -- Validates using --> user_db
+    admin -- Can use --> fn_register_dog
+    admin -- Can use --> fn_view_dogs
+    fn_register_dog -- Creates new dog --> dogs_db
+    fn_register_dog -- Creates new pictures --> pictures_db
+    user -- Can use --> fn_adopt
+    user -- Can use --> fn_view_dogs
+    fn_adopt -- Refers to --> dogs_db
+    fn_view_dogs -- Refers to --> dogs_db
+    fn_view_dogs -- Refers to --> pictures_db
 ```
 
 ## 6. Fizikai környezet
@@ -175,18 +175,18 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    subgraph Internet 
+    subgraph Internet
         direction LR
-        subgraph Vercel 
+        subgraph Vercel
             webserver(Webserver)
         end
-        subgraph Supabase 
+        subgraph Supabase
             db(Database)
         end
-        webserver<-- Securely connected -->db
+        webserver <-- Securely connected --> db
         third_party(Third party users)
-        third_party-- Can connect -->webserver
-        third_party-. Cannot connect .->db
+        third_party -- Can connect --> webserver
+        third_party -. Cannot connect .-> db
     end
 ```
 
@@ -206,7 +206,7 @@ erDiagram
         VARCHAR(20) phone_number
         VARCHAR(255) password
     }
-    
+
     Dogs {
         SERIAL dog_id PK
         CHAR(15) chip_id
@@ -219,7 +219,7 @@ erDiagram
         BOOLEAN adopted
         INT primary_img_id FK
     }
-    
+
     AdoptionRequests {
         SERIAL request_id PK
         INT user_id FK
@@ -227,7 +227,7 @@ erDiagram
         DATE request_date
         BOOLEAN approved
     }
-    
+
     DogsImages {
         SERIAL image_id PK
         INT dog_id FK
@@ -372,7 +372,8 @@ erDiagram
 ## 11. Tesztterv
 
 ```mermaid
-graph TD;
+graph TD
+;
     A[Start] --> B[Test Plan Creation];
     B --> C[Functional Testing];
     B --> D[Integration Testing];
@@ -398,8 +399,21 @@ graph TD;
 
 ## 12. Telepítési terv
 
-Mivel a teljes projekt felhőalapú lesz. A felhőalapú telepítési terv a webszerver Vercelen, az adatbázis pedig a Supabase-on történő elhelyezését foglalja magában. Először is szükségünk van egy Vercel fiókra, ahová a forráskódot fogjuk feltölteni. A Vercel automatikusan elkészíti és telepíti a webkiszolgálót, amikor a változtatásokat a tárolóba tesszük. Szükség van egy Supabase fiókra is, amely a PostgreSQL adatbázist, a hitelesítést és a tárolási szolgáltatásokat fogja kezelni. A Supabase biztosít egy API URL-t és egy nyilvános API-kulcsot, amelyet a forráskódba kell integrálni, hogy lehetővé tegye a kommunikációt az adatbázissal. Ezeket a hitelesítő adatokat biztonságosan hozzá kell adni a Vercelhez környezeti változóként a Vercel műszerfalon keresztül. A webalkalmazás a Supabase klienst fogja használni az adatbázissal való összes interakció kezelésére, beleértve a hitelesítést, az adatlekérdezést és a tárolást. Semmi másra nincs szükség, mivel a Vercel kezeli a tárhelyet, a frontendet és a backendet, míg a Supabase kezeli az adatbázist.
+A teljes projekt felhőalapú lesz, a webszerver Vercelen, az adatbázis pedig a Supabase-en installáljuk. 
+Először is szükségünk van egy Vercel fiókra, ahová a forráskódot fogjuk feltölteni. A Vercel automatikusan
+elkészíti és telepíti a webkiszolgálót, amikor a változtatásokat a feltöltjük. Szükség van egy Supabase fiókra is,
+amely a PostgreSQL adatbázist, a hitelesítést és a tárolási szolgáltatásokat fogja kezelni. A Supabase biztosít egy API
+URL-t és egy nyilvános API-kulcsot, amelyet a forráskódba kell integrálni, így lehetővé téve a kommunikációt az
+adatbázissal. Ezeket a hitelesítő adatokat biztonságosan hozzá kell adni a Vercelhez környezeti változóként a Vercel
+kezelőfelületén keresztül. A webalkalmazás a Supabase klienst fogja használni az adatbázissal való összes interakció
+kezelésére, beleértve a hitelesítést, az adatlekérdezést és a tárolást. Semmi másra nincs szükség, mivel a Vercel kezeli
+a tárhelyet, a frontendet és a backendet, míg a Supabase kezeli az adatbázist.
 
 ## 13. Karbantartási terv
 
-A rendszer karbantartási terve kizárólag a meglévő funkciók hibajavításaira összpontosít, biztosítva az alkalmazás stabilitását és teljesítményét. A Supabase adatbázis frissítéseit vagy konfigurációit szükség szerint karbantartják a hibák megoldása érdekében, biztosítva, hogy a backend-szolgáltatások ne szenvedjenek fennakadást. E terv keretében nem kerül sor új funkciók fejlesztésére vagy bevezetésére; az új funkciók vagy nagyobb frissítések iránti kérelmek külön projektet igényelnek, amelyhez külön projektet kell indítani, saját hatáskörrel, költségvetéssel és fejlesztési ütemtervvel.
+A rendszer karbantartási terve kizárólag a meglévő funkciók hibajavításaira összpontosít, biztosítva az alkalmazás
+stabilitását és teljesítményét. A Supabase adatbázis frissítéseit vagy konfigurációit szükség szerint karbantartják a
+hibák megoldása érdekében, biztosítva, hogy a backend-szolgáltatások ne szenvedjenek fennakadást. E terv keretében nem
+kerül sor új funkciók fejlesztésére vagy bevezetésére; az új funkciók vagy nagyobb frissítések iránti kérelmek külön
+projektet igényelnek, amelyhez külön projektet kell indítani, saját hatáskörrel, költségvetéssel és fejlesztési
+ütemtervvel.
