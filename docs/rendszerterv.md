@@ -282,6 +282,14 @@ Adoption requests
 
 ## 8. Architekturális terv
 
+A webszerver frontend részén újrahasználható komponensek segítségével fog
+felépülni a különböző weboldalak.
+
+A webszerver backendje ORM segítségével az adatbázisban szereplő sorokat
+kódban könnyen kezelhető entitásokká alakítja, és proxyk segítségével
+kezeli is azokat. A backend felelős még a beérkező HTTP kapcsolatok
+kezeléésért is, az authentikációért és a jogosultságok kezeléséért is.
+
 ## 9. Adatbázis terv
 
 ### 9.1 Logikai Adatmodell
