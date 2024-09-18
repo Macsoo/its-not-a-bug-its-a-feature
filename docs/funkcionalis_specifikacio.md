@@ -85,7 +85,7 @@ sikerességéhez és hatékonyságához.
 
 ## 3. Megfeleltetés a jogi szabályoknak
 
-Mivel, személyes adatok tárolása nem történik az alkalmazásunkon keresztül. Teljes név megadása nem kell, illetve az email cím nem tartozik GDPR jogszabály alá, így az nem ütközik GDPR rendelet megsértésébe.
+A magyar GDPR-szabályoknak megfelelően a weboldal nem tárol csak telefonszámokat és e-mail címeket jogos cél és a felhasználó kifejezett hozzájárulása nélkül. A GDPR értelmében az olyan személyes adatok, mint a telefonszámok és az e-mail címek érzékeny adatoknak minősülnek, és csak akkor szabad gyűjteni őket, ha az olyan konkrét, egyértelműen meghatározott célokra szükséges, mint a felhasználói megkeresése. A weboldal biztosítja, hogy a felhasználók tájékoztatást kapjanak arról, hogy az adataikat hogyan fogják felhasználni, és a gyűjtés előtt a hozzájárulást is beszerzik. Ezen túlmenően az adatok védelme érdekében szigorú biztonsági intézkedésekkel történik, és a felhasználóknak jogukban áll bármikor kérni az adataikhoz való hozzáférést, azok módosítását vagy törlését. Az adatmegőrzési politikák megfelelnek a GDPR iránymutatásainak, ami azt jelenti, hogy minden felesleges vagy elavult információt biztonságosan törölnek, miután a céljukat betöltötték.
 
 ## 4. Jelenlegi üzelti folyamatok modellje
 
