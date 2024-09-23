@@ -6,7 +6,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    console.log(database());
   return (
       <html lang="hu">
       <head>
@@ -14,6 +13,7 @@ export default async function RootLayout({
           <title> Lakatos Brendonék Menhelye</title>
       </head>
       <body>
+      <p>{JSON.stringify(await database())}</p>
       <div className="header">
           <img src="" alt="logo"/>
         <h1>Lakatos Brendonék Menhelye</h1>
