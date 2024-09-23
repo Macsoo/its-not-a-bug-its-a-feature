@@ -2,132 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --background: #f7d6a8;
-    --foreground: #edc488;
-    --text-color: #e09248;
+h1 {
+    @apply text-5xl font-bold italic;
 }
 
-h1{
-    font-size: 3em;
-    font-weight: bold;
-    font-style: italic;
+h2 {
+    @apply text-3xl;
 }
 
-h2{
-    font-size: 2em;
-}
-p{
-    padding: 0.2em;
+p {
+    @apply p-1;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-around;
-    gap: 5px;
-
-    background: var(--background);
-    color: var(--text-color);
-    font-family: "Itim", cursive;
+    @apply flex flex-col items-start justify-around gap-1 bg-background text-textColor;
 }
 
-.header{
-    width: 100%;
+.header {
+    @apply w-full p-5 flex flex-row items-center justify-between;
     background: #e2a669;
     color: #fcecd3;
-
-    padding: 20px;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
 }
 
-.header button{
+.header button {
+    @apply p-2.5 rounded-lg m-1 w-32 text-lg;
     background: #d07d32;
     color: #fdc754;
-
-    padding: 10px;
-    border-radius: 10px;
-    margin: 5px;
-    width: 120px;
-
-    font-size: 1.2em;
 }
 
 .header button:hover,
-.header button:active{
+.header button:active {
     background: #b56d38;
     color: #ffe19c;
 }
 
-.menu{
+.menu {
+    @apply flex flex-rom items-center justify-between py-1 px-5 w-full;
     background: #df9348;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 20px;
-    width: 100%;
 }
 
-.menu button{
+.menu button {
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
     background: #e5a55f;
     color: #fdedd1;
-    padding: 5px 10px;
-    border-radius: 10px;
-    margin: 5px;
-    width: 120px;
-    align-content: center;
 }
 
 .menu button:hover,
-.menu button:active{
+.menu button:active {
     background: #c67839;
     color: #fdc754;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-
+    @apply flex flex-col items-center justify-between gap-5 text-textColor w-11/12 my-5 mx-auto p-5 rounded-lg;
     background: #edc488;
-    color: var(--text-color);
-    width: 95%;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 10px;
 }
 
-.card{
-    --foreground: #f7d6a8;
+.card {
+    @apply text-textColor w-full m-auto p-5 rounded-lg flex flex-row justify-between items-stretch gap-5;
     background: #fcedd1;
-    color: var(--text-color);
-    width: 100%;
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 20px;
 }
 
-.card > *{
-
-    background: var(--foreground);
-    font-weight: bold;
-    padding: 20px;
-    border-radius: 10px;
-    width: 100%;
+.card > * {
+    @apply font-bold p-5 rounded-lg w-full;
+    background: #f7d6a8;
 }
-
-
