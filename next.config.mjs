@@ -2,7 +2,7 @@
 const nextConfig = {
     webpack: (config) => {
         config.module.rules.push({
-            test: /\.ts$/,
+            test: /entities\/\w+\.ts$/,
             use: 'ts-loader',
             exclude: /node_modules/,
         });

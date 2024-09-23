@@ -1,6 +1,6 @@
 import { Options, PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
-import { Dog } from '@/entites/dog';
+import { Dog } from '@/entities/dog';
 
 const config: Options = {
     driver: PostgreSqlDriver,

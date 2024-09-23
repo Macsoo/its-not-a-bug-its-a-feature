@@ -1,16 +1,12 @@
 import "./globals.css";
-import { MikroORM } from "@mikro-orm/postgresql";
-import config from "@/mikro-orm.config";
+import { database } from "@/server/database";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log("mikro-orm init");
-  const orm = await MikroORM.init(config);
-  console.log(orm.em);
-  console.log(orm.schema);
+    console.log(database());
   return (
       <html lang="hu">
       <head>
