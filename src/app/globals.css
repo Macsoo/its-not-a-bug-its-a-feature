@@ -3,14 +3,131 @@
 @tailwind utilities;
 
 :root {
-    --background: #f8d7a7;
+    --background: #f7d6a8;
     --foreground: #edc488;
+    --text-color: #e09248;
 }
 
-.body {
-    background: var(--foreground);
+h1{
+    font-size: 3em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+h2{
+    font-size: 2em;
+}
+p{
+    padding: 0.2em;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap: 5px;
+
+    background: var(--background);
+    color: var(--text-color);
+    font-family: "Itim", cursive;
+}
+
+.header{
+    width: 100%;
+    background: #e2a669;
+    color: #fcecd3;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header button{
+    background: #d07d32;
+    color: #fdc754;
+
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    width: 120px;
+
+    font-size: 1.2em;
+}
+
+.header button:hover,
+.header button:active{
+    background: #b56d38;
+    color: #ffe19c;
+}
+
+.menu{
+    background: #df9348;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    width: 100%;
+}
+
+.menu button{
+    background: #e5a55f;
+    color: #fdedd1;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 5px;
+    width: 120px;
+    align-content: center;
+}
+
+.menu button:hover,
+.menu button:active{
+    background: #c67839;
+    color: #fdc754;
 }
 
 .content {
-    background: var(--foreground);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: #edc488;
+    color: var(--text-color);
+    width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
 }
+
+.card{
+    --foreground: #f7d6a8;
+    background: #fcedd1;
+    color: var(--text-color);
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px;
+}
+
+.card > *{
+
+    background: var(--foreground);
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+
