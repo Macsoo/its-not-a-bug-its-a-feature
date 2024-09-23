@@ -7,6 +7,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("mikro-orm init");
   const orm = await MikroORM.init(config);
   console.log(orm.em);
   console.log(orm.schema);
