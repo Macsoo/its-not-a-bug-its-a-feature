@@ -24,10 +24,10 @@ export class Dog {
     @Property({type: 'text'})
     description!: string;
 
-    @Property({default: true})
-    available: boolean;
+    @Property()
+    available: boolean = true;
 
-    @Property({default: false})
-    adopted: boolean;
+    @Property()
+    adopted: boolean = false;
 
 }
