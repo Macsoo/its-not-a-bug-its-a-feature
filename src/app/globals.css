@@ -14,11 +14,16 @@ h1{
     font-style: italic;
 }
 
+.title{
+    cursor: pointer;
+}
+
 h2{
     font-size: 2em;
 }
 p{
     padding: 0.2em;
+    cursor: default;
 }
 
 body {
