@@ -7,10 +7,10 @@
     --foreground: #edc488;
 }
 
-body{
+.body {
     background: var(--foreground);
 }
 
-.content{
+.content {
     background: var(--foreground);
 }

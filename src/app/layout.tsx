@@ -1,6 +1,4 @@
-
-import styles from "./ui/globals.css";
-
+import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -9,8 +7,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={styles["main"]}>
-        <div className={styles.content}>
+      <body>
+        <div className="content">
             {children}
         </div>
       </body>
