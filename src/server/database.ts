@@ -8,5 +8,5 @@ export async function database() {
     const orm = await MikroORM.init(config);
     console.log(orm.em);
     console.log(orm.schema);
-    return JSON.stringify(orm.getMetadata().getAll());
+    return JSON.stringify(await orm.checkConnection());
 }
