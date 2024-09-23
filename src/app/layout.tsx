@@ -1,5 +1,4 @@
 import "./globals.css";
-import { database } from "@/server/database";
 
 export default async function RootLayout({
   children,
@@ -13,7 +12,6 @@ export default async function RootLayout({
           <title> Lakatos Brendonék Menhelye</title>
       </head>
       <body>
-      <p>{JSON.stringify(await database())}</p>
       <div className="header">
           <img src="" alt="logo"/>
         <h1>Lakatos Brendonék Menhelye</h1>

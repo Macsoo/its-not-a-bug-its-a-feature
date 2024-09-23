@@ -1,6 +1,8 @@
+'use client';
 import "./globals.css";
+import {database} from "@/server/database";
 
-export default function Home() {
+export default async function Home() {
     return (
         <div>
             <h2>Üdvözöljük a Lakatos Brendonék Menhelyének weboldalán!</h2>
@@ -14,6 +16,7 @@ export default function Home() {
                 támogathat minket önkéntes munkával vagy adományokkal.</p>
 
             <p>Köszönjük, hogy hozzájárul a kutyák boldogságához és jólétéhez!</p>
+            <p>{JSON.stringify(await database())}</p>
         </div>
     );
 }
