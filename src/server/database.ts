@@ -1,3 +1,5 @@
+'use server';
+
 import config from "@/mikro-orm.config";
 import {MikroORM} from "@mikro-orm/postgresql";
 
@@ -6,7 +8,5 @@ export async function database() {
     const orm = await MikroORM.init(config);
     console.log(orm.em);
     console.log(orm.schema);
-    return <p>
-        {JSON.stringify(orm.schema)}
-    </p>;
+    return JSON.stringify(orm.getMetadata().getAll());
 }
