@@ -41,7 +41,7 @@ body {
 }
 
 .menu {
-    @apply flex flex-rom items-center justify-between py-1 px-5 w-full;
+    @apply flex flex-row items-center justify-between py-1 px-5 w-full;
     background: #df9348;
 }
 
