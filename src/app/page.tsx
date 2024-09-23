@@ -1,15 +1,12 @@
 'use client';
 import "./globals.css";
 import {database} from "@/server/database";
-import {useEffect, useState} from "react";
+import {Suspense, useState} from "react";
+import {useServerAction} from "@/utils";
 
 export default function Home() {
     const [result, setResult] = useState("");
-    useEffect(() => {
-        (async () => {
-            setResult(await database());
-        })();
-    });
+    useServerAction(database, setResult);
     return (
         <div>
             <h2>Üdvözöljük a Lakatos Brendonék Menhelyének weboldalán!</h2>
@@ -23,7 +20,9 @@ export default function Home() {
                 támogathat minket önkéntes munkával vagy adományokkal.</p>
 
             <p>Köszönjük, hogy hozzájárul a kutyák boldogságához és jólétéhez!</p>
-            <p>{result}</p>
+            <Suspense fallback={<p>Az adatbázis kapcsolat tölt...</p>}>
+                <p>Az adatbázis kapcsolat eredménye: {result}</p>
+            </Suspense>
         </div>
     );
 }
