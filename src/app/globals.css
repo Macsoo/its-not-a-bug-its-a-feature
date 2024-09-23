@@ -2,26 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+h1 {
+    @apply text-5xl font-bold italic;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.title {
+    @apply cursor-pointer;
+}
+
+h2 {
+    @apply text-3xl;
+}
+
+p {
+    @apply p-1 cursor-default;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    @apply flex flex-col items-start justify-around gap-1 bg-background text-textColor;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.header {
+    @apply w-full p-5 flex flex-row items-center justify-between;
+    background: #e2a669;
+    color: #fcecd3;
+}
+
+.header button {
+    @apply p-2.5 rounded-lg m-1 w-32 text-lg;
+    background: #d07d32;
+    color: #fdc754;
+}
+
+.header button:hover,
+.header button:active {
+    background: #b56d38;
+    color: #ffe19c;
+}
+
+.menu {
+    @apply flex flex-row items-center justify-between py-1 px-5 w-full;
+    background: #df9348;
+}
+
+.menu button {
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
+    background: #e5a55f;
+    color: #fdedd1;
+}
+
+.menu button:hover,
+.menu button:active {
+    background: #c67839;
+    color: #fdc754;
+}
+
+.content {
+    @apply flex flex-col items-center justify-between gap-5 text-textColor w-11/12 my-5 mx-auto p-5 rounded-lg;
+    background: #edc488;
+}
+
+.card {
+    @apply text-textColor w-full m-auto p-5 rounded-lg flex flex-row justify-between items-stretch gap-5;
+    background: #fcedd1;
+}
+
+.card > * {
+    @apply font-bold p-5 rounded-lg w-full;
+    background: #f7d6a8;
 }
