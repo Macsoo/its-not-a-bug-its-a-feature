@@ -1,6 +1,7 @@
 import "./globals.css";
 import {Itim} from "next/font/google";
 import Image from "next/image";
+import Link from 'next/link';
 
 const itim = Itim({
   subsets: ["latin"],
@@ -9,27 +10,37 @@ const itim = Itim({
   fallback: ["cursive"],
 });
 
-export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+export default async function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="hu">
     <head>
-      <title>Lakatos Brendonék Menhelye</title>
+      <title> Lakatos Brendonék Menhelye</title>
     </head>
     <body className={itim.className}>
     <div className="header">
       <Image src="" alt="logo"/>
-      <h1>Lakatos Brendonék Menhelye</h1>
+      <Link href="/"><h1 className="title">Lakatos Brendonék Menhelye</h1></Link>
       <div>
-        <button>Regisztráció</button>
-        <button>Belépés</button>
+        <Link href="/register">
+          <button id="register">Regisztráció</button>
+        </Link>
+        <Link href="/login">
+          <button id="login">Belépés</button>
+        </Link>
       </div>
     </div>
     <div className="menu">
       <div>
-        <button>Kutyáink...</button>
-        <button>Rólunk</button>
+        <Link href="/dogs">
+          <button id="dogs">Kutyáink...</button>
+        </Link>
+        <Link href="/about">
+          <button id="about">Rólunk</button>
+        </Link>
       </div>
-      <button>Fiókom</button>
+      <Link href="/account">
+        <button id="account">Fiókom</button>
+      </Link>
     </div>
     <div className="content">
       <div className="card">
