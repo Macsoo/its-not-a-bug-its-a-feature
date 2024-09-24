@@ -18,7 +18,7 @@ export class Dog {
     age!: number;
 
     @Property({type: "varchar", length: 6})
-    @Check({ expression: "gender IN ('Male', 'Female')" })
+    @Check({expression: "gender IN ('Male', 'Female')"})
     gender!: string;
 
     @Property({type: 'varchar', length: 100})
@@ -33,9 +33,9 @@ export class Dog {
     @Property()
     adopted: boolean & Opt = false;
 
-    @OneToOne({ type: DogImage })
+    @OneToOne({type: DogImage})
     primary_image!: Rel<DogImage>;
 
-    @OneToMany({mappedBy: 'dog'})
+    @OneToMany({type: Dog, mappedBy: 'dog'})
     images = new Collection<DogImage>(this);
 }
