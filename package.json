@@ -9,16 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mikro-orm/core": "^6.3.10",
-    "@mikro-orm/postgresql": "^6.3.10",
-    "@mikro-orm/reflection": "^6.3.10",
+    "@prisma/client": "^5.19.1",
     "next": "14.2.11",
     "react": "^18",
-    "react-dom": "^18",
-    "ts-loader": "^9.5.1"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "@mikro-orm/cli": "^6.3.10",
     "@types/node": "^20.16.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -28,13 +24,7 @@
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
-    "vitest": "^2.1.1"
-  },
-  "mikro-orm": {
-    "useTsNode": true,
-    "configPaths": [
-      "./src/mikro-orm.config.ts",
-      "./.next/mikro-orm.config.js"
-    ]
+    "vitest": "^2.1.1",
+    "prisma": "^5.19.1"
   }
 }

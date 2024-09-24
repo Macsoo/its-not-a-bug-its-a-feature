@@ -1,0 +1,55 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               Int               @id @default(autoincrement())
+  email            String            @unique @db.VarChar(100)
+  phoneNumber      String?           @db.VarChar(20)
+  password         String            @db.VarChar(255)
+  adoptionRequests AdoptionRequest[]
+}
+
+model Dog {
+  id               Int               @id @default(autoincrement())
+  chipId           String            @db.Char(15)
+  name             String            @db.VarChar(100)
+  age              Int
+  gender           Gender
+  breed            String            @db.VarChar(100)
+  description      String            @db.Text
+  adopted          Boolean           @default(false)
+  primaryImg       DogImage          @relation("primary", fields: [primaryImgId], references: [id])
+  primaryImgId     Int               @unique
+  images           DogImage[]        @relation("images")
+  adoptionRequests AdoptionRequest[]
+}
+
+model DogImage {
+  id        Int    @id @default(autoincrement())
+  dog       Dog?   @relation("images", fields: [dogId], references: [id])
+  dogId     Int
+  primaryOf Dog?   @relation("primary")
+  path      String @db.VarChar(510)
+}
+
+model AdoptionRequest {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  dog         Dog      @relation(fields: [dogId], references: [id])
+  dogId       Int
+  requestDate DateTime
+  approved    Boolean?
+}
+
+enum Gender {
+  Male
+  Female
+}
