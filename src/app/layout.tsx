@@ -17,9 +17,9 @@ export default async function RootLayout({children}: Readonly<{ children: React.
       <title> Lakatos Brendonék Menhelye</title>
     </head>
     <body className={itim.className}>
-    <div className="header">
+    <div className={`header-mobile md:header`}>
       <Image src="" alt="logo"/>
-      <Link href="/"><h1 className="title">Lakatos Brendonék Menhelye</h1></Link>
+      <Link href="/"><h1 className={`cursor-pointer text-3xl md:text-5xl md:m-0 m-2 font-bold italic text-center`}>Lakatos Brendonék Menhelye</h1></Link>
       <div>
         <Link href="/register">
           <button id="register">Regisztráció</button>
@@ -29,8 +29,8 @@ export default async function RootLayout({children}: Readonly<{ children: React.
         </Link>
       </div>
     </div>
-    <div className="menu">
-      <div>
+    <div className={`menu-mobile md:menu`}>
+      <div className={`flex flex-col md:flex-row`}>
         <Link href="/dogs">
           <button id="dogs">Kutyáink...</button>
         </Link>
