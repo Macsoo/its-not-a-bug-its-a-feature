@@ -10,7 +10,7 @@ export default function Home() {
         setDatabaseConnection("Az adatbázis kapcsolat: " + await database());
     });
     return (
-        <div>
+        <div className="card">
             <h2>Üdvözöljük a Lakatos Brendonék Menhelyének weboldalán!</h2>
             <p>Örömmel látjuk, hogy ellátogatott hozzánk!</p>
             <p>A Lakatos Brendonék Menhelyének célja, hogy biztonságos és szeretetteljes

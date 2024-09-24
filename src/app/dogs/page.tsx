@@ -2,6 +2,11 @@
 import "../globals.css";
 export default function Login() {
     return (
-        <p>Ide jönnek a kutyusok</p>
+        <div className="content">
+            <div className="card">
+                <p>Ide jönnek a kutyusok</p>
+
+            </div>
+        </div>
     );
 }
