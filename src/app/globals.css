@@ -2,12 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-h1 {
-    @apply text-5xl font-bold italic;
-}
-
-.title {
-    @apply cursor-pointer;
+@layer utilities {
+    .menu {
+        @apply flex flex-row items-center justify-between py-1 px-5 w-full;
+        background: #df9348;
+    };
+    .header {
+        @apply w-full p-5 flex flex-row items-center justify-between;
+        background: #e2a669;
+        color: #fcecd3;
+    }
 }
 
 h2 {
@@ -22,13 +26,14 @@ body {
     @apply flex flex-col items-start justify-around gap-1 bg-background text-textColor;
 }
 
-.header {
-    @apply w-full p-5 flex flex-row items-center justify-between;
+.header-mobile{
+    @apply w-full p-5 flex flex-col items-center justify-between;
     background: #e2a669;
     color: #fcecd3;
 }
 
-.header button {
+.header button,
+.header-mobile button{
     @apply p-2.5 rounded-lg m-1 w-32 text-lg;
     background: #d07d32;
     color: #fdc754;
@@ -40,12 +45,13 @@ body {
     color: #ffe19c;
 }
 
-.menu {
-    @apply flex flex-row items-center justify-between py-1 px-5 w-full;
+.menu-mobile{
+    @apply flex flex-col items-center justify-between py-1 px-5 w-full;
     background: #df9348;
 }
 
-.menu button {
+.menu button,
+.menu-mobile button{
     @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
     background: #e5a55f;
     color: #fdedd1;
