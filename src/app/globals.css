@@ -14,6 +14,10 @@
     }
 }
 
+#menu-toggle {
+    @apply w-8 h-8 text-center;
+}
+
 h2 {
     @apply text-3xl;
 }
@@ -31,6 +35,7 @@ body {
     background: #e2a669;
     color: #fcecd3;
 }
+
 
 .header button,
 .header-mobile button{
@@ -69,11 +74,21 @@ body {
 }
 
 .card {
-    @apply text-textColor w-full m-auto p-5 rounded-lg flex flex-row justify-between items-stretch gap-5;
-    background: #fcedd1;
+    @apply text-textColor w-full m-auto p-5 rounded-lg font-medium;
+    background: #f7d6a8;
+    border: 20px solid #fcedd1;
 }
 
-.card > * {
-    @apply font-bold p-5 rounded-lg w-full;
+.card-dog {
+    @apply text-textColor w-full m-auto p-5 rounded-lg flex flex-row justify-around items-center gap-5;
+    background: #fcedd1;
+}
+.card-dog > #dog-text {
+    @apply w-1/3 rounded-lg p-5;
     background: #f7d6a8;
+}
+
+th, td{
+    @apply p-3;
+    word-break: break-word;
 }

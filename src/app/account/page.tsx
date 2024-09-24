@@ -2,6 +2,10 @@
 import "../globals.css";
 export default function Login() {
     return (
-        <p>Ide jönnek a fiók adatai</p>
+        <div className="content">
+            <div className="card">
+                <p>Ide jönnek a fiók adatai</p>
+            </div>
+        </div>
     );
 }
