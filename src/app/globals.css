@@ -86,4 +86,5 @@ body {
 
 th, td{
     @apply p-3;
+    word-break: break-word;
 }
