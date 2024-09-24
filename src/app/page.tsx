@@ -10,6 +10,7 @@ export default function Home() {
         setDatabaseConnection("Az adatbázis kapcsolat: " + await database());
     });
     return (
+        <div className={`content`}>
         <div className="card">
             <h2>Üdvözöljük a Lakatos Brendonék Menhelyének weboldalán!</h2>
             <p>Örömmel látjuk, hogy ellátogatott hozzánk!</p>
@@ -23,6 +24,7 @@ export default function Home() {
 
             <p>Köszönjük, hogy hozzájárul a kutyák boldogságához és jólétéhez!</p>
             <p>{databaseConnection}</p>
+        </div>
         </div>
     );
 }
