@@ -1,23 +1,41 @@
 'use server';
 
-import config from "@/mikro-orm.config";
-import {MikroORM} from "@mikro-orm/postgresql";
-import {Dog} from "@/entities/dog";
+import {PrismaClient} from '@prisma/client';
+import type {Dog, DogImage} from '@prisma/client';
 
 export async function database() {
-    console.log("mikro-orm init");
-    const orm = await MikroORM.init(config);
-    await orm.em.upsert(Dog, {
-        chipId: '123456789ABCDEF',
-        name: "KUTYI",
-        age: 10,
-        breed: "Kuty",
-        gender: "Male",
-        description: "",
-        primary_image: {
-            img_path: ""
+    const prisma = new PrismaClient();
+    let doggo: Dog | null = await prisma.dog.findFirst({
+        where: {
+            name: "KUTUY"
         }
     });
-    await orm.em.flush();
-    return JSON.stringify(await orm.checkConnection());
+    if (doggo === null) {
+        const image: DogImage = await prisma.dogImage.create({
+            data: {
+                path: ''
+            }
+        });
+        doggo = await prisma.dog.create({
+            data: {
+                chipId: '123456789ABCDEF',
+                name: 'KUTYU',
+                age: 10,
+                gender: 'Male',
+                breed: 'Kuty',
+                description: '',
+                primaryImg: {
+                    connect: {
+                        id: image.id
+                    },
+                },
+                images: {
+                    connect: [{
+                        id: image.id
+                    }]
+                }
+            }
+        });
+    }
+    return doggo.name;
 }
