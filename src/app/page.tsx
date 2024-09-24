@@ -4,6 +4,7 @@ import {database} from "@/server/database";
 import {useState} from "react";
 import {useServerAction} from "@/utils";
 
+
 export default function Home() {
     const [databaseConnection, setDatabaseConnection] = useState("Az adatbázis kapcsolat tölt...");
     useServerAction(async () => {
