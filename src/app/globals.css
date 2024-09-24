@@ -83,7 +83,7 @@ body {
     @apply text-textColor w-full m-auto p-5 rounded-lg flex flex-row justify-around items-center gap-5;
     background: #fcedd1;
 }
-.card-dog > #dog-text {
+.card-dog #dog-text {
     @apply w-1/3 rounded-lg p-5;
     background: #f7d6a8;
 }

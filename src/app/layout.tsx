@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from 'next/link';
 import {MobileNav, WideScreenNav} from "@/components/navigation";
 
+
 const itim = Itim({
     subsets: ["latin"],
     display: "swap",
     weight: "400",
     fallback: ["cursive"],
 });
+
 
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
     return (
@@ -42,6 +44,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
             <MobileNav/>
         </div>
         <div className={`w-full p-5`}>
+
             {children}
         </div>
         <div className={`w-full text-secondTextColor p-5`}>
