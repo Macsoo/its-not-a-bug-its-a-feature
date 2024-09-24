@@ -2,13 +2,13 @@
 import "./globals.css";
 import {database} from "@/server/database";
 import {useState} from "react";
-import {useServerAction} from "@/utils";
+//import {useServerAction} from "@/utils";
 
 export default function Home() {
     const [databaseConnection, setDatabaseConnection] = useState("Az adatbázis kapcsolat tölt...");
-    useServerAction(async () => {
-        setDatabaseConnection("Az adatbázis kapcsolat: " + await database());
-    });
+    //useServerAction(async () => {
+    //    setDatabaseConnection("Az adatbázis kapcsolat: " + await database());
+    //});
     return (
         <div>
             <h2>Üdvözöljük a Lakatos Brendonék Menhelyének weboldalán!</h2>
@@ -23,6 +23,7 @@ export default function Home() {
 
             <p>Köszönjük, hogy hozzájárul a kutyák boldogságához és jólétéhez!</p>
             <p>{databaseConnection}</p>
+          <input value={"KALÁCSKÉPŰŰŰŰ"} type={"button"} onClick={async () => setDatabaseConnection(await database())}/>
         </div>
     );
 }
