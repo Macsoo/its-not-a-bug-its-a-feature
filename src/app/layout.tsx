@@ -19,7 +19,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
     <body className={itim.className}>
     <div className="header">
       <Image src="" alt="logo"/>
-      <Link href="/"><h1 className={`cursor-pointer`}>Lakatos Brendonék Menhelye</h1></Link>
+      <Link href="/"><h1 className="title">Lakatos Brendonék Menhelye</h1></Link>
       <div>
         <Link href="/register">
           <button id="register">Regisztráció</button>

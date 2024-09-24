@@ -6,6 +6,10 @@ h1 {
     @apply text-5xl font-bold italic;
 }
 
+.title {
+    @apply cursor-pointer;
+}
+
 h2 {
     @apply text-3xl;
 }
