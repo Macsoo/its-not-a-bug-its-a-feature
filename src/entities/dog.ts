@@ -33,7 +33,7 @@ export class Dog {
     @Property()
     adopted: boolean & Opt = false;
 
-    @OneToOne()
+    @OneToOne({ type: DogImage })
     primary_image!: Rel<DogImage>;
 
     @OneToMany({mappedBy: 'dog'})
