@@ -2,6 +2,7 @@ import "./globals.css";
 import {Itim} from "next/font/google";
 import Image from "next/image";
 import Link from 'next/link';
+import {MobileNav, WideScreenNav} from "@/components/navigation";
 
 const itim = Itim({
   subsets: ["latin"],
@@ -29,18 +30,11 @@ export default async function RootLayout({children}: Readonly<{ children: React.
         </Link>
       </div>
     </div>
-    <div className={`menu-mobile md:menu`}>
-      <div className={`flex flex-col md:flex-row`}>
-        <Link href="/dogs">
-          <button id="dogs">Kutyáink...</button>
-        </Link>
-        <Link href="/about">
-          <button id="about">Rólunk</button>
-        </Link>
-      </div>
-      <Link href="/account">
-        <button id="account">Fiókom</button>
-      </Link>
+    <div className={`md:block md:w-full hidden`}>
+      <WideScreenNav/>
+    </div>
+    <div className={`md:hidden w-full`}>
+      <MobileNav/>
     </div>
     <div className="content">
       <div className="card">

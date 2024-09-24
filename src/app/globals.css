@@ -14,6 +14,10 @@
     }
 }
 
+#menu-toggle {
+    @apply w-8 h-8 text-center;
+}
+
 h2 {
     @apply text-3xl;
 }
@@ -31,6 +35,7 @@ body {
     background: #e2a669;
     color: #fcecd3;
 }
+
 
 .header button,
 .header-mobile button{
