@@ -36,6 +36,6 @@ export class Dog {
     @OneToOne({type: DogImage})
     primary_image!: Rel<DogImage>;
 
-    @OneToMany({type: Dog, mappedBy: 'dog'})
+    @OneToMany({type: DogImage, mappedBy: 'dog'})
     images = new Collection<DogImage>(this);
 }
