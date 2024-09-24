@@ -7,7 +7,7 @@ export class DogImage {
     @PrimaryKey()
     id!: number;
 
-    @ManyToOne()
+    @ManyToOne({ type: Dog })
     dog!: Rel<Dog>;
 
     @Property({ type: "varchar", length: 510 })
