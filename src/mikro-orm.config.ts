@@ -1,6 +1,7 @@
-import { Options, PostgreSqlDriver } from '@mikro-orm/postgresql';
-import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
-import { Dog } from '@/entities/dog';
+import {Options, PostgreSqlDriver} from '@mikro-orm/postgresql';
+import {TsMorphMetadataProvider} from '@mikro-orm/reflection';
+import {Dog} from '@/entities/dog';
+import {DogImage} from "@/entities/dog_image";
 
 const config: Options = {
     driver: PostgreSqlDriver,
@@ -9,8 +10,8 @@ const config: Options = {
     port: 6543,
     user: 'postgres.cldcmqpawaqwwwtzuwkk',
     password: process.env.SUPABASE_PASSWORD,
-    entities: [Dog],
-    discovery: { disableDynamicFileAccess: true },
+    entities: [Dog, DogImage],
+    discovery: {disableDynamicFileAccess: true},
     metadataProvider: TsMorphMetadataProvider,
     debug: true,
 };

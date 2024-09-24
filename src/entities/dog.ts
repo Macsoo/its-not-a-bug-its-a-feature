@@ -1,4 +1,6 @@
-import {Entity, PrimaryKey, Property} from '@mikro-orm/core';
+import {Check, Collection, Entity, OneToMany, OneToOne, PrimaryKey, Property} from '@mikro-orm/core';
+import type {Rel, Opt} from '@mikro-orm/core';
+import {DogImage} from "@/entities/dog_image";
 
 @Entity()
 export class Dog {
@@ -16,6 +18,7 @@ export class Dog {
     age!: number;
 
     @Property({type: "varchar", length: 6})
+    @Check({ expression: "gender IN ('Male', 'Female')" })
     gender!: string;
 
     @Property({type: 'varchar', length: 100})
@@ -25,9 +28,14 @@ export class Dog {
     description!: string;
 
     @Property()
-    available: boolean = true;
+    available: boolean & Opt = true;
 
     @Property()
-    adopted: boolean = false;
+    adopted: boolean & Opt = false;
 
+    @OneToOne()
+    primary_image!: Rel<DogImage>;
+
+    @OneToMany({mappedBy: 'dog'})
+    images = new Collection<DogImage>(this);
 }
