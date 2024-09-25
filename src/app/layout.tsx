@@ -2,7 +2,7 @@ import "./globals.css";
 import {Itim} from "next/font/google";
 import Image from "next/image";
 import Link from 'next/link';
-import {MobileNav, WideScreenNav} from "@/components/navigation";
+import {isSignedIn} from "@/components/roles";
 
 const itim = Itim({
     subsets: ["latin"],
@@ -27,21 +27,33 @@ export default async function RootLayout({children}: Readonly<{ children: React.
             <Link href="/"><h1
                 className={`cursor-pointer text-3xl md:text-5xl md:m-0 m-2 font-bold italic text-center`}>Lakatos
                 Brendonék Menhelye</h1></Link>
-                <div>
-                    <Link href="/register">
-                        <button id="register">Regisztráció</button>
+            <div>
+                <Link href="register">
+                    <button id="register">Regisztráció</button>
+                </Link>
+                <Link href="login">
+                    <button id="login">Belépés</button>
+                </Link>
+            </div>
+        </div>
+
+        <div className={`w-full md:menu menu-mobile md:flex-row flex-col`}>
+                <div className={`flex md:flex-row flex-col`}>
+                    <Link href="dogs">
+                        <button id="dogs">Kutyáink...</button>
                     </Link>
-                    <Link href="/login">
-                        <button id="login">Belépés</button>
+                    <Link href="about">
+                        <button id="about">Rólunk</button>
                     </Link>
                 </div>
+                {isSignedIn() && (
+                    <Link href="account">
+                        <button id="account">Fiókom</button>
+                    </Link>
+                )}
         </div>
-        <div className={`md:block md:w-full hidden`}>
-            <WideScreenNav/>
-        </div>
-        <div className={`md:hidden w-full`}>
-            <MobileNav/>
-        </div>
+
+
         <div className={`w-full p-5`}>
 
             {children}
@@ -56,3 +68,10 @@ export default async function RootLayout({children}: Readonly<{ children: React.
     )
         ;
 }
+
+//<div className={`md:block md:w-full hidden`}>
+//             <WideScreenNav/>
+//         </div>
+//         <div className={`md:hidden w-full`}>
+//             <MobileNav/>
+//         </div>
