@@ -34,7 +34,7 @@ model Dog {
 model DogImage {
   id        Int    @id @default(autoincrement())
   dog       Dog?   @relation("images", fields: [dogId], references: [id])
-  dogId     Int
+  dogId     Int?
   primaryOf Dog?   @relation("primary")
   path      String @db.VarChar(510)
 }

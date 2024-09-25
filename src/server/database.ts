@@ -1,40 +1,42 @@
 'use server';
 
 import {PrismaClient} from '@prisma/client';
-import type {Dog, DogImage} from '@prisma/client';
+import type {Dog} from '@prisma/client';
 
 export async function database() {
     const prisma = new PrismaClient();
     let doggo: Dog | null = await prisma.dog.findFirst({
         where: {
-            name: "KUTUY"
+            name: "KUTYU"
         }
     });
     if (doggo === null) {
-        const image: DogImage = await prisma.dogImage.create({
-            data: {
-                path: ''
-            }
-        });
-        doggo = await prisma.dog.create({
-            data: {
-                chipId: '123456789ABCDEF',
-                name: 'KUTYU',
-                age: 10,
-                gender: 'Male',
-                breed: 'Kuty',
-                description: '',
-                primaryImg: {
-                    connect: {
-                        id: image.id
-                    },
-                },
-                images: {
-                    connect: [{
-                        id: image.id
-                    }]
-                }
-            }
+        doggo = await prisma.$transaction(async (trx) => {
+           const img = await trx.dogImage.create({
+               data: {
+                   path: ''
+               }
+           });
+           const dog = await trx.dog.create({
+               data: {
+                   chipId: '123456789ABCDEF',
+                   name: 'KUTYU',
+                   breed: 'Kuty',
+                   gender: 'Male',
+                   age: 10,
+                   description: '',
+                   primaryImgId: img.id,
+               }
+           });
+           await trx.dogImage.update({
+               where: {
+                   id: img.id
+               },
+               data: {
+                   dogId: dog.id
+               }
+           });
+           return dog;
         });
     }
     return doggo.name;
