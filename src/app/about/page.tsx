@@ -1,7 +1,7 @@
 'use client';
 import "../globals.css";
 
-export default function About() {
+export default function AboutPage() {
     return (
         <div className="content">
             <div className={`card flex flex-col gap-4`}>
