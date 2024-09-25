@@ -25,7 +25,7 @@ export function MobileNav() {
                             <button id="about" onClick={toggle}>Rólunk</button>
                         </Link>
                     </div>
-                    {!isSignedIn() && (
+                    {isSignedIn() && (
                         <Link href="/account">
                             <button id="account" onClick={toggle}>Fiókom</button>
                         </Link>
@@ -48,7 +48,7 @@ export function WideScreenNav() {
                     <button id="about">Rólunk</button>
                 </Link>
             </div>
-            {!isSignedIn() && (
+            {isSignedIn() && (
             <Link href="/account">
                 <button id="account">Fiókom</button>
             </Link>
