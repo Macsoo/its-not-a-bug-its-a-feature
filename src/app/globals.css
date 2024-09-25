@@ -6,11 +6,23 @@
     .menu {
         @apply flex flex-row items-center justify-between py-1 px-5 w-full;
         background: #df9348;
-    };
+    }
     .header {
         @apply w-full p-5 flex flex-row items-center justify-between;
         background: #e2a669;
         color: #fcecd3;
+    }
+
+    .menu-mobile{
+        @apply flex flex-col items-center justify-between py-1 px-5 w-full;
+        background: #df9348;
+    }
+
+    .menu button,
+    .menu-mobile button{
+        @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
+        background: #e5a55f;
+        color: #fdedd1;
     }
 }
 
@@ -50,17 +62,7 @@ body {
     color: #ffe19c;
 }
 
-.menu-mobile{
-    @apply flex flex-col items-center justify-between py-1 px-5 w-full;
-    background: #df9348;
-}
 
-.menu button,
-.menu-mobile button{
-    @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
-    background: #e5a55f;
-    color: #fdedd1;
-}
 
 .menu button:hover,
 .menu button:active {
@@ -130,4 +132,25 @@ th, td{
     background: #aa4241;
     color: #fcc1b7;
 }
+
+
+#requestTable {
+    @apply w-full border-collapse border-4 border-textColor text-center;
+}
+
+#requestTable  th{
+    @apply bg-secondTextColor text-white text-xl font-light;
+}
+
+#requestTable  td{
+    @apply bg-orange-50;
+}
+
+#requestTable  td,
+#requestTable th {
+    @apply border-collapse border border-textColor;
+}
+
+
+
 

@@ -1,4 +1,6 @@
-export const currentRole = "guest"
+export const currentRole = "admin"
+
+export const currentUserId = 101;
 
 
 export function isSignedIn() {
