@@ -18,15 +18,15 @@ export function MobileNav() {
             {isOpen && (
                 <>
                     <div className={`flex flex-col`}>
-                        <Link href="/dogs">
+                        <Link href="@/app/dogs">
                             <button id="dogs" onClick={toggle}>Kutyáink...</button>
                         </Link>
-                        <Link href="/about">
+                        <Link href="@/app/about">
                             <button id="about" onClick={toggle}>Rólunk</button>
                         </Link>
                     </div>
                     {isSignedIn() && (
-                        <Link href="/account">
+                        <Link href="@/app/account">
                             <button id="account" onClick={toggle}>Fiókom</button>
                         </Link>
                     )}
@@ -41,15 +41,15 @@ export function WideScreenNav() {
     return (
         <div className={`menu`}>
             <div className={`flex flex-row`}>
-                <Link href="/dogs">
+                <Link href="@/app/dogs">
                     <button id="dogs">Kutyáink...</button>
                 </Link>
-                <Link href="/about">
+                <Link href="@/app/about">
                     <button id="about">Rólunk</button>
                 </Link>
             </div>
             {isSignedIn() && (
-            <Link href="/account">
+            <Link href="@/app/account">
                 <button id="account">Fiókom</button>
             </Link>
                 )}
