@@ -1,11 +1,14 @@
-export function isSignedIn({role}: { role: string }) {
-    return role !== "guest";
+export const currentRole = "guest"
+
+
+export function isSignedIn() {
+    return currentRole !== "guest";
 }
 
-export function isUser({role}: { role: string }) {
-    return role === "user";
+export function isUser() {
+    return currentRole === "user";
 }
 
-export function isAdmin({role}: { role: string }) {
-    return role === "admin";
+export function isAdmin() {
+    return currentRole === "admin";
 }

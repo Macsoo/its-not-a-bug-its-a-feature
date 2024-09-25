@@ -1,35 +1,51 @@
 'use client';
 import "@/app/globals.css";
-import {isSignedIn, isAdmin, isUser} from "@/components/roles";
+import {DogsButtons} from "@/components/buttons";
 //import Image from "next/image";
+import {currentRole} from "@/components/roles";
 
-const role = "admin"; //role can be admin/user/guest
-
-export default function DogCard() {
+export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_description, key}: {
+    dog_id: number,
+    dog_name: string,
+    dog_age: number,
+    dog_gender: string,
+    dog_description: string,
+    key?: number
+}) {
     return (
         <div className={`card-dog`}>
             <p className={`w-[10%]`}>
-                Role: {role}
+                Role: {currentRole}
             </p>
-            <div id="dog-text" className={`flex flex-col items-center justify-around min-w-[70%]`}>
-                <p>
-                    Adatok
+            <div id="dog-text" className={`flex flex-col md:flex-row items-center justify-around min-w-[70%]`}
+                 key={dog_id}>
+                <p className={`min-w-[150px]`}>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colSpan={2}>{dog_name}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Kor:</b></td>
+                                <td>{dog_age} éves</td>
+                            </tr>
+                            <tr>
+                                <td><b>Nem:</b></td>
+                                <td>{dog_gender === 'male' ? 'Hím' : 'Nőstény'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </p>
-                <button id="descriptionButton">Tovább...</button>
+                <p className={`max-w-[60%] text-left`}>
+                    {dog_description}
+                </p>
+                <button id="descriptionButton">Tovább... {key}</button>
             </div>
-            {isSignedIn({role: role}) && (
-                <div className={`w-[10%] flex flex-col gap-5 items-center`}>
-                    {isUser({role: role}) && (
-                        <button id="adoptButton">Adoptálás</button>
-                    )}
-                    {isAdmin({role: role}) && (
-                        <div className="flex flex-col gap-5 items-center">
-                            <button id="editDogButton">Szerkesztés</button>
-                            <button id="deleteDogButton">Törlés</button>
-                        </div>
-                    )}
-                </div>
-            )}
+            <div className={`w-[10%]`}>
+                <DogsButtons/>
+            </div>
         </div>
     )
 }

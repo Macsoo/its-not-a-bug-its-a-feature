@@ -1,13 +1,10 @@
 'use client';
 import "../globals.css";
-import DogCard from "@/components/dogCard";
+import DogList from "@/components/dogList";
 
-export default function Login() {
+
+export default function Dogs() {
     return (
-        <div className="content">
-            <DogCard/>
-            <DogCard/>
-            <DogCard/>
-        </div>
+           <DogList></DogList>
     );
 }

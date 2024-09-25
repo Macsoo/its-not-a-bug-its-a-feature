@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from 'next/link';
 import {MobileNav, WideScreenNav} from "@/components/navigation";
 
-
 const itim = Itim({
     subsets: ["latin"],
     display: "swap",
