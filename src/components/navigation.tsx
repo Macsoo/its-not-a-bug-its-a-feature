@@ -2,8 +2,12 @@
 import "@/app/globals.css"
 import Link from "next/link";
 import {useState} from "react";
+import {isSignedIn} from "@/components/roles";
+
+const role = "admin"; //role can be admin/user/guest
 
 export function MobileNav() {
+
     const [isOpen, setIsOpen] = useState(false);
     const [menu, setMenu] = useState("↓");
 
@@ -23,9 +27,11 @@ export function MobileNav() {
                             <button id="about" onClick={toggle}>Rólunk</button>
                         </Link>
                     </div>
-                    <Link href="/account">
-                        <button id="account" onClick={toggle}>Fiókom</button>
-                    </Link>
+                    {!isSignedIn({role: role}) && (
+                        <Link href="/account">
+                            <button id="account" onClick={toggle}>Fiókom</button>
+                        </Link>
+                    )}
                 </>
             )}
             <button onClick={toggle} id="menu-toggle">{menu}</button>
@@ -44,9 +50,11 @@ export function WideScreenNav() {
                     <button id="about">Rólunk</button>
                 </Link>
             </div>
+            {!isSignedIn({role: role}) && (
             <Link href="/account">
                 <button id="account">Fiókom</button>
             </Link>
+                )}
         </div>
     )
 

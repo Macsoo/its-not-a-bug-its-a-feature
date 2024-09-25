@@ -28,14 +28,14 @@ export default async function RootLayout({children}: Readonly<{ children: React.
             <Link href="/"><h1
                 className={`cursor-pointer text-3xl md:text-5xl md:m-0 m-2 font-bold italic text-center`}>Lakatos
                 Brendonék Menhelye</h1></Link>
-            <div>
-                <Link href="/register">
-                    <button id="register">Regisztráció</button>
-                </Link>
-                <Link href="/login">
-                    <button id="login">Belépés</button>
-                </Link>
-            </div>
+                <div>
+                    <Link href="/register">
+                        <button id="register">Regisztráció</button>
+                    </Link>
+                    <Link href="/login">
+                        <button id="login">Belépés</button>
+                    </Link>
+                </div>
         </div>
         <div className={`md:block md:w-full hidden`}>
             <WideScreenNav/>

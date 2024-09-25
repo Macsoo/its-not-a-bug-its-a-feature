@@ -80,7 +80,7 @@ body {
 }
 
 .card-dog {
-    @apply text-textColor w-full m-auto p-5 rounded-lg flex flex-row justify-around items-center gap-5;
+    @apply text-textColor m-auto p-5 rounded-lg items-center gap-5 w-full flex flex-col justify-around text-center md:flex-row;
     background: #fcedd1;
 }
 .card-dog #dog-text {
@@ -92,3 +92,42 @@ th, td{
     @apply p-3;
     word-break: break-word;
 }
+
+#descriptionButton, #editDogButton{
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
+    background: #e5a55f;
+    color: #fdedd1;
+}
+
+#descriptionButton:hover,
+#descriptionButton:active,
+#editDogButton:hover,
+#editDogButton:active {
+    background: #c67839;
+    color: #fdc754;
+}
+
+#adoptButton, #adoptButton{
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
+    background: #babb91;
+    color: #5b6439;
+}
+
+#adoptButton:hover,
+#adoptButton:active {
+    background: #6f7146;
+    color: #bfcc8a;
+}
+
+#deleteDogButton, #deleteDogButton{
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
+    background: #F0756D;
+    color: #fff3f0;
+}
+
+#deleteDogButton:hover,
+#deleteDogButton:active {
+    background: #aa4241;
+    color: #fcc1b7;
+}
+
