@@ -19,7 +19,7 @@ export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_desc
             </p>
             <div id="dog-text" className={`flex flex-col md:flex-row items-center justify-around min-w-[70%]`}
                  key={dog_id}>
-                <p className={`min-w-[150px]`}>
+                <div className={`min-w-[150px]`}>
                     <table>
                         <thead>
                             <tr>
@@ -37,10 +37,10 @@ export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_desc
                             </tr>
                         </tbody>
                     </table>
-                </p>
-                <p className={`max-w-[60%] text-left`}>
+                </div>
+                <div className={`max-w-[60%] text-left`}>
                     {dog_description}
-                </p>
+                </div>
                 <button id="descriptionButton">Tovább... {key}</button>
             </div>
             <div className={`w-[10%]`}>
