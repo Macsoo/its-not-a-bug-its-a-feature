@@ -3,7 +3,7 @@ import DogCard from "@/components/dogCard";
 
 //Get dogs data here
 
-const dogs = [
+export const dogs = [
     {
         dog_id: 1,
         dog_name: "Karcsi",

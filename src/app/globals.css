@@ -19,7 +19,8 @@
     }
 
     .menu button,
-    .menu-mobile button{
+    .menu-mobile button,
+    #updateDog{
         @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
         background: #e5a55f;
         color: #fdedd1;
@@ -65,7 +66,10 @@ body {
 
 
 .menu button:hover,
-.menu button:active {
+.menu button:active,
+#updateDog:hover,
+#updateDog:active
+{
     background: #c67839;
     color: #fdc754;
 }
@@ -149,6 +153,14 @@ th, td{
 #requestTable  td,
 #requestTable th {
     @apply border-collapse border border-textColor;
+}
+
+.dogUpdateInput{
+    @apply border border-textColor p-0.5;
+}
+
+.form{
+    @apply flex flex-row items-center p-2;
 }
 
 
