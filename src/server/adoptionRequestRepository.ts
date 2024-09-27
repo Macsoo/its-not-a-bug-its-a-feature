@@ -41,7 +41,7 @@ export async function deleteRequest(id: number) {
     })
 }
 
-export async function update(request: AdoptionRequest) {
+export async function updateAdoption(request: AdoptionRequest) {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.update({
