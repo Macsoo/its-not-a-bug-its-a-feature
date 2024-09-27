@@ -40,8 +40,8 @@ export function RequestListUser({user_id}: {
         <table id="requestTable">
             <thead>
             <tr>
-                <th>Kérelem azonosító</th>
-                <th>Kérelem leadásának ideje</th>
+                <th className={`max-w-[60px]`}>ID</th>
+                <th >Kérelem leadásának ideje</th>
                 <th>Kutya Neve</th>
                 <th>Státusz</th>
             </tr>
@@ -68,11 +68,11 @@ export function RequestListAdmin() {
         <table id="requestTable">
             <thead>
             <tr>
-                <th>Kérelem azonosító</th>
-                <th>Kérelem leadásának ideje</th>
-                <th>Kutya azonosító</th>
-                <th>Felhasználói azonosító</th>
-                <th className={`min-w-[120px]`}>Felhasználó<br/>e-mail</th>
+                <th className={`max-w-[60px]`}>ID</th>
+                <th className={`max-w-[130px]`}>Kérelem leadásának ideje</th>
+                <th className={`max-w-[100px]`}>Kutya azonosító</th>
+                <th className={`max-w-[120px]`}>Felhasználói azonosító</th>
+                <th className={`max-w-[200px]`}>Felhasználó<br/>e-mail</th>
                 <th>Felhasználó telefonszám</th>
                 <th>Műveletek</th>
             </tr>

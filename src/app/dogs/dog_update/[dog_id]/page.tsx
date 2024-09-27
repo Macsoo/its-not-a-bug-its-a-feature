@@ -34,7 +34,7 @@ export default function UpdateDog({ params }: { params: { dog_id: string } }) {
     return (
         <div className={`content`}>
             <div className={`card`}>
-                <h2>{dog.dog_name} szerkesztése</h2>
+                <h2>{dog.dog_name}  adatainak szerkesztése</h2>
                 <form onSubmit={handleSubmit}>
                     <div className={`form`}>
                         <label htmlFor="name" className={`pr-1 w-[48px]`}>Név:</label>
