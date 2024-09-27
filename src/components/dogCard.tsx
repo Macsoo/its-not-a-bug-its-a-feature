@@ -4,13 +4,12 @@ import {DogsButtons} from "@/components/buttons";
 //import Image from "next/image";
 import {currentRole} from "@/components/roles";
 
-export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_description, key}: {
+export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_description}: {
     dog_id: number,
     dog_name: string,
     dog_age: number,
     dog_gender: string,
-    dog_description: string,
-    key?: number
+    dog_description: string
 }) {
     return (
         <div className={`card-dog`}>
@@ -41,7 +40,7 @@ export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_desc
                 <div className={`max-w-[60%] text-left`}>
                     {dog_description}
                 </div>
-                <button id="descriptionButton">Tovább... {key}</button>
+                <button id="descriptionButton">Tovább...</button>
             </div>
             <div className={`w-[10%]`}>
                 <DogsButtons/>
