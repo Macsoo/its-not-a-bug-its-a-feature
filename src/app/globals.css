@@ -18,8 +18,7 @@
         background: #df9348;
     }
 
-    .menu button,
-    .menu-mobile button{
+    button{
         @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
         background: #e5a55f;
         color: #fdedd1;
@@ -31,7 +30,7 @@
 }
 
 h2 {
-    @apply text-3xl;
+    @apply text-3xl pb-2;
 }
 
 p {
@@ -63,9 +62,10 @@ body {
 }
 
 
+button:hover,
+button:active
 
-.menu button:hover,
-.menu button:active {
+{
     background: #c67839;
     color: #fdc754;
 }
@@ -109,14 +109,16 @@ th, td{
     color: #fdc754;
 }
 
-#adoptButton, #adoptButton{
+#adoptButton, #updateDog{
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
     background: #babb91;
     color: #5b6439;
 }
 
 #adoptButton:hover,
-#adoptButton:active {
+#adoptButton:active,
+#updateDog:hover,
+#updateDog:active{
     background: #6f7146;
     color: #bfcc8a;
 }
@@ -149,6 +151,14 @@ th, td{
 #requestTable  td,
 #requestTable th {
     @apply border-collapse border border-textColor;
+}
+
+.dogUpdateInput{
+    @apply border border-textColor p-0.5 bg-orange-50;
+}
+
+.form{
+    @apply flex flex-row items-center p-2;
 }
 
 

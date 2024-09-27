@@ -1,4 +1,6 @@
-export const currentRole = "admin"
+const roles = ["guest","user", "admin"];
+
+export const currentRole = roles[1];
 
 export const currentUserId = 101;
 

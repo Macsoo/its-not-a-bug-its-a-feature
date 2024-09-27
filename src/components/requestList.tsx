@@ -40,19 +40,17 @@ export function RequestListUser({user_id}: {
         <table id="requestTable">
             <thead>
             <tr>
-                <th>Request ID</th>
-                <th>Request Date</th>
-                <th>Dog ID</th>
-                <th>Dog Name</th>
-                <th>Status</th>
+                <th className={`max-w-[60px]`}>ID</th>
+                <th >Kérelem leadásának ideje</th>
+                <th>Kutya Neve</th>
+                <th>Státusz</th>
             </tr>
             </thead>
             <tbody>
             {userRequests.map((request) => (
-                <tr>
+                <tr key={request.request_id}>
                     <td> {request.request_id}  </td>
                     <td> {request.request_date} </td>
-                    <td> {request.dog_id} </td>
                     <td> {request.dog_name} </td>
                     <td> {request.status ? 'Elfogadva' : 'Eredményre vár'} </td>
                 </tr>
@@ -70,18 +68,18 @@ export function RequestListAdmin() {
         <table id="requestTable">
             <thead>
             <tr>
-                <th>Request ID</th>
-                <th>Request Date</th>
-                <th>Dog ID</th>
-                <th>User ID</th>
-                <th>User Email</th>
-                <th>User Tel</th>
-                <th>Actions</th>
+                <th className={`max-w-[60px]`}>ID</th>
+                <th className={`max-w-[130px]`}>Kérelem leadásának ideje</th>
+                <th className={`max-w-[100px]`}>Kutya azonosító</th>
+                <th className={`max-w-[120px]`}>Felhasználói azonosító</th>
+                <th className={`max-w-[200px]`}>Felhasználó<br/>e-mail</th>
+                <th>Felhasználó telefonszám</th>
+                <th>Műveletek</th>
             </tr>
             </thead>
             <tbody>
             {pendingRequests.map((request) => (
-                <tr>
+                <tr key={request.request_id}>
                     <td> {request.request_id}  </td>
                     <td> {request.request_date} </td>
                     <td> {request.dog_id} </td>

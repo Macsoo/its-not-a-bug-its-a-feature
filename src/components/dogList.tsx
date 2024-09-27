@@ -3,7 +3,7 @@ import DogCard from "@/components/dogCard";
 
 //Get dogs data here
 
-const dogs = [
+export const dogs = [
     {
         dog_id: 1,
         dog_name: "Karcsi",
@@ -31,14 +31,15 @@ const DogList: React.FC = () => {
     return (
         <div className={`content`}>
             {dogs.map((dog) => (
+                <div className={`w-full`} key={dog.dog_id}>
                 <DogCard
-                    key={dog.dog_id}
                     dog_id={dog.dog_id}
                     dog_name={dog.dog_name}
                     dog_age={dog.dog_age}
                     dog_gender={dog.dog_gender}
                     dog_description={dog.dog_description}
                 />
+                </div>
             ))}
         </div>
     );
