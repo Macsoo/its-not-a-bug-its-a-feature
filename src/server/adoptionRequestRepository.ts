@@ -3,7 +3,7 @@
 import {Dog, PrismaClient, User} from '@prisma/client';
 import type {AdoptionRequest} from '@prisma/client';
 
-export async function add(request: AdoptionRequest) {
+export async function addRequest(request: AdoptionRequest) {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.create({
@@ -12,7 +12,7 @@ export async function add(request: AdoptionRequest) {
     })
 }
 
-export async function get(id: number) {
+export async function getRequest(id: number) {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
         return trx.adoptionRequest.findFirst({
@@ -23,10 +23,10 @@ export async function get(id: number) {
     });
 }
 
-export async function list() {
+export async function listAllRequest() {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
-        trx.adoptionRequest.findMany();
+        return trx.adoptionRequest.findMany();
     })
 }
 
@@ -41,7 +41,13 @@ export async function deleteRequest(id: number) {
     })
 }
 
-export async function updateAdoption(request: AdoptionRequest) {
+export async function updateAdoption(request: {
+    id: number,
+    userId?: number,
+    dogId?: number,
+    requestDate?: Date,
+    approved?: boolean
+}) {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.update({
@@ -53,10 +59,9 @@ export async function updateAdoption(request: AdoptionRequest) {
     });
 }
 
-export async function request(user: User, dog: Dog) {
+export async function requestAdoption(user: User, dog: Dog) {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
-        // const request = await
         trx.adoptionRequest.create({
             data: {
                 userId: user.id,
@@ -64,29 +69,10 @@ export async function request(user: User, dog: Dog) {
                 requestDate: new Date(),
             }
         })
-        // if (request === null || request === undefined) {
-        //     return;
-        // }
-        // trx.dog.update({
-        //     data: {
-        //         adoptionRequests: request.id
-        //     },
-        //     where: {
-        //         id: dog.id
-        //     }
-        // })
-        // trx.user.update({
-        //     data: {
-        //         adoptionRequests: request.id
-        //     },
-        //     where: {
-        //         id: user.id
-        //     }
-        // })
     })
 }
 
-export async function approve(request: AdoptionRequest) {
+export async function approveRequest(request: AdoptionRequest) {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         const foundRequest = await trx.adoptionRequest.findFirst({
@@ -107,13 +93,13 @@ export async function approve(request: AdoptionRequest) {
         });
         trx.adoptionRequest.deleteMany({
             where: {
-                dogId: foundRequest.id,
+                dogId: foundRequest.dogId,
             }
         })
     })
 }
 
-export async function reject(request: AdoptionRequest) {
+export async function rejectRequest(request: AdoptionRequest) {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.delete({

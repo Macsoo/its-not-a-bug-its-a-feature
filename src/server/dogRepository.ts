@@ -3,7 +3,7 @@
 import {Gender, PrismaClient} from '@prisma/client';
 import type {Dog, DogImage} from '@prisma/client';
 
-export async function add(params: Dog & DogImage) {
+export async function addDog(params: Dog & DogImage) {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         const img = await trx.dogImage.create({
@@ -34,18 +34,18 @@ export async function add(params: Dog & DogImage) {
     });
 }
 
-export async function get(dogId: number) {
+export async function getDog(dogId: number) {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
         return trx.dog.findFirst({
             where: {
                 id: dogId
             },
-        });
+        })
     });
 }
 
-export async function list() {
+export async function listAllDogs() {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
         return trx.dog.findMany();
@@ -54,21 +54,16 @@ export async function list() {
 
 export async function deleteDog(dogId: number) {
     const prisma = new PrismaClient();
-    return prisma.$transaction(async (trx) => {
-        try {
-            return await trx.dog.delete({
-                where: {
-                    id: dogId,
-                },
-            });
-        } catch (error) {
-            console.error('Error deleting dog:', error);
-            throw error;
-        }
+    prisma.$transaction(async (trx) => {
+        trx.dog.delete({
+            where: {
+                id: dogId,
+            },
+        });
     });
 }
 
-export async function update(params: {
+export async function updateDog(params: {
     dogId: number,
     chipID?: string,
     name?: string,
@@ -79,7 +74,7 @@ export async function update(params: {
     adopted?: boolean
 }) {
     const prisma = new PrismaClient();
-    return prisma.$transaction(async (trx) => {
+    prisma.$transaction(async (trx) => {
         await trx.dog.update({
             data: params,
             where: {
@@ -102,7 +97,7 @@ export async function adopted() {
 
 export async function addPictures(dog: Dog, pictures: DogImage[]) {
     const prisma = new PrismaClient();
-    const selectedDog = await get(dog.id);
+    const selectedDog = await getDog(dog.id);
     if (selectedDog === null) {
         throw Error('Not valid dog was given');
     }
