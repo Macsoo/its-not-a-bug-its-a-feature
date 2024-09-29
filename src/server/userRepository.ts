@@ -13,12 +13,12 @@ export async function registerUser(email: string, password: string) {
         password: password,
     });
     if (error || data.session || !data.user) {
-        redirect('/register?fail=true');
+        return "Hiba történt a regisztráció során. Már van regisztrálva az email?";
     }
-    redirect('/')
+    return "";
 }
 
-export async function logIn(email: string, password: string) {
+export async function logInUser(email: string, password: string): Promise<string> {
     const supabase = createClient(
         process.env.SUPABASE_URL!,
         process.env.SUPABASE_ANON_KEY!
@@ -28,9 +28,7 @@ export async function logIn(email: string, password: string) {
         password: password,
     });
     if (error || !data.session) {
-        redirect('/login?fail=true');
+        return "Hiba történt a bejelentkezés során. Talán téves jelszó?";
     }
     redirect('/');
 }
-
-export async function refreshToken() {}

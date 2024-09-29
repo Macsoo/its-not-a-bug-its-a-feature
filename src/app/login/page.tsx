@@ -1,8 +1,7 @@
 'use client';
 import "../globals.css";
-import {useState} from "react";
-import {logIn} from "@/server/userRepository";
-import {useSearchParams} from "next/navigation";
+import {useEffect, useState} from "react";
+import {logInUser} from "@/server/userRepository";
 
 function Error({error}: {error?: string}) {
     if (error) {
@@ -15,12 +14,25 @@ function Error({error}: {error?: string}) {
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const searchParams = useSearchParams();
-    const deferror = searchParams.get("fail") ? "Hiba történt a regisztráció során." : undefined;
+    const [error, setError] = useState("");
+    const [tryLogin, setTryLogin] = useState(false);
+    useEffect(() => {
+        setError("");
+    }, [email, password]);
+    useEffect(() => {
+        if (!tryLogin) return;
+        setTryLogin(false);
+        (async () => {
+            const error = await logInUser(email, password);
+            if (error) {
+                setError(error);
+            }
+        })();
+    }, [tryLogin]);
     return (
         <div className="content">
             <p>Belépés</p>
-            <form className={`card flex flex-col items-center`}>
+            <div className={`card flex flex-col items-center`}>
                 <div className={`m-2 flex flex-col items-start`}>
                     <label htmlFor={"email"}>Email</label>
                     <input type={"email"} id={"email"} value={email} className={`bg-cardBorderColor`}
@@ -31,13 +43,13 @@ export default function LoginPage() {
                     <input type={"password"} id={"password"} value={password} className={`bg-cardBorderColor`}
                            onChange={(e) => setPassword(e.target.value)}/>
                 </div>
-                <Error error={deferror}/>
+                <Error error={error}/>
                 <div className={`m-2`}>
-                    <button type={"submit"} className={`btn btn-primary`} onClick={() => logIn(email, password)}>
+                    <button type={"submit"} className={`btn btn-primary`} onClick={() => setTryLogin(true)}>
                         Belépés
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     );
 }
