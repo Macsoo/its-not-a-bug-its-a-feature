@@ -93,12 +93,15 @@ export async function updateDog(params: {
     });
 }
 
-export async function adopted(): Promise<void> {
+export async function adoptDog(dogId: number): Promise<void> {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
-        await trx.dog.findFirst({
-            where: {
+        await trx.dog.update({
+            data: {
                 adopted: true,
+            },
+            where: {
+                id: dogId,
             }
         })
     })
