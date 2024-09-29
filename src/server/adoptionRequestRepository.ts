@@ -3,7 +3,7 @@
 import {PrismaClient} from '@prisma/client';
 import type {AdoptionRequest} from '@prisma/client';
 
-export async function addRequest(request: { userId: number, dogId: number }): Promise<void> {
+export async function addRequest(request: { userId: string, dogId: number }): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         const testing = trx.adoptionRequest.findFirst({
@@ -47,7 +47,7 @@ export async function getDogRequests(dogId: number) {
     })
 }
 
-export async function getUserRequests(userId: number) {
+export async function getUserRequests(userId: string) {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
         return trx.adoptionRequest.findMany({
@@ -76,7 +76,7 @@ export async function deleteRequestById(id: number): Promise<void> {
     })
 }
 
-export async function deleteRequestsByUser(userId: number): Promise<void> {
+export async function deleteRequestsByUser(userId: string): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.deleteMany({
@@ -100,7 +100,7 @@ export async function deleteRequestsByDogId(dogId: number): Promise<void> {
 
 export async function updateRequest(request: {
     id: number,
-    userId?: number,
+    userId?: string,
     dogId?: number,
     requestDate?: Date,
     approved?: boolean
