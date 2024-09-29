@@ -10,14 +10,14 @@ export default function UpdateDog({ params }: { params: { dog_id: string } }) {
     const dogId = parseInt(params.dog_id, 10);
     const dog = dogs.find((d) => d.dog_id === dogId);
 
+    const [name, setName] = useState(dog?.dog_name);
+    const [age, setAge] = useState(dog?.dog_age);
+    const [gender, setGender] = useState(dog?.dog_gender);
+    const [description, setDescription] = useState(dog?.dog_description);
+
     if (!dog) {
         return <div>Kutya nem található!</div>;
     }
-
-    const [name, setName] = useState(dog.dog_name);
-    const [age, setAge] = useState(dog.dog_age);
-    const [gender, setGender] = useState(dog.dog_gender);
-    const [description, setDescription] = useState(dog.dog_description);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

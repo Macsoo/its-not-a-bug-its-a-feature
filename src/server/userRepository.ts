@@ -15,6 +15,7 @@ export async function registerUser(email: string, password: string) {
     if (error || data.session || !data.user) {
         redirect('/500')
     }
+    redirect('/')
 }
 
 export async function logIn(email: string, password: string) {
@@ -29,8 +30,7 @@ export async function logIn(email: string, password: string) {
     if (error || !data.session) {
         redirect('/500')
     }
-
-    return data.session;
+    redirect('/');
 }
 
 export async function refreshToken() {}

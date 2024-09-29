@@ -3,7 +3,7 @@
 import {UpdateButton, DeleteButton, AdoptButton} from "@/components/dogsButton";
 import {isSignedIn} from "@/components/roles";
 
-export default async function DogUpdate({params}: { params: { dog_id: string } }) {
+export default function DogUpdate({params}: { params: { dog_id: string } }) {
     const dogId = parseInt(params.dog_id, 10);
 
     const dog = dogs.find((d) => d.dog_id === dogId);
