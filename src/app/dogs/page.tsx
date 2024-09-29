@@ -1,7 +1,10 @@
 'use client';
 import "../globals.css";
-export default function Login() {
+import DogList from "@/components/dogList";
+
+
+export default function DogsPage() {
     return (
-        <p>Ide jönnek a kutyusok</p>
+           <DogList></DogList>
     );
 }

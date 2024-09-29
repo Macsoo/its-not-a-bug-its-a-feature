@@ -1,16 +1,10 @@
 'use client';
 import "./globals.css";
-import {database} from "@/server/database";
-import {useState} from "react";
-import {useServerAction} from "@/utils";
 
 export default function Home() {
-    const [databaseConnection, setDatabaseConnection] = useState("Az adatbázis kapcsolat tölt...");
-    useServerAction(async () => {
-        setDatabaseConnection("Az adatbázis kapcsolat: " + await database());
-    });
     return (
-        <div>
+        <div className={`content`}>
+        <div className="card">
             <h2>Üdvözöljük a Lakatos Brendonék Menhelyének weboldalán!</h2>
             <p>Örömmel látjuk, hogy ellátogatott hozzánk!</p>
             <p>A Lakatos Brendonék Menhelyének célja, hogy biztonságos és szeretetteljes
@@ -22,7 +16,7 @@ export default function Home() {
                 támogathat minket önkéntes munkával vagy adományokkal.</p>
 
             <p>Köszönjük, hogy hozzájárul a kutyák boldogságához és jólétéhez!</p>
-            <p>{databaseConnection}</p>
+        </div>
         </div>
     );
 }
