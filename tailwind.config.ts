@@ -12,7 +12,8 @@ const config: Config = {
         background: "#f7d6a8",
         foreground: "#edc488",
         textColor: "#92400e",
-        secondTextColor:"#c67839"
+        secondTextColor: "#c67839",
+        cardBorderColor: "#fcedd1"
       },
     },
   },

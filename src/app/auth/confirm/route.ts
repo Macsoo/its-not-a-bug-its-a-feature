@@ -23,5 +23,6 @@ export async function GET(request: NextRequest) {
             return NextResponse.redirect(redirectTo)
         }
     }
-    return NextResponse.redirect('/')
+
+    return NextResponse.redirect(redirectTo)
 }
