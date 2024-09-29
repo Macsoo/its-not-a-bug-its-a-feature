@@ -30,6 +30,7 @@ export default function RegisterPage() {
             return;
         }
         (async () => {
+            setError("Kérjük várjon...");
             const error = await registerUser(email, password)
             if (error) {
                 setError(error);

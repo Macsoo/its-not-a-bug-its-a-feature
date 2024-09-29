@@ -23,6 +23,6 @@ export async function GET(request: NextRequest) {
             return NextResponse.redirect(redirectTo)
         }
     }
-
+    redirectTo.pathname = '/500';
     return NextResponse.redirect(redirectTo)
 }
