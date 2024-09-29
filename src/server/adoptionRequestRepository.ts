@@ -6,6 +6,15 @@ import type {AdoptionRequest} from '@prisma/client';
 export async function addRequest(request: { userId: number, dogId: number }): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
+        const testing = trx.adoptionRequest.findFirst({
+            where: {
+                userId: request.userId,
+                dogId: request.dogId,
+            }
+        })
+        if (testing !== null) {
+            throw Error("Adoption already exists");
+        }
         trx.adoptionRequest.create({
             data: {
                 userId: request.userId,
@@ -105,19 +114,6 @@ export async function updateRequest(request: {
             }
         });
     });
-}
-
-export async function requestAdoption(userId: number, dogId: number): Promise<void> {
-    const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
-        trx.adoptionRequest.create({
-            data: {
-                userId: userId,
-                dogId: dogId,
-                requestDate: new Date(),
-            }
-        })
-    })
 }
 
 export async function approveRequest(requestId: number): Promise<void> {
