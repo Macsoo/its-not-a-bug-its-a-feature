@@ -11,8 +11,6 @@ export async function addDog(params: {
     breed: string,
     description: string,
     adopted: boolean,
-    primaryImgId: number,
-    imgDogId: number,
     imgPath: string
 }): Promise<void> {
     const prisma = new PrismaClient();
@@ -75,7 +73,7 @@ export async function deleteDog(dogId: number): Promise<void> {
 }
 
 export async function updateDog(params: {
-    dogId: number,
+    id: number,
     chipID?: string,
     name?: string,
     age?: number,
@@ -89,7 +87,7 @@ export async function updateDog(params: {
         await trx.dog.update({
             data: params,
             where: {
-                id: params.dogId,
+                id: params.id,
             }
         })
     });
