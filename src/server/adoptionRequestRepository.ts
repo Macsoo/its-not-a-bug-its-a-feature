@@ -1,18 +1,22 @@
 'use server';
 
-import {Dog, PrismaClient, User} from '@prisma/client';
+import {PrismaClient} from '@prisma/client';
 import type {AdoptionRequest} from '@prisma/client';
 
-export async function addRequest(request: AdoptionRequest) {
+export async function addRequest(request: { userId: number, dogId: number }): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.create({
-            data: request,
+            data: {
+                userId: request.userId,
+                dogId: request.dogId,
+                requestDate: new Date
+            }
         })
     })
 }
 
-export async function getRequest(id: number) {
+export async function getRequest(id: number): Promise<AdoptionRequest | null> {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
         return trx.adoptionRequest.findFirst({
@@ -23,6 +27,28 @@ export async function getRequest(id: number) {
     });
 }
 
+export async function getDogRequests(dogId: number) {
+    const prisma = new PrismaClient();
+    return prisma.$transaction(async (trx) => {
+        return trx.adoptionRequest.findMany({
+            where: {
+                dogId: dogId,
+            }
+        })
+    })
+}
+
+export async function getUserRequests(userId: number) {
+    const prisma = new PrismaClient();
+    return prisma.$transaction(async (trx) => {
+        return trx.adoptionRequest.findMany({
+            where: {
+                userId: userId,
+            }
+        })
+    })
+}
+
 export async function listAllRequest() {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
@@ -30,7 +56,7 @@ export async function listAllRequest() {
     })
 }
 
-export async function deleteRequest(id: number) {
+export async function deleteRequestById(id: number): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.delete({
@@ -41,13 +67,35 @@ export async function deleteRequest(id: number) {
     })
 }
 
-export async function updateAdoption(request: {
+export async function deleteRequestsByUser(userId: number): Promise<void> {
+    const prisma = new PrismaClient();
+    prisma.$transaction(async (trx) => {
+        trx.adoptionRequest.deleteMany({
+            where: {
+                userId: userId,
+            }
+        })
+    })
+}
+
+export async function deleteRequestsByDogId(dogId: number): Promise<void> {
+    const prisma = new PrismaClient();
+    prisma.$transaction(async (trx) => {
+        trx.adoptionRequest.deleteMany({
+            where: {
+                dogId: dogId,
+            }
+        })
+    })
+}
+
+export async function updateRequest(request: {
     id: number,
     userId?: number,
     dogId?: number,
     requestDate?: Date,
     approved?: boolean
-}) {
+}): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.update({
@@ -59,25 +107,25 @@ export async function updateAdoption(request: {
     });
 }
 
-export async function requestAdoption(user: User, dog: Dog) {
+export async function requestAdoption(userId: number, dogId: number): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.create({
             data: {
-                userId: user.id,
-                dogId: dog.id,
+                userId: userId,
+                dogId: dogId,
                 requestDate: new Date(),
             }
         })
     })
 }
 
-export async function approveRequest(request: AdoptionRequest) {
+export async function approveRequest(requestId: number): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         const foundRequest = await trx.adoptionRequest.findFirst({
             where: {
-                id: request.id,
+                id: requestId,
             }
         });
         if (foundRequest === null) {
@@ -88,7 +136,7 @@ export async function approveRequest(request: AdoptionRequest) {
                 adopted: true,
             },
             where: {
-                id: request.id,
+                id: requestId,
             }
         });
         trx.adoptionRequest.deleteMany({
@@ -99,12 +147,12 @@ export async function approveRequest(request: AdoptionRequest) {
     })
 }
 
-export async function rejectRequest(request: AdoptionRequest) {
+export async function rejectRequest(requestId: number): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.adoptionRequest.delete({
             where: {
-                id: request.id,
+                id: requestId,
             }
         });
     })

@@ -3,15 +3,26 @@
 import {Gender, PrismaClient} from '@prisma/client';
 import type {Dog, DogImage} from '@prisma/client';
 
-export async function addDog(params: Dog & DogImage) {
+export async function addDog(params: {
+    chipId: string,
+    name: string,
+    age: number,
+    gender: Gender,
+    breed: string,
+    description: string,
+    adopted: boolean,
+    primaryImgId: number,
+    imgDogId: number,
+    imgPath: string
+}): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
-        const img = await trx.dogImage.create({
+        const img: DogImage = await trx.dogImage.create({
             data: {
-                path: params.path
+                path: params.imgPath
             }
         });
-        const dog = await trx.dog.create({
+        const dog: Dog = await trx.dog.create({
             data: {
                 chipId: params.chipId,
                 name: params.name,
@@ -34,7 +45,7 @@ export async function addDog(params: Dog & DogImage) {
     });
 }
 
-export async function getDog(dogId: number) {
+export async function getDog(dogId: number): Promise<Dog | null> {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
         return trx.dog.findFirst({
@@ -52,7 +63,7 @@ export async function listAllDogs() {
     });
 }
 
-export async function deleteDog(dogId: number) {
+export async function deleteDog(dogId: number): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.dog.delete({
@@ -72,7 +83,7 @@ export async function updateDog(params: {
     breed?: string,
     description?: string,
     adopted?: boolean
-}) {
+}): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         await trx.dog.update({
@@ -84,7 +95,7 @@ export async function updateDog(params: {
     });
 }
 
-export async function adopted() {
+export async function adopted(): Promise<void> {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
         await trx.dog.findFirst({
@@ -95,19 +106,18 @@ export async function adopted() {
     })
 }
 
-export async function addPictures(dog: Dog, pictures: DogImage[]) {
+export async function addPictures(dogId: number, picturesPath: string[]): Promise<void> {
     const prisma = new PrismaClient();
-    const selectedDog = await getDog(dog.id);
+    const selectedDog = await getDog(dogId);
     if (selectedDog === null) {
-        throw Error('Not valid dog was given');
+        throw Error('Not a valid dog was given');
     }
     prisma.$transaction(async (trx) => {
-        pictures.forEach(picture => {
+        picturesPath.forEach(path => {
             trx.dogImage.create({
                 data: {
-                    id: picture.id,
                     dogId: selectedDog.id,
-                    path: picture.path
+                    path: path
                 }
             })
         })

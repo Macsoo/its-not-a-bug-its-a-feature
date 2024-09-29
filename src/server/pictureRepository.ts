@@ -2,16 +2,21 @@
 
 import {DogImage, PrismaClient} from "@prisma/client";
 
-export async function addPicture(picture: DogImage, isPrimary: boolean) {
+export async function addPicture(picture: { dogId: number, path: string }, isPrimary: boolean = false): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
-        const img = await trx.dogImage.create({
+        const img: DogImage = await trx.dogImage.create({
             data: picture,
         })
         if (isPrimary) {
             if (picture.dogId === null) {
                 throw Error("Given picture has no dogId");
             }
+            trx.dogImage.deleteMany({
+                where: {
+                    dogId: img.dogId
+                }
+            });
             trx.dog.update({
                 data: {
                     primaryImgId: img.id
@@ -19,12 +24,12 @@ export async function addPicture(picture: DogImage, isPrimary: boolean) {
                 where: {
                     id: picture.dogId
                 }
-            })
+            });
         }
     })
 }
 
-export async function getPicture(pictureId: number) {
+export async function getPicture(pictureId: number): Promise<DogImage | null> {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
         return trx.dogImage.findFirst({
@@ -42,7 +47,7 @@ export async function listAllPictures() {
     })
 }
 
-export async function deletePicture(pictureId: number) {
+export async function deletePicture(pictureId: number): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.dogImage.delete({
@@ -53,7 +58,7 @@ export async function deletePicture(pictureId: number) {
     })
 }
 
-export async function updatePicture(picture: { id: number, dogId?: number, path?: string }) {
+export async function updatePicture(picture: { id: number, dogId?: number, path?: string }): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.dogImage.update({
