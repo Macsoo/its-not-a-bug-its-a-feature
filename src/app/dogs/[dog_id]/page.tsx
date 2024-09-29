@@ -1,13 +1,13 @@
 'use client';
  import {dogs} from "@/components/dogList";
 import {UpdateButton, DeleteButton, AdoptButton} from "@/components/dogsButton";
-import {isSignedIn} from "@/components/roles";
+import {useContext} from "react";
+import {SessionContext} from "@/components/sessionContext";
 
 export default function DogUpdate({params}: { params: { dog_id: string } }) {
+    const session = useContext(SessionContext);
     const dogId = parseInt(params.dog_id, 10);
-
     const dog = dogs.find((d) => d.dog_id === dogId);
-
 
     if (!dog) {
         return <div>Kutya nem található!</div>;
@@ -34,12 +34,11 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                 <div>
                     Képek ide
                 </div>
-                    {isSignedIn() && (
+                    {session.isSignedIn() && (
                         <div className={`flex flex-row gap-5 items-center justify-center`}>
                             <AdoptButton dog_id={dog.dog_id}/>
                             <UpdateButton dog_id={dog.dog_id}/>
                             <DeleteButton dog_id={dog.dog_id}/>
-
                         </div>
                     )}
                 </div>

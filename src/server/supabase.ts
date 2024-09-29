@@ -1,14 +1,21 @@
-import { createBrowserClient, createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+'use server';
+import {createBrowserClient, createServerClient} from '@supabase/ssr'
+import {cookies} from 'next/headers'
 
-export function createClient() {
-    return createBrowserClient(
+export async function getUser() {
+    const supabase = createBrowserClient(
         process.env.SUPABASE_URL!,
         process.env.SUPABASE_ANON_KEY!,
     )
+    const {data, error} = await supabase.auth.getUser();
+    if (error || !data.user) {
+        return undefined;
+    } else {
+        return data.user;
+    }
 }
 
-export function createServer() {
+export async function createServer() {
     const cookieStore = cookies()
 
     return createServerClient(

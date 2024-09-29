@@ -1,9 +1,10 @@
 'use client';
 import "@/app/globals.css";
 //import Image from "next/image";
-import {currentRole, isSignedIn} from "@/components/roles";
 import Link from "next/link";
 import {UpdateButton, DeleteButton,AdoptButton} from "@/components/dogsButton"
+import {useContext} from "react";
+import {SessionContext} from "@/components/sessionContext";
 
 export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_description}: {
     dog_id: number,
@@ -12,10 +13,11 @@ export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_desc
     dog_gender: string,
     dog_description: string
 }) {
+    const session = useContext(SessionContext);
     return (
         <div className={`card-dog`}>
             <p className={`w-[10%]`}>
-                Role: {currentRole}
+                Role: {!session.isSignedIn() ? "guest" : (session.isUser() ? "user" : "admin")}
             </p>
             <div id="dog-text" className={`flex flex-col md:flex-row items-center justify-around min-w-[70%]`}
                  key={dog_id}>
@@ -46,7 +48,7 @@ export default function DogCard({dog_id, dog_name, dog_age, dog_gender, dog_desc
                 </Link>
             </div>
             <div className={`w-[10%]`}>
-                {isSignedIn() && (
+                {session.isSignedIn() && (
                     <div className={`flex flex-col gap-5 items-center`}>
                         <AdoptButton dog_id={dog_id}/>
                         <UpdateButton dog_id={dog_id}/>
