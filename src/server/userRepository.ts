@@ -13,7 +13,7 @@ export async function registerUser(email: string, password: string) {
         password: password,
     });
     if (error || data.session || !data.user) {
-        redirect('/500')
+        redirect('/register?fail=true');
     }
     redirect('/')
 }
@@ -28,7 +28,7 @@ export async function logIn(email: string, password: string) {
         password: password,
     });
     if (error || !data.session) {
-        redirect('/500')
+        redirect('/login?fail=true');
     }
     redirect('/');
 }
