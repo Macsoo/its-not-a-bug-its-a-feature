@@ -14,7 +14,7 @@ export default function AccountPage() {
     return (
         <div className="content">
             <div className="card">
-                <p>{session.user?.email}</p>
+                <p>{JSON.stringify(session.user)}</p>
                 <h2>Jogosultság: {session.isAdmin() ? "Admin" : "Felhasználó"}</h2>
                 {session.isUser() && (
                     <p>Felhasználói azonosítószám: {session.user?.id}</p>
@@ -22,7 +22,7 @@ export default function AccountPage() {
             </div>
             <div className={`card w-full`}>
                 <h2>{session.isAdmin() ? "Felhasználók által leadott kérvények:" : "Leadott kérvényeim:"}</h2>
-                {session.isAdmin() ? <RequestListAdmin/> : <RequestListUser user_id={101}/>}
+                {session.isAdmin() ? <RequestListAdmin/> : <RequestListUser user_id={session.user?.id}/>}
             </div>
         </div>
     );

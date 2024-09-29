@@ -53,6 +53,9 @@ export async function getUserRequests(userId: string) {
         return trx.adoptionRequest.findMany({
             where: {
                 userId: userId,
+            },
+            include: {
+                dog: true
             }
         })
     })
@@ -61,7 +64,12 @@ export async function getUserRequests(userId: string) {
 export async function listAllRequest() {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
-        return trx.adoptionRequest.findMany();
+        return trx.adoptionRequest.findMany({
+            include: {
+                dog: true,
+                user: true,
+            }
+        });
     })
 }
 
