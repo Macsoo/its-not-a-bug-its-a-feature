@@ -3,15 +3,19 @@ import {UpdateButton, DeleteButton, AdoptButton} from "@/components/dogsButton";
 import {useContext, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {getDog} from "@/server/dogRepository";
-import {Dog} from "@prisma/client";
+import {listDogPictures} from "@/server/pictureRepository";
+import {Dog, DogImage} from "@prisma/client";
 import {useServerAction} from "@/utils";
+import Image from "next/image";
 
 export default function DogUpdate({params}: { params: { dog_id: string } }) {
     const session = useContext(SessionContext);
     const dogId = parseInt(params.dog_id, 10);
     const [dog, setDog] = useState<Dog | null>(null);
+    const [images, setImages] = useState<DogImage[]>([]);
     useServerAction(async () => {
         setDog(await getDog(dogId));
+        setImages(await listDogPictures(dogId));
     });
 
     return <>{dog &&
@@ -32,8 +36,11 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                         </tbody>
                     </table>
                     <p>{dog.description}</p>
-                    <div>
-                        Képek ide
+                    <p className={`font-bold`}>Képek: </p>
+                    <div className={`relative min-h-32`}>
+                        {images.map(image => {
+                            return <Image key={image.id} src={image.path} alt={``}  width={0} height={0} sizes={`100vw`} className={`w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>;
+                        })}
                     </div>
                     {session.isSignedIn() && (
                         <div className={`flex flex-row gap-5 items-center justify-center`}>
@@ -45,5 +52,5 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                 </div>
             </div>
         </div>)
-    }</>;
+    }{!dog && <p>A keresett kutya nem található!</p>}</>;
 }
