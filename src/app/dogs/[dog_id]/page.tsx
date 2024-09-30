@@ -14,31 +14,27 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
         setDog(await getDog(dogId));
     });
 
-    if (!dog) {
-        return <div>Kutya nem található!</div>;
-    }
-
-    return (
-        <div className={`content`}>
+    return <>{dog &&
+        (<div className={`content`}>
             <div className={`card`}>
                 <h2>{dog.name}</h2>
                 <div className={`flex flex-col`}>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td className={`w-[60px]`}><b>Kor:</b></td>
-                        <td>{dog.age} éves</td>
-                    </tr>
-                    <tr>
-                        <td><b>Nem:</b></td>
-                        <td>{dog.gender === 'Male' ? 'Hím' : 'Nőstény'}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td className={`w-16`}><b>Kor:</b></td>
+                            <td>{dog.age} éves</td>
+                        </tr>
+                        <tr>
+                            <td className={`w-16`}><b>Nem:</b></td>
+                            <td>{dog.gender === 'Male' ? 'Hím' : 'Nőstény'}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <p>{dog.description}</p>
-                <div>
-                    Képek ide
-                </div>
+                    <div>
+                        Képek ide
+                    </div>
                     {session.isSignedIn() && (
                         <div className={`flex flex-row gap-5 items-center justify-center`}>
                             <AdoptButton dog_id={dog.id}/>
@@ -48,6 +44,6 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                     )}
                 </div>
             </div>
-        </div>
-    );
+        </div>)
+    }</>;
 }

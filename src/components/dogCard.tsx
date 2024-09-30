@@ -11,9 +11,9 @@ export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
     const session = useContext(SessionContext);
     return (
         <div className={`card-dog`}>
-            <p className={`w-[10%]`}>
-                <Image src={dogImage.path} alt={dog.name} width={700} height={525}/>
-            </p>
+            <div className={`relative h-32 w-auto md:h-auto md:w-[10%]`}>
+                <Image src={dogImage.path} alt={dog.name} width={0} height={0} sizes={`100vw`} className={`w-auto h-full md:w-full md:h-auto`}/>
+            </div>
             <div id="dog-text" className={`flex flex-col md:flex-row items-center justify-around min-w-[70%]`}
                  key={dog.id}>
                 <div className={`min-w-[150px]`}>
