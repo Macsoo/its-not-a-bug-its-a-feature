@@ -22,7 +22,7 @@ export default function DogList() {
     });
     return (
         <div className={`content`}>
-            {dogsWithImages.map((dog) => (
+            {dogsWithImages.length > 0 && dogsWithImages.map((dog) => (
                 <div className={`w-full`} key={dog.dog.id}>
                     <DogCard
                         dog={dog.dog}
@@ -30,6 +30,7 @@ export default function DogList() {
                     />
                 </div>
             ))}
+            {dogsWithImages.length === 0 && <p>Kutyák betöltése folyamatban...</p>}
         </div>
     );
 };
