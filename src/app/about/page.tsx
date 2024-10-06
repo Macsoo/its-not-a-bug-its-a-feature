@@ -43,7 +43,7 @@ export default function AboutPage() {
                                 <b>Email:</b>
                             </td>
                             <td className={`text-left`}>
-                                info@lakatosbrendonmenhely.hu
+                                info@inabiaf.org
                             </td>
                         </tr>
                         </tbody>

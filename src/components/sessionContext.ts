@@ -14,11 +14,11 @@ export class Session {
     public isAdmin(): boolean {
         if (this.user === undefined) return false;
         console.log(this.user.email);
-        return this.user.email === 'admin@inabiaf.org';
+        return this.user.app_metadata["admin"] === true;
     }
     public isUser(): boolean {
         if (this.user === undefined) return false;
-        return this.user.email !== 'admin@inabiaf.org';
+        return this.user.app_metadata["admin"] !== true;
     }
 }
 

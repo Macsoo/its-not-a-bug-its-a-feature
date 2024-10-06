@@ -22,6 +22,7 @@ export async function logInUser(email: string, password: string): Promise<User |
         password: password,
     });
     if (error || !data.session) {
+        console.log(error);
         return null;
     }
     return data.user;

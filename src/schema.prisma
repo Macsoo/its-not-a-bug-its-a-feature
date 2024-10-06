@@ -21,7 +21,7 @@ model Dog {
   adopted          Boolean           @default(false)
   primaryImgId     Int               @unique
   adoptionRequests AdoptionRequest[]
-  primaryImg       DogImage          @relation("primary", fields: [primaryImgId], references: [id])
+  primaryImg       DogImage          @relation("primary", fields: [primaryImgId], references: [id], onUpdate: NoAction, onDelete: NoAction)
   images           DogImage[]        @relation("images")
 
   @@schema("public")
@@ -29,10 +29,10 @@ model Dog {
 
 model DogImage {
   id        Int    @id @default(autoincrement())
-  dogId     Int
+  dogId     Int?
   path      String @db.VarChar(510)
   primaryOf Dog?   @relation("primary")
-  dog       Dog?    @relation("images", fields: [dogId], references: [id])
+  dog       Dog?    @relation("images", fields: [dogId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@schema("public")
 }
