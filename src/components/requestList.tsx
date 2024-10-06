@@ -3,8 +3,7 @@ import {
     getUserRequests,
     listAllRequest,
     approveRequest,
-    rejectRequest,
-    addRequest
+    rejectRequest
 } from "@/server/adoptionRequestRepository";
 import {useServerAction} from "@/utils";
 import {useState} from "react";
@@ -27,7 +26,6 @@ export function RequestListUser({user_id}: {
         <table id="requestTable">
             <thead>
             <tr>
-                <th className={`max-w-[60px]`}>ID</th>
                 <th>Kérelem leadásának ideje</th>
                 <th>Kutya Neve</th>
                 <th>Státusz</th>
@@ -37,7 +35,7 @@ export function RequestListUser({user_id}: {
             {userRequests.map((request) => (
                 <tr key={request.id}>
                     <td> {request.requestDate.toDateString()} </td>
-                    <td> {request.dog.name} </td>
+                    <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
                     <td> {request.approved === null ? 'Eredményre vár' : (request.approved ? 'Elfogadva' : 'Elutasítva')} </td>
                 </tr>
             ))}
@@ -49,7 +47,10 @@ export function RequestListUser({user_id}: {
 // RequestListAdmin Component
 export function RequestListAdmin() {
     const [pendingRequests, setPendingRequests] = useState<AdoptionRequestWithDogAndUser[]>([]);
-    const [dialogState, setDialogState] = useState<{ requestId: number | null, type: 'approve' | 'reject' | null }>({ requestId: null, type: null });
+    const [dialogState, setDialogState] = useState<{
+        requestId: number | null,
+        type: 'approve' | 'reject' | null
+    }>({requestId: null, type: null});
 
     useServerAction(async () => {
         setPendingRequests(await listAllRequest());
@@ -58,14 +59,14 @@ export function RequestListAdmin() {
     const handleApprove = (id: number) => {
         approveRequest(id).then(() => {
             // Request state update or refresh logic
-            setDialogState({ requestId: null, type: null });
+            setDialogState({requestId: null, type: null});
         });
     };
 
     const handleReject = (id: number) => {
         rejectRequest(id).then(() => {
             // Request state update or refresh logic
-            setDialogState({ requestId: null, type: null });
+            setDialogState({requestId: null, type: null});
         });
     };
 
@@ -74,30 +75,31 @@ export function RequestListAdmin() {
             <table id="requestTable">
                 <thead>
                 <tr>
-                    <th className={`max-w-[60px]`}>ID</th>
                     <th className={`max-w-[130px]`}>Kérelem leadásának ideje</th>
-                    <th className={`max-w-[100px]`}>Kutya azonosító</th>
-                    <th className={`max-w-[120px]`}>Felhasználói azonosító</th>
-                    <th className={`max-w-[200px]`}>Felhasználó<br />e-mail</th>
-                    <th>Felhasználó telefonszám</th>
+                    <th className={`max-w-[100px]`}>Kutya neve</th>
+                    <th className={`max-w-[200px]`}>Felhasználó<br/>e-mail</th>
                     <th>Műveletek</th>
                 </tr>
                 </thead>
                 <tbody>
                 {pendingRequests.map((request) => (
                     <tr key={request.id}>
-                        <td>{request.id}</td>
-                        <td>{new Date(request.requestDate).toDateString()}</td>
-                        <td>
-                            <Link href={`/dogs/${request.dogId}`}>{request.dogId}</Link>
-                        </td>
-                        <td>{request.user.email}</td>
-                        <td>{request.user.phoneNumber}</td>
+                        <td> {request.requestDate.toDateString()} </td>
+                        <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
+                        <td> {request.user.email} </td>
                         <td>
                             {!dialogState.requestId && (
                                 <>
-                                    <button id="adoptButton" onClick={() => setDialogState({ requestId: request.id, type: 'approve' })}>Elfogad</button>
-                                    <button id="deleteDogButton" onClick={() => setDialogState({ requestId: request.id, type: 'reject' })}>Elutasít</button>
+                                    <button id="adoptButton" onClick={() => setDialogState({
+                                        requestId: request.id,
+                                        type: 'approve'
+                                    })}>Elfogad
+                                    </button>
+                                    <button id="deleteDogButton" onClick={() => setDialogState({
+                                        requestId: request.id,
+                                        type: 'reject'
+                                    })}>Elutasít
+                                    </button>
                                 </>
                             )}
                         </td>
@@ -105,14 +107,12 @@ export function RequestListAdmin() {
                 ))}
                 </tbody>
             </table>
-
             {dialogState.requestId && (
                 <ConfirmDialog
                     message={dialogState.type === 'approve' ? 'Biztosan elfogadod ezt a kérelmet?' : 'Biztosan elutasítod ezt a kérelmet?'}
                     onConfirm={() => dialogState.type === 'approve' ? handleApprove(dialogState.requestId!) : handleReject(dialogState.requestId!)}
-                    onCancel={() => setDialogState({ requestId: null, type: null })}
+                    onCancel={() => setDialogState({requestId: null, type: null})}
                 />
-            )}
-        </>
+            )}</>
     );
 }
