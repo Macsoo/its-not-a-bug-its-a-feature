@@ -88,7 +88,7 @@ export function RequestListAdmin() {
                         <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
                         <td> {request.user.email} </td>
                         <td>
-                            {!dialogState.requestId && (
+                            {dialogState.requestId !== request.id && (
                                 <>
                                     <button id="adoptButton" onClick={() => setDialogState({
                                         requestId: request.id,
@@ -102,7 +102,7 @@ export function RequestListAdmin() {
                                     </button>
                                 </>
                             )}
-                            {dialogState.requestId && (
+                            {dialogState.requestId === request.id && (
                                 <ConfirmDialog
                                     message={dialogState.type === 'approve' ? 'Biztosan elfogadod ezt a kérelmet?' : 'Biztosan elutasítod ezt a kérelmet?'}
                                     onConfirm={() => dialogState.type === 'approve' ? handleApprove(dialogState.requestId!) : handleReject(dialogState.requestId!)}
