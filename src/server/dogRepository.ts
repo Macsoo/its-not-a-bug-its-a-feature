@@ -14,7 +14,7 @@ export async function addDog(params: {
     imgPath: string
 }): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
+    await prisma.$transaction(async (trx) => {
         const img: DogImage = await trx.dogImage.create({
             data: {
                 path: params.imgPath

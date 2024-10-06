@@ -1,4 +1,4 @@
-import {Gender, PrismaClient} from '@prisma/client';
+import {Gender, PrismaClient, Prisma} from '@prisma/client';
 import {afterAll, beforeAll, describe, expect, it} from "@jest/globals";
 import {
     addDog,
@@ -9,19 +9,28 @@ import {
     adoptDog,
     addPictures
 } from "../src/server/dogRepository";
+import { PrismaTestingHelper } from '@chax-at/transactional-prisma-testing';
 
-const prisma = new PrismaClient();
+const origPrisma = new PrismaClient();
+const prismaProxy = new PrismaTestingHelper(origPrisma);
+const prisma = prismaProxy.getProxyClient();
 
 describe('Dog service unit tests', () => {
     beforeAll(async () => {
         await prisma.$connect();
+        await prismaProxy.startNewTransaction();
+        await prisma.adoptionRequest.deleteMany();
+        await prisma.dogImage.updateMany({
+            data: {
+                dogId: null,
+            }
+        })
         await prisma.dog.deleteMany();
         await prisma.dogImage.deleteMany();
     });
 
     afterAll(async () => {
-        await prisma.dog.deleteMany();
-        await prisma.dogImage.deleteMany();
+        prismaProxy.rollbackCurrentTransaction();
         await prisma.$disconnect();
     });
 
@@ -36,9 +45,9 @@ describe('Dog service unit tests', () => {
             adopted: false,
             imgPath: '..',
         };
-
+        console.log(await prisma.dog.findMany());
         await addDog(params);
-
+        console.log(await prisma.dog.findMany());
         const createdDog = await prisma.dog.findFirst({
             include: {primaryImg: true},
         });
