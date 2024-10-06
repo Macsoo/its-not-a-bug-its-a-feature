@@ -15,7 +15,7 @@ export default function Layout(props: { children: React.ReactNode }) {
     }, []);
     return <>
     <div className={`header-mobile md:header`}>
-        <Image src="" width={50} height={50} alt="Logo"/>
+        <Image src="/theDog.jpg" width={50} height={50} alt="Logo"/>
         <Link href="/">
             <h1 className={`cursor-pointer text-3xl md:text-5xl md:m-0 m-2 font-bold italic text-center`}>
                 Lakatos Brendonék Menhelye
