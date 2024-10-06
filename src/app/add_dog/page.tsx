@@ -21,7 +21,8 @@ export default function AddDog() {
 
     return (
         <div className="content">
-            <div className="card">
+            <div className={`card`}>
+                <h2>Új kutya hozzáadása</h2>
                 <form onSubmit={async (e) => {
                     e.preventDefault();
                     await addDog({
@@ -45,7 +46,7 @@ export default function AddDog() {
                             value={chipId}
                             pattern={"\\d{15}"}
                             onChange={(e) => setChipId(e.target.value)}
-                        />
+                        /> </div>
                         <div className={`form`}>
                             <label htmlFor="name" className={`pr-1 w-[48px]`}>Név:</label>
                             <input
@@ -91,6 +92,7 @@ export default function AddDog() {
                                 value={breed}
                                 onChange={(e) => setBreed(e.target.value)}
                             />
+                        </div>
                             <div className={`flex flex-row items-center p-2`}>
                                 <label htmlFor="description" className={`pr-1 w-[48px]`}>Leírás:</label>
                                 <textarea
@@ -103,8 +105,6 @@ export default function AddDog() {
                             <div className={`flex flex-row items-center justify-center`}>
                                 <button id={`updateDog`} type="submit">Kutya Hozzáadása</button>
                             </div>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>

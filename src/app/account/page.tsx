@@ -19,9 +19,9 @@ export default function AccountPage() {
                     <div className="card">
                         <h2>Jogosultság: {session.isAdmin() ? "Admin" : "Felhasználó"}</h2>
                         {session.isAdmin() && (
-                            <>
+                            <div className={`flex justify-center items-center`}>
                             <Link href="/add_dog"><button>Új Kutya Hozzáadása</button></Link>
-                            </>
+                            </div>
                         )}
                     </div>
                     <div className={`card w-full`}>
