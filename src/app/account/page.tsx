@@ -1,30 +1,28 @@
+'use client';
 import "../globals.css";
 
-import {currentUserId, currentRole} from "@/components/roles";
-
-import {isAdmin, isUser} from "@/components/roles";
 import {RequestListAdmin, RequestListUser} from "@/components/requestList";
-import {createServer} from "@/server/supabase";
-import {redirect} from "next/navigation";
+import {useContext} from "react";
+import {SessionContext} from "@/components/sessionContext";
+import {useRouter} from "next/navigation";
 
-export default async function AccountPage() {
-    const supabase = createServer();
-    const {data, error} = await supabase.auth.getUser();
-    if (error || !data.user) {
-        redirect("/login");
-    }
+export default function AccountPage() {
+    const router = useRouter();
+    const session = useContext(SessionContext);
+    if (!session.isSignedIn())
+        router.push('/login');
     return (
         <div className="content">
             <div className="card">
-                <p>{data.user.email}</p>
-                <h2>Jogosultság: {currentRole}</h2>
-                {isUser() && (
-                    <p>Felhasználói azonosítószám: {currentUserId}</p>
+                <p>{JSON.stringify(session.user)}</p>
+                <h2>Jogosultság: {session.isAdmin() ? "Admin" : "Felhasználó"}</h2>
+                {session.isUser() && (
+                    <p>Felhasználói azonosítószám: {session.user?.id}</p>
                 )}
             </div>
             <div className={`card w-full`}>
-                <h2>{isAdmin() ? "Felhasználók által leadott kérvények:" : "Leadott kérvényeim:"}</h2>
-                {isAdmin() ? <RequestListAdmin/> : <RequestListUser user_id={currentUserId}/>}
+                <h2>{session.isAdmin() ? "Felhasználók által leadott kérvények:" : "Leadott kérvényeim:"}</h2>
+                {session.isAdmin() ? <RequestListAdmin/> : <RequestListUser user_id={session.user?.id}/>}
             </div>
         </div>
     );

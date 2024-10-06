@@ -1,6 +1,13 @@
 import {Gender, PrismaClient} from '@prisma/client';
 import {expect, test} from "@jest/globals";
-import {addDog, adoptDog, deleteDog, getDog, listAllDogs, updateDog} from "../src/server/dogRepository";
+import {
+    addDog,
+    adoptDog,
+    deleteDog,
+    getDog,
+    listAllDogs,
+    updateDog
+} from "../src/server/dogRepository";
 
 const prisma = new PrismaClient();
 const mockDog = {
@@ -27,7 +34,7 @@ const mockDog2 = {
 test('Testing dogRepository', () => {
     prisma.$transaction(async () => {
         expect(await addDog(mockDog)).toReturn();
-        const returnedMockDog = await listAllDogs()
+        const returnedMockDog = await listAllDogs();
         expect(returnedMockDog).toContain(mockDog);
         expect(await addDog(mockDog2)).toReturn();
         const returnedDogs = await listAllDogs();
@@ -36,7 +43,7 @@ test('Testing dogRepository', () => {
         const justOneDog = await getDog(returnedDogs[-1].id);
         expect(justOneDog).toContain(mockDog2);
         if (justOneDog === null) {
-            throw Error("Fail")
+            throw Error("Fail");
         }
         const updateParams = {
             id: justOneDog.id,

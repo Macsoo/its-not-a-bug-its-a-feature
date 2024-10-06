@@ -1,19 +1,26 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import {dogs} from "@/components/dogList";
+import {Dog} from "@prisma/client";
+import {useServerAction} from "@/utils";
+import {getDog, updateDog} from "@/server/dogRepository";
 
 export default function UpdateDog({ params }: { params: { dog_id: string } }) {
-
     const router = useRouter();
 
     const dogId = parseInt(params.dog_id, 10);
-    const dog = dogs.find((d) => d.dog_id === dogId);
-
-    const [name, setName] = useState(dog?.dog_name);
-    const [age, setAge] = useState(dog?.dog_age);
-    const [gender, setGender] = useState(dog?.dog_gender);
-    const [description, setDescription] = useState(dog?.dog_description);
+    const [dog, setDog] = useState<Dog | null>(null);
+    const [name, setName] = useState(dog?.name);
+    const [age, setAge] = useState(dog?.age);
+    const [gender, setGender] = useState(dog?.gender);
+    const [description, setDescription] = useState(dog?.description);
+    useServerAction(async () => {
+        setDog(await getDog(dogId));
+        setName(dog?.name);
+        setAge(dog?.age);
+        setGender(dog?.gender);
+        setDescription(dog?.description);
+    });
 
     if (!dog) {
         return <div>Kutya nem található!</div>;
@@ -21,12 +28,12 @@ export default function UpdateDog({ params }: { params: { dog_id: string } }) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log({
-            dog_id: dogId,
-            dog_name: name,
-            dog_age: age,
-            dog_gender: gender,
-            dog_description: description,
+        await updateDog({
+            id: dogId,
+            name: name,
+            age: age,
+            gender: gender,
+            description: description,
         });
         router.push(`/dogs/${dogId}`);
     };
@@ -34,7 +41,7 @@ export default function UpdateDog({ params }: { params: { dog_id: string } }) {
     return (
         <div className={`content`}>
             <div className={`card`}>
-                <h2>{dog.dog_name}  adatainak szerkesztése</h2>
+                <h2>{dog.name}  adatainak szerkesztése</h2>
                 <form onSubmit={handleSubmit}>
                     <div className={`form`}>
                         <label htmlFor="name" className={`pr-1 w-[48px]`}>Név:</label>
@@ -62,7 +69,11 @@ export default function UpdateDog({ params }: { params: { dog_id: string } }) {
                             className={`dogUpdateInput`}
                             id="gender"
                             value={gender}
-                            onChange={(e) => setGender(e.target.value)}
+                            onChange={(e) => {
+                                if (e.target.value === 'Male' || e.target.value === 'Female') {
+                                    setGender(e.target.value)
+                                }
+                            }}
                         >
                             <option value="male">Hím</option>
                             <option value="female">Nőstény</option>

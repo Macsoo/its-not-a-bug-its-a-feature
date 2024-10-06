@@ -1,10 +1,10 @@
 'use server';
 
 import {createServer} from '@/server/supabase';
-import {redirect} from "next/navigation";
+import {User} from "@supabase/supabase-js";
 
 export async function registerUser(email: string, password: string) {
-    const supabase = createServer();
+    const supabase = await createServer();
     const {data, error} = await supabase.auth.signUp({
         email: email,
         password: password,
@@ -15,14 +15,14 @@ export async function registerUser(email: string, password: string) {
     return "";
 }
 
-export async function logInUser(email: string, password: string): Promise<string> {
-    const supabase = createServer();
+export async function logInUser(email: string, password: string): Promise<User | null> {
+    const supabase = await createServer();
     const {data, error} = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
     });
     if (error || !data.session) {
-        return "Hiba történt a bejelentkezés során. Talán téves jelszó?";
+        return null;
     }
-    redirect('/');
+    return data.user;
 }

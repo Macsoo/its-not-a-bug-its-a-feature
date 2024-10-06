@@ -1,0 +1,25 @@
+import type { User } from '@supabase/supabase-js';
+import {createContext, Dispatch, SetStateAction} from "react";
+
+export class Session {
+    public readonly user?: User;
+    public readonly setUser?: Dispatch<SetStateAction<User | undefined>>;
+    constructor(setUser?: Dispatch<SetStateAction<User | undefined>>, user?: User) {
+        this.setUser = setUser;
+        this.user = user;
+    }
+    public isSignedIn(): boolean {
+        return this.user !== undefined;
+    }
+    public isAdmin(): boolean {
+        if (this.user === undefined) return false;
+        console.log(this.user.email);
+        return this.user.email === 'admin@inabiaf.org';
+    }
+    public isUser(): boolean {
+        if (this.user === undefined) return false;
+        return this.user.email !== 'admin@inabiaf.org';
+    }
+}
+
+export const SessionContext = createContext<Session>(new Session());

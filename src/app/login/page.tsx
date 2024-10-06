@@ -1,7 +1,9 @@
 'use client';
 import "../globals.css";
-import {KeyboardEventHandler, useEffect, useState} from "react";
+import {KeyboardEventHandler, useContext, useEffect, useState} from "react";
 import {logInUser} from "@/server/userRepository";
+import {SessionContext} from "@/components/sessionContext";
+import {useRouter} from "next/navigation";
 
 function Error({error}: {error?: string}) {
     if (error) {
@@ -12,6 +14,8 @@ function Error({error}: {error?: string}) {
 }
 
 export default function LoginPage() {
+    const router = useRouter();
+    const session = useContext(SessionContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -29,9 +33,12 @@ export default function LoginPage() {
         setTryLogin(false);
         (async () => {
             setError("Kérjük várjon...");
-            const error = await logInUser(email, password);
-            if (error) {
-                setError(error);
+            const user = await logInUser(email, password);
+            if (!user) {
+                setError("Hiba történt bejelentkezés során.");
+            } else {
+                session.setUser?.call(session, user);
+                router.push('/');
             }
         })();
     }, [tryLogin]);
