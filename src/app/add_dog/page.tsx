@@ -1,20 +1,41 @@
 'use client';
 import "../globals.css";
 
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {useRouter} from "next/navigation";
+import {addDog} from "@/server/dogRepository";
+import {Gender} from "@prisma/client";
 
-export default function AddDog(){
+export default function AddDog() {
     const router = useRouter();
     const session = useContext(SessionContext);
     if (!session.isSignedIn())
         router.push('/login');
+    const [name, setName] = useState("");
+    const [chipId, setChipId] = useState("");
+    const [age, setAge] = useState(0);
+    const [gender, setGender] = useState<Gender>('Male');
+    const [description, setDescription] = useState("");
+    const [breed, setBreed] = useState("");
 
-    return(
+    return (
         <div className="content">
             <div className="card">
-                <form onSubmit={}>
+                <form onSubmit={async (e) => {
+                    e.preventDefault();
+                    await addDog({
+                        name,
+                        chipId,
+                        age,
+                        gender,
+                        description,
+                        breed,
+                        adopted: false,
+                        imgPath: '/theDog.jpg'
+                    });
+                    router.push('/dogs');
+                }}>
                     <div className={`form`}>
                         <label htmlFor="chipId" className={`pr-1 w-[48px]`}>Chip szám:</label>
                         <input
@@ -22,6 +43,7 @@ export default function AddDog(){
                             id="chipId"
                             type="text"
                             value={chipId}
+                            pattern={"\\d{15}"}
                             onChange={(e) => setChipId(e.target.value)}
                         />
                         <div className={`form`}>
@@ -56,8 +78,8 @@ export default function AddDog(){
                                     }
                                 }}
                             >
-                                <option value="male">Hím</option>
-                                <option value="female">Nőstény</option>
+                                <option value="Male">Hím</option>
+                                <option value="Female">Nőstény</option>
                             </select>
                         </div>
                         <div className={`form`}>
@@ -79,11 +101,12 @@ export default function AddDog(){
                                 />
                             </div>
                             <div className={`flex flex-row items-center justify-center`}>
-
                                 <button id={`updateDog`} type="submit">Kutya Hozzáadása</button>
                             </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
-)
+    );
 }
