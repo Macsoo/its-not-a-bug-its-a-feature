@@ -102,17 +102,18 @@ export function RequestListAdmin() {
                                     </button>
                                 </>
                             )}
+                            {dialogState.requestId && (
+                                <ConfirmDialog
+                                    message={dialogState.type === 'approve' ? 'Biztosan elfogadod ezt a kérelmet?' : 'Biztosan elutasítod ezt a kérelmet?'}
+                                    onConfirm={() => dialogState.type === 'approve' ? handleApprove(dialogState.requestId!) : handleReject(dialogState.requestId!)}
+                                    onCancel={() => setDialogState({requestId: null, type: null})}
+                                />
+                            )}
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            {dialogState.requestId && (
-                <ConfirmDialog
-                    message={dialogState.type === 'approve' ? 'Biztosan elfogadod ezt a kérelmet?' : 'Biztosan elutasítod ezt a kérelmet?'}
-                    onConfirm={() => dialogState.type === 'approve' ? handleApprove(dialogState.requestId!) : handleReject(dialogState.requestId!)}
-                    onCancel={() => setDialogState({requestId: null, type: null})}
-                />
-            )}</>
+            </>
     );
 }
