@@ -127,7 +127,6 @@ export async function addPictures(dogId: number, picturesPath: string[]): Promis
         throw Error('Not a valid dog was given');
     }
     await prisma.$transaction(async (trx) => {
-        // Create an array of promises, one for each picture
         const picturePromises = picturesPath.map(path => {
             return trx.dogImage.create({
                 data: {
@@ -136,8 +135,6 @@ export async function addPictures(dogId: number, picturesPath: string[]): Promis
                 }
             });
         });
-
-        // Execute all the picture creation promises in a transaction
         await Promise.all(picturePromises);
     });
 }

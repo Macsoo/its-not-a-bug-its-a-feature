@@ -5,8 +5,8 @@ import type {AdoptionRequest} from '@prisma/client';
 
 export async function addRequest(request: { userId: string, dogId: number }): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
-        const testing = trx.adoptionRequest.findFirst({
+    await prisma.$transaction(async (trx) => {
+        const testing = await trx.adoptionRequest.findFirst({
             where: {
                 userId: request.userId,
                 dogId: request.dogId,
@@ -15,7 +15,7 @@ export async function addRequest(request: { userId: string, dogId: number }): Pr
         if (testing !== null) {
             throw Error("Adoption already exists");
         }
-        trx.adoptionRequest.create({
+        await trx.adoptionRequest.create({
             data: {
                 userId: request.userId,
                 dogId: request.dogId,
@@ -75,8 +75,8 @@ export async function listAllRequest() {
 
 export async function deleteRequestById(id: number): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
-        trx.adoptionRequest.delete({
+    await prisma.$transaction(async (trx) => {
+        await trx.adoptionRequest.delete({
             where: {
                 id: id,
             }
@@ -86,8 +86,8 @@ export async function deleteRequestById(id: number): Promise<void> {
 
 export async function deleteRequestsByUser(userId: string): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
-        trx.adoptionRequest.deleteMany({
+    await prisma.$transaction(async (trx) => {
+        await trx.adoptionRequest.deleteMany({
             where: {
                 userId: userId,
             }
@@ -97,8 +97,8 @@ export async function deleteRequestsByUser(userId: string): Promise<void> {
 
 export async function deleteRequestsByDogId(dogId: number): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
-        trx.adoptionRequest.deleteMany({
+    await prisma.$transaction(async (trx) => {
+        await trx.adoptionRequest.deleteMany({
             where: {
                 dogId: dogId,
             }
@@ -114,8 +114,8 @@ export async function updateRequest(request: {
     approved?: boolean
 }): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
-        trx.adoptionRequest.update({
+    await prisma.$transaction(async (trx) => {
+        await trx.adoptionRequest.update({
             data: request,
             where: {
                 id: request.id,
@@ -126,7 +126,7 @@ export async function updateRequest(request: {
 
 export async function approveRequest(requestId: number): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
+    await prisma.$transaction(async (trx) => {
         const foundRequest = await trx.adoptionRequest.findFirst({
             where: {
                 id: requestId,
@@ -135,7 +135,7 @@ export async function approveRequest(requestId: number): Promise<void> {
         if (foundRequest === null) {
             throw Error('Request not found');
         }
-        trx.dog.update({
+        await trx.dog.update({
             data: {
                 adopted: true,
             },
@@ -143,7 +143,7 @@ export async function approveRequest(requestId: number): Promise<void> {
                 id: requestId,
             }
         });
-        trx.adoptionRequest.deleteMany({
+        await trx.adoptionRequest.deleteMany({
             where: {
                 dogId: foundRequest.dogId,
             }
@@ -153,8 +153,8 @@ export async function approveRequest(requestId: number): Promise<void> {
 
 export async function rejectRequest(requestId: number): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
-        trx.adoptionRequest.delete({
+    await prisma.$transaction(async (trx) => {
+        await trx.adoptionRequest.delete({
             where: {
                 id: requestId,
             }
