@@ -5,7 +5,7 @@ import {deleteDog} from "@/server/dogRepository";
 import {addRequest} from "@/server/adoptionRequestRepository";
 
 
-function ConfirmDialog({ message, onConfirm, onCancel }: { message: string, onConfirm: () => void, onCancel: () => void }) {
+export function ConfirmDialog({ message, onConfirm, onCancel }: { message: string, onConfirm: () => void, onCancel: () => void }) {
     return (
         <div className="dialog">
             <div className="dialog-content">
@@ -47,7 +47,10 @@ export function DeleteButton({dog_id}: { dog_id: number }) {
         <>
             {session.isAdmin() && (
                 <div className="flex flex-col gap-5 items-center">
+                    {!isDialogOpen && (
                     <button id="deleteDogButton" onClick={() => setIsDialogOpen(true)}>Törlés</button>
+                    )
+                    }
 
                     {isDialogOpen && (
                         <ConfirmDialog
@@ -76,7 +79,10 @@ export function AdoptButton({dog_id}: { dog_id: number }) {
         <>
             {session.isUser() && (
                 <>
+                    {!isDialogOpen && (
                     <button id="adoptButton" onClick={() => setIsDialogOpen(true)}>Adoptálás</button>
+                    )
+                    }
 
                     {isDialogOpen && (
                         <ConfirmDialog
