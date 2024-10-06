@@ -3,8 +3,7 @@ import {
     getUserRequests,
     listAllRequest,
     approveRequest,
-    rejectRequest,
-    addRequest
+    rejectRequest
 } from "@/server/adoptionRequestRepository";
 import {useServerAction} from "@/utils";
 import {useState} from "react";
