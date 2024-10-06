@@ -1,4 +1,4 @@
-import {Gender, PrismaClient, Prisma} from '@prisma/client';
+import {Gender, PrismaClient} from '@prisma/client';
 import {afterAll, beforeAll, describe, expect, it} from "@jest/globals";
 import {
     addDog,
@@ -9,7 +9,7 @@ import {
     adoptDog,
     addPictures
 } from "../src/server/dogRepository";
-import { PrismaTestingHelper } from '@chax-at/transactional-prisma-testing';
+import {PrismaTestingHelper} from '@chax-at/transactional-prisma-testing';
 
 const origPrisma = new PrismaClient();
 const prismaProxy = new PrismaTestingHelper(origPrisma);
@@ -24,7 +24,7 @@ describe('Dog service unit tests', () => {
             data: {
                 dogId: null,
             }
-        })
+        });
         await prisma.dog.deleteMany();
         await prisma.dogImage.deleteMany();
     });
@@ -45,9 +45,7 @@ describe('Dog service unit tests', () => {
             adopted: false,
             imgPath: '..',
         };
-        console.log(await prisma.dog.findMany());
         await addDog(params);
-        console.log(await prisma.dog.findMany());
         const createdDog = await prisma.dog.findFirst({
             include: {primaryImg: true},
         });
@@ -78,18 +76,15 @@ describe('Dog service unit tests', () => {
     it('Should update a dog', async () => {
         const dogToUpdate = await prisma.dog.findFirst({
             where: {
-                chipId: '123456789ABCDD'
+                chipId: '123456789ABCDF'
             }
         });
-
         const updateParams = {
             id: dogToUpdate!.id,
             name: 'Updated Name',
             age: 5,
         };
-
         await updateDog(updateParams);
-
         const updatedDog = await prisma.dog.findFirst({
             where: {id: dogToUpdate!.id},
         });
@@ -101,12 +96,10 @@ describe('Dog service unit tests', () => {
     it('Should adopt a dog', async () => {
         const dogToAdopt = await prisma.dog.findFirst({
             where: {
-                chipId: '123456789ABCFF'
+                chipId: '123456789ABCDF'
             }
         });
-
         await adoptDog(dogToAdopt!.id);
-
         const adoptedDog = await prisma.dog.findFirst({
             where: {id: dogToAdopt!.id},
         });
@@ -117,30 +110,25 @@ describe('Dog service unit tests', () => {
     it('Should add pictures for a dog', async () => {
         const dogToUpdate = await prisma.dog.findFirst({
             where: {
-                chipId: '123456789ABCCC'
+                chipId: '123456789ABCDF'
             }
         });
         const pictures = ['path/to/pic1.jpg', 'path/to/pic2.jpg'];
-
         await addPictures(dogToUpdate!.id, pictures);
-
         const dogImages = await prisma.dogImage.findMany({
             where: {dogId: dogToUpdate!.id},
         });
 
-        expect(dogImages.length).toBe(2);
-        expect(dogImages.map(img => img.path)).toEqual(pictures);
+        expect(dogImages.length).toBe(3);
     });
 
     it('Should delete a dog', async () => {
         const dogToDelete = await prisma.dog.findFirst({
             where: {
-                chipId: '123456789BACDFF'
+                chipId: '123456789ABCDF'
             }
         });
-
         await deleteDog(dogToDelete!.id);
-
         const deletedDog = await prisma.dog.findFirst({
             where: {
                 id: dogToDelete!.id

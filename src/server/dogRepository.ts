@@ -63,10 +63,23 @@ export async function listAllDogs() {
 
 export async function deleteDog(dogId: number): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
-        trx.dog.delete({
+    await prisma.$transaction(async (trx) => {
+        await prisma.dogImage.updateMany({
+            data: {
+                dogId: null,
+            },
+            where: {
+                dogId: dogId,
+            }
+        });
+        await trx.dog.delete({
             where: {
                 id: dogId,
+            },
+        });
+        await trx.dogImage.deleteMany({
+            where: {
+                dogId: dogId,
             },
         });
     });
@@ -83,7 +96,7 @@ export async function updateDog(params: {
     adopted?: boolean
 }): Promise<void> {
     const prisma = new PrismaClient();
-    prisma.$transaction(async (trx) => {
+    await prisma.$transaction(async (trx) => {
         await trx.dog.update({
             data: params,
             where: {
@@ -113,14 +126,15 @@ export async function addPictures(dogId: number, picturesPath: string[]): Promis
     if (selectedDog === null) {
         throw Error('Not a valid dog was given');
     }
-    prisma.$transaction(async (trx) => {
-        picturesPath.forEach(path => {
-            trx.dogImage.create({
+    await prisma.$transaction(async (trx) => {
+        const picturePromises = picturesPath.map(path => {
+            return trx.dogImage.create({
                 data: {
-                    dogId: selectedDog.id,
-                    path: path
+                    dogId: dogId,
+                    path: path,
                 }
-            })
-        })
-    })
+            });
+        });
+        await Promise.all(picturePromises);
+    });
 }
