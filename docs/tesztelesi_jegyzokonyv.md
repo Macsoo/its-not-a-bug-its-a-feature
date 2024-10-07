@@ -21,11 +21,11 @@
 |-----------------------|-------------------------------------|
 | Verzió: 1.1           | Kliens: Menhely Webalkalmazás Teszt |
 
-| Teszteset                                                    | Várt eredmény                                              | Kapott eredmény | Sikeres | Hibaüzenet | Megjegyzés |
-|--------------------------------------------------------------|------------------------------------------------------------|-----------------|---------|------------|------------|
-| Adoptálási kérelem leadása                                   | Az adoptlási gomb lenyomásakor megerősítés szükséges.      |                 |         |            |            |
-| Adoptálási kérelem listájának megtekintése felhasználóként   | Az adott felhasználóhoz tartozó összes kérelem megjelenik. |                 |         |            |            |
-| Kutya adatlapjának megnyitása bejelentkezett felhasználóként | A gombnál nincs felesleges adat.                           |                 |         |            |            |
+| Teszteset                                                    | Várt eredmény                                              | Kapott eredmény                        | Sikeres | Hibaüzenet | Megjegyzés |
+|--------------------------------------------------------------|------------------------------------------------------------|----------------------------------------|---------|------------|------------|
+| Adoptálási kérelem leadása                                   | Az adoptlási gomb lenyomásakor megerősítés szükséges.      | A dialógus megjelenik, a gomb eltűnik. | Igen    | Nincs      | Nincs      |
+| Adoptálási kérelem listájának megtekintése felhasználóként   | Az adott felhasználóhoz tartozó összes kérelem megjelenik. | Megjelennek a kérelmek.                | Igen    | Nincs      | Nincs      |
+| Kutya adatlapjának megnyitása bejelentkezett felhasználóként | A gombnál nincs felesleges adat.                           | Nem jelenik meg plusz adat.            | Igen    | Nincs      | Nincs      |
 
 | Tesztelő: Bánvölgyi Bence | Idő: 2024. 09. 28-29. |
 |---------------------------|-----------------------|
