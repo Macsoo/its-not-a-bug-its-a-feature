@@ -11,14 +11,16 @@ import {
 } from "../src/server/dogRepository";
 import {PrismaTestingHelper} from '@chax-at/transactional-prisma-testing';
 
-const origPrisma = new PrismaClient();
+const origPrisma = new PrismaClient({log: ["query"]});
 const prismaProxy = new PrismaTestingHelper(origPrisma);
 const prisma = prismaProxy.getProxyClient();
 
 describe('Dog service unit tests', () => {
     beforeAll(async () => {
         await prisma.$connect();
-        await prismaProxy.startNewTransaction();
+        await prismaProxy.startNewTransaction({
+            timeout: 10000
+        });
         await prisma.adoptionRequest.deleteMany();
         await prisma.dogImage.updateMany({
             data: {

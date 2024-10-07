@@ -140,21 +140,51 @@ export async function approveRequest(requestId: number): Promise<void> {
                 adopted: true,
             },
             where: {
-                id: requestId,
+                id: foundRequest.dogId,
             }
         });
-        await trx.adoptionRequest.deleteMany({
+        await trx.adoptionRequest.updateMany({
+            data: {
+                approved: true
+            },
             where: {
-                dogId: foundRequest.dogId,
+                AND: [
+                    {
+                        dogId: foundRequest.dogId,
+                    },
+                    {
+                        id: foundRequest.id
+                    }
+                ]
             }
-        })
+        });
+        await trx.adoptionRequest.updateMany({
+            data: {
+                approved: false
+            },
+            where: {
+                AND: [
+                    {
+                        dogId: foundRequest.dogId,
+                    },
+                    {
+                        id: {
+                            not: foundRequest.id
+                        }
+                    }
+                ]
+            }
+        });
     })
 }
 
 export async function rejectRequest(requestId: number): Promise<void> {
     const prisma = new PrismaClient();
     await prisma.$transaction(async (trx) => {
-        await trx.adoptionRequest.delete({
+        await trx.adoptionRequest.update({
+            data: {
+                approved: false,
+            },
             where: {
                 id: requestId,
             }

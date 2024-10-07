@@ -6,19 +6,19 @@ import {
     getDogRequests,
     getUserRequests,
     listAllRequest,
-    // deleteRequestById,
-    // deleteRequestsByUser,
-    // deleteRequestsByDogId,
+    deleteRequestById,
+    deleteRequestsByUser,
+    deleteRequestsByDogId,
     updateRequest,
-    // approveRequest,
-    // rejectRequest
+    approveRequest,
+    rejectRequest
 } from "../src/server/adoptionRequestRepository";
 import {
     addDog,
 } from "../src/server/dogRepository";
 import {PrismaTestingHelper} from "@chax-at/transactional-prisma-testing";
 
-const origPrisma = new PrismaClient();
+const origPrisma = new PrismaClient({log: ["query"]});
 const prismaProxy = new PrismaTestingHelper(origPrisma);
 const prisma = prismaProxy.getProxyClient();
 
@@ -29,7 +29,9 @@ describe('Adoption request unit test', () => {
 
     beforeAll(async () => {
         await prisma.$connect();
-        await prismaProxy.startNewTransaction();
+        await prismaProxy.startNewTransaction({
+            timeout: 10000
+        });
         await prisma.adoptionRequest.deleteMany();
         await prisma.dogImage.updateMany({
             data: {
@@ -115,59 +117,50 @@ describe('Adoption request unit test', () => {
         testRequest = updatedRequest;
     });
 
-    // it('Should approve an adoption request', async () => {
-    //     await approveRequest(testRequest.id);
-    //
-    //     const dog = await prisma.dog.findFirst({
-    //         where: {id: testDog.id},
-    //     });
-    //
-    //     expect(dog?.adopted).toBe(true);
-    // });
+    it('Should approve an adoption request', async () => {
+        await approveRequest(testRequest.id);
 
-    // it('Should reject and delete an adoption request', async () => {
-    //     await rejectRequest(testRequest.id);
-    //
-    //     const deletedRequest = await prisma.adoptionRequest.findFirst({
-    //         where: {id: testRequest.id},
-    //     });
-    //
-    //     expect(deletedRequest).toBeNull();
-    // });
+        const dog = await prisma.dog.findFirst({
+            where: {id: testDog.id},
+        });
 
-    // it('Should delete an adoption request by id', async () => {
-    //     const newRequest = await prisma.adoptionRequest.create({
-    //         data: {
-    //             userId: testUser.id,
-    //             dogId: testDog.id,
-    //             requestDate: new Date(),
-    //         },
-    //     });
-    //
-    //     await deleteRequestById(newRequest.id);
-    //
-    //     const deletedRequest = await prisma.adoptionRequest.findFirst({
-    //         where: {id: newRequest.id},
-    //     });
-    //
-    //     expect(deletedRequest).toBeNull();
-    // });
+        expect(dog?.adopted).toBe(true);
+    });
 
-    // it('Should delete all requests for a user', async () => {
-    //     await deleteRequestsByUser(testUser.id);
-    //     const deletedRequests = await prisma.adoptionRequest.findMany({
-    //         where: {userId: testUser.id},
-    //     });
-    //
-    //     expect(deletedRequests.length).toBe(0);
-    // });
+    it('Should reject an adoption request', async () => {
+        await rejectRequest(testRequest.id);
+        const rejectedRequest = await prisma.adoptionRequest.findFirst({
+            where: {id: testRequest.id},
+        });
+        expect(rejectedRequest).not.toBeNull();
+        expect(rejectedRequest!.approved).toBeFalsy();
+    });
 
-    // it('Should delete all requests for a dog', async () => {
-    //     await deleteRequestsByDogId(testDog.id);
-    //     const deletedRequests = await prisma.adoptionRequest.findMany({
-    //         where: {dogId: testDog.id},
-    //     });
-    //
-    //     expect(deletedRequests.length).toBe(0);
-    // });
+    it('Should delete an adoption request by id', async () => {
+        await deleteRequestById(testRequest.id);
+
+        const deletedRequest = await prisma.adoptionRequest.findFirst({
+            where: {id: testRequest.id},
+        });
+
+        expect(deletedRequest).toBeNull();
+    });
+
+    it('Should delete all requests for a user', async () => {
+        await deleteRequestsByUser(testUser.id);
+        const deletedRequests = await prisma.adoptionRequest.findMany({
+            where: {userId: testUser.id},
+        });
+
+        expect(deletedRequests.length).toBe(0);
+    });
+
+    it('Should delete all requests for a dog', async () => {
+        await deleteRequestsByDogId(testDog.id);
+        const deletedRequests = await prisma.adoptionRequest.findMany({
+            where: {dogId: testDog.id},
+        });
+
+        expect(deletedRequests.length).toBe(0);
+    });
 });
