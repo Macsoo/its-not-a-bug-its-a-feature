@@ -16,7 +16,7 @@
 
 6. [Fizikai környezet](#6-fizikai-környezet)
 
-7. [Absztarkt domain modell](#7-absztarkt-domain-modell)
+7. [Absztarkt domain modell](#7-absztrakt-domain-modell)
 
 8. [Architekturális terv](#8-architekturális-terv)
 
@@ -34,78 +34,7 @@
 
 ## 1. A rendszer célja
 
-A rendszer célja, hogy egy webalapú alkalmazást biztosítson a menhely számára, amely hatékonyan kezeli és prezentálja az
-örökbefogadható kutyák adatait a potenciális gazdiknak. A rendszer lehetővé teszi a felhasználók számára, hogy
-böngésszenek a kutyák között, megismerjék azok alapvető jellemzőit – mint például név, kor, nem –, és online
-lefoglalhassák őket örökbefogadásra. Az adminisztrátorok, a menhely dolgozói, hozzáadhatják, szerkeszthetik a kutyák
-adatait, és feldolgozhatják az örökbefogadási kérelmeket.
-
-Nem célja a rendszernek, a kutyák állapotának vagy egészségügyi adatainak részletes orvosi nyilvántartása. Az orvosi
-adatok
-kezelése nem képezi részét az alkalmazás funkcionalitásának.
-Nem célja, hogy pénzügyi tranzakciókat vagy adománygyűjtést bonyolítson le a felhasználók és a menhely között. A
-rendszer nem tartalmaz online fizetési rendszert vagy adományozási modult.
-A rendszer nem biztosít logisztikai szolgáltatásokat, például a kutyák szállításának megszervezését. Az örökbefogadás
-folyamata kizárólag a menhely és az örökbefogadó között zajlik.
-
 ## 2. Projekt terv
-
-### 2.1 Projekt munkások és felelősségeik
-
-- **Projektvezető: Bagoly Luca**
-    - Felelős a projekt egészéért, a határidők betartásáért, az erőforrások elosztásáért és a projekt előrehaladásának
-      nyomon követéséért.
-    - Biztosítja a kommunikációt a csapattagok között, valamint a megrendelővel való kapcsolattartást.
-
-- **Fejlesztőcsapat vezető: File Tibor**
-    - Felügyeli és koordinálja a fejlesztői csapat munkáját, biztosítja, hogy a technikai feladatok megfelelően legyenek
-      végrehajtva.
-    - A fejlesztési ütemterv betartásáért és a technikai kihívások megoldásáért felel.
-
-- **Frontend fejlesztő: Bagoly Luca**
-    - Felelős az alkalmazás felhasználói felületének fejlesztéséért, a reszponzív design megvalósításáért és a
-      felhasználói élmény optimalizálásáért.
-
-- **Backend fejlesztő: Bánvölgyi Bence**
-    - A szerveroldali logika fejlesztéséért felelős, beleértve az adatbázisok kezelését, az API-k fejlesztését és az
-      üzleti logika megvalósítását.
-
-- **UI/UX tervező: Bagoly Luca**
-    - Az alkalmazás vizuális megjelenéséért és felhasználói élményének kialakításáért felelős, biztosítva, hogy a
-      rendszer intuitív és felhasználóbarát legyen.
-
-- **Tesztelő: Bagoly Luca, File Tibor, Bánvölgyi Bence**
-    - Felelős az alkalmazás hibamentességének ellenőrzéséért, különböző funkcionális és nem funkcionális tesztek
-      végrehajtásáért, valamint a hibák dokumentálásáért és nyomon követéséért.
-
-- **Rendszeradminisztrátor: File Tibor, Bánvölgyi Bence**
-    - Felelős az alkalmazás hosztolásáért, a szerverek és adatbázisok üzemeltetéséért, valamint a biztonsági
-      intézkedések alkalmazásáért.
-
-### 2.2 Ütemterv
-
-Az ütemterv a projekt különböző szakaszainak időbeli ütemezését mutatja. Az alábbiakban a főbb fázisok és a hozzájuk
-rendelt időintervallumok láthatók:
-
-- **1. Szakasz: Követelményspecifikáció és Funkcionális specifikáció meghatározása** – 2 hét
-    - Cél: Az alkalmazás funkcionalitásának részletes meghatározása.
-
-- **2. Szakasz: Rendszerterv elkészítése** – 1 hét
-    - Cél: Az alkalmazás rendszertervének meghatározása.
-
-- **3. Szakasz: Fejlesztés/Tesztelés** – 1 hét
-    - Cél: Frontend és backend fejlesztés, adatbázis kialakítása. A rendszer hibamentességének ellenőrzése, funkcionális
-      és nem funkcionális tesztek.
-
-### 2.3 **Mérföldkövek**
-
-A mérföldkövek olyan fontos szakaszok, amelyeket a projekt során el kell érni:
-
-- **Követelményspecifikáció és funkcionális specifikáció elkészítése** – 1. hét vége
-- **Backend API és adatbázis kész** – 3. hét vége
-- **Frontend alapfunkciók elkészülése** – 3. hét vége
-- **Tesztelés megkezdése** – 3. hét eleje
-- **Hibajavítások lezárása** – 3. hét vége
 
 ## 3. Üzleti folyamatok modellje
 ```mermaid
@@ -123,32 +52,7 @@ flowchart LR
     dog-- Has -->apply
     apply-- Sends email -->user
 ```
-- A látogatók böngészhetnek az elérhető kutyák között, és megtekinthetik a részletes profilokat, amelyek olyan információkat tartalmaznak, mint a fajta, kor, méret, temperamentum és képek.
-- A felhasználók különböző kritériumok (pl. fajta, típus, életkor) alapján szűrhetik a kutyákat, és további részletekért felfedezhetik az egyes kutyák profilját. Minden egyes kutya profilján egy gomb segítségével a látogatók kifejezhetik érdeklődésüket a kutya örökbefogadása iránt.
-- A menhelyi dolgozó szemszögéből nézve a kutyamenhely honlapja intuitív háttérrendszert biztosít a kutyaprofilok kezeléséhez és az örökbefogadási érdeklődés nyomon követéséhez. A menhely munkatársai egy felhasználóbarát adminisztrációs felületen keresztül könnyen hozzáadhatnak, szerkeszthetnek vagy eltávolíthatnak kutyaprofilokat, frissítve az olyan adatokat, mint a fajta, kor, méret, temperamentum és fényképek. A háttértár rendszerezi és tárolja az összes beérkezett anyagot, így a menhely dolgozói nyomon követhetik az érdeklődés szintjét, és hatékonyan követhetik a potenciális örökbefogadókkal való kapcsolattartást. Ez a rendszer minimalizálja az adminisztratív terheket, és zökkenőmentes kommunikációt biztosít a menhely és a nyilvánosság között.
-
 ## 4. Követelmények
-
-### 4.1. Funkcionális követelmények
-
-- A kutyák örökbefogadási állapota a weboldalon szabadon elérhető
-- Kutyák rövid leírásának listája
-- Adott kutya részletes leírása
-- Keresés szűrése: kor, fajta és nem alapján
-- Bármennyi általános felhasználó regisztrálása
-- Regisztrált felhasználók belépése
-- Regisztrált felhasználók jelezhetik az örökbefogadási igényüket
-- Automatikus e-mail értesítés eltusításkor
-- Automatikus e-mail verification regisztráláskor
-- Egyetlen admin jogosultsággal rendelkező fiók
-- Admin felhasználó feltölthet új kutyákat a weboldalon
-- Admin felhasználó láthatja az örökbefogadási kérvényeket egy bizonyos kutyához
-- Az örökbefogadott kutyák törlése az oldalról az admin fiókon keresztül
-
-### 4.2. Nem funkcionális követelmények
-
-- A belépés csak egy sessionig tart, így nem szeretnénk cookie-kat tárolni
-- Regisztrált felhasználók nem jelezhetik az örökbefogadási kérésüket már örökbefogadott kutyákhoz
 
 ## 5. Funkcionális terv
 
@@ -282,14 +186,6 @@ Adoption requests
 
 ## 8. Architekturális terv
 
-A webszerver frontend részén újrahasználható komponensek segítségével fognak
-felépülni a különböző weboldalak.
-
-A webszerver backendje ORM segítségével az adatbázisban szereplő sorokat a
-kódban könnyen kezelhető entitásokká alakítja, és proxyk segítségével
-kezeli is azokat. A backend felelős még a beérkező HTTP kapcsolatok
-kezeléésért, az authentikációért és a jogosultságok kezeléséért is.
-
 ## 9. Adatbázis terv
 
 ### 9.1 Logikai Adatmodell
@@ -377,12 +273,9 @@ erDiagram
 | image_id    | `SERIAL`       | `PRIMARY KEY`, egyedi kép azonosító (automatikusan nő).  |
 | dog_id      | `INT`          | `REFERENCES Dogs(dog_id)`, a lefoglalt kutya chip száma. | 
 | img_path    | `VARCHAR(510)` | A kutya adatlapján megjelenő kép.                        | 
+#### 9.2 Fizikai Adatmodellt Legeneráló SQL Szkript
 
-#### 9.2 Tárolt Eljárások
-
-#### 9.3 Fizikai Adatmodellt Legeneráló SQL Szkript
-
-#### 9.3.1 Adatbázis létrehozása**
+#### 9.2.1 Adatbázis létrehozása**
 
 ```sql
     CREATE DATABASE "LakatosBrendonDogShelterDB"
@@ -392,7 +285,7 @@ erDiagram
         CONNECTION LIMIT = -1;
 ```
 
-#### 9.3.2 Táblák létrehozása
+#### 9.2.2 Táblák létrehozása
 
 **Dogs (Kutyák) Tábla**
 
@@ -599,49 +492,6 @@ classDiagram
 
 ## 11. Tesztterv
 
-```mermaid
-graph TD
-;
-    A[Start] --> B[Test Plan Creation];
-    B --> C[Functional Testing];
-    B --> D[Integration Testing];
-    C --> F[Test Results Evaluation];
-    D --> F;
-    F --> G[Bug Fix and Retest];
-    G --> H[Final Test];
-    H --> I[End];
-
-```
-
-### 11.1 Fő Tesztesetek
-
-- **Felhasználó regisztrációja és bejelentkezése:** Regisztráció, bejelentkezés különböző felhasználókkal (felhasználó
-  szerepkörrel).
-- **Kutyák böngészése:** Különböző kritériumok alapján történő kutyakeresés (pl. név, kor, fajta).
-- **Kutyák hozzáadása, szerkesztése (admin):** Kutyák adatainak adminisztrátori felületen való hozzáadása, szerkesztése.
-- **Örökbefogadási kérelmek:** Örökbefogadási kérelem leadása, státusz módosítása, törlése. Automatikus e-mail
-  kiküldésének ellenőrzése.
-- **Adatbázis integráció:** Ellenőrizzük, hogy a felhasználói és kutyaadatok megfelelően tárolódnak és frissülnek az
-  adatbázisban.
-- **Biztonsági teszt:** Hibás belépési próbálkozások kezelése, jelszóvédelem, érzékeny adatok titkosítása.
-
 ## 12. Telepítési terv
 
-A teljes projekt felhőalapú lesz, a webszerver Vercelen, az adatbázis pedig a Supabase-en installáljuk. 
-Először is szükségünk van egy Vercel fiókra, ahová a forráskódot fogjuk feltölteni. A Vercel automatikusan
-elkészíti és telepíti a webkiszolgálót, amikor a változtatásokat a feltöltjük. Szükség van egy Supabase fiókra is,
-amely a PostgreSQL adatbázist, a hitelesítést és a tárolási szolgáltatásokat fogja kezelni. A Supabase biztosít egy API
-URL-t és egy nyilvános API-kulcsot, amelyet a forráskódba kell integrálni, így lehetővé téve a kommunikációt az
-adatbázissal. Ezeket a hitelesítő adatokat biztonságosan hozzá kell adni a Vercelhez környezeti változóként a Vercel
-kezelőfelületén keresztül. A webalkalmazás a Supabase klienst fogja használni az adatbázissal való összes interakció
-kezelésére, beleértve a hitelesítést, az adatlekérdezést és a tárolást. Semmi másra nincs szükség, mivel a Vercel kezeli
-a tárhelyet, a frontendet és a backendet, míg a Supabase kezeli az adatbázist.
-
 ## 13. Karbantartási terv
-
-A rendszer karbantartási terve kizárólag a meglévő funkciók hibajavításaira összpontosít, biztosítva az alkalmazás
-stabilitását és teljesítményét. A Supabase adatbázis frissítéseit vagy konfigurációit szükség szerint karbantartják a
-hibák megoldása érdekében, biztosítva, hogy a backend-szolgáltatások ne szenvedjenek fennakadást. E terv keretében nem
-kerül sor új funkciók fejlesztésére vagy bevezetésére; az új funkciók vagy nagyobb frissítések iránti kérelmek külön
-projektet igényelnek, amelyhez külön projektet kell indítani, saját hatáskörrel, költségvetéssel és fejlesztési
-ütemtervvel.
