@@ -48,15 +48,16 @@
 |----------------------|-----------------------|
 | Verzió:              | Kliens:               |
 
-| Teszteset | Várt eredmény | Kapott eredmény | Sikeres | Hibaüzenet | Megjegyzés |
-|-----------|---------------|-----------------|---------|------------|------------|
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
+| Teszteset                                   | Várt eredmény                                               | Kapott eredmény | Sikeres | Hibaüzenet | Megjegyzés |
+|---------------------------------------------|-------------------------------------------------------------|-----------------|---------|------------|------------|
+| Should create an adoption request           | Létrejön egy adoption request                               | Létrejött       | Igen    | Nincs      | Nincs      |
+| Should get an adoption request by id        | Vissza ad egy adoption requestet                            | Visszaadta      | Igen    | Nincs      | Nincs      |
+| Should get all adoption requests for a dog  | Vissza adja az összes adoption requestet egy kutyához       | Visszaadta      | Igen    | Nincs      | Nincs      |
+| Should get all adoption requests for a user | Vissza adja az összes adoption requestet egy felhasználóhoz | Visszaadta      | Igen    | Nincs      | Nincs      |
+| Should list all adoption requests           | Vissza adja az összes adoption requestet                    | Visszaadta      | Igen    | Nincs      | Nincs      |
+| Should update an adoption request           | Átírja a dátumot                                            | Átírta          | Igen    | Nincs      | Nincs      |
+| Should approve an adoption request          | Elfogadja az adoption requestet                             | Elfogadta       | Igen    | Nincs      | Nincs      |
+| Should reject an adoption request           | Elutasít egy adoption requestet                             | Elutasította    | Igen    | Nincs      | Nincs      |
+| Should delete an adoption request by id     | Töröl egy adoption requestet                                | Törölte         | Igen    | Nincs      | Nincs      |
+| Should delete all requests for a user       | Töröl minden adoption requestet egy felhasználónál          | Törölte         | Igen    | Nincs      | Nincs      |
+| Should delete all requests for a dog        | Töröl minden adoption requestet egy kutyához                | Törölte         | Igen    | Nincs      | Nincs      |
