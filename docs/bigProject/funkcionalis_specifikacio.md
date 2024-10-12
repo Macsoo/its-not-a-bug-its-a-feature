@@ -72,4 +72,57 @@ Adatvédelmi Tájékoztató elolvasható egy külön ablakban.
 
 ## 8. Képernyőtervek
 
+### 8.1 Teljes weboldal:
+
+Grafikus terveket lásd itt: [8.5 Mellékéet](#85-mellékklet)
+
+A Chat megjelenítése minden aloldara vonatkozik. Számítógépen egy aloldalra való átlépéskor a chat nyitott állapotban
+marad, egészen addig, amíg be nem zárjuk.
+
+- **"Chat" gomb:** A jobb alsó gomb segítségével megnyitható a chat funkció.
+
+### 8.2. "Kutyáink" menüpont:
+
+Grafikus terveket lásd itt: [8.5 Mellékéet](#85-mellékklet)
+
+Az oldal tetejéhez egy új fejléc kerül hozzáadásra, amely lehetővé teszi a kutyák közti keresést.
+
+- **Szabad szavas keresőmező:** Lehetővé teszi a kulcsszavas keresést. Kereső funkció amely a kutya nevét és leírását
+  vizsgálja.
+- **Szűrés funkció:** A szűrést szeretnénk kor, nem és fajta alapján végrehajtani. Ha a checkbox-ot bepipáljuk,
+  megjelenik egy legördülő menü, amelyben szereplenek azok a kifejezések, amelyekre szűrhetjük a találatot.
+- **"Keresés" gomb:** Megnyomásával újratöltődnek a kutyák az adatbázisból, és a keresésnek/szűrésnek megfelelő
+  eredmények
+  jelennek meg.
+
+### 8.3. Kutyaprofil:
+
+- A kutya saját profilján egy részletesebb leírás jelenik meg.
+- A kutyához tartozó többi kép itt jelenik meg.
+
+#### 8.3.1 Adminisztrátori nézet:
+
+- **"Új kép feltöltése" gomb:** Lehetővé teszi az új képek feltöltését.
+- Képeket a "Szerkesztés" gombra kattintva is fel tudunk tölteni, itt állíthatjuk be a kutya elsődleges profilképét.
+
+### 8.4. "Fiókom" menüpont:
+
+#### 8.4.1 Felhasználói nézet:
+
+Az oldalon mostmár látható a fiókhoz eltárolt telefonszám.
+
+- **"Telefonszám szerkesztése" gomb:** Lehetővé teszi, hogy a telefonszám szerkeszthető legyen.
+
+#### 8.4.2 Adminisztrátori nézet:
+
+Megjelenik egy új szekció: **Felhasználók**. A regisztrált felhasználók e-mail cím és telefonszám párosítása itt jelenik meg.
+- **"Felhasználó törlése" gomb:** Törli a felhasználó adatait és regisztrációját.
+
+#### 8.5 Mellékklet:
+
+![Chat_bezart.jpg](img/Chat_bezart.jpg)
+
+![Chat_bezart.jpg](img/Chat_nyitott.jpg)
+
+
 ## 9. Forgatókönyvek
