@@ -10,7 +10,7 @@
 
 3. [Megfeleltetés a jogi szabályoknak](#3-megfeleltetés-a-jogi-szabályoknak)
 
-4. [Jelenlegi üzelti folyamatok modellje](#4-jelenlegi-üzelti-folyamatok-modellje)
+4. [Jelenlegi üzleti folyamatok modellje](#4-jelenlegi-üzleti-folyamatok-modellje)
 
 5. [Igényelt üzleti folyamatok modellje](#5-igényelt-üzleti-folyamatok-modellje)
 
@@ -30,7 +30,7 @@
 
 ## 3. Megfeleltetés a jogi szabályoknak
 
-## 4. Jelenlegi üzelti folyamatok modellje
+## 4. Jelenlegi üzleti folyamatok modellje
 
 ## 5. Igényelt üzleti folyamatok modellje
 

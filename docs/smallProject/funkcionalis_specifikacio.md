@@ -10,7 +10,7 @@
 
 3. [Megfeleltetés a jogi szabályoknak](#3-megfeleltetés-a-jogi-szabályoknak)
 
-4. [Jelenlegi üzelti folyamatok modellje](#4-jelenlegi-üzelti-folyamatok-modellje)
+4. [Jelenlegi üzleti folyamatok modellje](#4-jelenlegi-üzleti-folyamatok-modellje)
 
 5. [Igényelt üzleti folyamatok modellje](#5-igényelt-üzleti-folyamatok-modellje)
 
@@ -85,9 +85,17 @@ sikerességéhez és hatékonyságához.
 
 ## 3. Megfeleltetés a jogi szabályoknak
 
-A magyar GDPR-szabályoknak megfelelően a weboldal nem tárol csak telefonszámokat és e-mail címeket jogos cél és a felhasználó kifejezett hozzájárulása nélkül. A GDPR értelmében az olyan személyes adatok, mint a telefonszámok és az e-mail címek érzékeny adatoknak minősülnek, és csak akkor szabad gyűjteni őket, ha az olyan konkrét, egyértelműen meghatározott célokra szükséges, mint a felhasználói megkeresése. A weboldal biztosítja, hogy a felhasználók tájékoztatást kapjanak arról, hogy az adataikat hogyan fogják felhasználni, és a gyűjtés előtt a hozzájárulást is beszerzik. Ezen túlmenően az adatok védelme érdekében szigorú biztonsági intézkedésekkel történik, és a felhasználóknak jogukban áll bármikor kérni az adataikhoz való hozzáférést, azok módosítását vagy törlését. Az adatmegőrzési politikák megfelelnek a GDPR iránymutatásainak, ami azt jelenti, hogy minden felesleges vagy elavult információt biztonságosan törölnek, miután a céljukat betöltötték.
+A magyar GDPR-szabályoknak megfelelően a weboldal nem tárol csak telefonszámokat és e-mail címeket jogos cél és a
+felhasználó kifejezett hozzájárulása nélkül. A GDPR értelmében az olyan személyes adatok, mint a telefonszámok és az
+e-mail címek érzékeny adatoknak minősülnek, és csak akkor szabad gyűjteni őket, ha az olyan konkrét, egyértelműen
+meghatározott célokra szükséges, mint a felhasználói megkeresése. A weboldal biztosítja, hogy a felhasználók
+tájékoztatást kapjanak arról, hogy az adataikat hogyan fogják felhasználni, és a gyűjtés előtt a hozzájárulást is
+beszerzik. Ezen túlmenően az adatok védelme érdekében szigorú biztonsági intézkedésekkel történik, és a felhasználóknak
+jogukban áll bármikor kérni az adataikhoz való hozzáférést, azok módosítását vagy törlését. Az adatmegőrzési politikák
+megfelelnek a GDPR iránymutatásainak, ami azt jelenti, hogy minden felesleges vagy elavult információt biztonságosan
+törölnek, miután a céljukat betöltötték.
 
-## 4. Jelenlegi üzelti folyamatok modellje
+## 4. Jelenlegi üzleti folyamatok modellje
 
 Jelenleg minden üzleti folyamat manuálian történik.
 
@@ -132,31 +140,43 @@ Amennyiben a felhasználóval nem lehet felvenni a kapcsolatot egy héten belül
 
 ## 6. Követelménylista
 
-| Modul | ID | Név | Kifejtés |
-|-------|----|-----|----------|
-| Jogosultság | P1 | Regisztráció | Minden felhasználó számára szükségesnek kell lennie, hogy tudjon regisztrálni. Ezt külön felület segítségével lehessen elérni. Felhasználónév, jelszó segítségével lehessen belépni. |
-| Jogosultság | P2 | Belépés | Minden sikeresen regisztrált felhasználónak lehetséges legyen, a felhasználói adatok birtokában belépni. |
-| Kutya | D1 | Kutya feltöltés | Az admin jogú felhasználók tudjanak új örökbefogadható kutyákat feltölteni, azok leírásával illetve képek feltöltésével nekik profilt létrehozni. |
-| Kutya | D2 | Kutya örökbefogasdási igény jelzése | A felhasználók képesek legyenek az örökbefogadási szándékuk jelzésére bejelentkezés után, és ez megjelenjen a kutya profilján. |
-| Értesítés | E1 | Értesítési email | A felhasználó által megadott email címének alapján, örökbefogadási szándékának jelzése után kap extra emailt az örökbefogadás menetéről és egyéb segítő adatokról. |
+| Modul       | ID | Név                                 | Kifejtés                                                                                                                                                                             |
+|-------------|----|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Jogosultság | P1 | Regisztráció                        | Minden felhasználó számára szükségesnek kell lennie, hogy tudjon regisztrálni. Ezt külön felület segítségével lehessen elérni. Felhasználónév, jelszó segítségével lehessen belépni. |
+| Jogosultság | P2 | Belépés                             | Minden sikeresen regisztrált felhasználónak lehetséges legyen, a felhasználói adatok birtokában belépni.                                                                             |
+| Kutya       | D1 | Kutya feltöltés                     | Az admin jogú felhasználók tudjanak új örökbefogadható kutyákat feltölteni, azok leírásával illetve képek feltöltésével nekik profilt létrehozni.                                    |
+| Kutya       | D2 | Kutya örökbefogasdási igény jelzése | A felhasználók képesek legyenek az örökbefogadási szándékuk jelzésére bejelentkezés után, és ez megjelenjen a kutya profilján.                                                       |
+| Értesítés   | E1 | Értesítési email                    | A felhasználó által megadott email címének alapján, örökbefogadási szándékának jelzése után kap extra emailt az örökbefogadás menetéről és egyéb segítő adatokról.                   |
 
-A jogosultság modul implementálása során a bejelentkezés és regisztráció mellett az admin felhasználók el tudják érni a reisztrált felhasználók listáját. A weboldalon elérhetőnek és könnyen láthatónak kell lennie a regisztráció/bejelentekezési lehetőségnek. Hiszen ennek a segítségével lehet könnyen jelezni az örökbefogadási szándékát a leendő új gazda. Ez lenne az alkalmazás elsődleges dolga.
-A kutyák profiljának létrehozásának egyszerűnek és magától értetendőnek kell lennie, hogy akár az új alkalmazottak is könnyen egyéb betanítás nélkül tudjhák az oldalt kezelni. Képesnek kell lennie az adminoknak szöveges információt, illetve képeket feltölteni.
-Az értesítési email küldésekor az adminok által létrehozott template szövegfile-t fogja a felhasználó megkapni, viszaigazolva az örökbefogadási szándékát illetve egyéb lehetséges hasznos információkat.
+A jogosultság modul implementálása során a bejelentkezés és regisztráció mellett az admin felhasználók el tudják érni a
+reisztrált felhasználók listáját. A weboldalon elérhetőnek és könnyen láthatónak kell lennie a
+regisztráció/bejelentekezési lehetőségnek. Hiszen ennek a segítségével lehet könnyen jelezni az örökbefogadási szándékát
+a leendő új gazda. Ez lenne az alkalmazás elsődleges dolga.
+A kutyák profiljának létrehozásának egyszerűnek és magától értetendőnek kell lennie, hogy akár az új alkalmazottak is
+könnyen egyéb betanítás nélkül tudjhák az oldalt kezelni. Képesnek kell lennie az adminoknak szöveges információt,
+illetve képeket feltölteni.
+Az értesítési email küldésekor az adminok által létrehozott template szövegfile-t fogja a felhasználó megkapni,
+viszaigazolva az örökbefogadási szándékát illetve egyéb lehetséges hasznos információkat.
 
 ## 7. Használati esetek
 
 ### 7.1 Felhasználók
 
-Az oldal felhasználói képesek lesznek az oldal megjelenítésére. Képesnek kell lenniük a kutyák adatainak a megtekintésére, majd ezt követően ha szeretnék örökbefogadási szándékuk jelzésére akkor képesnek kell lenniük regisztrálni. Majd a regisztrációt követően képesek az adott kutyáknak az örökbefogadási szándékukat jelezni. Illetve egyes helyzetekben ha kell ezt visszavonni.
+Az oldal felhasználói képesek lesznek az oldal megjelenítésére. Képesnek kell lenniük a kutyák adatainak a
+megtekintésére, majd ezt követően ha szeretnék örökbefogadási szándékuk jelzésére akkor képesnek kell lenniük
+regisztrálni. Majd a regisztrációt követően képesek az adott kutyáknak az örökbefogadási szándékukat jelezni. Illetve
+egyes helyzetekben ha kell ezt visszavonni.
 
 ### 7.2 Admin Felhasználók
 
-Az oldalt adminisztráló felhasználóknak szükségük van maguk hitelesítésére belépés előtt, illetve az után az oldal bizonyos funkcióinak módosítására. Képesek a regisztrált felhasználók listájának megjelenítésére. Kutyák profiljánmak létrehozására, törlésére illetve módosítására.
+Az oldalt adminisztráló felhasználóknak szükségük van maguk hitelesítésére belépés előtt, illetve az után az oldal
+bizonyos funkcióinak módosítására. Képesek a regisztrált felhasználók listájának megjelenítésére. Kutyák profiljánmak
+létrehozására, törlésére illetve módosítására.
 
 ### 7.3 Kutya Profilok
 
-Az oldal adminisztrátorai által létrehozott profilok amelyek az adott kutyák adatait tárolják. Képesnek kell lenniük adatok megjelenítésére(képekket beleértve), illetve örökbefogadási szándékok jelzésére.
+Az oldal adminisztrátorai által létrehozott profilok amelyek az adott kutyák adatait tárolják. Képesnek kell lenniük
+adatok megjelenítésére(képekket beleértve), illetve örökbefogadási szándékok jelzésére.
 
 ## 8. Képernyőtervek
 
@@ -171,7 +191,7 @@ Minden kutyának saját adatlapja van, amely tartalmazza a kutya fényképeit, l
 
 Grafikus tervet lásd itt: [8.4.1 Melléklet](#841-kutyáink-menüpont---felhasználói-nézet)
 
-- **"Adoptálás" gomb:** Ezen a gombon keresztül a felhasználók elérhetik az örökbefogadási űrlapot. Ez után az adatok 
+- **"Adoptálás" gomb:** Ezen a gombon keresztül a felhasználók elérhetik az örökbefogadási űrlapot. Ez után az adatok
   automatikusan elküldésre kerülnek a menhely adminisztrátoraihoz, akik válaszolnak a beérkező kérdésekre.
 
 #### 8.1.2 Adminisztrátori nézet:
@@ -205,19 +225,27 @@ kérelmet, és kezelhetik azok státuszát.
 ### 8.4 Melléklet:
 
 #### 8.4.1 "Kutyáink" menüpont - Felhasználói nézet:
-![felhasznalo.jpg](img%2Ffelhasznalo.jpg)
+
+![felhasznalo.jpg](img/felhasznalo.jpg)
 
 #### 8.4.2 "Kutyáink" menüpont - Adminisztrátori nézet:
-![admin.jpg](img%2Fadmin.jpg)
+
+![admin.jpg](img/admin.jpg)
 
 ## 9. Forgatókönyvek
 
 ### 9.1 Felhasználó szemszög
 
-Dóri és Tamás szeretnék bővíteni a családjukat egy kis kutyával, ezért fellátogatnak az oldalra. Addig görgetnek a képek között amíg meg nem találják Buksit, az általuk vágyott Goldenretievert. Amint rájöttek, hogy Buksit valószínüleg örökbe szeretnék fogadni, regisztrálnak egy fiókot maguknak majd a belépést követően jelzik Buksi profilján örökbefogadási szándékukat. Ezt követően kapnak egy emailt a menhely egyik dolgozójától hogy mire számíthatnak és mire készüljenek fel a személyes találkozó előtt.
+Dóri és Tamás szeretnék bővíteni a családjukat egy kis kutyával, ezért fellátogatnak az oldalra. Addig görgetnek a képek
+között amíg meg nem találják Buksit, az általuk vágyott Goldenretievert. Amint rájöttek, hogy Buksit valószínüleg örökbe
+szeretnék fogadni, regisztrálnak egy fiókot maguknak majd a belépést követően jelzik Buksi profilján örökbefogadási
+szándékukat. Ezt követően kapnak egy emailt a menhely egyik dolgozójától hogy mire számíthatnak és mire készüljenek fel
+a személyes találkozó előtt.
 
 ### 9.2 Adminisztrátor szemszög
 
-A menhely egyik alkalmazottja fellép az oldalra majd belépés után megkeresi Buksi adatlapját amit szeretne módosítani. Belép a módosító oldalra majd feltölt egy ujjabb képet róla annak a reményében hogy valaki majd így sokkal valószínűbben örökbefogadja majd.
+A menhely egyik alkalmazottja fellép az oldalra majd belépés után megkeresi Buksi adatlapját amit szeretne módosítani.
+Belép a módosító oldalra majd feltölt egy ujjabb képet róla annak a reményében hogy valaki majd így sokkal valószínűbben
+örökbefogadja majd.
 
 ## 10. Funkció – követelmény megfeleltetés
