@@ -28,6 +28,27 @@
 
 ## 2. Vágyálomrendszer leírása
 
+A jelenlegi webalkalmazást az alábbi funkciókkal tervezzük bővíteni:
+
+### 2.1 Általános funkciók:
+
+- Integrált chatfelület felhasználók és adminok közt, amely lebegő menüként oldalt megnyitható.
+- Kétféle kutyaleírás létrehozása: egy rövidebb, amely a listázásnál látható, és egy részletesebb, amely a
+  kutya profilján jelenik meg.
+- Kutyák szűrése keresésnél kor, nem és fajta szerint.
+- Reszponzív webdizájn létrehozása különböző eszközökön: mobil, tablet, számítógép.
+- Több fénykép megjelenítése a kutya profilján.
+
+### 2.2 Adminisztrátori funkciók:
+
+- Több adminisztrátor jogosultsággal rendelkező felhasználó hozzáadása.
+- Képek feltöltése a kutyák profiljához, kutya profiljában megjelenő kép kiválasztása.
+- Felhasználók profiljainak menedzselése: regisztrált fiók törlése a rendszerből.
+
+### 2.3 Felhasználói funkciók:
+
+- Telefonszám megadása/módosítása a profilban.
+
 ## 3. Megfeleltetés a jogi szabályoknak
 
 ## 4. Jelenlegi üzleti folyamatok modellje
