@@ -1,6 +1,7 @@
 'use server';
 
 import {DogImage, PrismaClient} from "@prisma/client";
+import {getDog} from "@/server/dogRepository";
 
 export async function addPicture(picture: { dogId: number, path: string }, isPrimary: boolean = false): Promise<void> {
     const prisma = new PrismaClient();
@@ -58,16 +59,36 @@ export async function deletePicture(pictureId: number): Promise<void> {
     })
 }
 
-export async function updatePicture(picture: { id: number, dogId?: number, path?: string }): Promise<void> {
+export async function updatePicture(pictureToUpdate: {
+    id: number,
+    dogId?: number,
+    path?: string
+}, isPrimary: boolean = false): Promise<void> {
     const prisma = new PrismaClient();
     prisma.$transaction(async (trx) => {
         trx.dogImage.update({
-            data: picture,
+            data: pictureToUpdate,
             where: {
-                id: picture.id
+                id: pictureToUpdate.id
             }
-        })
-    })
+        });
+        if (isPrimary) {
+            if (pictureToUpdate.dogId === undefined) {
+                throw Error("No dogId was given");
+            }
+            const dog = await getDog(pictureToUpdate!.dogId);
+            if (dog === null) {
+                throw Error("Given dog not exist");
+            }
+            dog.primaryImgId = pictureToUpdate.id;
+            trx.dog.update({
+                data: dog,
+                where: {
+                    id: dog.id
+                }
+            })
+        }
+    });
 }
 
 export async function listDogPictures(dogId: number) {
@@ -78,5 +99,20 @@ export async function listDogPictures(dogId: number) {
                 dogId: dogId
             }
         });
+    })
+}
+
+export async function getDogProfilePicture(dogId: number) {
+    const prisma = new PrismaClient();
+    return prisma.$transaction(async (trx) => {
+        const dog = await getDog(dogId);
+        if (dog === null) {
+            throw Error("Given dogId does not exist");
+        }
+        return trx.dogImage.findFirst({
+            where: {
+                id: dog!.primaryImgId
+            }
+        })
     })
 }
