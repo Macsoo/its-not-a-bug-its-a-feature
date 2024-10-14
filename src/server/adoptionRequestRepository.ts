@@ -47,6 +47,17 @@ export async function getDogRequests(dogId: number) {
     })
 }
 
+export async function deleteDogRequests(dogId: number) {
+    const prisma = new PrismaClient();
+    await prisma.$transaction(async (trx) => {
+        trx.adoptionRequest.deleteMany({
+            where: {
+                dogId: dogId
+            }
+        })
+    });
+}
+
 export async function getUserRequests(userId: string) {
     const prisma = new PrismaClient();
     return prisma.$transaction(async (trx) => {
