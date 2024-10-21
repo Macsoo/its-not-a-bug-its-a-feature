@@ -1,21 +1,25 @@
 'use client';
 import {useRouter} from 'next/navigation';
-import React, {useEffect, useState} from 'react';
-import {Dog, Gender} from "@prisma/client";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Dog, DogImage, Gender} from "@prisma/client";
 import {useServerAction} from "@/utils";
 import {getDog, updateDog} from "@/server/dogRepository";
+import {getDogProfilePicture} from "@/server/pictureRepository";
+import {useDropzone} from "react-dropzone";
 
 export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const dogId = parseInt(params.dog_id, 10);
     const [dog, setDog] = useState<Dog | null>(null);
+    const [dogImage, setDogImage] = useState<DogImage | null>(null);
     const [name, setName] = useState('');
     const [age, setAge] = useState(0);
     const [gender, setGender] = useState<Gender>('Male');
     const [description, setDescription] = useState('');
     useServerAction(async () => {
         setDog(await getDog(dogId));
+        setDogImage(await getDogProfilePicture(dogId));
     });
 
     useEffect(() => {
@@ -29,6 +33,27 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
         setDescription(dog.description);
         setLoading(false);
     }, [dog]);
+
+    useEffect(() => {
+        if (dogImage === null) return;
+        setPreview(dogImage.path)
+    }, [dogImage]);
+
+    const onDrop = useCallback((acceptedFiles: Array<File>) => {
+        const file = new FileReader;
+
+        file.onload = function() {
+            setPreview(file.result);
+        }
+
+        file.readAsDataURL(acceptedFiles[0])
+    }, [])
+
+    const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop
+    });
+
+    const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -94,6 +119,19 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                             </div>
+                            <div {...getRootProps()}>
+                                <input {...getInputProps()} />
+                                {
+                                    isDragActive ?
+                                        <p>Drop the files here ...</p> :
+                                        <p>Drag &apos;n&apos; drop some files here, or click to select files</p>
+                                }
+                            </div>
+                            {preview && (
+                                <p className="mb-5">
+                                    <img src={preview as string} alt="Upload preview" />
+                                </p>
+                            )}
                             <div className={`flex flex-row items-center justify-center`}>
 
                                 <button id={`updateDog`} type="submit">Frissítés</button>
