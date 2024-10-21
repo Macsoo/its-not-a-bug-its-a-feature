@@ -1,4 +1,5 @@
 import React from 'react';
+import {PrismaClient} from "@prisma/client";
 
 export function useServerAction<T>(serverAction: () => Promise<T>): void {
     React.useEffect(() => {
@@ -6,4 +7,8 @@ export function useServerAction<T>(serverAction: () => Promise<T>): void {
             await serverAction();
         })();
     }, []);
+}
+
+export function getPrisma() {
+    return globalThis.prisma ?? new PrismaClient();
 }

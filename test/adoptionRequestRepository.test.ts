@@ -1,5 +1,5 @@
-import {Gender, PrismaClient, users, Dog, AdoptionRequest} from '@prisma/client';
-import {afterAll, beforeAll, describe, expect, it} from "@jest/globals";
+import {Gender, users, Dog, AdoptionRequest} from '@prisma/client';
+import {beforeAll, expect, it} from "@jest/globals";
 import {
     addRequest,
     getRequest,
@@ -12,34 +12,18 @@ import {
     updateRequest,
     approveRequest,
     rejectRequest
-} from "../src/server/adoptionRequestRepository";
+} from "@/server/adoptionRequestRepository";
 import {
     addDog,
-} from "../src/server/dogRepository";
-import {PrismaTestingHelper} from "@chax-at/transactional-prisma-testing";
+} from "@/server/dogRepository";
+import {prismaTest} from "./prismaTest";
 
-const origPrisma = new PrismaClient({log: ["query"]});
-const prismaProxy = new PrismaTestingHelper(origPrisma);
-const prisma = prismaProxy.getProxyClient();
-
-describe('Adoption request unit test', () => {
+prismaTest('Adoption request unit test', (prisma) => {
     let testUser: users;
     let testDog: Dog;
     let testRequest: AdoptionRequest;
 
     beforeAll(async () => {
-        await prisma.$connect();
-        await prismaProxy.startNewTransaction({
-            timeout: 10000
-        });
-        await prisma.adoptionRequest.deleteMany();
-        await prisma.dogImage.updateMany({
-            data: {
-                dogId: null,
-            }
-        });
-        await prisma.dog.deleteMany();
-        await prisma.dogImage.deleteMany();
         testUser = await prisma.users.findFirstOrThrow({
             where: {
                 email: "admin@inabiaf.org"
@@ -57,11 +41,6 @@ describe('Adoption request unit test', () => {
         };
         await addDog(params)
         testDog = await prisma.dog.findFirstOrThrow();
-    });
-
-    afterAll(async () => {
-        prismaProxy.rollbackCurrentTransaction();
-        await prisma.$disconnect();
     });
 
     it('Should create an adoption request', async () => {
