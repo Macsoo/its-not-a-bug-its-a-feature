@@ -15,6 +15,9 @@ export async function addDog(params: {
 }): Promise<void> {
     const prisma = new PrismaClient();
     await prisma.$transaction(async (trx) => {
+        if (params.chipId === null || params.name === null || params.age < 0) {
+            throw new Error('Not valid info was given: ' + params);
+        }
         const img: DogImage = await trx.dogImage.create({
             data: {
                 path: params.imgPath
