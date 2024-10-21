@@ -3,16 +3,15 @@ import {User} from "@supabase/supabase-js";
 import Image from "next/image";
 import Link from "next/link";
 import {getUser} from "@/server/supabase";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Session, SessionContext} from "@/components/sessionContext";
+import {useServerAction} from "@/utils";
 
 export default function Layout(props: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | undefined>(undefined);
-    useEffect(() => {
-        (async () => {
-            setUser(await getUser());
-        })();
-    }, []);
+    useServerAction(async () => {
+        setUser(await getUser());
+    });
     return <>
     <div className={`header-mobile md:header`}>
         <Image src="/theDog.jpg" width={50} height={50} alt="Logo"/>

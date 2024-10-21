@@ -1,29 +1,34 @@
 'use client';
 import {useRouter} from 'next/navigation';
 import React, {useEffect, useState} from 'react';
-import {Dog} from "@prisma/client";
+import {Dog, Gender} from "@prisma/client";
 import {useServerAction} from "@/utils";
 import {getDog, updateDog} from "@/server/dogRepository";
-import {useDropzone} from 'react-dropzone'
 
 export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const router = useRouter();
-
     const [loading, setLoading] = useState(true);
     const dogId = parseInt(params.dog_id, 10);
     const [dog, setDog] = useState<Dog | null>(null);
-    const [name, setName] = useState(dog?.name);
-    const [age, setAge] = useState(dog?.age);
-    const [gender, setGender] = useState(dog?.gender);
-    const [description, setDescription] = useState(dog?.description);
+    const [name, setName] = useState('');
+    const [age, setAge] = useState(0);
+    const [gender, setGender] = useState<Gender>('Male');
+    const [description, setDescription] = useState('');
     useServerAction(async () => {
         setDog(await getDog(dogId));
-        setName(dog?.name);
-        setAge(dog?.age);
-        setGender(dog?.gender);
-        setDescription(dog?.description);
-        setLoading(false);
     });
+
+    useEffect(() => {
+        if (dog === null) {
+            setLoading(false);
+            return;
+        }
+        setName(dog.name);
+        setAge(dog.age);
+        setGender(dog.gender);
+        setDescription(dog.description);
+        setLoading(false);
+    }, [dog]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -36,35 +41,6 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
         });
         router.push(`/dogs/${dogId}`);
     };
-
-    const [files, setFiles] = useState<File[]>([]);
-    const {getRootProps, getInputProps} = useDropzone({
-        accept: {
-            'image/*': []
-        },
-        onDrop: acceptedFiles => {
-            setFiles(acceptedFiles.map(file => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-            })));
-        }
-    });
-
-    const thumbs = files.map(file => (
-        <div key={file.name}>
-            <div>
-                <img
-                    src={file.webkitRelativePath}
-                    onLoad={() => {
-                        URL.revokeObjectURL(file.webkitRelativePath)
-                    }}
-                />
-            </div>
-        </div>
-    ));
-
-    useEffect(() => {
-        return () => files.forEach(file => URL.revokeObjectURL(file.webkitRelativePath));
-    }, [files]);
 
     return <>
         {dog &&
@@ -80,7 +56,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     id="name"
                                     type="text"
                                     onChange={(e) => setName(e.target.value)}
-                                    defaultValue={name}
+                                    value={name}
                                 />
                             </div>
                             <div className={`form`}>
@@ -91,7 +67,6 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     type="number"
                                     value={age}
                                     onChange={(e) => setAge(parseInt(e.target.value))}
-                                    defaultValue={age}
                                 />
                             </div>
                             <div className={`form`}>
@@ -106,8 +81,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                         }
                                     }}
                                 >
-                                    <option value="male">Hím</option>
-                                    <option value="female">Nőstény</option>
+                                    <option value="Male">Hím</option>
+                                    <option value="Female">Nőstény</option>
                                 </select>
                             </div>
                             <div className={`flex flex-row items-center p-2`}>
@@ -117,18 +92,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     id="description"
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
-                                    defaultValue={description}
                                 />
                             </div>
-                            <section className="container">
-                                <div {...getRootProps({className: 'dropzone'})}>
-                                    <input {...getInputProps()} />
-                                    <p>Drag `&#39;`n drop some files here, or click to select files</p>
-                                </div>
-                                <aside>
-                                    {thumbs}
-                                </aside>
-                            </section>
                             <div className={`flex flex-row items-center justify-center`}>
 
                                 <button id={`updateDog`} type="submit">Frissítés</button>
