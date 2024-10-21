@@ -13,7 +13,6 @@ export class Session {
     }
     public isAdmin(): boolean {
         if (this.user === undefined) return false;
-        console.log(this.user.email);
         return this.user.app_metadata["admin"] === true;
     }
     public isUser(): boolean {
