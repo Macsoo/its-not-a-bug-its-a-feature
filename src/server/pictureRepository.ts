@@ -1,10 +1,11 @@
 'use server';
 
-import {DogImage, PrismaClient} from "@prisma/client";
+import {getPrisma} from "@/utils";
+import {DogImage} from "@prisma/client";
 import {getDog} from "@/server/dogRepository";
 
 export async function addPicture(picture: { dogId: number, path: string }, isPrimary: boolean = false): Promise<void> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     prisma.$transaction(async (trx) => {
         const img: DogImage = await trx.dogImage.create({
             data: picture,
@@ -31,7 +32,7 @@ export async function addPicture(picture: { dogId: number, path: string }, isPri
 }
 
 export async function getPicture(pictureId: number): Promise<DogImage | null> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
         return trx.dogImage.findFirst({
             where: {
@@ -42,14 +43,14 @@ export async function getPicture(pictureId: number): Promise<DogImage | null> {
 }
 
 export async function listAllPictures() {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
         return trx.dog.findMany();
     })
 }
 
 export async function deletePicture(pictureId: number): Promise<void> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     prisma.$transaction(async (trx) => {
         trx.dogImage.delete({
             where: {
@@ -64,7 +65,7 @@ export async function updatePicture(pictureToUpdate: {
     dogId?: number,
     path?: string
 }, isPrimary: boolean = false): Promise<void> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     prisma.$transaction(async (trx) => {
         trx.dogImage.update({
             data: pictureToUpdate,
@@ -92,7 +93,7 @@ export async function updatePicture(pictureToUpdate: {
 }
 
 export async function listDogPictures(dogId: number) {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
         return trx.dogImage.findMany({
             where: {
@@ -103,7 +104,7 @@ export async function listDogPictures(dogId: number) {
 }
 
 export async function getDogProfilePicture(dogId: number) {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
         const dog = await getDog(dogId);
         if (dog === null) {
