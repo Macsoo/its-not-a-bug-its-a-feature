@@ -32,7 +32,7 @@ model DogImage {
   dogId     Int?
   path      String @db.VarChar(510)
   primaryOf Dog?   @relation("primary")
-  dog       Dog?    @relation("images", fields: [dogId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  dog       Dog?   @relation("images", fields: [dogId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@schema("public")
 }
@@ -43,8 +43,8 @@ model AdoptionRequest {
   dogId       Int
   requestDate DateTime
   approved    Boolean?
-  dog         Dog      @relation(fields: [dogId], references: [id])
-  user        users    @relation(fields: [userId], references: [id])
+  dog         Dog      @relation(fields: [dogId], references: [id], onDelete: Cascade)
+  user        users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@schema("public")
 }

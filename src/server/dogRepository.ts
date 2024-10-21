@@ -2,7 +2,6 @@
 
 import {Gender, PrismaClient} from '@prisma/client';
 import type {Dog, DogImage} from '@prisma/client';
-import {deleteDogRequests} from "@/server/adoptionRequestRepository";
 
 export async function addDog(params: {
     chipId: string,
@@ -73,7 +72,6 @@ export async function deleteDog(dogId: number): Promise<void> {
                 dogId: dogId,
             }
         });
-        await deleteDogRequests(dogId);
         await trx.dog.delete({
             where: {
                 id: dogId,
