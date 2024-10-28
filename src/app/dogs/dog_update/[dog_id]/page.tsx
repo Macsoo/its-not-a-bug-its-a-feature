@@ -17,6 +17,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const [age, setAge] = useState(0);
     const [gender, setGender] = useState<Gender>('Male');
     const [description, setDescription] = useState('');
+    const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
     useServerAction(async () => {
         setDog(await getDog(dogId));
         setDogImage(await getDogProfilePicture(dogId));
@@ -53,7 +54,6 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
         onDrop
     });
 
-    const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
