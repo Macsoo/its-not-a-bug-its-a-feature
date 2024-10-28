@@ -36,7 +36,110 @@
 
 ## 2. Projekt terv
 
+### 2.1 Projekt munkások és felelősségeik
+
+- **Projektvezető: Bagoly Luca**
+    - Felelős a projekt egészéért, a határidők betartásáért, az erőforrások elosztásáért és a projekt előrehaladásának
+      nyomon követéséért.
+    - Biztosítja a kommunikációt a csapattagok között, valamint a megrendelővel való kapcsolattartást.
+
+- **Fejlesztőcsapat vezető: File Tibor**
+    - Felügyeli és koordinálja a fejlesztői csapat munkáját, biztosítja, hogy a technikai feladatok megfelelően legyenek
+      végrehajtva.
+    - A fejlesztési ütemterv betartásáért és a technikai kihívások megoldásáért felel.
+
+- **Frontend fejlesztő: Bagoly Luca**
+    - Felelős az alkalmazás felhasználói felületének fejlesztéséért, a reszponzív design megvalósításáért és a
+      felhasználói élmény optimalizálásáért.
+
+- **Backend fejlesztő: Bánvölgyi Bence**
+    - A szerveroldali logika fejlesztéséért felelős, beleértve az adatbázisok kezelését, az API-k fejlesztését és az
+      üzleti logika megvalósítását.
+
+- **UI/UX tervező: Bagoly Luca**
+    - Az alkalmazás vizuális megjelenéséért és felhasználói élményének kialakításáért felelős, biztosítva, hogy a
+      rendszer intuitív és felhasználóbarát legyen.
+
+- **Tesztelő: Bagoly Luca, File Tibor, Bánvölgyi Bence**
+    - Felelős az alkalmazás hibamentességének ellenőrzéséért, különböző funkcionális és nem funkcionális tesztek
+      végrehajtásáért, valamint a hibák dokumentálásáért és nyomon követéséért.
+
+- **Rendszeradminisztrátor: File Tibor, Bánvölgyi Bence**
+    - Felelős az alkalmazás hosztolásáért, a szerverek és adatbázisok üzemeltetéséért, valamint a biztonsági
+      intézkedések alkalmazásáért.
+
+### 2.2 Ütemterv
+
+Az ütemterv a projekt különböző szakaszainak időbeli ütemezését mutatja. Az alábbiakban a főbb fázisok és a hozzájuk
+rendelt időintervallumok láthatók:
+
+- **1. Szakasz: Követelményspecifikáció és Funkcionális specifikáció meghatározása** – 1 hét _(2024. Okt. 14-20.)_
+    - Cél: Az alkalmazás funkcionalitásának részletes meghatározása.
+
+- **2. Szakasz: Rendszerterv elkészítése** – 1 hét _(2024. Okt. 28. - Nov. 3.)_
+    - Cél: Az alkalmazás rendszertervének meghatározása.
+
+- **3. Szakasz: Fejlesztés sprint I.** – 1 hét _(2024. Nov. 4-10.)_
+    - Cél: A kutya képek feltöltésének funkciójának implementálása. A sprint elején tisztázandó a képfeltöltés technikai
+      megoldása és a felhasználói felület integrálása.
+
+- **4. Szakasz: Fejlesztés sprint II.** – 1 hét _(2024. Nov. 11-17.)_
+    - Cél: A kutya profilképének kiválasztására szolgáló funkció hozzáadása, valamint a felhasználók adminisztrátori
+      szintű kezelésének megvalósítása. A sprint elején tisztázandó a felhasználói jogosultságok kezelése és a profilkép
+      kiválasztásának folyamata.
+
+- **5. Szakasz: Fejlesztés sprint III., Projekt bemutató, Demo-val** – 1 hét _(2024. Nov. 18-24.)_
+    - Cél: A projekt állapotának bemutatása, a már elkészült funkciók demonstrálása és a felhasználói visszajelzések
+      begyűjtése. A sprint elején tisztázandó a demó prezentálásának menete és a várt visszajelzések.
+
+- **6. Szakasz: Fejlesztés sprint IV., tesztelés** – 1 hét _(2024. Nov. 25. - Dec. 1.)_
+    - Cél: A telefonszám szerkesztésének funkciója felhasználóként, valamint a már fejlesztett funkciók tesztelése,
+      hibák keresése és javítása. A sprint elején tisztázandó a tesztelési eljárás és a prioritások.
+
+- **7. Szakasz: Fejlesztés sprint V., tesztelés** - 1 hét  _(2024. Dec. 2-8.)_
+    - Cél: A chat funkció implementálása, amely valószínűleg több hétig tart. A sprint elején tisztázandó a chat felület
+      tervezése és a technikai megvalósítás részletei.
+
+- **8. Szakasz: Felkézülés az átadásra/átvételre** - Átadás dátuma: 2024. december 9.
+    - Cél: A projekt befejezése, a dokumentáció és a végső jelentés elkészítése, valamint az átadásra való felkészülés.
+      A sprint elején tisztázandó az átadási folyamat és a szükséges dokumentumok.
+
+### 2.3 **Mérföldkövek**
+
+### 2.3 Mérföldkövek
+
+A projekt során a következő mérföldköveket határozzuk meg, amelyek fontos lépései a fejlesztésnek és a funkciók
+implementálásának:
+
+- **Mérföldkő 1: Követelményspecifikáció és Funkcionális specifikáció elkészítése** _(2024. Okt. 20.)_
+    - Az alkalmazás funkcionalitásának részletes leírása és a követelmények dokumentálása.
+
+- **Mérföldkő 2: Rendszerterv elkészítése** _(2024. Nov. 3.)_
+    - A rendszer architektúrájának és tervezésének véglegesítése, amely alapot ad a fejlesztéshez.
+
+- **Mérföldkő 3: Kutyák képeinek feltöltése funkció elkészítése** _(2024. Nov. 10.)_
+    - A kutya képek feltöltési lehetőségének megvalósítása és integrálása a felhasználói felületbe.
+
+- **Mérföldkő 4: Kutya profilkép kiválasztása és felhasználók adminisztrációs funkcióinak bevezetése** _(2024. Nov.
+  17.)_
+    - A kutyák profilképének kiválasztására szolgáló funkció, valamint a felhasználói fiókok adminisztrátori kezelésének
+      implementálása.
+
+- **Mérföldkő 5: Projekt bemutató és visszajelzés gyűjtése** _(2024. Nov. 24.)_
+    - A projekt állapotának bemutatása a csapatnak és az érdekelteknek, valamint a felhasználói visszajelzések
+      összegyűjtése.
+
+- **Mérföldkő 6: Telefonszám szerkesztésének funkciójának bevezetése és tesztelés** _(2024. Dec. 1.)_
+    - A telefonszám szerkesztési lehetőségének elkészítése és a már kifejlesztett funkciók tesztelése.
+
+- **Mérföldkő 7: Chat funkció implementálása** _(2024. Dec. 8.)_
+    - A chat funkció véglegesítése, tesztelése, és a felhasználói élmény javítása érdekében végzett finomhangolás.
+
+- **Mérföldkő 8: Átadásra való felkészülés** _(2024. Dec. 9.)_
+    - A projekt befejezése, a végső dokumentáció elkészítése és az átadási folyamat lebonyolítása.
+
 ## 3. Üzleti folyamatok modellje
+
 ```mermaid
 flowchart LR
     admin(Admin)
@@ -44,14 +147,15 @@ flowchart LR
     visitor(Visitor)
     dog(Dog profile)
     apply(Adopting intention)
-    visitor-- Can see -->dog
-    user-- Can see -->dog
-    user-- Can use -->apply
-    admin-- Can modify -->dog
-    admin-- Can see -->apply
-    dog-- Has -->apply
-    apply-- Sends email -->user
+    visitor -- Can see --> dog
+    user -- Can see --> dog
+    user -- Can use --> apply
+    admin -- Can modify --> dog
+    admin -- Can see --> apply
+    dog -- Has --> apply
+    apply -- Sends email --> user
 ```
+
 ## 4. Követelmények
 
 ## 5. Funkcionális terv
@@ -119,10 +223,10 @@ flowchart LR
 ```mermaid
 flowchart TD
     subgraph Webserver
-        subgraph Backend 
+        subgraph Backend
             db_connector(Database connector)
             request_handler(Request handler)
-            request_handler-- Uses -->db_connector
+            request_handler -- Uses --> db_connector
         end
         subgraph Frontend
             login(Login page)
@@ -130,22 +234,22 @@ flowchart TD
             admin_editor(Admin editor)
             dogs_list(Dogs list view)
             dog_details(Dog detailed view)
-            dogs_list-->dog_details
-            admin_editor-->dogs_list
-            admin_editor-->dog_details
+            dogs_list --> dog_details
+            admin_editor --> dogs_list
+            admin_editor --> dog_details
         end
-        request_handler-- Provides -->Frontend
+        request_handler -- Provides --> Frontend
     end
     subgraph Database
         dogs(Dogs)
         pictures(Pictures)
         users(Users)
         adoption_requests(Adoption requests)
-        dogs-- Refers to -->pictures
-        pictures-- Refers to -->dogs
-        adoption_requests-- Refers to -->dogs & users
+        dogs -- Refers to --> pictures
+        pictures -- Refers to --> dogs
+        adoption_requests -- Refers to --> dogs & users
     end
-    db_connector-- Uses -->Database
+    db_connector -- Uses --> Database
 ```
 
 ### 7.2. Modell részei
@@ -273,6 +377,7 @@ erDiagram
 | image_id    | `SERIAL`       | `PRIMARY KEY`, egyedi kép azonosító (automatikusan nő).  |
 | dog_id      | `INT`          | `REFERENCES Dogs(dog_id)`, a lefoglalt kutya chip száma. | 
 | img_path    | `VARCHAR(510)` | A kutya adatlapján megjelenő kép.                        | 
+
 #### 9.2 Fizikai Adatmodellt Legeneráló SQL Szkript
 
 #### 9.2.1 Adatbázis létrehozása**
@@ -389,28 +494,28 @@ classDiagram
         +primary_image Picture
         +images List~Picture~
     }
-    
+
     class Picture {
         <<entity>>
         -id int
         +dog Dog
         +value Image
     }
-    
+
     class User {
         <<entity>>
         -id int
         +email string
         +phone_number string
     }
-    
+
     class AdoptionResult {
         <<enumeration>>
         NONE
         APPROVED
         REJECTED
     }
-    
+
     class AdoptionRequest {
         <<entity>>
         -id int
@@ -419,8 +524,8 @@ classDiagram
         +request_date Date
         +approved AdoptionResult
     }
-    AdoptionResult<..AdoptionRequest
-    
+    AdoptionResult <.. AdoptionRequest
+
     class Repository~Entity~ {
         <<abstract>>
         #add(Entity entity)
@@ -429,7 +534,7 @@ classDiagram
         #delete(Entity entity)
         #update(Entity entity)
     }
-    
+
     class DogRepository {
         <<service>>
         +add(Dog entity)
@@ -441,10 +546,10 @@ classDiagram
         +adopted(Dog adoptedDog)
         +addPictures(Dog dog, List~Picture~ pictures)
     }
-    Repository<|..DogRepository
-    Dog<..DogRepository
-    DogRepository<..Router
-    
+    Repository <|.. DogRepository
+    Dog <.. DogRepository
+    DogRepository <.. Router
+
     class PictureRepository {
         <<service>>
         +add(Picture entity)
@@ -454,10 +559,10 @@ classDiagram
         #update(Picture entity)
         +listDogPictures(Dog entity) List~Picture~
     }
-    Repository<|..PictureRepository
-    Picture<..PictureRepository
-    PictureRepository<..Router
-    
+    Repository <|.. PictureRepository
+    Picture <.. PictureRepository
+    PictureRepository <.. Router
+
     class UserRepository {
         <<service>>
         #add(User entity)
@@ -470,10 +575,10 @@ classDiagram
         +verifyLogin(string email, string password)
         +verifiedEmail(string email)
     }
-    Repository<|..UserRepository
-    User<..UserRepository
-    UserRepository<..Router
-    
+    Repository <|.. UserRepository
+    User <.. UserRepository
+    UserRepository <.. Router
+
     class AdoptionRequestRepository {
         <<service>>
         #add(AdoptionRequest entity)
@@ -485,9 +590,9 @@ classDiagram
         +approve(AdoptionRequest request)
         +reject(AdoptionRequest request)
     }
-    Repository<|..AdoptionRequestRepository
-    AdoptionRequest<..AdoptionRequestRepository
-    AdoptionRequestRepository<..Router
+    Repository <|.. AdoptionRequestRepository
+    AdoptionRequest <.. AdoptionRequestRepository
+    AdoptionRequestRepository <.. Router
 ```
 
 ## 11. Tesztterv
