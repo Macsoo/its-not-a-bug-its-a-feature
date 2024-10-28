@@ -6,8 +6,12 @@ import {UpdateButton, DeleteButton,AdoptButton} from "@/components/dogsButton"
 import {useContext} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {Dog, DogImage} from "@prisma/client";
+import {useServerAction} from "@/utils";
 
 export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
+    useServerAction(async () => {
+
+    });
     const session = useContext(SessionContext);
     return (
         <div className={`card-dog`}>

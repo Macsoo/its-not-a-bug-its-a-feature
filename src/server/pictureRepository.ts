@@ -1,8 +1,42 @@
 'use server';
 
 import {getPrisma} from "@/utils";
-import {DogImage} from "@prisma/client";
+import {Dog, DogImage} from "@prisma/client";
 import {getDog} from "@/server/dogRepository";
+import {createServer} from "@/server/supabase";
+
+export async function uploadPicture(formData: FormData): Promise<string> {
+    const dogId = parseInt(formData.get("dogId") as string);
+    console.warn("dogId", dogId);
+    const data = formData.get("data") as File;
+    console.warn("data", data);
+    const supabase = await createServer();
+    const uuid = crypto.randomUUID();
+    const prisma = getPrisma();
+    await prisma.$transaction(async (trx) => {
+        const dog: Dog | null = await trx.dog.findUnique({
+            where: {
+                id: dogId,
+            }
+        });
+        if (dog === null || dog === undefined) {
+            console.error("dog doesnt exist");
+            return;
+        }
+        const { error } = await supabase.storage.from('dogimages').upload(uuid, data);
+        if (error !== null) {
+            console.error("error while uploading", error);
+            return;
+        }
+        await trx.dogImage.create({
+            data: {
+                dogId: dog.id,
+                path: uuid,
+            }
+        });
+    });
+    return uuid;
+}
 
 export async function addPicture(picture: { dogId: number, path: string }, isPrimary: boolean = false): Promise<void> {
     const prisma = getPrisma();

@@ -12,6 +12,7 @@
     "@prisma/client": "^5.21.1",
     "@supabase/ssr": "^0.5.1",
     "@supabase/supabase-js": "^2.45.4",
+    "@supabase/storage-js": "^2.7.1",
     "next": "14.2.11",
     "react": "^18",
     "react-dom": "^18",

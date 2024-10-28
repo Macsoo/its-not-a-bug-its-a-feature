@@ -1,10 +1,11 @@
 'use client';
 import {useRouter} from 'next/navigation';
+import Image from 'next/image';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Dog, DogImage, Gender} from "@prisma/client";
 import {useServerAction} from "@/utils";
 import {getDog, updateDog} from "@/server/dogRepository";
-import {getDogProfilePicture} from "@/server/pictureRepository";
+import {getDogProfilePicture, uploadPicture} from "@/server/pictureRepository";
 import {useDropzone} from "react-dropzone";
 
 export default function UpdateDog({params}: { params: { dog_id: string } }) {
@@ -40,17 +41,16 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
         setPreview(dogImage.path)
     }, [dogImage]);
 
-    const onDrop = useCallback((acceptedFiles: Array<File>) => {
-        const file = new FileReader;
-
-        file.onload = function() {
-            setPreview(file.result);
+    const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
+        for (const file of acceptedFiles) {
+            const formData = new FormData;
+            formData.set("dogId", dogId.toString());
+            formData.set("data", file);
+            await uploadPicture(formData);
         }
+    }, []);
 
-        file.readAsDataURL(acceptedFiles[0])
-    }, [])
-
-    const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop
     });
 
@@ -129,7 +129,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                             </div>
                             {preview && (
                                 <p className="mb-5">
-                                    <img src={preview as string} alt="Upload preview" />
+                                    <Image src={preview as string} alt="Upload preview" />
                                 </p>
                             )}
                             <div className={`flex flex-row items-center justify-center`}>
