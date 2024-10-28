@@ -106,8 +106,6 @@ rendelt időintervallumok láthatók:
 
 ### 2.3 **Mérföldkövek**
 
-### 2.3 Mérföldkövek
-
 A projekt során a következő mérföldköveket határozzuk meg, amelyek fontos lépései a fejlesztésnek és a funkciók
 implementálásának:
 
