@@ -1,11 +1,12 @@
 'use client';
 import "../globals.css";
 
-import React, {useContext, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {useRouter} from "next/navigation";
 import {addDog} from "@/server/dogRepository";
-import {Gender} from "@prisma/client";
+import {DogImage, Gender} from "@prisma/client";
+import {useDropzone} from "react-dropzone";
 
 export default function AddDog() {
     const router = useRouter();
@@ -18,8 +19,9 @@ export default function AddDog() {
     const [gender, setGender] = useState<Gender>('Male');
     const [description, setDescription] = useState("");
     const [breed, setBreed] = useState("");
-
     const [errorMessage, setErrorMessage] = useState('');
+    const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+    const [dogImage, setDogImage] = useState<DogImage | null>(null);
 
     const handleValidation = (e: React.FormEvent<HTMLInputElement>) => {
         const input = e.currentTarget;
@@ -34,6 +36,24 @@ export default function AddDog() {
         }
     };
 
+    useEffect(() => {
+        if (dogImage === null) return;
+        setPreview(dogImage.path)
+    }, [dogImage]);
+
+    const onDrop = useCallback((acceptedFiles: Array<File>) => {
+        const file = new FileReader;
+
+        file.onload = function () {
+            setPreview(file.result);
+        }
+
+        file.readAsDataURL(acceptedFiles[0])
+    }, [])
+
+    const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone({
+        onDrop
+    });
 
     return (
         <div className="content">
@@ -69,7 +89,7 @@ export default function AddDog() {
                         />
                     </div>
 
-                    {errorMessage && <span style={{ color: 'red' }}>{errorMessage}</span>}
+                    {errorMessage && <span style={{color: 'red'}}>{errorMessage}</span>}
 
                     <div className={`form`}>
                         <label htmlFor="name" className={`pr-1 w-[48px]`}>Név:</label>
@@ -129,7 +149,19 @@ export default function AddDog() {
                         />
                     </div>
                     <div>
-
+                        <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            {
+                                isDragActive ?
+                                    <p>Drop the files here ...</p> :
+                                    <p>Drag &apos;n&apos; drop some files here, or click to select files</p>
+                            }
+                        </div>
+                        {preview && (
+                            <p className="mb-5">
+                                <img src={preview as string} alt="Upload preview"/>
+                            </p>
+                        )}
                     </div>
                     <div className={`flex flex-row items-center justify-center`}>
                         <button id={`updateDog`} type="submit">Kutya Hozzáadása</button>
