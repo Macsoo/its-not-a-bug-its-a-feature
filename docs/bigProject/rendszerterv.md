@@ -34,6 +34,50 @@
 
 ## 1. A rendszer célja
 
+### 1.1 Rendszer célja
+
+A rendszer célja, hogy modern, felhasználóbarát webes felületet biztosítson egy menhely számára,
+ahol a felhasználók könnyedén böngészhetik a kutyaprofilokat, részletes információkat találhatnak a kiválasztott
+kutyákról, és jelezhetik örökbefogadási szándékukat egy adott kutya esetén. A rendszernek továbbá adminisztrátori
+eszközöket kell kínálnia a központ munkatársai számára, hogy kezelhessék a kutyaprofilokat, a képfeltöltéseket, a
+felhasználói fiókokat, valamint kommunikálhassanak a felhasználókkal az örökbefogadási folyamat során.
+
+Az alapvető célkitűzések a következők:
+
+1. **Felhasználói élmény javítása:** A rendszer reszponzív és felhasználóbarát felületen biztosítja a kutyák böngészését
+   és az örökbefogadási folyamatot.
+2. **Hatékony információkezelés:** Lehetővé teszi a kutyákról szóló információk és képek naprakész kezelését és
+   megjelenítését.
+3. **Örökbefogadási folyamat támogatása:** A felhasználók egyszerűen jelezhetik örökbefogadási szándékukat, kapcsolatba
+   léphetnek az adminisztrátorokkal, és hozzáférhetnek a kutyákról szóló részletes leírásokhoz.
+4. **Adminisztrációs funkcionalitások biztosítása:** Az adminisztrátorok jogosultak a felhasználói fiókok és
+   kutyaprofilok kezelésére, valamint valós idejű kommunikációt folytathatnak az érdeklődőkkel a beépített chat funkció
+   segítségével.
+5. **Adatbiztonság és megfelelés:** A rendszer a GDPR előírásoknak megfelelően kezeli a felhasználói adatokat, különös
+   tekintettel az örökbefogadási folyamat során gyűjtött érzékeny információkra.
+
+### 1.2 Nemcélok
+
+Az alábbiak nem tartoznak a rendszer célkitűzései közé, és nem képezik részét a fejlesztési követelményeknek:
+
+1. **Örökbefogadási folyamat jogi kezelése:** A rendszer nem váltja ki az örökbefogadási szerződéseket, dokumentációkat
+   és az örökbefogadási eljárás jogi aspektusait. Ezt a menhelynek a hagyományos módon kell kezelnie.
+
+2. **Pénzügyi tranzakciók kezelése:** A rendszer nem támogat online fizetéseket, adománygyűjtést vagy bármilyen pénzügyi
+   tranzakciót. Az anyagi támogatások vagy örökbefogadási díjak lebonyolítása offline vagy egyéb fizetési csatornákon
+   keresztül történik.
+
+3. **Automatizált döntéshozatal az örökbefogadásban:** A rendszer nem végzi el az örökbefogadási kérelmek jóváhagyását
+   vagy elutasítását. Az adminisztrátorok feladata marad a döntéshozatal, a rendszer csak a kapcsolattartást és a
+   profilok kezelését segíti.
+
+4. **Egészségügyi vagy viselkedési elemzés biztosítása:** A rendszer nem ad tanácsot vagy elemzést a kutyák egészségi
+   állapotáról, viselkedéséről vagy gondozásáról. Az ilyen jellegű kérdéseket az érdeklődőknek közvetlenül az
+   menhely dolgozóvial kell megbeszélniük.
+
+5. **Hirdetések és marketing funkciók támogatása:** A rendszer nem biztosít eszközöket reklámkampányokhoz, marketing
+   tevékenységekhez, vagy a kutyák profiljainak külső hirdetési platformokon való megosztásához.
+
 ## 2. Projekt terv
 
 ### 2.1 Projekt munkások és felelősségeik
