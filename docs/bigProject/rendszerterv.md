@@ -181,22 +181,67 @@ implementálásának:
     - A projekt befejezése, a végső dokumentáció elkészítése és az átadási folyamat lebonyolítása.
 
 ## 3. Üzleti folyamatok modellje
-
 ```mermaid
 flowchart LR
-    admin(Admin)
-    user(User)
-    visitor(Visitor)
     dog(Dog profile)
-    apply(Adopting intention)
-    visitor -- Can see --> dog
-    user -- Can see --> dog
-    user -- Can use --> apply
-    admin -- Can modify --> dog
-    admin -- Can see --> apply
-    dog -- Has --> apply
-    apply -- Sends email --> user
+    dogPics(<span style='color: red'>More dog pictures</span>)
+apply(Adopting intention)
+chat(<span style='color: red'>Real-time chat platform</span>)
+admin(Admin)
+user(User)
+visitor(Visitor)
+
+visitor -- Can see --> dog
+user -- Can see --> dog
+user -- Can send and see the status of --> apply
+admin -- Can modify --> dog
+admin -- Can approve or reject --> apply
+dog -- Has --> apply
+dog -- <span style='color: red'>Has</span> --> dogPics
+admin -- <span style='color: red'>Can upload</span> --> dogPics
+user -- <span style='color: red'>Can see</span> --> dogPics
+visitor -- <span style='color: red'>Can see</span> --> dogPics
+admin -- <span style='color: red'>Can use</span> --> chat
+user -- <span style='color: red'>Can use</span> --> chat
+admin -- <span style='color: red'>Can delete registration</br>Can add admin privileges to</span> --> user
+user -- <span style='color: red'>Can add/change</br>phone number</span> --> user
+
+style chat stroke: #ff0000, stroke-width: 2px
+style dogPics stroke: #ff0000, stroke-width: 2px
+
+linkStyle 6 stroke: #ff0000, stroke-width: 2px
+linkStyle 7 stroke: #ff0000, stroke-width: 2px
+linkStyle 8 stroke: #ff0000, stroke-width: 2px
+linkStyle 9 stroke: #ff0000, stroke-width: 2px
+linkStyle 10 stroke: #ff0000, stroke-width: 2px
+linkStyle 11 stroke: #ff0000, stroke-width: 2px
+linkStyle 12 stroke: #ff0000, stroke-width: 2px
+linkStyle 13 stroke: #ff0000, stroke-width: 2px
 ```
+Az új elemek pirossal vannak felölve a modellen.
+
+### 3.1 Szerepkörök és Funkciók
+
+1. **Adminisztrátor**:
+    - **Kutya profil kezelése**: Profilok módosítása, képek feltöltése.
+    - **Adoptálási kérelmek**: Kérelmek jóváhagyása vagy elutasítása.
+    - **Kommunikáció**: Valós idejű kommunikáció a felhasználókkal.
+    - **Felhasználó kezelés**: Fiókok törlése, admin jogosultságok kiosztása.
+
+2. **Felhasználó**:
+    - **Profilok megtekintése**: Kutyaprofilok és további képek elérhetők.
+    - **Adoptálás**: Kérelem küldése és státusz nyomon követése.
+    - **Kommunikáció**:Valós idejű kommunikáció az adminisztrátorral.
+    - **Telefonszám**: Hozzárendelheti a profiljához a telefonszámát, módosíthatja azt.
+
+3. **Látogató**:
+    - **Profilok böngészése**: Kutya profilok és képek megtekintése.
+
+### 3.2 Folyamatok
+
+- **Profilok böngészése**: Minden felhasználói szerepkör hozzáférhet a kutya profilokhoz.
+- **Adoptálási szándék**: Csak a regisztrált felhasználók nyújthatnak be kérelmeket.
+- **Chat**: A chat az adminisztrátorok és regisztrált felhasználók közötti kommunikációt támogatja.
 
 ## 4. Követelmények
 
