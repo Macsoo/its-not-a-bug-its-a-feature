@@ -181,43 +181,42 @@ implementálásának:
     - A projekt befejezése, a végső dokumentáció elkészítése és az átadási folyamat lebonyolítása.
 
 ## 3. Üzleti folyamatok modellje
+
 ```mermaid
 flowchart LR
     dog(Dog profile)
     dogPics(<span style='color: red'>More dog pictures</span>)
-apply(Adopting intention)
-chat(<span style='color: red'>Real-time chat platform</span>)
-admin(Admin)
-user(User)
-visitor(Visitor)
-
-visitor -- Can see --> dog
-user -- Can see --> dog
-user -- Can send and see the status of --> apply
-admin -- Can modify --> dog
-admin -- Can approve or reject --> apply
-dog -- Has --> apply
-dog -- <span style='color: red'>Has</span> --> dogPics
-admin -- <span style='color: red'>Can upload</span> --> dogPics
-user -- <span style='color: red'>Can see</span> --> dogPics
-visitor -- <span style='color: red'>Can see</span> --> dogPics
-admin -- <span style='color: red'>Can use</span> --> chat
-user -- <span style='color: red'>Can use</span> --> chat
-admin -- <span style='color: red'>Can delete registration</br>Can add admin privileges to</span> --> user
-user -- <span style='color: red'>Can add/change</br>phone number</span> --> user
-
-style chat stroke: #ff0000, stroke-width: 2px
-style dogPics stroke: #ff0000, stroke-width: 2px
-
-linkStyle 6 stroke: #ff0000, stroke-width: 2px
-linkStyle 7 stroke: #ff0000, stroke-width: 2px
-linkStyle 8 stroke: #ff0000, stroke-width: 2px
-linkStyle 9 stroke: #ff0000, stroke-width: 2px
-linkStyle 10 stroke: #ff0000, stroke-width: 2px
-linkStyle 11 stroke: #ff0000, stroke-width: 2px
-linkStyle 12 stroke: #ff0000, stroke-width: 2px
-linkStyle 13 stroke: #ff0000, stroke-width: 2px
+    apply(Adopting intention)
+    chat(<span style='color: red'>Real-time chat platform</span>)
+    admin(Admin)
+    user(User)
+    visitor(Visitor)
+    visitor -- Can see --> dog
+    user -- Can see --> dog
+    user -- Can send and see the status of --> apply
+    admin -- Can modify --> dog
+    admin -- Can approve or reject --> apply
+    dog -- Has --> apply
+    dog -- <span style = 'color: red'>Has</span> --> dogPics
+    admin -- <span style = 'color: red'>Can upload</span> --> dogPics
+    user -- <span style = 'color: red'>Can see</span> --> dogPics
+    visitor -- <span style = 'color: red'>Can see</span> --> dogPics
+    admin -- <span style = 'color: red'>Can use</span> --> chat
+    user -- <span style = 'color: red'>Can use</span> --> chat
+    admin -- <span style = 'color: red'>Can delete registration</br>Can add admin privileges to</span> --> user
+    user -- <span style = 'color: red'>Can add/change</br>phone number</span> --> user
+    style chat stroke: #ff0000, stroke-width: 2px
+    style dogPics stroke: #ff0000, stroke-width: 2px
+    linkStyle 6 stroke: #ff0000, stroke-width: 2px
+    linkStyle 7 stroke: #ff0000, stroke-width: 2px
+    linkStyle 8 stroke: #ff0000, stroke-width: 2px
+    linkStyle 9 stroke: #ff0000, stroke-width: 2px
+    linkStyle 10 stroke: #ff0000, stroke-width: 2px
+    linkStyle 11 stroke: #ff0000, stroke-width: 2px
+    linkStyle 12 stroke: #ff0000, stroke-width: 2px
+    linkStyle 13 stroke: #ff0000, stroke-width: 2px
 ```
+
 Az új elemek pirossal vannak felölve a modellen.
 
 ### 3.1 Szerepkörök és Funkciók
@@ -683,6 +682,65 @@ classDiagram
 ```
 
 ## 11. Tesztterv
+
+```mermaid
+graph TD
+;
+    A[Start] --> B[Test Plan Creation];
+    B --> C[Functional Testing];
+    B --> D[Integration Testing];
+    C --> F[Test Results Evaluation];
+    D --> F;
+    F --> G[Bug Fix and Retest];
+    G --> H[Final Test];
+    H --> I[End];
+
+```
+
+### 11.1 Fő Tesztesetek
+
+Íme néhány főbb teszteset a menhelyes webalkalmazáshoz, amelyek a rendszer kulcsfontosságú funkcióit fedik le:
+
+1. Regisztráció és Bejelentkezés
+    - **Tesztcél:** Ellenőrizni, hogy a felhasználók megfelelően tudnak regisztrálni és bejelentkezni.
+        - **Elvárás:** Sikeres regisztráció esetén a rendszer új felhasználót hoz létre, bejelentkezés után a
+          felhasználó eléri a saját profilját.
+        - **Negatív eset:** Sikertelen regisztráció hiányzó vagy hibás adatok esetén; a rendszer figyelmeztető üzenetet
+          jelenít meg.
+
+2. Kutya profiljainak megtekintése
+    - **Tesztcél:** Biztosítani, hogy minden felhasználó (beleértve a látogatókat is) böngészhesse a kutya profilokat.
+        - **Elvárás:** A kutyák adatai (név, kor, leírás, képek) helyesen jelennek meg, és az oldal reszponzív.
+
+3. Keresés és szűrés kutya profilok között
+    - **Tesztcél:** Ellenőrizni, hogy a felhasználók szűrhetik a kutya profilokat kor, nem és fajta alapján.
+        - **Elvárás:** A keresési feltételeknek megfelelő kutyák jelennek meg.
+
+4. Adoptálási kérelem benyújtása
+    - **Tesztcél:** Biztosítani, hogy a regisztrált felhasználók sikeresen benyújthatnak adoptálási kérelmet.
+        - **Elvárás:** Kérelem benyújtása után a rendszer megjeleníti a kérelem státuszát.
+
+5. Adminisztrátor kutya profil kezelés
+    - **Tesztcél:** Ellenőrizni, hogy az adminisztrátor módosíthatja a kutyák profilját (pl. képek feltöltése,
+      elsődleges kép beállítása).
+        - **Elvárás:** A változtatások a kutya profilján azonnal megjelennek a felhasználók számára.
+
+6. Felhasználó telefonszámának szerkesztése
+    - **Tesztcél:** Ellenőrizni, hogy a felhasználók szerkeszthetik a profiljukhoz tartozó telefonszámot.
+        - **Elvárás:** A módosított telefonszám mentése után a profilban az új szám jelenik meg.
+
+7. Chat funkció működése
+    - **Tesztcél:** Biztosítani, hogy a chat felület megfelelően működik adminisztrátorok és felhasználók között.
+        - **Elvárás:** A felhasználók és adminisztrátorok közötti üzenetek azonnal megjelennek mindkét fél számára.
+
+8. Felhasználói fiók törlése adminisztrátorként
+    - **Tesztcél:** Ellenőrizni, hogy az adminisztrátor törölheti a felhasználói fiókokat.
+        - **Elvárás:** A törölt felhasználó nem tud bejelentkezni, és adatai eltűnnek a rendszerből.
+
+9. Adminisztrátor jogosultság hozzáadása más felhasználóknak
+    - **Tesztcél:** Biztosítani, hogy az adminisztrátor további felhasználóknak adminisztrátori jogosultságot tud adni.
+        - **Elvárás:** A kiválasztott felhasználók adminisztrátori jogosultságokat kapnak, és hozzáférnek az admin
+          funkciókhoz.
 
 ## 12. Telepítési terv
 
