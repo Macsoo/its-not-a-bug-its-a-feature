@@ -26,6 +26,10 @@
 
 ## 1. Jelenlegi helyzet leírása
 
+Jelenleg a menhely rendelkezik egy egyszerű weboldallal, amely lehetőséget biztosít a regisztrációra e-mail cím megadása és validálása mellett. A weboldalon a látogatók böngészhetik a menhely által feltöltött kutyák listáját. Minden egyes kutya profilján megjelennek az alábbi adatok: név, kor, nem, adoptálhatósági státusz, egy rövid leírás, valamint egy profilkép az adott kutyáról.
+
+A regisztráció után a felhasználók be tudnak jelentkezni a rendszerbe, és ezt követően lehetőségük nyílik örökbefogadási kérelmet benyújtani az általuk kiválasztott kutyához. Az adminisztrátorok szintén be tudnak jelentkezni egy külön admin fiókba, ahol hozzáférhetnek a bejövő örökbefogadási kérelmekhez. Az adminisztrátori felület lehetőséget biztosít a kérelmek kezelésére: elfogadhatják vagy elutasíthatják azokat, támogatva ezzel az örökbefogadási folyamat gördülékeny lebonyolítását.
+
 ## 2. Vágyálomrendszer leírása
 
 A jelenlegi webalkalmazást az alábbi funkciókkal tervezzük bővíteni:
@@ -140,6 +144,49 @@ Utolsó módosítás dátuma: 2024.10.12
 
 ## 4. Jelenlegi üzleti folyamatok modellje
 
+A menhely jelenlegi weboldalán az üzleti folyamatok az alábbiak szerint épülnek fel:
+
+```mermaid
+flowchart LR
+    admin(Admin)
+    user(User)
+    visitor(Visitor)
+    dog(Dog profile)
+    apply(Adopting intention)
+    visitor -- Can see --> dog
+    user -- Can see --> dog
+    user -- Can use --> apply
+    admin -- Can modify --> dog
+    admin -- Can see --> apply
+    dog -- Has --> apply
+    apply -- Sends email --> user
+```
+
+### 4.1 Folyamatok és funkciók:
+
+- **Kutyaprofilok böngészése:** A weboldalon minden látogató megtekintheti a menhely által feltöltött kutyák profilját,
+  amely tartalmazza a kutyák alapadatait, leírását és egy profilképet. A látogatóknak nincs szükségük személyes
+  megtekintésre, mivel minden lényeges információ megtalálható online.
+
+
+- **Örökbefogadási szándék jelzése:** Bejelentkezett felhasználók képesek örökbefogadási szándékukat jelezni a kiszemelt
+  kutya profilján keresztül. A kutyaprofilon ezután feltüntetésre kerül, hogy az adott kutya iránt már érdeklődnek. Az
+  örökbefogadást végső soron a menhely dolgozói személyesen tisztázzák, mely után a kutya profilja eltávolításra kerül a
+  weboldalról.
+
+
+- **Kapcsolattartás:** A menhely dolgozói elérhetők e-mailen keresztül, és ezen kapcsolatfelvételi adat könnyen
+  megtalálható a weboldalon.
+
+
+- **Regisztráció és belépés:** A látogatók egy e-mail validáció után regisztrálhatnak a weboldalra. A regisztrációt
+  követően bejelentkezhetnek a rendszerbe, és hozzáférhetnek a felhasználói funkciókhoz, például az örökbefogadási igény
+  jelzéséhez.
+
+
+- **Adminisztrációs folyamatok**: Az adminisztrátorok bejelentkezhetnek a rendszerbe, ahol hozzáférést kapnak a beérkező
+  örökbefogadási kérelmekhez, és ezek alapján dönthetnek a kérelmek elfogadásáról vagy elutasításáról.
+
 ## 5. Igényelt üzleti folyamatok modellje
 
 Az igényelt üzleti folyamatok modellje biztosítja, hogy a weboldal modern és felhasználóbarát legyen, valamint
@@ -175,6 +222,46 @@ A kutyaprofilok kétféle leírással rendelkeznek: egy rövid, amely a listába
 | Megjelenítés  | M1  | Reszponzív webdizájn             | A weboldal reszponzív legyen, biztosítva a megfelelő megjelenést és használhatóságot minden eszközön.             |
 
 ## 7. Használati esetek
+
+### 7.1 Felhasználók
+
+A weboldal felhasználói számára a következő új lehetőség áll rendelkezésre:
+
+**Telefonszám frissítése:**
+A regisztrált felhasználók bármikor módosíthatják saját telefonszámukat a profiljukon keresztül, ha esetleg korábbi
+telefonszáma megszűnt. Ha nincs megadva telefonszám, itt rendelheti hozzá fiókjához.
+
+### 7.2 Adminisztrátorok
+
+Az adminisztráltorok számára a következő új funkciók állnak rendelkezésre:
+
+**Felhasználói profilok kezelése:** Az adminok képesek megtekinteni a regisztrált felhasználók listáját, és szükség
+esetén törölni azokat.
+**Új adminisztrátor hozzáadása a regisztrált felhasználók közül:** A rendszerben több adminisztrátori jogkörű
+felhasználó legyen létrehozható. A korábban regisztrált felhasználókhoz rendelhető hozzá az adminisztrátori jogosultság.
+**Kutya képek feltöltése:** Az adminisztrátorok képesek képeket feltölteni az egyes kutyákhoz, és kiválasztani egy
+profilképet. Ez lehetséges új kutya feltötlésekor és a kutya adatainak szerkesztésekor is.
+
+### 7.3 Kutya Profilok
+
+A kutyák profiljai az adminisztrátorok által létrehozott adatok tárolására szolgálnak, és a következő új funkciókat
+biztosítják:
+
+**Rövid és hosszú leírás használata:** Minden kutyaprofilnál kétféle leírás legyen elérhető: egy rövidebb a listázáshoz
+és egy részletesebb a profiloldalon.
+**Egyedi profilkép, képek megjelenítése:** Most már a kutyák listázásakor minden kutya esetén egyedi profilkép jelenik
+meg, a részletes adatoknál pedig megtekinthetők a további képek a kutyákról.
+**Szűrési lehetőség:** A kutyákat listázáskor szűrni lehet kor, fajta és nem szerint, a könnyeb keresés érdekében.
+
+### 7.4 Chat funkció
+
+A weboldalon beépített chatfelület áll rendelkezésre a felhasználók és adminisztrátorok között, amely a következő
+lehetőségeket kínálja:
+
+Valós idejű kommunikáció: A felhasználók és adminisztrátorok valós időben, üzenetek küldésével kommunikálhatnak
+egymással.
+Kérdések és válaszok: Az adminisztrátorok gyorsan válaszolhatnak a felhasználók kérdéseire az örökbefogadási folyamat
+során, javítva ezzel a felhasználói élményt
 
 ## 8. Képernyőtervek
 
