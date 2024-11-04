@@ -193,3 +193,14 @@ listázásnál látható, és egy részletesebb, amely a kutya profilján jeleni
 nem szerint, hogy a felhasználók gyorsabban megtalálhassák a számukra megfelelő állatot.
 
 ## 6. Követelménylista
+
+| Modul        | ID | Név                               | Kifejtés                                                                                                                |
+|--------------|----|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Jogosultság  | P1 | Adminisztrátor hozzáadása         | A rendszerben több adminisztrátori jogkörű felhasználó legyen létrehozható.                                             |
+| Jogosultság  | P2 | Telefonszám frissítési lehetőség  | A regisztrált felhasználók bármikor módosíthatják saját telefonszámukat a profiljukon keresztül.                        |
+| Jogosultság  | P3 | Felhasználói regisztráció törlése | Az adminisztrátorok képesek legyenek a felhasználói fiókok törlésére szükség esetén.                                    |
+| Kutya        | D1 | Kutya képek feltöltése            | Az adminisztrátorok képesek legyenek képeket feltölteni az egyes kutyákhoz, és kiválasztani egy profilképet.            |
+| Kutya        | D2 | Rövid és hosszú leírás használata | Minden kutyaprofilnál kétféle leírás legyen elérhető: egy rövidebb a listázáshoz és egy részletesebb a profiloldalon.   |
+| Kutya        | D3 | Szűrési lehetőség                 | A kutyákat a felhasználók szűrni tudják kor, fajta és nem szerint, hogy könnyebben megtalálják a megfelelő kutyát.      |
+| Interakció   | I1 | Beépített chatfelület             | A felhasználók és adminisztrátorok valós idejű üzenetküldő felületen kommunikálhatnak az örökbefogadási folyamat során. |
+| Megjelenítés | M1 | Reszponzív dizájn                 | A weboldal reszponzív legyen, így minden eszközön jól megjelenik, és kényelmesen használható.                           |
