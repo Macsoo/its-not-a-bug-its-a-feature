@@ -117,6 +117,46 @@ flowchart LR
 
 ## 7. Használati esetek
 
+### 7.1 Felhasználók
+
+A weboldal felhasználói számára a következő új lehetőség áll rendelkezésre:
+
+**Telefonszám frissítése:**
+A regisztrált felhasználók bármikor módosíthatják saját telefonszámukat a profiljukon keresztül, ha esetleg korábbi
+telefonszáma megszűnt. Ha nincs megadva telefonszám, itt rendelheti hozzá fiókjához.
+
+### 7.2 Adminisztrátorok
+
+Az adminisztráltorok számára a következő új funkciók állnak rendelkezésre:
+
+**Felhasználói profilok kezelése:** Az adminok képesek megtekinteni a regisztrált felhasználók listáját, és szükség
+esetén törölni azokat.
+**Új adminisztrátor hozzáadása a regisztrált felhasználók közül:** A rendszerben több adminisztrátori jogkörű
+felhasználó legyen létrehozható. A korábban regisztrált felhasználókhoz rendelhető hozzá az adminisztrátori jogosultság.
+**Kutya képek feltöltése:** Az adminisztrátorok képesek képeket feltölteni az egyes kutyákhoz, és kiválasztani egy
+profilképet. Ez lehetséges új kutya feltötlésekor és a kutya adatainak szerkesztésekor is.
+
+### 7.3 Kutya Profilok
+
+A kutyák profiljai az adminisztrátorok által létrehozott adatok tárolására szolgálnak, és a következő új funkciókat
+biztosítják:
+
+**Rövid és hosszú leírás használata:** Minden kutyaprofilnál kétféle leírás legyen elérhető: egy rövidebb a listázáshoz
+és egy részletesebb a profiloldalon.
+**Egyedi profilkép, képek megjelenítése:** Most már a kutyák listázásakor minden kutya esetén egyedi profilkép jelenik
+meg, a részletes adatoknál pedig megtekinthetők a további képek a kutyákról.
+**Szűrési lehetőség:** A kutyákat listázáskor szűrni lehet kor, fajta és nem szerint, a könnyeb keresés érdekében.
+
+### 7.4 Chat funkció
+
+A weboldalon beépített chatfelület áll rendelkezésre a felhasználók és adminisztrátorok között, amely a következő
+lehetőségeket kínálja:
+
+Valós idejű kommunikáció: A felhasználók és adminisztrátorok valós időben, üzenetek küldésével kommunikálhatnak
+egymással.
+Kérdések és válaszok: Az adminisztrátorok gyorsan válaszolhatnak a felhasználók kérdéseire az örökbefogadási folyamat
+során, javítva ezzel a felhasználói élményt
+
 ## 8. Képernyőtervek
 
 ### 8.1 Teljes weboldal:
