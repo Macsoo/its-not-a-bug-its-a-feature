@@ -52,14 +52,16 @@ adataikat, és gyűjtés előtt hozzájárulásukat adják. Az adatok biztonság
 felhasználóknak bármikor joguk van kérni az adataikhoz való hozzáférést, azok módosítását vagy törlését. Az adatok
 tárolása a GDPR szabályai szerint történik, vagyis a már nem szükséges vagy elavult adatokat biztonságosan törlik.
 
-
 ```
-Ez az adatvédelmi tájékoztató egy egyetemi projekt részeként készült, és nem szolgál valós célokat.ó, csupán egy Mesterséges Intelligencia segítségével generált minta.
+Ez az adatvédelmi tájékoztató egy egyetemi projekt részeként készült, és nem szolgál valós célokat. 
+Csupán egy Mesterséges Intelligencia segítségével generált minta.
 
 Adatvédelmi Tájékoztató
 
 1. Bevezetés
-A Lakatos Brendon Menhelye elkötelezett az Ön személyes adatainak védelme mellett. Az adatvédelmi tájékoztató célja, hogy részletesen bemutassa, hogyan gyűjtjük, használjuk és védjük az Ön személyes adatait, valamint hogy ismertessük az Ön jogait a GDPR (Általános Adatvédelmi Rendelet) alapján.
+A Lakatos Brendon Menhelye elkötelezett az Ön személyes adatainak védelme mellett. 
+Az adatvédelmi tájékoztató célja, hogy részletesen bemutassa, hogyan gyűjtjük, használjuk és védjük az Ön személyes 
+adatait, valamint hogy ismertessük az Ön jogait a GDPR (Általános Adatvédelmi Rendelet) alapján.
 
 2. Az általunk gyűjtött adatok
 A weboldal használata során a következő személyes adatokat gyűjtjük:
@@ -88,7 +90,8 @@ Amennyiben az adattovábbítás jogszabályi kötelezettségből ered
 Harmadik feleknek, akik a nevünkben végzik az adatfeldolgozást (például IT szolgáltatók)
 
 6. Adatmegőrzési időszak
-Az Ön személyes adatait csak addig őrizzük meg, amíg az az adatkezelés céljának eléréséhez szükséges, vagy amíg az Ön hozzájárulása érvényben van. A felesleges vagy elavult adatokat biztonságosan töröljük.
+Az Ön személyes adatait csak addig őrizzük meg, amíg az az adatkezelés céljának eléréséhez szükséges, vagy amíg az Ön 
+hozzájárulása érvényben van. A felesleges vagy elavult adatokat biztonságosan töröljük.
 
 7. Az Ön jogai
 Az Ön GDPR szerinti jogai a következők:
@@ -101,10 +104,12 @@ Adathordozhatósághoz való jog: Kérheti adatai másik szolgáltatóhoz való 
 Hozzájárulás visszavonása: Bármikor visszavonhatja a hozzájárulását, ha az adatkezelés jogalapja a hozzájárulás.
 
 8. Biztonsági intézkedések
-Minden szükséges technikai és szervezési intézkedést megteszünk annak érdekében, hogy személyes adatait védelemmel lássuk el, és megakadályozzuk az adatokhoz való illetéktelen hozzáférést, azok elvesztését vagy jogosulatlan felhasználását.
+Minden szükséges technikai és szervezési intézkedést megteszünk annak érdekében, hogy személyes adatait védelemmel 
+lássuk el, és megakadályozzuk az adatokhoz való illetéktelen hozzáférést, azok elvesztését vagy jogosulatlan felhasználását.
 
 9. Kapcsolatfelvétel
-Amennyiben kérdése vagy kérése van az adatvédelmi szabályzatunkkal kapcsolatban, vagy gyakorolni szeretné a GDPR szerinti jogait, kérjük, vegye fel velünk a kapcsolatot az alábbi elérhetőségeken:
+Amennyiben kérdése vagy kérése van az adatvédelmi szabályzatunkkal kapcsolatban, vagy gyakorolni szeretné a GDPR 
+szerinti jogait, kérjük, vegye fel velünk a kapcsolatot az alábbi elérhetőségeken:
 
 Lakatos Brendon Menhelye
 1234 Budapest, Kutyus utca 5.
@@ -117,7 +122,8 @@ Ha úgy érzi, hogy személyes adatait nem megfelelően kezeljük, panaszt tehet
 Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH) https://www.naih.hu
 
 12. A szabályzat módosítása
-Fenntartjuk a jogot, hogy ezt az adatvédelmi tájékoztatót időről időre frissítsük. Az esetleges változásokat itt tesszük közzé, így kérjük, látogasson vissza rendszeresen.
+Fenntartjuk a jogot, hogy ezt az adatvédelmi tájékoztatót időről időre frissítsük. Az esetleges változásokat itt 
+tesszük közzé, így kérjük, látogasson vissza rendszeresen.
 
 Utolsó módosítás dátuma: 2024.10.12
 ```
