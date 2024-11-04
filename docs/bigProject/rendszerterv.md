@@ -261,6 +261,8 @@ flowchart LR
         user_db[(Users)]
         dogs_db[(Dogs)]
         pictures_db[(Pictures)]
+        chat_db[(<span style='color: red'>Chat</span>)]
+        
         dogs_db -- Uses pictures --> pictures_db
     end
     subgraph Functions
@@ -269,6 +271,8 @@ flowchart LR
         fn_register_dog((Register dog))
         fn_adopt((Want to adopt))
         fn_view_dogs((View dogs))
+        fn_chat((<span style='color: red'>Chat</span>))
+        fn_delete_user((<span style='color: red'>Deleting users</span>))
     end
     visitor -- Can use --> fn_register_user
     visitor -- Can use --> fn_login
@@ -284,6 +288,18 @@ flowchart LR
     fn_adopt -- Refers to --> dogs_db
     fn_view_dogs -- Refers to --> dogs_db
     fn_view_dogs -- Refers to --> pictures_db
+    admin -- <span style='color: red'>Can use</span> --> fn_chat
+    user -- <span style='color: red'>Can use</span> --> fn_chat
+    fn_chat -- <span style='color: red'>Using</span> --> chat_db
+    fn_chat -- <span style='color: red'>Validates using</span> --> user_db
+    admin -- <span style='color: red'>Can use</span> --> fn_delete_user
+    fn_delete_user -- <span style='color: red'>removes users</span> --> user_db
+    linkStyle 15 stroke: #ff0000, stroke-width: 2px
+    linkStyle 16 stroke: #ff0000, stroke-width: 2px
+    linkStyle 17 stroke: #ff0000, stroke-width: 2px
+    linkStyle 18 stroke: #ff0000, stroke-width: 2px
+    linkStyle 19 stroke: #ff0000, stroke-width: 2px
+    linkStyle 20 stroke: #ff0000, stroke-width: 2px
 ```
 
 ## 6. Fizikai környezet
