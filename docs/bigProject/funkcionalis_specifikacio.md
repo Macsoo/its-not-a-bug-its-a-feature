@@ -142,6 +142,25 @@ Utolsó módosítás dátuma: 2024.10.12
 
 ## 5. Igényelt üzleti folyamatok modellje
 
+Az igényelt üzleti folyamatok modellje biztosítja, hogy a weboldal modern és felhasználóbarát legyen, valamint
+egyszerűbb és hatékonyabb örökbefogadási folyamatot tegyen lehetővé a menhely számára. Az igényelt folyamatok a
+következőket tartalmazzák:
+
+### 5.1 Több adminisztrátor hozzáférés
+Az adminisztrátori hozzáférés több menhelyi dolgozó számára biztosít lehetőséget a kutyaprofilok kezelésére és az örökbefogadási kérelmek adminisztrálására. Az adminok így hatékonyabban kezelhetik az adatokat, lehetőségük van profilokat létrehozni, módosítani és az érkező kérelmeket elfogadni vagy elutasítani.
+
+### 5.2 Képfeltöltési funkció
+Az új funkció lehetővé teszi a kutyaprofilokhoz több fénykép feltöltését, amely különböző nézőpontokból mutatja be a kutyákat. Ezáltal a látogatók részletesebb vizuális információk alapján dönthetnek, ami javítja az örökbefogadás esélyét.
+
+### 5.3 Integrált chatfelület
+Az integrált, valós idejű chatfelület a felhasználók és adminisztrátorok közötti kommunikációt egyszerűsíti. A chatben a felhasználók azonnal választ kaphatnak kérdéseikre, ami gyorsítja az örökbefogadási folyamatot és növeli az elégedettséget.
+
+### 5.4 Adatmódosítás a felhasználók számára
+A regisztrált felhasználók frissíthetik saját adataikat, beleértve a telefonszámukat is. Ez biztosítja, hogy az adminok naprakész elérhetőséggel rendelkezzenek, és így könnyebben tudjanak kapcsolatot tartani a potenciális örökbefogadókkal.
+
+### 5.5 Részletesebb profilok és szűrési lehetőségek
+A kutyaprofilok kétféle leírással rendelkeznek: egy rövid, amely a listában látható, és egy részletes, amely a kutya profilján jelenik meg. Továbbá, a kutyák szűrhetők kor, nem és fajta szerint, így a felhasználók gyorsabban és egyszerűbben megtalálhatják az igényeiknek megfelelő állatot.
+
 ## 6. Követelménylista
 
 | Modul         | ID  | Név                              | Leírás                                                                                                             |
