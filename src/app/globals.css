@@ -130,9 +130,17 @@ th, td{
 }
 
 #deleteDogButton:hover,
-#deleteDogButton:active {
+#deleteDogButton:active,
+#x-button:hover,
+#x-button:active{
     background: #aa4241;
     color: #fcc1b7;
+}
+
+#x-button{
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
+    background: #F0756D;
+    color: #fff3f0
 }
 
 
@@ -161,6 +169,13 @@ th, td{
     @apply flex flex-row items-center p-2;
 }
 
+.dragndropcontainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
-
-
+.dragndropelement{
+    display: inline-flex;
+    width: 30%;
+}

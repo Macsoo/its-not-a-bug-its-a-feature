@@ -244,6 +244,12 @@ Az új elemek pirossal vannak felölve a modellen.
 
 ## 4. Követelmények
 
+- Real time chat létrehozása felhasználók és adminok között
+- Egyszerű drag and drop képfeltöltési lehetőség a kutyaprofilokra
+- Több kép feltöltésének a lehetősége
+- Admin felhasználók a fiók felületen képesek felhasználói fiókok törlésére
+- A weboldal designjának áttervezése hogy a fent említett változtatásokat megjelenítse
+
 ## 5. Funkcionális terv
 
 ```mermaid
@@ -255,6 +261,8 @@ flowchart LR
         user_db[(Users)]
         dogs_db[(Dogs)]
         pictures_db[(Pictures)]
+        chat_db[(<span style='color: red'>Chat</span>)]
+        
         dogs_db -- Uses pictures --> pictures_db
     end
     subgraph Functions
@@ -263,6 +271,8 @@ flowchart LR
         fn_register_dog((Register dog))
         fn_adopt((Want to adopt))
         fn_view_dogs((View dogs))
+        fn_chat((<span style='color: red'>Chat</span>))
+        fn_delete_user((<span style='color: red'>Deleting users</span>))
     end
     visitor -- Can use --> fn_register_user
     visitor -- Can use --> fn_login
@@ -278,6 +288,18 @@ flowchart LR
     fn_adopt -- Refers to --> dogs_db
     fn_view_dogs -- Refers to --> dogs_db
     fn_view_dogs -- Refers to --> pictures_db
+    admin -- <span style='color: red'>Can use</span> --> fn_chat
+    user -- <span style='color: red'>Can use</span> --> fn_chat
+    fn_chat -- <span style='color: red'>Using</span> --> chat_db
+    fn_chat -- <span style='color: red'>Validates using</span> --> user_db
+    admin -- <span style='color: red'>Can use</span> --> fn_delete_user
+    fn_delete_user -- <span style='color: red'>removes users</span> --> user_db
+    linkStyle 15 stroke: #ff0000, stroke-width: 2px
+    linkStyle 16 stroke: #ff0000, stroke-width: 2px
+    linkStyle 17 stroke: #ff0000, stroke-width: 2px
+    linkStyle 18 stroke: #ff0000, stroke-width: 2px
+    linkStyle 19 stroke: #ff0000, stroke-width: 2px
+    linkStyle 20 stroke: #ff0000, stroke-width: 2px
 ```
 
 ## 6. Fizikai környezet
@@ -320,6 +342,7 @@ flowchart TD
             admin_editor(Admin editor)
             dogs_list(Dogs list view)
             dog_details(Dog detailed view)
+            chat_function(<span style='color: red'>Chat</span>)
             dogs_list --> dog_details
             admin_editor --> dogs_list
             admin_editor --> dog_details
@@ -331,9 +354,15 @@ flowchart TD
         pictures(Pictures)
         users(Users)
         adoption_requests(Adoption requests)
+        fn_chat(<span style='color: red'>Chat function</span>)
+        chat_db(<span style='color: red'>Chat</span>)
         dogs -- Refers to --> pictures
         pictures -- Refers to --> dogs
         adoption_requests -- Refers to --> dogs & users
+        fn_chat -- <span style='color: red'>Refers to</span> --> users
+        fn_chat -- <span style='color: red'>Refers to</span> --> chat_db
+        linkStyle 9 stroke: #ff0000, stroke-width: 2px
+        linkStyle 10 stroke: #ff0000, stroke-width: 2px
     end
     db_connector -- Uses --> Database
 ```
@@ -373,6 +402,9 @@ Pictures
 
 Adoption requests
 : Az örökbefogadási kéréseket tárolja.
+
+Chat
+: Felületet biztosít a felhasynálók közötti kommunikációra
 
 ## 8. Architekturális terv
 
