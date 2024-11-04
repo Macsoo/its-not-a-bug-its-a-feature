@@ -189,7 +189,37 @@ flowchart LR
 
 ## 5. Igényelt üzleti folyamatok modellje
 
+Az igényelt üzleti folyamatok modellje biztosítja, hogy a weboldal modern és felhasználóbarát legyen, valamint
+egyszerűbb és hatékonyabb örökbefogadási folyamatot tegyen lehetővé a menhely számára. Az igényelt folyamatok a
+következőket tartalmazzák:
+
+### 5.1 Több adminisztrátor hozzáférés
+Az adminisztrátori hozzáférés több menhelyi dolgozó számára biztosít lehetőséget a kutyaprofilok kezelésére és az örökbefogadási kérelmek adminisztrálására. Az adminok így hatékonyabban kezelhetik az adatokat, lehetőségük van profilokat létrehozni, módosítani és az érkező kérelmeket elfogadni vagy elutasítani.
+
+### 5.2 Képfeltöltési funkció
+Az új funkció lehetővé teszi a kutyaprofilokhoz több fénykép feltöltését, amely különböző nézőpontokból mutatja be a kutyákat. Ezáltal a látogatók részletesebb vizuális információk alapján dönthetnek, ami javítja az örökbefogadás esélyét.
+
+### 5.3 Integrált chatfelület
+Az integrált, valós idejű chatfelület a felhasználók és adminisztrátorok közötti kommunikációt egyszerűsíti. A chatben a felhasználók azonnal választ kaphatnak kérdéseikre, ami gyorsítja az örökbefogadási folyamatot és növeli az elégedettséget.
+
+### 5.4 Adatmódosítás a felhasználók számára
+A regisztrált felhasználók frissíthetik saját adataikat, beleértve a telefonszámukat is. Ez biztosítja, hogy az adminok naprakész elérhetőséggel rendelkezzenek, és így könnyebben tudjanak kapcsolatot tartani a potenciális örökbefogadókkal.
+
+### 5.5 Részletesebb profilok és szűrési lehetőségek
+A kutyaprofilok kétféle leírással rendelkeznek: egy rövid, amely a listában látható, és egy részletes, amely a kutya profilján jelenik meg. Továbbá, a kutyák szűrhetők kor, nem és fajta szerint, így a felhasználók gyorsabban és egyszerűbben megtalálhatják az igényeiknek megfelelő állatot.
+
 ## 6. Követelménylista
+
+| Modul         | ID  | Név                              | Leírás                                                                                                             |
+|---------------|-----|----------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| Jogosultság   | P1  | Adminisztrátor hozzáadása        | A rendszerben több adminisztrátori jogosultságú felhasználó legyen létrehozható.                                   |
+| Jogosultság   | P2  | Telefonszám frissítése           | A regisztrált felhasználók bármikor frissíthetik a saját profiljukon megadott telefonszámukat.                     |
+| Jogosultság   | P3  | Felhasználói fiók törlése        | Az adminisztrátorok törölhetik a felhasználói fiókokat szükség esetén.                                             |
+| Kutya         | D1  | Kutyaprofil képfeltöltés         | Az adminisztrátorok képesek legyenek több képet feltölteni az egyes kutyaprofilokhoz, és kiválasztani egy profilképet. |
+| Kutya         | D2  | Rövid és részletes leírás        | Minden kutyaprofil kétféle leírással rendelkezzen: egy rövid leírással a listázáshoz és egy részletes leírással a profiloldalon. |
+| Kutya         | D3  | Szűrési funkció                  | A felhasználók a kutyákat kor, fajta és nem szerint szűrhetik a megfelelő kutya könnyebb megtalálása érdekében.    |
+| Interakció    | I1  | Beépített chat                    | A felhasználók és adminisztrátorok valós idejű üzenetküldő felületen keresztül kommunikálhatnak az örökbefogadási folyamat során. |
+| Megjelenítés  | M1  | Reszponzív webdizájn             | A weboldal reszponzív legyen, biztosítva a megfelelő megjelenést és használhatóságot minden eszközön.             |
 
 ## 7. Használati esetek
 
@@ -289,3 +319,51 @@ Megjelenik egy új szekció: **Felhasználók**. A regisztrált felhasználók e
 
 
 ## 9. Forgatókönyvek
+
+### 9.1 Kutya örökbefogadási kérelem beküldése
+**Leírás:** A felhasználó megnyitja a "Kutyáink" oldalt, kiválaszt egy kutyát, majd a kutya profilján megjelenő "
+Örökbefogadási kérelem" gombra kattintva beküldi igényét.
+
+**Szereplők:** Felhasználó, Rendszer, Adminisztrátor
+
+**Előfeltételek:** A felhasználó bejelentkezett, és a kiválasztott kutya profilja elérhető.
+
+**Lépések:**
+1. A felhasználó rákattint a "Kutyáink" menüpontra.
+2. A felhasználó kiválaszt egy kutyát a listáról.
+3. A kutya profilján a felhasználó megnyomja az "Örökbefogadási kérelem" gombot.
+4. A rendszer értesíti az adminisztrátort az új örökbefogadási igényről.
+5. A felhasználó e-mailben értesítést kap az igény fogadásáról és a következő lépésekről.
+
+**Következmény:** Az örökbefogadási kérelem rögzítésre kerül, és megjelenik az adminisztrátori nézetben.
+
+### 9.2 Kép feltöltése egy kutya profiljához (adminisztrátor)
+**Leírás:** Az adminisztrátor bejelentkezik, megkeresi a kiválasztott kutya profilját, és új képet tölt fel hozzá.
+
+**Szereplők:** Adminisztrátor, Rendszer
+
+**Előfeltételek:** Az adminisztrátor bejelentkezett a rendszerbe.
+
+**Lépések:**
+1. Az adminisztrátor a főmenüből a kutyák kezeléséhez navigál.
+2. Megnyitja a feltölteni kívánt kutya profilját.
+3. A "Kép feltöltése" gombra kattintva kiválasztja a feltölteni kívánt fájlt.
+4. A rendszer a feltöltött képet megjeleníti a kutya profiljában.
+
+**Következmény:** Az új kép megjelenik a kutya profilján.
+
+### 9.3 Felhasználói profil törlése (adminisztrátor)
+**Leírás:** Az adminisztrátor bejelentkezik, megnyitja a "Felhasználók" menüpontot, és töröl egy felhasználói profilt.
+
+**Szereplők:** Adminisztrátor, Rendszer
+
+**Előfeltételek:** Az adminisztrátor bejelentkezett, és hozzáfér a "Felhasználók" menüponthoz.
+
+**Lépések:**
+1. Az adminisztrátor megnyitja a "Felhasználók" menüpontot.
+2. A törölni kívánt felhasználó mellett található "Törlés" gombra kattint.
+3. A rendszer megjelenít egy megerősítő ablakot, ahol az adminisztrátor véglegesíti a törlést.
+4. A felhasználói profil törlődik a rendszerből.
+
+**Következmény:** A felhasználói profil nem jelenik meg többé a rendszerben, és minden hozzá tartozó adat törlésre
+kerül.
