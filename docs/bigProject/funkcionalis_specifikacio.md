@@ -232,3 +232,51 @@ Megjelenik egy új szekció: **Felhasználók**. A regisztrált felhasználók e
 
 
 ## 9. Forgatókönyvek
+
+### 9.1 Kutya örökbefogadási kérelem beküldése
+**Leírás:** A felhasználó megnyitja a "Kutyáink" oldalt, kiválaszt egy kutyát, majd a kutya profilján megjelenő "
+Örökbefogadási kérelem" gombra kattintva beküldi igényét.
+
+**Szereplők:** Felhasználó, Rendszer, Adminisztrátor
+
+**Előfeltételek:** A felhasználó bejelentkezett, és a kiválasztott kutya profilja elérhető.
+
+**Lépések:**
+1. A felhasználó rákattint a "Kutyáink" menüpontra.
+2. A felhasználó kiválaszt egy kutyát a listáról.
+3. A kutya profilján a felhasználó megnyomja az "Örökbefogadási kérelem" gombot.
+4. A rendszer értesíti az adminisztrátort az új örökbefogadási igényről.
+5. A felhasználó e-mailben értesítést kap az igény fogadásáról és a következő lépésekről.
+
+**Következmény:** Az örökbefogadási kérelem rögzítésre kerül, és megjelenik az adminisztrátori nézetben.
+
+### 9.2 Kép feltöltése egy kutya profiljához (adminisztrátor)
+**Leírás:** Az adminisztrátor bejelentkezik, megkeresi a kiválasztott kutya profilját, és új képet tölt fel hozzá.
+
+**Szereplők:** Adminisztrátor, Rendszer
+
+**Előfeltételek:** Az adminisztrátor bejelentkezett a rendszerbe.
+
+**Lépések:**
+1. Az adminisztrátor a főmenüből a kutyák kezeléséhez navigál.
+2. Megnyitja a feltölteni kívánt kutya profilját.
+3. A "Kép feltöltése" gombra kattintva kiválasztja a feltölteni kívánt fájlt.
+4. A rendszer a feltöltött képet megjeleníti a kutya profiljában.
+
+**Következmény:** Az új kép megjelenik a kutya profilján.
+
+### 9.3 Felhasználói profil törlése (adminisztrátor)
+**Leírás:** Az adminisztrátor bejelentkezik, megnyitja a "Felhasználók" menüpontot, és töröl egy felhasználói profilt.
+
+**Szereplők:** Adminisztrátor, Rendszer
+
+**Előfeltételek:** Az adminisztrátor bejelentkezett, és hozzáfér a "Felhasználók" menüponthoz.
+
+**Lépések:**
+1. Az adminisztrátor megnyitja a "Felhasználók" menüpontot.
+2. A törölni kívánt felhasználó mellett található "Törlés" gombra kattint.
+3. A rendszer megjelenít egy megerősítő ablakot, ahol az adminisztrátor véglegesíti a törlést.
+4. A felhasználói profil törlődik a rendszerből.
+
+**Következmény:** A felhasználói profil nem jelenik meg többé a rendszerben, és minden hozzá tartozó adat törlésre
+kerül.
