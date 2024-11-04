@@ -4,29 +4,100 @@ import {getPrisma} from "@/utils";
 import {Dog, DogImage} from "@prisma/client";
 import {getDog} from "@/server/dogRepository";
 import {createServer} from "@/server/supabase";
+import {Session} from "@/components/sessionContext";
+
+const SUPABASE_BUCKET = 'dogimages';
+
+export async function deletePicture(path: string): Promise<void> {
+    const supabase = await createServer();
+    const {data, error} = await supabase.auth.getUser();
+    if (error !== null || data === null) {
+        return Promise.reject(error?.message);
+    }
+    if (!new Session(data.user).isAdmin()) {
+        return Promise.reject("NOT ADMIN");
+    }
+    const prisma = getPrisma();
+    const err = await prisma.$transaction(async (trx) => {
+        const picture: DogImage | null = await trx.dogImage.findFirst({
+            where: {
+                path: path
+            }
+        });
+        if (picture === null || picture === undefined) {
+            return "Picture does not exist.";
+        }
+        await trx.dogImage.delete({
+            where: {
+                id: picture.id,
+            }
+        });
+    });
+    if (err !== undefined) {
+        return Promise.reject(err);
+    }
+    //TODO: DELETE FROM SUPABASE
+}
+
+export async function downloadPicture(pictureId: number): Promise<File> {
+    const supabase = await createServer();
+    const {data, error} = await supabase.auth.getUser();
+    if (error !== null || data === null) {
+        return Promise.reject(error?.message);
+    }
+    if (!new Session(data.user).isAdmin()) {
+        return Promise.reject("NOT ADMIN");
+    }
+    const prisma = getPrisma();
+    let file: File | null = null;
+    const err = await prisma.$transaction(async (trx) => {
+        const picture: DogImage | null = await trx.dogImage.findUnique({
+            where: {
+                id: pictureId,
+            }
+        });
+        if (picture === null || picture === undefined) {
+            return "DogImage with given ID not found.";
+        }
+        const {data: {publicUrl}} = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(picture.path);
+        const {data, error} = await supabase.storage.from(SUPABASE_BUCKET).download(publicUrl);
+        if (error !== null || data === null) {
+            return error?.message;
+        }
+        file = new File([data], picture.path);
+    });
+    if (err !== undefined)
+        return Promise.reject(err);
+    return file!;
+}
 
 export async function uploadPicture(formData: FormData): Promise<string> {
     const dogId = parseInt(formData.get("dogId") as string);
     console.warn("dogId", dogId);
-    const data = formData.get("data") as File;
-    console.warn("data", data);
+    const dataFile = formData.get("data") as File;
+    console.warn("data", dataFile);
     const supabase = await createServer();
+    const {data, error} = await supabase.auth.getUser();
+    if (error !== null || data === null) {
+        return Promise.reject(error?.message);
+    }
+    if (!new Session(data.user).isAdmin()) {
+        return Promise.reject("NOT ADMIN");
+    }
     const uuid = crypto.randomUUID();
     const prisma = getPrisma();
-    await prisma.$transaction(async (trx) => {
+    const err = await prisma.$transaction(async (trx) => {
         const dog: Dog | null = await trx.dog.findUnique({
             where: {
                 id: dogId,
             }
         });
         if (dog === null || dog === undefined) {
-            console.error("dog doesnt exist");
-            return;
+            return "Dog doesn't exist.";
         }
-        const { error } = await supabase.storage.from('dogimages').upload(uuid, data);
+        const {error} = await supabase.storage.from(SUPABASE_BUCKET).upload(uuid, dataFile);
         if (error !== null) {
-            console.error("error while uploading", error);
-            return;
+            return error;
         }
         await trx.dogImage.create({
             data: {
@@ -35,6 +106,8 @@ export async function uploadPicture(formData: FormData): Promise<string> {
             }
         });
     });
+    if (err !== undefined)
+        return Promise.reject(err);
     return uuid;
 }
 
@@ -80,17 +153,6 @@ export async function listAllPictures() {
     const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
         return trx.dog.findMany();
-    })
-}
-
-export async function deletePicture(pictureId: number): Promise<void> {
-    const prisma = getPrisma();
-    prisma.$transaction(async (trx) => {
-        trx.dogImage.delete({
-            where: {
-                id: pictureId
-            }
-        })
     })
 }
 

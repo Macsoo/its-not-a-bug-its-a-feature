@@ -5,24 +5,46 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Dog, DogImage, Gender} from "@prisma/client";
 import {useServerAction} from "@/utils";
 import {getDog, updateDog} from "@/server/dogRepository";
-import {getDogProfilePicture, uploadPicture} from "@/server/pictureRepository";
+import {
+    getDogProfilePicture,
+    uploadPicture,
+    listDogPictures,
+    downloadPicture,
+    deletePicture
+} from "@/server/pictureRepository";
 import {useDropzone} from "react-dropzone";
+
+enum SubmitAction {
+    NOTHING,
+    DELETE,
+    UPDATE,
+    UPLOAD,
+}
+
+type FileWithSubmitAction = {
+    file: File;
+    onSend: SubmitAction;
+};
 
 export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const dogId = parseInt(params.dog_id, 10);
     const [dog, setDog] = useState<Dog | null>(null);
-    const [dogImage, setDogImage] = useState<DogImage | null>(null);
     const [name, setName] = useState('');
     const [age, setAge] = useState(0);
     const [gender, setGender] = useState<Gender>('Male');
     const [description, setDescription] = useState('');
-    const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
-    const [imageFiles, setImageFiles] = useState<Array<File>>([]);
+    const [imageFiles, setImageFiles] = useState<Array<FileWithSubmitAction>>([]);
     useServerAction(async () => {
         setDog(await getDog(dogId));
-        setDogImage(await getDogProfilePicture(dogId));
+        for (const pic of await listDogPictures(dogId)) {
+            const file = await downloadPicture(pic.id);
+            const withAction = {
+                file, onSend: SubmitAction.NOTHING
+            };
+            setImageFiles(imageFiles.concat([withAction]));
+        }
     });
 
     useEffect(() => {
@@ -37,13 +59,11 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
         setLoading(false);
     }, [dog]);
 
-    useEffect(() => {
-        if (dogImage === null) return;
-        setPreview(dogImage.path);
-    }, [dogImage]);
-
     const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
-        setImageFiles(imageFiles.concat(acceptedFiles));
+        setImageFiles(imageFiles.concat(acceptedFiles.map(file => ({
+            file: file,
+            onSend: SubmitAction.UPLOAD
+        }))));
     }, []);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -60,11 +80,20 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             gender: gender,
             description: description,
         });
-        for (const file of imageFiles) {
-            const formData = new FormData;
-            formData.set("dogId", dogId.toString());
-            formData.set("data", file);
-            await uploadPicture(formData);
+        for (const imageFile of imageFiles) {
+            switch (imageFile.onSend) {
+                case SubmitAction.UPLOAD:
+                    const formData = new FormData;
+                    formData.set("dogId", dogId.toString());
+                    formData.set("data", imageFile.file);
+                    await uploadPicture(formData);
+                    break;
+                case SubmitAction.DELETE:
+                    await deletePicture(imageFile.file.name);
+                    break;
+                default:
+                    break;
+            }
         }
         router.push(`/dogs/${dogId}`);
     };

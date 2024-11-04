@@ -49,7 +49,7 @@ export default function Layout(props: { children: React.ReactNode }) {
     </div>
 
     <div className={`w-full p-5`}>
-        <SessionContext.Provider value={new Session(setUser, user)}>
+        <SessionContext.Provider value={new Session(user, setUser)}>
             {props.children}
         </SessionContext.Provider>
     </div>
