@@ -68,6 +68,49 @@ Adatvédelmi Tájékoztató elolvasható egy külön ablakban.
 
 ## 4. Jelenlegi üzleti folyamatok modellje
 
+A menhely jelenlegi weboldalán az üzleti folyamatok az alábbiak szerint épülnek fel:
+
+```mermaid
+flowchart LR
+    admin(Admin)
+    user(User)
+    visitor(Visitor)
+    dog(Dog profile)
+    apply(Adopting intention)
+    visitor -- Can see --> dog
+    user -- Can see --> dog
+    user -- Can use --> apply
+    admin -- Can modify --> dog
+    admin -- Can see --> apply
+    dog -- Has --> apply
+    apply -- Sends email --> user
+```
+
+### 4.1 Folyamatok és funkciók:
+
+- **Kutyaprofilok böngészése:** A weboldalon minden látogató megtekintheti a menhely által feltöltött kutyák profilját,
+  amely tartalmazza a kutyák alapadatait, leírását és egy profilképet. A látogatóknak nincs szükségük személyes
+  megtekintésre, mivel minden lényeges információ megtalálható online.
+
+
+- **Örökbefogadási szándék jelzése:** Bejelentkezett felhasználók képesek örökbefogadási szándékukat jelezni a kiszemelt
+  kutya profilján keresztül. A kutyaprofilon ezután feltüntetésre kerül, hogy az adott kutya iránt már érdeklődnek. Az
+  örökbefogadást végső soron a menhely dolgozói személyesen tisztázzák, mely után a kutya profilja eltávolításra kerül a
+  weboldalról.
+
+
+- **Kapcsolattartás:** A menhely dolgozói elérhetők e-mailen keresztül, és ezen kapcsolatfelvételi adat könnyen
+  megtalálható a weboldalon.
+
+
+- **Regisztráció és belépés:** A látogatók egy e-mail validáció után regisztrálhatnak a weboldalra. A regisztrációt
+  követően bejelentkezhetnek a rendszerbe, és hozzáférhetnek a felhasználói funkciókhoz, például az örökbefogadási igény
+  jelzéséhez.
+
+
+- **Adminisztrációs folyamatok**: Az adminisztrátorok bejelentkezhetnek a rendszerbe, ahol hozzáférést kapnak a beérkező
+  örökbefogadási kérelmekhez, és ezek alapján dönthetnek a kérelmek elfogadásáról vagy elutasításáról.
+
 ## 5. Igényelt üzleti folyamatok modellje
 
 ## 6. Követelménylista
