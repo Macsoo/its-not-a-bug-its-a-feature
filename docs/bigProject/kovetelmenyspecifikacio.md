@@ -160,4 +160,36 @@ flowchart LR
 
 ## 5. Igényelt üzleti folyamatok modellje
 
+Az igényelt üzleti folyamatok modellje biztosítja, hogy a weboldal modern és felhasználóbarát legyen, valamint
+egyszerűbb és hatékonyabb örökbefogadási folyamatot tegyen lehetővé a menhely számára. Az igényelt folyamatok a
+következőket tartalmazzák:
+
+### 5.1 Több adminisztrátor hozzáférés:
+
+A menhely több munkatársa számára biztosított adminisztrátori jogkör lehetővé teszi,
+hogy különböző felhasználók kezeljék a kutyaprofilokat és a beérkező örökbefogadási kérelmeket. Az adminisztrátorok
+képesek kutyaprofilokat létrehozni, módosítani és kérelmeket elfogadni vagy elutasítani.
+
+### 5.2 Képfeltöltési funkció:
+
+A kutyaprofilhoz több kép feltöltése lehetővé teszi a látogatóknak, hogy több szempontból is
+megismerhessék a kutyákat, javítva az esélyt az örökbefogadásra.
+
+### 5.3 Integrált chatfelület:
+
+Egy beépített, valós idejű üzenetküldő felület lehetővé teszi a felhasználók és adminisztrátorok
+közötti gyors és egyszerű kommunikációt, amely során az örökbefogadási folyamatokkal kapcsolatos kérdések és válaszok
+gyorsan megoszthatók.
+
+### 5.4 Adatmódosítás a felhasználók számára:
+
+A regisztrált felhasználók bármikor frissíthetik saját adataikat, beleértve a
+telefonszámukat, így az adminisztrátorok mindig naprakész információkkal rendelkeznek a felhasználókról.
+
+### 5.5 Részletesebb profilok és szűrési lehetőségek:
+
+Kétféle kutyaleírás állna rendelkezésre – egy rövidebb, amely a
+listázásnál látható, és egy részletesebb, amely a kutya profilján jelenik meg. Emellett a kutyák szűrhetők kor, fajta és
+nem szerint, hogy a felhasználók gyorsabban megtalálhassák a számukra megfelelő állatot.
+
 ## 6. Követelménylista
