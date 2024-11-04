@@ -5,8 +5,9 @@ import React, {useCallback, useContext, useEffect, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {useRouter} from "next/navigation";
 import {addDog} from "@/server/dogRepository";
-import {DogImage, Gender} from "@prisma/client";
+import {Gender} from "@prisma/client";
 import {useDropzone} from "react-dropzone";
+import Image from "next/image";
 
 export default function AddDog() {
     const router = useRouter();
@@ -20,8 +21,6 @@ export default function AddDog() {
     const [description, setDescription] = useState("");
     const [breed, setBreed] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
-    const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
-    const [dogImage, setDogImage] = useState<DogImage | null>(null);
 
     const handleValidation = (e: React.FormEvent<HTMLInputElement>) => {
         const input = e.currentTarget;
@@ -36,24 +35,47 @@ export default function AddDog() {
         }
     };
 
-    useEffect(() => {
-        if (dogImage === null) return;
-        setPreview(dogImage.path)
-    }, [dogImage]);
+    const [files, setFiles] = useState<(Blob & { preview: string })[]>();
 
-    const onDrop = useCallback((acceptedFiles: Array<File>) => {
-        const file = new FileReader;
+    const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
+        setFiles(acceptedFiles.map(file => Object.assign(
+            file.slice(), {
+                preview: URL.createObjectURL(file)
+            })));
+    }, []);
 
-        file.onload = function () {
-            setPreview(file.result);
-        }
-
-        file.readAsDataURL(acceptedFiles[0])
-    }, [])
-
-    const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone({
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({
+        accept: {
+            'image/*': []
+        },
         onDrop
     });
+
+    const removeFile = (file: Blob & { preview: string }) => () => {
+        if (files !== undefined) {
+            const newFiles = [...files]
+            newFiles.splice(newFiles.indexOf(file), 1)
+            setFiles(newFiles)
+        }
+    }
+
+    const removeAll = () => {
+        setFiles([])
+    }
+
+    const thumbs = files !== undefined ? files.map(file => (
+        <div key={file.preview}>
+            <div className={`dragndropelement`}>
+                <img src={URL.createObjectURL(file)} alt={file.preview}/>
+                <button onClick={removeFile(file)}>Remove File</button>
+            </div>
+        </div>
+    )) : null;
+
+    useEffect(() => {
+        if (files !== undefined)
+            return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+    }, [files]);
 
     return (
         <div className="content">
@@ -148,22 +170,23 @@ export default function AddDog() {
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
-                    <div>
-                        <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            {
-                                isDragActive ?
-                                    <p>Drop the files here ...</p> :
-                                    <p>Drag &apos;n&apos; drop some files here, or click to select files</p>
-                            }
+                    <div className={`mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center`}>
+                        <div {...getRootProps({className: 'dropzone'})}>
+                            <input {...getInputProps()}/>
+                            <div className={`flex flex-col justify-center items-center m-auto`}>
+                                <p className={`font-bold`}> Képek feltöltése:</p>
+                                {isDragActive ?
+                                    <p className={`italic text-sm text-center`}>Húzza ide a fájlokat ...</p> :
+                                    <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy kattintson ide a fájlfeltöltéshez.</p>}
+                                <Image src="/upload-icon.png" width={30} height={30} alt="upload"/>
+                            </div>
                         </div>
-                        {preview && (
-                            <p className="mb-5">
-                                <img src={preview as string} alt="Upload preview"/>
-                            </p>
-                        )}
+                        <aside className={`dragndropcontainer`}>
+                            {thumbs}
+                        </aside>
+                        {files !== undefined && files.length > 0 && <button onClick={removeAll}>Remove All</button>}
                     </div>
-                    <div className={`flex flex-row items-center justify-center`}>
+                    <div className={`mt-10 flex flex-row items-center justify-center`}>
                         <button id={`updateDog`} type="submit">Kutya Hozzáadása</button>
                     </div>
                 </form>
