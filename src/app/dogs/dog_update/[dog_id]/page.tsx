@@ -19,6 +19,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const [gender, setGender] = useState<Gender>('Male');
     const [description, setDescription] = useState('');
     const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+    const [imageFiles, setImageFiles] = useState<Array<File>>([]);
     useServerAction(async () => {
         setDog(await getDog(dogId));
         setDogImage(await getDogProfilePicture(dogId));
@@ -38,16 +39,11 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
 
     useEffect(() => {
         if (dogImage === null) return;
-        setPreview(dogImage.path)
+        setPreview(dogImage.path);
     }, [dogImage]);
 
     const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
-        for (const file of acceptedFiles) {
-            const formData = new FormData;
-            formData.set("dogId", dogId.toString());
-            formData.set("data", file);
-            await uploadPicture(formData);
-        }
+        setImageFiles(imageFiles.concat(acceptedFiles));
     }, []);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -64,6 +60,12 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             gender: gender,
             description: description,
         });
+        for (const file of imageFiles) {
+            const formData = new FormData;
+            formData.set("dogId", dogId.toString());
+            formData.set("data", file);
+            await uploadPicture(formData);
+        }
         router.push(`/dogs/${dogId}`);
     };
 
