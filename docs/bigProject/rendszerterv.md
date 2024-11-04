@@ -342,6 +342,7 @@ flowchart TD
             admin_editor(Admin editor)
             dogs_list(Dogs list view)
             dog_details(Dog detailed view)
+            chat_function(<span style='color: red'>Chat</span>)
             dogs_list --> dog_details
             admin_editor --> dogs_list
             admin_editor --> dog_details
@@ -353,9 +354,15 @@ flowchart TD
         pictures(Pictures)
         users(Users)
         adoption_requests(Adoption requests)
+        fn_chat(<span style='color: red'>Chat function</span>)
+        chat_db(<span style='color: red'>Chat</span>)
         dogs -- Refers to --> pictures
         pictures -- Refers to --> dogs
         adoption_requests -- Refers to --> dogs & users
+        fn_chat -- <span style='color: red'>Refers to</span> --> users
+        fn_chat -- <span style='color: red'>Refers to</span> --> chat_db
+        linkStyle 9 stroke: #ff0000, stroke-width: 2px
+        linkStyle 10 stroke: #ff0000, stroke-width: 2px
     end
     db_connector -- Uses --> Database
 ```
@@ -395,6 +402,9 @@ Pictures
 
 Adoption requests
 : Az örökbefogadási kéréseket tárolja.
+
+Chat
+: Felületet biztosít a felhasynálók közötti kommunikációra
 
 ## 8. Architekturális terv
 
