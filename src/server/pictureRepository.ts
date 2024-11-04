@@ -18,7 +18,7 @@ export async function deletePicture(path: string): Promise<void> {
         return Promise.reject("NOT ADMIN");
     }
     const prisma = getPrisma();
-    const err = await prisma.$transaction(async (trx) => {
+    let err = await prisma.$transaction(async (trx) => {
         const picture: DogImage | null = await trx.dogImage.findFirst({
             where: {
                 path: path
@@ -36,7 +36,21 @@ export async function deletePicture(path: string): Promise<void> {
     if (err !== undefined) {
         return Promise.reject(err);
     }
-    //TODO: DELETE FROM SUPABASE
+    err = await prisma.$transaction(async (trx) => {
+        const pictureCount: number = await trx.dogImage.count({
+            where: {
+                path: path
+            }
+        });
+        if (pictureCount > 0) return;
+        const { data, error } = await supabase.storage.from(SUPABASE_BUCKET).remove([path]);
+        if (data === null || error !== null) {
+            return error?.message;
+        }
+    });
+    if (err !== undefined) {
+        return Promise.reject(err);
+    }
 }
 
 export async function downloadPicture(pictureId: number): Promise<File> {
