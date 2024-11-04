@@ -244,6 +244,12 @@ Az új elemek pirossal vannak felölve a modellen.
 
 ## 4. Követelmények
 
+- Real time chat létrehozása felhasználók és adminok között
+- Egyszerű drag and drop képfeltöltési lehetőség a kutyaprofilokra
+- Több kép feltöltésének a lehetősége
+- Admin felhasználók a fiók felületen képesek felhasználói fiókok törlésére
+- A weboldal designjának áttervezése hogy a fent említett változtatásokat megjelenítse
+
 ## 5. Funkcionális terv
 
 ```mermaid
