@@ -174,8 +174,3 @@ th, td{
     flex-direction: row;
     flex-wrap: wrap;
 }
-
-.dragndropelement{
-    display: inline-flex;
-    width: 30%;
-}

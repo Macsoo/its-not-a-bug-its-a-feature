@@ -63,11 +63,15 @@ export default function AddDog() {
         setFiles([])
     }
 
+
     const thumbs = files !== undefined ? files.map(file => (
         <div key={file.preview}>
-            <div className={`dragndropelement`}>
-                <img src={URL.createObjectURL(file)} alt={file.preview}/>
-                <button onClick={removeFile(file)}>Remove File</button>
+            <div className={`grid border-textColor border-2 w-[35%]`}>
+                <img src={URL.createObjectURL(file)} alt={file.preview} className={`col-[1] row-[1] w-full`}/>
+
+                <div className={`col-[1] row-[1] w-full h-full flex items-center justify-center bg-amber-50 opacity-75`}>
+                    <button onClick={removeFile(file)} id="x-button" className={``}>X</button>
+                </div>
             </div>
         </div>
     )) : null;
@@ -170,14 +174,16 @@ export default function AddDog() {
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
-                    <div className={`mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center`}>
+                    <div
+                        className={`mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center`}>
                         <div {...getRootProps({className: 'dropzone'})}>
                             <input {...getInputProps()}/>
                             <div className={`flex flex-col justify-center items-center m-auto`}>
                                 <p className={`font-bold`}> Képek feltöltése:</p>
                                 {isDragActive ?
                                     <p className={`italic text-sm text-center`}>Húzza ide a fájlokat ...</p> :
-                                    <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy kattintson ide a fájlfeltöltéshez.</p>}
+                                    <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy
+                                        kattintson ide a fájlfeltöltéshez.</p>}
                                 <Image src="/upload-icon.png" width={30} height={30} alt="upload"/>
                             </div>
                         </div>
