@@ -27,6 +27,17 @@ model Dog {
   @@schema("public")
 }
 
+model Chat {
+  id        Int      @id @default(autoincrement())
+  fromUser  String   @db.Uuid
+  toUser    String   @db.Uuid
+  seen      Boolean
+  createdAt DateTime
+  message   String   @db.VarChar(255)
+
+  @@schema("public")
+}
+
 model DogImage {
   id        Int    @id @default(autoincrement())
   dogId     Int?
@@ -100,8 +111,8 @@ model profiles {
   is_admin Boolean @default(false)
   users    users   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@schema("public")
   @@ignore
+  @@schema("public")
 }
 
 enum Gender {
