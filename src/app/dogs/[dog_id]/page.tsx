@@ -6,6 +6,7 @@ import {getDog} from "@/server/dogRepository";
 import {listDogPictures} from "@/server/pictureRepository";
 import {Dog, DogImage} from "@prisma/client";
 import {useServerAction} from "@/utils";
+import {DogPicture} from "@/components/dogPicture";
 import Image from "next/image";
 
 export default function DogUpdate({params}: { params: { dog_id: string } }) {
@@ -42,9 +43,9 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                         <p className={`font-bold`}>Képek: </p>
                         <div className={`relative min-h-32`}>
                             {images.map(image => {
-                                return <Image key={image.id} src={image.path} alt={``} width={0} height={0}
-                                              sizes={`100vw`}
-                                              className={`w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>;
+                                return <DogPicture key={image.id} src={image.path} width={0} height={0}
+                                                   sizes={`100vw`}
+                                                   className={`w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>
                             })}
                         </div>
                         {session.isSignedIn() && (
