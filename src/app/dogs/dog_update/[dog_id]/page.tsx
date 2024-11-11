@@ -13,6 +13,7 @@ import {
 } from "@/server/pictureRepository";
 import {useDropzone} from "react-dropzone";
 import {DogPicture} from "@/components/dogPicture";
+import Link from "next/link";
 
 enum SubmitAction {
     NOTHING,
@@ -172,32 +173,41 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                             </div>
-                            <div {...getRootProps()}>
-                                <input {...getInputProps()} />
-                                {
-                                    isDragActive ?
-                                        <p>Drop the files here ...</p> :
-                                        <p>Drag &apos;n&apos; drop some files here, or click to select files</p>
-                                }
+                            <div className={`dragAndDropContainer`}>
+                                <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <div className={`flex flex-col justify-center items-center m-auto`}>
+                                        <p className={`font-bold`}> Képek feltöltése:</p>
+                                        {isDragActive ?
+                                            <p className={`italic text-sm text-center`}>Húzza ide a fájlokat ...</p> :
+                                            <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy
+                                                kattintson ide a fájlfeltöltéshez.</p>}
+                                    </div>
+                                </div>
+                                <div className={`uploadImageContainer`}>
+                                    {imageFiles.map(file => {
+                                        switch (file.onSend) {
+                                            case SubmitAction.UPLOAD:
+                                                return <p className="mb-5" key={file.file.name}>
+                                                    <Image src={file.dataUri} alt="Upload preview" fill={true}
+                                                           objectFit={'contain'}
+                                                           objectPosition={'relative'} className={`imageUpload`}/>
+                                                </p>
+                                            case SubmitAction.NOTHING:
+                                            case SubmitAction.DELETE:
+                                                return <p className="mb-5" key={file.url}>
+                                                    <DogPicture src={file.url} fill={true} objectFit={'contain'}
+                                                                objectPosition={'relative'}/>
+                                                </p>
+                                        }
+                                    })}
+                                </div>
                             </div>
-                            {imageFiles.map(file => {
-                                switch (file.onSend) {
-                                    case SubmitAction.UPLOAD:
-                                        return <p className="mb-5" key={file.file.name}>
-                                            <Image src={file.dataUri} alt="Upload preview" fill={true}
-                                                   objectFit={'contain'}
-                                                   objectPosition={'relative'}/>
-                                        </p>
-                                    case SubmitAction.NOTHING:
-                                    case SubmitAction.DELETE:
-                                        return <p className="mb-5" key={file.url}>
-                                            <DogPicture src={file.url} fill={true} objectFit={'contain'}
-                                                        objectPosition={'relative'}/>
-                                        </p>
-                                }
-                            })}
                             <div className={`flex flex-row items-center justify-center`}>
                                 <button id={`updateDog`} type="submit">Frissítés</button>
+                                <Link href={`/dogs/${dogId}`}>
+                                    <button>Mégsem</button>
+                                </Link>
                             </div>
                         </form>
                     </div>
