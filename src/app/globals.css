@@ -168,9 +168,3 @@ th, td{
 .form{
     @apply flex flex-row items-center p-2;
 }
-
-.dragndropcontainer{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}

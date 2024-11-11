@@ -64,19 +64,20 @@ export default function AddDog() {
     }
 
     const mouseEnterHandler: React.MouseEventHandler = ((e) => {
-        e.currentTarget!.lastElementChild!.setAttribute("style","display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5)")
+        e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5)")
         console.log(e.currentTarget)
     });
 
     const mouseLeaveHandler: React.MouseEventHandler = ((e) => {
-        e.currentTarget!.lastElementChild!.setAttribute("style","display:none")
+        e.currentTarget!.lastElementChild!.setAttribute("style", "display:none")
         console.log(e.currentTarget)
     });
 
     const thumbs = files !== undefined ? files.map(file => (
-        <div key={file.preview}>
-            <div className={`grid border-textColor border-2 w-[35%]`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
-                <img src={URL.createObjectURL(file)} alt={file.preview} className={`col-[1] row-[1] w-full`}/>
+        <div key={file.preview} className={`inline-flex w-[30%]`}>
+            <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
+                 onMouseLeave={mouseLeaveHandler}>
+                <img src={URL.createObjectURL(file)} alt={file.preview} className={`col-[1] row-[1] w-full border-textColor border-2`}/>
                 <div className={`hidden col-[1] row-[1] w-full h-full `}>
                     <button onClick={removeFile(file)} id="x-button" className={``}>X</button>
                 </div>
@@ -183,22 +184,24 @@ export default function AddDog() {
                         />
                     </div>
                     <div
-                        className={`mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center`}>
-                        <div {...getRootProps({className: 'dropzone'})}>
+                        className={`mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10`}>
+                        {(files == undefined || files.length == 0) ? (<div {...getRootProps({className: 'dropzone'})}>
                             <input {...getInputProps()}/>
-                            <div className={`flex flex-col justify-center items-center m-auto`}>
-                                <p className={`font-bold`}> Képek feltöltése:</p>
-                                {isDragActive ?
-                                    <p className={`italic text-sm text-center`}>Húzza ide a fájlokat ...</p> :
-                                    <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy
-                                        kattintson ide a fájlfeltöltéshez.</p>}
-                                <Image src="/upload-icon.png" width={30} height={30} alt="upload"/>
+
+                                <div className={`flex flex-col justify-center items-center m-auto`}>
+                                    <p className={`font-bold`}> Képek feltöltése:</p>
+                                    {isDragActive ?
+                                        <p className={`italic text-sm text-center`}>Húzza ide a fájlokat ...</p> :
+                                        <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy
+                                            kattintson ide a fájlfeltöltéshez.</p>}
+                                    <Image src="/upload-icon.png" width={30} height={30} alt="upload"/>
+                                </div>
                             </div>
-                        </div>
-                        <aside className={`dragndropcontainer`}>
+                            ): (<button onClick={removeAll}>Összes törlése</button>)}
+
+                        <div className={`flex flex-wrap flex-row gap-6 pt-5`}>
                             {thumbs}
-                        </aside>
-                        {files !== undefined && files.length > 0 && <button onClick={removeAll}>Remove All</button>}
+                        </div>
                     </div>
                     <div className={`mt-10 flex flex-row items-center justify-center`}>
                         <button id={`updateDog`} type="submit">Kutya Hozzáadása</button>
