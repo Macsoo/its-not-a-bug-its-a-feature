@@ -2,28 +2,34 @@
 import {useRouter} from 'next/navigation';
 import Image from 'next/image';
 import React, {useCallback, useEffect, useState} from 'react';
-import {Dog, DogImage, Gender} from "@prisma/client";
+import {Dog, Gender} from "@prisma/client";
 import {useServerAction} from "@/utils";
 import {getDog, updateDog} from "@/server/dogRepository";
 import {
-    getDogProfilePicture,
     uploadPicture,
     listDogPictures,
-    downloadPicture,
+    getImageUrl,
     deletePicture
 } from "@/server/pictureRepository";
 import {useDropzone} from "react-dropzone";
+import {DogPicture} from "@/components/dogPicture";
 
 enum SubmitAction {
     NOTHING,
     DELETE,
-    UPDATE,
     UPLOAD,
 }
 
 type FileWithSubmitAction = {
+    url: string;
+    onSend: SubmitAction.NOTHING;
+} | {
     file: File;
-    onSend: SubmitAction;
+    onSend: SubmitAction.UPLOAD;
+    dataUri: string;
+} | {
+    url: string;
+    onSend: SubmitAction.DELETE;
 };
 
 export default function UpdateDog({params}: { params: { dog_id: string } }) {
@@ -39,9 +45,10 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     useServerAction(async () => {
         setDog(await getDog(dogId));
         for (const pic of await listDogPictures(dogId)) {
-            const file = await downloadPicture(pic.id);
-            const withAction = {
-                file, onSend: SubmitAction.NOTHING
+            const url = await getImageUrl(pic.path);
+            const withAction: FileWithSubmitAction = {
+                url,
+                onSend: SubmitAction.NOTHING
             };
             setImageFiles(imageFiles.concat([withAction]));
         }
@@ -60,13 +67,27 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     }, [dog]);
 
     const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
-        setImageFiles(imageFiles.concat(acceptedFiles.map(file => ({
-            file: file,
-            onSend: SubmitAction.UPLOAD
-        }))));
+        const images = [];
+        for (const file of acceptedFiles) {
+            const fileWithInfo: FileWithSubmitAction = {
+                file: file,
+                onSend: SubmitAction.UPLOAD,
+                dataUri: ''
+            };
+            await new Promise<void>(resolve => {
+                const fileReader = new FileReader();
+                fileReader.onload = () => {
+                    fileWithInfo.dataUri = fileReader.result as string;
+                    resolve();
+                };
+                fileReader.readAsDataURL(file);
+            });
+            images.push(fileWithInfo);
+        }
+        setImageFiles(images);
     }, []);
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({
         onDrop
     });
 
@@ -89,7 +110,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                     await uploadPicture(formData);
                     break;
                 case SubmitAction.DELETE:
-                    await deletePicture(imageFile.file.name);
+                    const urlEnd = imageFile.url.match(/\/[^\/]*$/)!;
+                    await deletePicture(urlEnd[0]);
                     break;
                 default:
                     break;
@@ -158,13 +180,23 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                         <p>Drag &apos;n&apos; drop some files here, or click to select files</p>
                                 }
                             </div>
-                            {preview && (
-                                <p className="mb-5">
-                                    <Image src={preview as string} alt="Upload preview" />
-                                </p>
-                            )}
+                            {imageFiles.map(file => {
+                                switch (file.onSend) {
+                                    case SubmitAction.UPLOAD:
+                                        return <p className="mb-5" key={file.file.name}>
+                                            <Image src={file.dataUri} alt="Upload preview" fill={true}
+                                                   objectFit={'contain'}
+                                                   objectPosition={'relative'}/>
+                                        </p>
+                                    case SubmitAction.NOTHING:
+                                    case SubmitAction.DELETE:
+                                        return <p className="mb-5" key={file.url}>
+                                            <DogPicture src={file.url} fill={true} objectFit={'contain'}
+                                                        objectPosition={'relative'}/>
+                                        </p>
+                                }
+                            })}
                             <div className={`flex flex-row items-center justify-center`}>
-
                                 <button id={`updateDog`} type="submit">Frissítés</button>
                             </div>
                         </form>

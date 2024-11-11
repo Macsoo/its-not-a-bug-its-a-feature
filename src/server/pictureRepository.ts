@@ -3,20 +3,12 @@
 import {getPrisma} from "@/utils";
 import {Dog, DogImage} from "@prisma/client";
 import {getDog} from "@/server/dogRepository";
-import {createServer} from "@/server/supabase";
-import {Session} from "@/components/sessionContext";
+import {createAdminServer, createServer} from "@/server/supabase";
 
 const SUPABASE_BUCKET = 'dogimages';
 
 export async function deletePicture(path: string): Promise<void> {
-    const supabase = await createServer();
-    const {data, error} = await supabase.auth.getUser();
-    if (error !== null || data === null) {
-        return Promise.reject(error?.message);
-    }
-    if (!new Session(data.user).isAdmin()) {
-        return Promise.reject("NOT ADMIN");
-    }
+    const supabase = await createAdminServer();
     const prisma = getPrisma();
     let err = await prisma.$transaction(async (trx) => {
         const picture: DogImage | null = await trx.dogImage.findFirst({
@@ -43,7 +35,7 @@ export async function deletePicture(path: string): Promise<void> {
             }
         });
         if (pictureCount > 0) return;
-        const { data, error } = await supabase.storage.from(SUPABASE_BUCKET).remove([path]);
+        const {data, error} = await supabase.storage.from(SUPABASE_BUCKET).remove([path]);
         if (data === null || error !== null) {
             return error?.message;
         }
@@ -53,36 +45,24 @@ export async function deletePicture(path: string): Promise<void> {
     }
 }
 
-export async function downloadPicture(pictureId: number): Promise<File> {
+export async function getImageUrl(path: string): Promise<string> {
     const supabase = await createServer();
-    const {data, error} = await supabase.auth.getUser();
-    if (error !== null || data === null) {
-        return Promise.reject(error?.message);
-    }
-    if (!new Session(data.user).isAdmin()) {
-        return Promise.reject("NOT ADMIN");
-    }
     const prisma = getPrisma();
-    let file: File | null = null;
-    const err = await prisma.$transaction(async (trx) => {
-        const picture: DogImage | null = await trx.dogImage.findUnique({
-            where: {
-                id: pictureId,
+    const imageUrl = await prisma.$transaction(async (trx) =>
+        await new Promise<string>(async (resolve, reject) => {
+            const picture: DogImage | null = await trx.dogImage.findFirst({
+                where: {
+                    path: path,
+                }
+            });
+            if (picture === null || picture === undefined) {
+                reject("DogImage with given ID not found.");
+                return;
             }
-        });
-        if (picture === null || picture === undefined) {
-            return "DogImage with given ID not found.";
-        }
-        const {data: {publicUrl}} = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(picture.path);
-        const {data, error} = await supabase.storage.from(SUPABASE_BUCKET).download(publicUrl);
-        if (error !== null || data === null) {
-            return error?.message;
-        }
-        file = new File([data], picture.path);
-    });
-    if (err !== undefined)
-        return Promise.reject(err);
-    return file!;
+            const {data: {publicUrl}} = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(picture.path);
+            resolve(publicUrl);
+        }));
+    return imageUrl;
 }
 
 export async function uploadPicture(formData: FormData): Promise<string> {
@@ -90,14 +70,7 @@ export async function uploadPicture(formData: FormData): Promise<string> {
     console.warn("dogId", dogId);
     const dataFile = formData.get("data") as File;
     console.warn("data", dataFile);
-    const supabase = await createServer();
-    const {data, error} = await supabase.auth.getUser();
-    if (error !== null || data === null) {
-        return Promise.reject(error?.message);
-    }
-    if (!new Session(data.user).isAdmin()) {
-        return Promise.reject("NOT ADMIN");
-    }
+    const supabase = await createAdminServer();
     const uuid = crypto.randomUUID();
     const prisma = getPrisma();
     const err = await prisma.$transaction(async (trx) => {
