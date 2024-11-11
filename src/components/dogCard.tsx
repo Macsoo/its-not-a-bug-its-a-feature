@@ -7,6 +7,7 @@ import {useContext} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {Dog, DogImage} from "@prisma/client";
 import {useServerAction} from "@/utils";
+import {DogPicture} from "@/components/dogPicture";
 
 export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
     useServerAction(async () => {
@@ -16,7 +17,7 @@ export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
     return (
         <div className={`card-dog`}>
             <div className={`relative h-32 w-auto md:h-auto md:w-[10%]`}>
-                <Image src={dogImage.path} alt={dog.name} width={0} height={0} sizes={`100vw`} className={`w-auto h-full md:w-full md:h-auto`}/>
+                <DogPicture src={dogImage.path} width={0} height={0} sizes={`100vw`} className={`w-auto h-full md:w-full md:h-auto`}/>
             </div>
             <div id="dog-text" className={`flex flex-col md:flex-row items-center justify-around min-w-[70%]`}
                  key={dog.id}>
