@@ -63,13 +63,21 @@ export default function AddDog() {
         setFiles([])
     }
 
+    const mouseEnterHandler: React.MouseEventHandler = ((e) => {
+        e.currentTarget!.lastElementChild!.setAttribute("style","display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5)")
+        console.log(e.currentTarget)
+    });
+
+    const mouseLeaveHandler: React.MouseEventHandler = ((e) => {
+        e.currentTarget!.lastElementChild!.setAttribute("style","display:none")
+        console.log(e.currentTarget)
+    });
 
     const thumbs = files !== undefined ? files.map(file => (
         <div key={file.preview}>
-            <div className={`grid border-textColor border-2 w-[35%]`}>
+            <div className={`grid border-textColor border-2 w-[35%]`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
                 <img src={URL.createObjectURL(file)} alt={file.preview} className={`col-[1] row-[1] w-full`}/>
-
-                <div className={`col-[1] row-[1] w-full h-full flex items-center justify-center bg-amber-50 opacity-75`}>
+                <div className={`hidden col-[1] row-[1] w-full h-full `}>
                     <button onClick={removeFile(file)} id="x-button" className={``}>X</button>
                 </div>
             </div>
