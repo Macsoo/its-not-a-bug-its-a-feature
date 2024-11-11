@@ -77,9 +77,9 @@ export default function AddDog() {
         <div key={file.preview} className={`inline-flex w-[30%]`}>
             <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
                  onMouseLeave={mouseLeaveHandler}>
-                <img src={URL.createObjectURL(file)} alt={file.preview} className={`col-[1] row-[1] w-full border-textColor border-2`}/>
-                <div className={`hidden col-[1] row-[1] w-full h-full `}>
-                    <button onClick={removeFile(file)} id="x-button" className={``}>X</button>
+                <img src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`}/>
+                <div className={`hiddenXButton`}>
+                    <button onClick={removeFile(file)} id="x-button">X</button>
                 </div>
             </div>
         </div>
@@ -183,8 +183,7 @@ export default function AddDog() {
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
-                    <div
-                        className={`mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10`}>
+                    <div className={`dragAndDropContainer`}>
                         {(files == undefined || files.length == 0) ? (<div {...getRootProps({className: 'dropzone'})}>
                             <input {...getInputProps()}/>
 
@@ -199,7 +198,7 @@ export default function AddDog() {
                             </div>
                             ): (<button onClick={removeAll}>Összes törlése</button>)}
 
-                        <div className={`flex flex-wrap flex-row gap-6 pt-5`}>
+                        <div className={`uploadImageContainer`}>
                             {thumbs}
                         </div>
                     </div>

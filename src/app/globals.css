@@ -168,3 +168,20 @@ th, td{
 .form{
     @apply flex flex-row items-center p-2;
 }
+
+.dragAndDropContainer{
+    @apply mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10;
+}
+
+.imageUpload{
+    @apply col-[1] row-[1] w-full border-textColor border-2;
+}
+
+.hiddenXButton{
+    @apply hidden col-[1] row-[1] w-full h-full;
+}
+
+.uploadImageContainer{
+    @apply flex flex-wrap flex-row gap-6 pt-5;
+}
+
