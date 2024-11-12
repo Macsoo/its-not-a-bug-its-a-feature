@@ -185,3 +185,91 @@ th, td{
     @apply flex flex-wrap flex-row gap-6 pt-5;
 }
 
+#chatCon {
+    width: 20%;
+    position: sticky;
+    bottom: 3%;
+    left: 3%;
+}
+
+#chatCon > .chat-box {
+    width: 100%;
+    height: 600px;
+    border-radius: 25px;
+    background: #d07d32;
+}
+
+#chatCon .header {
+    background-color: #3fda73;
+    padding: 15px;
+    border-radius: 20px 20px 0 0;
+    color: #fff;
+    font-size: 20px;
+}
+
+#chatCon .msg-area {
+    overflow: hidden;
+    height: 370px;
+    padding: 15px;
+}
+
+#chatCon .left > span {
+    display: inline-block;
+    font-size: 17.5px;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: #ddd;
+}
+
+#chatCon .right {
+    text-align: right;
+}
+
+#chatCon .right > span {
+    display: inline-block;
+    font-size: 17.5px;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: #ddd;
+}
+
+#chatCon .footer {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#chatCon .footer > input {
+    border: 1px solid #fff;
+    padding: 10px;
+    width: 80%;
+    border-radius: 15px;
+}
+
+#chatCon .footer > input:focus {
+    outline: none;
+}
+
+#chatCon .footer > button {
+    border: none;
+    font-size: 22.5px;
+    background-color: lightgreen;
+    color: darkgreen;
+    cursor: pointer;
+}
+
+#chatCon .pop {
+    width: 100%;
+    height: 25%;
+    cursor: pointer;
+}
+
+#chatCon .pop p {
+    text-align: right;
+}
+
+#chatCon .pop img {
+    border-radius: 50%;
+    width: 25%;
+}

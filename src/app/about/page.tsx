@@ -90,6 +90,7 @@ export default function AboutPage() {
                     Látogass el hozzánk, ha örökbefogadnál egy hűséges társat, vagy ha szeretnél többet megtudni
                     arról, hogyan segíthetsz a rászoruló állatokon!<br/> és érdeklődésedet előre is köszönjük!
                 </p>
+
             </div>
         </div>
     );
