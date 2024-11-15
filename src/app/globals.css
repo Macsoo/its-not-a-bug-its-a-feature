@@ -190,13 +190,7 @@ th, td{
     position: sticky;
     bottom: 3%;
     left: 3%;
-}
-
-#chatCon > .chat-box {
-    width: 100%;
-    height: 600px;
-    border-radius: 25px;
-    background: #d07d32;
+    color: black;
 }
 
 #chatCon .header {
@@ -207,18 +201,20 @@ th, td{
     font-size: 20px;
 }
 
-#chatCon .msg-area {
-    overflow: hidden;
-    height: 370px;
-    padding: 15px;
+.msg-area {
+    overflow: auto;
+    border-radius: 10px;
+    padding: 5px;
+    max-height: 330px;
 }
 
 #chatCon .left > span {
     display: inline-block;
     font-size: 17.5px;
     border-radius: 15px;
-    padding: 15px;
-    background-color: #ddd;
+    padding: 10px;
+    background-color: #d8d8d8;
+    max-width: 80%;
 }
 
 #chatCon .right {
@@ -227,17 +223,17 @@ th, td{
 
 #chatCon .right > span {
     display: inline-block;
+    background: #3fda73;
+    color: white;
     font-size: 17.5px;
     border-radius: 15px;
-    padding: 15px;
-    background-color: #ddd;
+    padding: 10px;
+    text-align: left;
+    max-width: 80%;
 }
 
 #chatCon .footer {
-    padding: 0 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: inline-flex;
 }
 
 #chatCon .footer > input {
@@ -272,4 +268,33 @@ th, td{
 #chatCon .pop img {
     border-radius: 50%;
     width: 25%;
+}
+
+#chatCon .user-area{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 5px;
+    overflow: auto;
+    border-radius: 10px;
+    padding: 5px;
+    max-height: 330px;
+}
+
+#chatCon .user:nth-child(even){
+    background: #3fda73;
+    padding: 10px;
+    color: white;
+    width: 100%;
+    border-radius: 10px;
+}
+
+#chatCon .user:nth-child(odd){
+    margin: auto;
+    background: #1f8140;
+    padding: 10px;
+    color: white;
+    width: 100%;
+    border-radius: 10px;
 }
