@@ -7,7 +7,7 @@ import {useRouter} from "next/navigation";
 
 function Error({error}: {error?: string}) {
     if (error) {
-        return <div>{error}</div>
+        return <div className={`error`}>{error}</div>
     } else {
         return null;
     }

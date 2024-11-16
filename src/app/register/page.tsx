@@ -5,7 +5,7 @@ import {registerUser} from "@/server/userRepository";
 
 function Error({error}: { error?: string }) {
     if (error) {
-        return <div className={`text-red-700 font-bold`}>{error}</div>
+        return <div className={`error`}>{error}</div>
     } else {
         return null;
     }
