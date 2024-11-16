@@ -116,12 +116,12 @@ Lakatos Brendon Menhelye
 +36 30 123 4567
 info@inabiaf.org
 
-11. Panasz benyújtása
+10. Panasz benyújtása
 Ha úgy érzi, hogy személyes adatait nem megfelelően kezeljük, panaszt tehet a helyi adatvédelmi hatóságnál:
 
 Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH) https://www.naih.hu
 
-12. A szabályzat módosítása
+11. A szabályzat módosítása
 Fenntartjuk a jogot, hogy ezt az adatvédelmi tájékoztatót időről időre frissítsük. Az esetleges változásokat itt 
 tesszük közzé, így kérjük, látogasson vissza rendszeresen.
 
