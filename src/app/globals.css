@@ -1,24 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 @layer utilities {
     .menu {
         @apply flex flex-row items-center justify-between py-1 px-5 w-full;
         background: #df9348;
     }
+
     .header {
         @apply w-full p-5 flex flex-row items-center justify-between;
         background: #e2a669;
         color: #fcecd3;
     }
 
-    .menu-mobile{
+    .menu-mobile {
         @apply flex flex-col items-center justify-between py-1 px-5 w-full;
         background: #df9348;
     }
 
-    button{
+    button {
         @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
         background: #e5a55f;
         color: #fdedd1;
@@ -30,7 +36,8 @@
 }
 
 h2 {
-    @apply text-3xl pb-2;
+    @apply text-3xl pb-2 font-bold;
+    font-family: "DynaPuff", system-ui;
 }
 
 p {
@@ -41,7 +48,7 @@ body {
     @apply flex flex-col items-start justify-around gap-1 bg-background text-textColor;
 }
 
-.header-mobile{
+.header-mobile {
     @apply w-full p-5 flex flex-col items-center justify-between;
     background: #e2a669;
     color: #fcecd3;
@@ -49,7 +56,7 @@ body {
 
 
 .header button,
-.header-mobile button{
+.header-mobile button {
     @apply p-2.5 rounded-lg m-1 w-32 text-lg;
     background: #d07d32;
     color: #fdc754;
@@ -63,9 +70,7 @@ body {
 
 
 button:hover,
-button:active
-
-{
+button:active {
     background: #c67839;
     color: #fdc754;
 }
@@ -85,17 +90,21 @@ button:active
     @apply text-textColor m-auto md:p-5 p-2 rounded-lg items-center gap-5 w-full flex flex-col justify-around text-center md:flex-row;
     background: #fcedd1;
 }
+
 .card-dog #dog-text {
     @apply w-1/3 rounded-lg md:p-5 p-2 ;
     background: #f7d6a8;
 }
 
-th, td{
+th{
+    font-family: "DynaPuff", system-ui;
+}
+th, td {
     @apply p-3;
     word-break: break-word;
 }
 
-#descriptionButton, #editDogButton{
+#descriptionButton, #editDogButton {
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
     background: #e5a55f;
     color: #fdedd1;
@@ -109,7 +118,7 @@ th, td{
     color: #fdc754;
 }
 
-#adoptButton, #updateDog{
+#adoptButton, #updateDog {
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
     background: #babb91;
     color: #5b6439;
@@ -118,12 +127,12 @@ th, td{
 #adoptButton:hover,
 #adoptButton:active,
 #updateDog:hover,
-#updateDog:active{
+#updateDog:active {
     background: #6f7146;
     color: #bfcc8a;
 }
 
-#deleteDogButton, #deleteDogButton{
+#deleteDogButton, #deleteDogButton {
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
     background: #F0756D;
     color: #fff3f0;
@@ -132,12 +141,12 @@ th, td{
 #deleteDogButton:hover,
 #deleteDogButton:active,
 #x-button:hover,
-#x-button:active{
+#x-button:active {
     background: #aa4241;
     color: #fcc1b7;
 }
 
-#x-button{
+#x-button {
     @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
     background: #F0756D;
     color: #fff3f0
@@ -148,40 +157,40 @@ th, td{
     @apply w-full border-collapse border-4 border-textColor text-center;
 }
 
-#requestTable  th{
+#requestTable th {
     @apply bg-secondTextColor text-white text-xl font-light;
 }
 
-#requestTable  td{
+#requestTable td {
     @apply bg-orange-50;
 }
 
-#requestTable  td,
+#requestTable td,
 #requestTable th {
     @apply border-collapse border border-textColor;
 }
 
-.dogUpdateInput{
+.dogUpdateInput {
     @apply border border-textColor p-0.5 bg-orange-50;
 }
 
-.form{
+.form {
     @apply flex flex-row items-center p-2;
 }
 
-.dragAndDropContainer{
+.dragAndDropContainer {
     @apply mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10;
 }
 
-.imageUpload{
+.imageUpload {
     @apply col-[1] row-[1] w-full border-textColor border-2;
 }
 
-.hiddenXButton{
+.hiddenXButton {
     @apply hidden col-[1] row-[1] w-full h-full;
 }
 
-.uploadImageContainer{
+.uploadImageContainer {
     @apply flex flex-wrap flex-row gap-6 pt-5;
 }
 
@@ -270,7 +279,7 @@ th, td{
     width: 25%;
 }
 
-#chatCon .user-area{
+#chatCon .user-area {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -282,7 +291,7 @@ th, td{
     max-height: 330px;
 }
 
-#chatCon .user:nth-child(even){
+#chatCon .user:nth-child(even) {
     background: #3fda73;
     padding: 10px;
     color: white;
@@ -290,11 +299,84 @@ th, td{
     border-radius: 10px;
 }
 
-#chatCon .user:nth-child(odd){
+#chatCon .user:nth-child(odd) {
     margin: auto;
     background: #1f8140;
     padding: 10px;
     color: white;
     width: 100%;
     border-radius: 10px;
+}
+
+#gdpr {
+    @apply max-w-[700px] max-h-[350px] overflow-auto pl-5 pr-5 pt-2 pb-2 m-5 bg-[#f5f5f5] border-b border-4 text-black
+    rounded-s text-sm font-sans grid;
+    position: relative;
+}
+
+#gdpr footer {
+    @apply italic text-xs;
+}
+
+ol > li {
+    list-style: decimal outside;
+    margin: 1.25em;
+    padding-top: 0.3em;
+}
+
+ol > li::marker {
+    font-weight: bold;
+}
+
+ul > li {
+    list-style: disc outside;
+    margin-left: 1.5em;
+    padding-top: 0.3em
+}
+
+.link:link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.link:link:active, link:visited:active {
+    color: rebeccapurple;
+}
+
+.link:visited {
+    color: rebeccapurple;
+}
+
+#gdpr button {
+    @apply m-auto;
+    position: sticky !important;
+}
+
+#gdpr > #x-button {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin-left: 97% !important;
+}
+
+.login-register {
+    @apply flex flex-col items-center max-w-3xl
+}
+
+#gdpr b {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+b {
+    font-family: "Sour Gummy", sans-serif;
+}
+
+input{
+    @apply bg-cardBorderColor;
+}
+
+.login-register input[type=password], .login-register input[type=email]{
+    @apply w-64 overflow-auto;
 }

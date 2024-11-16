@@ -44,8 +44,8 @@ export default function LoginPage() {
     }, [tryLogin]);
     return (
         <div className="content">
-            <p>Belépés</p>
-            <div className={`card flex flex-col items-center`}>
+            <h2>Belépés</h2>
+            <div className={`card login-register`}>
                 <div className={`m-2 flex flex-col items-start`}>
                     <label htmlFor={"email"}>Email</label>
                     <input type={"email"} id={"email"} value={email} className={`bg-cardBorderColor`}
