@@ -380,3 +380,15 @@ input{
 .login-register input[type=password], .login-register input[type=email]{
     @apply w-64 overflow-auto;
 }
+
+.error{
+    @apply text-red-700 font-bold;
+}
+
+.image{
+    @apply border-[#fcedd1] border-8 rounded-md;
+}
+
+.imageContainer{
+    @apply flex flex-row flex-wrap items-center justify-center p-3 gap-10;
+}

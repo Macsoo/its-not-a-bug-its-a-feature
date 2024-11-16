@@ -10,5 +10,5 @@ export function DogPicture(props: Omit<ImageProps, 'src'|'alt'> & { src: string 
     });
     return <Image src={imageSrc} alt={'Image of a dog.'} width={0} height={0}
                   sizes={`100vw`}
-                  className={`w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>;
+                  className={`w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-72 image`}/>;
 }

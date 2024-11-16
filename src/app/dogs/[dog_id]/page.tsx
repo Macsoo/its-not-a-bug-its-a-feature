@@ -7,7 +7,6 @@ import {listDogPictures} from "@/server/pictureRepository";
 import {Dog, DogImage} from "@prisma/client";
 import {useServerAction} from "@/utils";
 import {DogPicture} from "@/components/dogPicture";
-import Image from "next/image";
 
 export default function DogUpdate({params}: { params: { dog_id: string } }) {
     const session = useContext(SessionContext);
@@ -40,12 +39,12 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                             </tbody>
                         </table>
                         <p>{dog.description}</p>
-                        <p className={`font-bold`}>Képek: </p>
-                        <div className={`relative min-h-32`}>
+                        <b className={`py-2 text-center`}>{dog.name} képei:</b>
+                        <div className={`imageContainer`}>
                             {images.map(image => {
                                 return <DogPicture key={image.id} src={image.path} width={0} height={0}
                                                    sizes={`100vw`}
-                                                   className={`w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>
+                                                   className={` w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>
                             })}
                         </div>
                         {session.isSignedIn() && (

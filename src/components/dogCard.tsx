@@ -1,6 +1,5 @@
 'use client';
 import "@/app/globals.css";
-import Image from "next/image";
 import Link from "next/link";
 import {UpdateButton, DeleteButton,AdoptButton} from "@/components/dogsButton"
 import {useContext} from "react";
@@ -16,7 +15,7 @@ export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
     const session = useContext(SessionContext);
     return (
         <div className={`card-dog`}>
-            <div className={`relative h-32 w-auto md:h-auto md:w-[10%]`}>
+            <div className={`relative h-32 w-auto md:h-auto md:w-[16%]`}>
                 <DogPicture src={dogImage.path} width={0} height={0} sizes={`100vw`} className={`w-auto h-full md:w-full md:h-auto`}/>
             </div>
             <div id="dog-text" className={`flex flex-col md:flex-row items-center justify-around min-w-[70%]`}
