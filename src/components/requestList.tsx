@@ -88,7 +88,7 @@ export function RequestListAdmin() {
                         <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
                         <td> {request.user.email} </td>
                         <td>
-                            {dialogState.requestId !== request.id && (
+                            {request.approved == null && dialogState.requestId !== request.id && (
                                 <>
                                     <button id="adoptButton" onClick={() => setDialogState({
                                         requestId: request.id,
@@ -109,6 +109,11 @@ export function RequestListAdmin() {
                                     onCancel={() => setDialogState({requestId: null, type: null})}
                                 />
                             )}
+                            {
+                                request.approved!==null && (
+                                    request.approved ? <span>Elfogadva</span> : <span>Elutasítva</span>
+                                )
+                            }
                         </td>
                     </tr>
                 ))}
