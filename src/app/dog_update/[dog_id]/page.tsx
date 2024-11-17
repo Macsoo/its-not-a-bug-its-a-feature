@@ -250,26 +250,29 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     {imageFiles.map(file => {
                                         switch (file.onSend) {
                                             case SubmitAction.UPLOAD:
-                                                return <div key={file.dataUri} className={`inline-flex w-[30%]`}>
-                                                    <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
+                                                return <div key={file.dataUri} className={`inline-flex relative w-[300px] h-[300px]`}>
+                                                    <div className={`grid`} onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <Image src={file.dataUri} alt="Upload preview"
-                                                               className={`imageUpload`} width={80} height={80}/>
+                                                               className={`imageUpload`} fill/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    id={"x-button"} value={"X"}/>
+                                                            <input type={"button"} id={"primaryButton"}
+                                                                   value={String.fromCharCode(9733)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
                                             case SubmitAction.NOTHING:
-                                                return <div key={file.url} className={`inline-flex w-[30%]`}>
-                                                    <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
+                                                return <div key={file.url} className={`inline-flex relative w-[300px] h-[300px]`}>
+                                                    <div className={`grid`} onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
-                                                        <DogPicture src={file.url} className={`imageUpload`} width={80}
-                                                                    height={80}/>
+                                                        <DogPicture src={file.url} className={`imageUpload`} fill/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    id={"x-button"} value={"X"}/>
+                                                            <input type={"button"} id={"primaryButton"}
+                                                                   value={String.fromCharCode(9733)}></input>
                                                         </div>
                                                     </div>
                                                 </div>

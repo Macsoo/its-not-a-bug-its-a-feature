@@ -46,7 +46,7 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                             {images.map(image => {
                                 return <DogPicture key={image.id} src={image.path} width={80} height={80}
                                                    sizes={`100vw`}
-                                                   className={` w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>
+                                                   className={`border-[#fcedd1] border-[10px] rounded-md w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>
                             })}
                         </div>
                         {session.isSignedIn() && (

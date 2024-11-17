@@ -16,7 +16,7 @@ export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
     return (
         <div className={`card-dog`}>
             <div className={`relative h-32 w-auto md:h-auto md:w-[16%]`}>
-                <DogPicture src={dogImage.path} width={80} height={80} sizes={`100vw`} className={`w-auto h-full md:w-full md:h-auto`}/>
+                <DogPicture src={dogImage.path} width={80} height={80} sizes={`100vw`} className={`border-[#f7d6a8] border-[10px] rounded-md w-auto h-full md:w-full md:h-auto`}/>
             </div>
             <div id="dog-text" className={`flex flex-col md:flex-row items-center justify-around min-w-[70%]`}
                  key={dog.id}>
@@ -40,7 +40,7 @@ export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
                     </table>
                 </div>
                 <div className={`max-w-[60%] text-left`}>
-                    {dog.description}
+                    {dog.description.split('.')[0] + '.'}
                 </div>
                 <Link href={`/dogs/${dog.id}`}>
                     <button>Tovább...</button>

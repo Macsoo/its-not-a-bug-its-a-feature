@@ -73,7 +73,7 @@ export default function AddDog() {
     }
 
     const mouseEnterHandler: React.MouseEventHandler = ((e) => {
-        e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5)")
+        e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5);")
         console.log(e.currentTarget)
     });
 
@@ -85,10 +85,11 @@ export default function AddDog() {
     const thumbs = files !== undefined ? files.map(file => (
         <div key={file.preview} className={`inline-flex w-[30%]`}>
             <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
-                 onMouseLeave={mouseLeaveHandler}>
+                 onMouseLeave={mouseLeaveHandler} id={"image"}>
                 <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} width={80} height={80}/>
                 <div className={`hiddenXButton`}>
                     <input type={"button"} onClick={removeFile(file)} id={"x-button"} value={"X"}/>
+                    <input type={"button"} id={"primaryButton"} value={String.fromCharCode(9733)}></input>
                 </div>
             </div>
         </div>
