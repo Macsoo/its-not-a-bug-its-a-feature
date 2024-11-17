@@ -47,6 +47,13 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const [gender, setGender] = useState<Gender>('Male');
     const [description, setDescription] = useState('');
     const [imageFiles, setImageFiles] = useState<Array<FileWithSubmitAction>>([]);
+
+    const [originalName, setOriginalName] = useState('');
+    const [originalAge, setOriginalAge] = useState(0);
+    const [originalGender, setOriginalGender] = useState<Gender>('Male');
+    const [originalDescription, setOriginalDescription] = useState('');
+    //const [originalImageFiles, setOriginalImageFiles] = useState<Array<FileWithSubmitAction>>();
+
     const [loadingMessage, setLoadingMessage] = useState("Kérjük várjon, a kutyus adatai épp töltődnek...");
 
     useServerAction(async () => {
@@ -62,6 +69,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                 };
                 old.push(withAction);
             }
+            //setOriginalImageFiles(old)
             return old;
         });
         if (dog == null) {
@@ -75,8 +83,15 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             setAge(dog.age);
             setGender(dog.gender);
             setDescription(dog.description);
+
+
+            setOriginalName(dog.name);
+            setOriginalAge(dog.age);
+            setOriginalGender(dog.gender);
+            setOriginalDescription(dog.description);
         }
     }, [dog]);
+
 
     const removeFile = (file: FileWithSubmitAction): React.MouseEventHandler => (e) => {
         e.preventDefault();
@@ -266,7 +281,16 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                 {isDialogOpen && (
                                     <ConfirmDialog
                                         message="Biztosan elveted a módosításokat?"
-                                        onConfirm={() => router.push(`/dogs/${dog.id}`)}
+                                        onConfirm={() =>{
+                                            setName(originalName);
+                                            setAge(originalAge);
+                                            setGender(originalGender);
+                                            setDescription(originalDescription);
+
+                                            //TODO: upload original pictures, delete new pictures
+
+                                            router.push(`/dogs/${dog.id}`);
+                                        }}
                                         onCancel={() => setIsDialogOpen(false)}
                                     />
                                 )}
