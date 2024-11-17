@@ -76,8 +76,10 @@ export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}: PopCh
                     <p>
                         <Image
                             onClick={toggle}
-                            src="https://p7.hiclipart.com/preview/151/758/442/iphone-imessage-messages-logo-computer-icons-message.jpg"
+                            src="/chat_img.jpg"
                             alt="Chat Icon"
+                            width={20}
+                            height={20}
                         />
                     </p>
                 </div>
