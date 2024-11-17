@@ -146,6 +146,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     className={`dogUpdateInput`}
                                     id="age"
                                     type="number"
+                                    min={0}
                                     value={age}
                                     onChange={(e) => setAge(parseInt(e.target.value))}
                                 />
