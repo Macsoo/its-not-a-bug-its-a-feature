@@ -8,7 +8,8 @@ import {getDog, updateDog} from "@/server/dogRepository";
 import {
     uploadPicture,
     listDogPictures,
-    deletePicture, getDogProfilePicture
+    deletePicture,
+    getPictureByPath,
 } from "@/server/pictureRepository";
 import {useDropzone} from "react-dropzone";
 import {DogPicture} from "@/components/dogPicture";
@@ -181,28 +182,32 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             return;
         }
         if (keptImages.length == 1) {
-            imageFiles[0].isPrimary = true;
+            imageFiles[imageFiles.indexOf(keptImages[0])].isPrimary = true;
         }
+        let primary: string | null = null;
         for (const imageFile of imageFiles.filter(f => f.onSend == SubmitAction.UPLOAD)) {
             const formData = new FormData;
             formData.set("dogId", dogId.toString());
             formData.set("data", imageFile.file);
-            await uploadPicture(formData);
+            const path = await uploadPicture(formData);
             if (imageFile.isPrimary) {
-                const primaryImage = await getDogProfilePicture(dogId);
-                await updateDog({
-                    id: dog!.id,
-                    chipID: dog!.chipId,
-                    name: dog!.name,
-                    age: dog!.age,
-                    gender: dog!.gender,
-                    breed: dog!.breed,
-                    description: dog!.description,
-                    adopted: dog!.adopted,
-                    primaryImgId: primaryImage!.id,
-                })
+                primary = path;
             }
         }
+        for (const imageFile of imageFiles.filter(f => f.onSend == SubmitAction.NOTHING)) {
+            if (imageFile.isPrimary) {
+                primary = imageFile.url;
+            }
+        }
+        const primaryImage = await getPictureByPath(dogId, primary!);
+        await updateDog({
+            id: dogId,
+            primaryImgId: primaryImage!.id,
+            name: name,
+            age: age,
+            gender: gender,
+            description: description,
+        });
         for (const imageFile of imageFiles.filter(f => f.onSend == SubmitAction.DELETE)) {
             await deletePicture(imageFile.url);
         }

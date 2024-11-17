@@ -124,6 +124,18 @@ export async function addPicture(picture: { dogId: number, path: string }, isPri
     })
 }
 
+export async function getPictureByPath(dogId: number, path: string): Promise<DogImage | null> {
+    const prisma = getPrisma();
+    return prisma.$transaction(async (trx) => {
+        return trx.dogImage.findFirst({
+            where: {
+                dogId: dogId,
+                path: path,
+            }
+        })
+    })
+}
+
 export async function getPicture(pictureId: number): Promise<DogImage | null> {
     const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
