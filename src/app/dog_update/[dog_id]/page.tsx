@@ -154,6 +154,12 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             setPictureError("Kép feltöltése kötelező!");
             return;
         }
+        if (imageFiles.length == 1) {
+            imageFiles[0].isPrimary = true;
+        }
+        if (imageFiles.some(f => !f.isPrimary)) {
+            setPictureError("Selecting a primary image is necesarry");
+        }
         for (const imageFile of imageFiles.filter(f => f.onSend == SubmitAction.UPLOAD)) {
             const formData = new FormData;
             formData.set("dogId", dogId.toString());
