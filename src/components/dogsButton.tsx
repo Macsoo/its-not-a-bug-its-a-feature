@@ -28,7 +28,7 @@ export function UpdateButton({dog_id}: { dog_id: number }) {
         <>
             {session.isAdmin() && (
                 <div className="flex flex-col gap-5 items-center">
-                    <Link href={`/dogs/dog_update/${dog_id}`}>
+                    <Link href={`/dog_update/${dog_id}`}>
                         <button id="editDogButton">Szerkesztés</button>
                     </Link>
                 </div>
