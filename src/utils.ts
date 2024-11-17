@@ -6,7 +6,9 @@ export function useServerAction<T>(serverAction: () => Promise<T>): void {
         (async () => {
             await serverAction();
         })();
-    }, [serverAction]);
+    },
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+        []);
 }
 
 export function getPrisma() {
