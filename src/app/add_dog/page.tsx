@@ -73,7 +73,7 @@ export default function AddDog() {
     }
 
     const mouseEnterHandler: React.MouseEventHandler = ((e) => {
-        e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5)")
+        e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5);")
         console.log(e.currentTarget)
     });
 

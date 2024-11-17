@@ -156,7 +156,8 @@ td {
 }
 
 .hiddenXButton {
-    @apply hidden col-[1] row-[1] w-full h-full;
+    @apply hidden col-[1] row-[1] w-[300px] h-[300px];
+    z-index:  10;
 }
 .uploadImageContainer {
     @apply flex flex-wrap flex-row gap-6 pt-5;
@@ -266,9 +267,7 @@ input {
 .error {
     @apply text-red-700 font-bold;
 }
-.image {
-    @apply border-[#fcedd1] border-8 rounded-md;
-}
+
 .imageContainer {
     @apply flex flex-row flex-wrap items-center justify-center p-3 gap-10;
 }
