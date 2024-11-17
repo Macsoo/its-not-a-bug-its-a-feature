@@ -65,7 +65,12 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const [pictureError, setPictureError] = useState("");
 
     useServerAction(async () => {
-        setDog(await getDog(dogId));
+        const doggo = await getDog(dogId);
+        setDog(doggo);
+        if (doggo === null) {
+            setLoadingMessage("A keresett kutya nem található!");
+            return;
+        }
         const pics = await listDogPictures(dogId);
         setImageFiles((old) => {
             old = [];
@@ -74,7 +79,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                 const withAction: FileWithSubmitAction = {
                     url,
                     onSend: SubmitAction.NOTHING,
-                    isPrimary: dog!.primaryImgId === pic.id,
+                    isPrimary: doggo.primaryImgId === pic.id,
                 };
                 old.push(withAction);
             }
