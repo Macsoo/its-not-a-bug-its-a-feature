@@ -35,7 +35,6 @@ type FileWithSubmitAction = {
 
 export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const router = useRouter();
-    const [loading, setLoading] = useState(true);
     const dogId = parseInt(params.dog_id, 10);
     const [dog, setDog] = useState<Dog | null>(null);
     const [name, setName] = useState('');
@@ -43,6 +42,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const [gender, setGender] = useState<Gender>('Male');
     const [description, setDescription] = useState('');
     const [imageFiles, setImageFiles] = useState<Array<FileWithSubmitAction>>([]);
+    const [loadingMessage, setLoadingMessage] = useState("Kérjük várjon, a kutyus adatai épp töltődnek...");
+
     useServerAction(async () => {
         setDog(await getDog(dogId));
         for (const pic of await listDogPictures(dogId)) {
@@ -53,19 +54,20 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             };
             setImageFiles(imageFiles.concat([withAction]));
         }
+        if(dog == null){
+            setLoadingMessage("A keresett kutya nem található!");
+        }
     });
 
     useEffect(() => {
-        if (dog === null) {
-            setLoading(false);
-            return;
+        if(dog !==null){
+            setName(dog.name);
+            setAge(dog.age);
+            setGender(dog.gender);
+            setDescription(dog.description);
         }
-        setName(dog.name);
-        setAge(dog.age);
-        setGender(dog.gender);
-        setDescription(dog.description);
-        setLoading(false);
     }, [dog]);
+
 
     const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
         const images = [];
@@ -214,7 +216,6 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                 </div>
             )
         }
-        {!dog && !loading && <p>A keresett kutya nem található!</p>}
-        {!dog && loading && <p>Kérjük várjon, a kutyus adatai épp töltődnek...</p>}
+        {!dog&& <div className={"content"}>{loadingMessage}</div>}
     </>
 };
