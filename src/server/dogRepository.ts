@@ -11,17 +11,16 @@ export async function addDog(params: {
     gender: Gender,
     breed: string,
     description: string,
-    adopted: boolean,
-    imgPath: string
-}): Promise<void> {
+    adopted: boolean
+}): Promise<number> {
     const prisma = getPrisma();
-    await prisma.$transaction(async (trx) => {
+    return prisma.$transaction(async (trx) => {
         if (params.chipId === null || params.name === null || params.age < 0) {
             throw new Error('Not valid info was given: ' + params);
         }
         const img: DogImage = await trx.dogImage.create({
             data: {
-                path: params.imgPath
+                path: '/theDog.jpg'
             }
         });
         const dog: Dog = await trx.dog.create({
@@ -36,14 +35,7 @@ export async function addDog(params: {
                 primaryImgId: img.id,
             }
         });
-        await trx.dogImage.update({
-            where: {
-                id: img.id
-            },
-            data: {
-                dogId: dog.id
-            }
-        });
+        return dog.id;
     });
 }
 

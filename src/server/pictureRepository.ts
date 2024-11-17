@@ -65,32 +65,35 @@ export async function getImageUrl(path: string): Promise<string> {
 }
 
 export async function uploadPicture(formData: FormData): Promise<string> {
-    const dogId = parseInt(formData.get("dogId") as string);
-    console.warn("dogId", dogId);
+    const dogStringId = formData.get("dogId");
+    const dogId = dogStringId === null ? null : parseInt(formData.get("dogId") as string);
     const dataFile = formData.get("data") as File;
-    console.warn("data", dataFile);
     const supabase = await createAdminServer();
     const uuid = crypto.randomUUID();
     const prisma = getPrisma();
     const err = await prisma.$transaction(async (trx) => {
-        const dog: Dog | null = await trx.dog.findUnique({
-            where: {
-                id: dogId,
+        if (dogId !== null) {
+            const dog: Dog | null = await trx.dog.findUnique({
+                where: {
+                    id: dogId,
+                }
+            });
+            if (dog === null || dog === undefined) {
+                return "Dog doesn't exist.";
             }
-        });
-        if (dog === null || dog === undefined) {
-            return "Dog doesn't exist.";
         }
         const {error} = await supabase.storage.from(SUPABASE_BUCKET).upload(uuid, dataFile);
         if (error !== null) {
             return error;
         }
-        await trx.dogImage.create({
-            data: {
-                dogId: dog.id,
-                path: uuid,
-            }
-        });
+        if (dogId !== null) {
+            await trx.dogImage.create({
+                data: {
+                    dogId: dogId,
+                    path: uuid,
+                }
+            });
+        }
     });
     if (err !== undefined)
         return Promise.reject(err);
@@ -147,10 +150,14 @@ export async function getPicture(pictureId: number): Promise<DogImage | null> {
     })
 }
 
-export async function listAllPictures() {
+export async function deleteTempPictures() {
     const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
-        return trx.dog.findMany();
+        return trx.dogImage.deleteMany({
+            where: {
+                path: '/theDog.jpg'
+            }
+        });
     })
 }
 

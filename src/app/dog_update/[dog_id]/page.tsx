@@ -177,7 +177,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             return;
         }
         const keptImages = imageFiles.filter(f => f.onSend != SubmitAction.DELETE);
-        if (keptImages.length > 2 && !keptImages.some(f => f.isPrimary)) {
+        if (keptImages.length > 1 && !keptImages.some(f => f.isPrimary)) {
             setPictureError("Selecting a primary image is necessary");
             return;
         }

@@ -4,12 +4,13 @@ import "../globals.css";
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {useRouter} from "next/navigation";
-import {addDog} from "@/server/dogRepository";
+import {addDog, addPictures, updateDog} from "@/server/dogRepository";
 import {Gender} from "@prisma/client";
 import {useDropzone} from "react-dropzone";
 import Image from "next/image";
+import {deleteTempPictures, getPictureByPath, uploadPicture} from "@/server/pictureRepository";
 
-function Error({error}: {error?: string}) {
+function Error({error}: { error?: string }) {
     if (error) {
         return <div className={`error text-center pt-5`}>{error}</div>
     } else {
@@ -39,15 +40,21 @@ export default function AddDog() {
             } else {
                 setChipError('Helytelen bemenet.');
             }
+        } else {
+            setChipError('');
         }
     };
 
-    const [files, setFiles] = useState<(Blob & { preview: string })[]>();
+    const [files, setFiles] = useState<(File & { preview: string, primary: boolean })[]>();
 
     const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
+        for (const file of acceptedFiles) {
+            new FileReader().readAsDataURL(file);
+        }
         setFiles(acceptedFiles.map(file => Object.assign(
-            file.slice(), {
-                preview: URL.createObjectURL(file)
+            file, {
+                preview: URL.createObjectURL(file),
+                primary: false,
             })));
     }, []);
 
@@ -58,7 +65,7 @@ export default function AddDog() {
         onDrop
     });
 
-    const removeFile = (file: Blob & { preview: string }): React.MouseEventHandler => (e) => {
+    const removeFile = (file: File & { preview: string, primary: boolean }): React.MouseEventHandler => (e) => {
         e.preventDefault();
         if (files !== undefined) {
             const newFiles = [...files]
@@ -82,14 +89,27 @@ export default function AddDog() {
         console.log(e.currentTarget)
     });
 
+    const setPrimary = (file: Blob & { preview: string, primary: boolean }): React.MouseEventHandler => (e) => {
+        e.preventDefault();
+        setFiles(files?.map(f => {
+            if (f === file) {
+                return Object.assign(f, {primary: true});
+            } else {
+                return Object.assign(f, {primary: false});
+            }
+        }));
+    };
+
     const thumbs = files !== undefined ? files.map(file => (
         <div key={file.preview} className={`inline-flex w-[30%]`}>
             <div className={`grid h-max image`} onMouseEnter={mouseEnterHandler}
                  onMouseLeave={mouseLeaveHandler}>
-                <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} width={80} height={80}/>
+                <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} width={80}
+                       height={80}/>
                 <div className={`hiddenXButton`}>
                     <input type={"button"} onClick={removeFile(file)} className={"x-button"} value={"X"}/>
-                    <input type={"button"} className={"primaryButton"} value={String.fromCharCode(9733)}></input>
+                    <input type={"button"} className={"primaryButton"} value={String.fromCharCode(9733)}
+                           onClick={setPrimary(file)}></input>
                 </div>
             </div>
         </div>
@@ -106,21 +126,44 @@ export default function AddDog() {
                 <h2>Új kutya hozzáadása</h2>
                 <form onSubmit={async (e) => {
                     e.preventDefault();
-                    if(files == undefined || files.length==0){
+                    if (files == undefined || files.length == 0) {
                         setPictureError("Kép feltöltése kötelező!");
                         return
                     }
-
-                    await addDog({
+                    if (files.length > 1 && !files.some(f => f.primary)) {
+                        setPictureError("Fő kép kiválasztása kötelező!");
+                        return
+                    }
+                    if (files.length == 1) {
+                        files[0].primary = true;
+                    }
+                    const paths = [];
+                    let primaryPath = "";
+                    for (const image of files) {
+                        const formData = new FormData;
+                        formData.set("data", image);
+                        const path = await uploadPicture(formData);
+                        if (image.primary) {
+                            primaryPath = path;
+                        }
+                        paths.push(path);
+                    }
+                    const dogId = await addDog({
                         name,
                         chipId,
                         age,
                         gender,
                         description,
                         breed,
-                        adopted: false,
-                        imgPath: '/theDog.jpg'
+                        adopted: false
                     });
+                    await addPictures(dogId, paths);
+                    const primaryImage = await getPictureByPath(dogId, primaryPath);
+                    await updateDog({
+                        id: dogId,
+                        primaryImgId: primaryImage!.id,
+                    });
+                    await deleteTempPictures();
                     router.push('/dogs');
                 }}>
                     <div className={`form`}>
@@ -205,10 +248,9 @@ export default function AddDog() {
                     </div>
 
 
-
                     <div className={`dragAndDropContainer`}>
                         {(files == undefined || files.length == 0) ? (<div {...getRootProps({className: 'dropzone'})}>
-                            <input {...getInputProps()}/>
+                                <input {...getInputProps()}/>
 
                                 <div className={`flex flex-col justify-center items-center m-auto`}>
                                     <p className={`font-bold`}> Képek feltöltése:</p>
@@ -219,7 +261,7 @@ export default function AddDog() {
                                     <Image src="/upload-icon.png" width={30} height={30} alt="upload"/>
                                 </div>
                             </div>
-                            ): (<input type={"button"} onClick={removeAll} value={"Összes törlése"}/>)}
+                        ) : (<input type={"button"} onClick={removeAll} value={"Összes törlése"}/>)}
 
                         <div className={`uploadImageContainer`}>
                             {thumbs}
