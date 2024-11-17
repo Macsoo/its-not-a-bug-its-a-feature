@@ -252,6 +252,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    id={"x-button"} value={"X"}/>
+                                                            <input type={"button"} id={"primaryButton"}
+                                                                   value={String.fromCharCode(9733)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -264,6 +266,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    id={"x-button"} value={"X"}/>
+                                                            <input type={"button"} id={"primaryButton"}
+                                                                   value={String.fromCharCode(9733)}></input>
                                                         </div>
                                                     </div>
                                                 </div>

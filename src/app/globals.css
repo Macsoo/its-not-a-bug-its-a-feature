@@ -154,6 +154,7 @@ td {
 .imageUpload {
     @apply col-[1] row-[1] w-full border-textColor border-2;
 }
+
 .hiddenXButton {
     @apply hidden col-[1] row-[1] w-full h-full;
 }
@@ -271,3 +272,9 @@ input {
 .imageContainer {
     @apply flex flex-row flex-wrap items-center justify-center p-3 gap-10;
 }
+
+#primaryButton {
+    @apply text-[#fff3f0];
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
+}
+
