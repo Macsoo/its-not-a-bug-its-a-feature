@@ -273,3 +273,6 @@ input {
     @apply text-[#fff3f0];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
 }
+.primaryImage {
+    @apply border-red-300 border-opacity-100;
+}

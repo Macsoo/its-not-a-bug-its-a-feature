@@ -115,6 +115,19 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
         }
     }
 
+    const setPrimary = (file: FileWithSubmitAction): React.MouseEventHandler => (e) => {
+        e.preventDefault();
+        setImageFiles(imageFiles.map(f => {
+            if (f === file) {
+                return Object.assign(f, { isPrimary: true });
+            } else if (f.isPrimary) {
+                return Object.assign(f, { isPrimary: false });
+            } else {
+                return f;
+            }
+        }));
+    };
+
     const mouseEnterHandler: React.MouseEventHandler = ((e) => {
         e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5)")
         console.log(e.currentTarget)
@@ -128,6 +141,9 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
 
     const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
         const images = [];
+        for (const prev of imageFiles) {
+            images.push(prev);
+        }
         for (const file of acceptedFiles) {
             const fileWithInfo: FileWithSubmitAction = {
                 file: file,
@@ -146,7 +162,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             images.push(fileWithInfo);
         }
         setImageFiles(images);
-    }, []);
+    }, [imageFiles]);
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({
         onDrop
@@ -264,7 +280,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                         switch (file.onSend) {
                                             case SubmitAction.UPLOAD:
                                                 return <div key={file.dataUri} className={`inline-flex relative w-[300px] h-[300px]`}>
-                                                    <div className={`grid`} onMouseEnter={mouseEnterHandler}
+                                                    <div className={`grid${file.isPrimary ? " primaryImage" : ""}`} onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <Image src={file.dataUri} alt="Upload preview"
                                                                className={`imageUpload`} fill/>
@@ -272,20 +288,20 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    className={"x-button"} value={"X"}/>
                                                             <input type={"button"} className={"primaryButton"}
-                                                                   value={String.fromCharCode(9733)}></input>
+                                                                   value={String.fromCharCode(9733)} onClick={setPrimary(file)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
                                             case SubmitAction.NOTHING:
                                                 return <div key={file.url} className={`inline-flex relative w-[300px] h-[300px]`}>
-                                                    <div className={`grid`} onMouseEnter={mouseEnterHandler}
+                                                    <div className={`grid${file.isPrimary ? " primaryImage" : ""}`} onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <DogPicture src={file.url} className={`imageUpload`} fill/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    className={"x-button"} value={"X"}/>
                                                             <input type={"button"} className={"primaryButton"}
-                                                                   value={String.fromCharCode(9733)}></input>
+                                                                   value={String.fromCharCode(9733)} onClick={setPrimary(file)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
