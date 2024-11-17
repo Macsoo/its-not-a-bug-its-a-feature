@@ -1,18 +1,22 @@
 'use client';
 import "@/app/globals.css";
-import Image from "next/image";
 import Link from "next/link";
 import {UpdateButton, DeleteButton,AdoptButton} from "@/components/dogsButton"
 import {useContext} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {Dog, DogImage} from "@prisma/client";
+import {useServerAction} from "@/utils";
+import {DogPicture} from "@/components/dogPicture";
 
 export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
+    useServerAction(async () => {
+
+    });
     const session = useContext(SessionContext);
     return (
         <div className={`card-dog`}>
-            <div className={`relative h-32 w-auto md:h-auto md:w-[10%]`}>
-                <Image src={dogImage.path} alt={dog.name} width={0} height={0} sizes={`100vw`} className={`w-auto h-full md:w-full md:h-auto`}/>
+            <div className={`relative h-32 w-auto md:h-auto md:w-[16%]`}>
+                <DogPicture src={dogImage.path} width={80} height={80} sizes={`100vw`} className={`border-[#f7d6a8] border-[10px] rounded-md w-auto h-full md:w-full md:h-auto`}/>
             </div>
             <div id="dog-text" className={`flex flex-col md:flex-row items-center justify-around min-w-[70%]`}
                  key={dog.id}>
@@ -36,7 +40,7 @@ export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
                     </table>
                 </div>
                 <div className={`max-w-[60%] text-left`}>
-                    {dog.description}
+                    {dog.description.split('.')[0] + '.'}
                 </div>
                 <Link href={`/dogs/${dog.id}`}>
                     <button>Tovább...</button>

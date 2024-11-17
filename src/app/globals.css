@@ -1,166 +1,278 @@
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer utilities {
     .menu {
         @apply flex flex-row items-center justify-between py-1 px-5 w-full;
         background: #df9348;
     }
     .header {
+        @apply text-[#fcecd3];
         @apply w-full p-5 flex flex-row items-center justify-between;
         background: #e2a669;
-        color: #fcecd3;
     }
-
-    .menu-mobile{
+    .menu-mobile {
         @apply flex flex-col items-center justify-between py-1 px-5 w-full;
         background: #df9348;
     }
-
-    button{
+    button,
+    input[type="button"] {
+        @apply text-[#fdedd1];
         @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
         background: #e5a55f;
-        color: #fdedd1;
     }
 }
-
 #menu-toggle {
     @apply w-8 h-8 text-center;
 }
-
 h2 {
-    @apply text-3xl pb-2;
+    @apply text-3xl pb-2 font-bold;
+    font-family: "DynaPuff", system-ui;
 }
-
 p {
     @apply p-1 cursor-default;
 }
-
 body {
     @apply flex flex-col items-start justify-around gap-1 bg-background text-textColor;
 }
-
-.header-mobile{
+.header-mobile {
+    @apply text-[#fcecd3];
     @apply w-full p-5 flex flex-col items-center justify-between;
     background: #e2a669;
-    color: #fcecd3;
 }
-
-
 .header button,
-.header-mobile button{
+.header-mobile button {
+    @apply text-[#fdc754];
     @apply p-2.5 rounded-lg m-1 w-32 text-lg;
     background: #d07d32;
-    color: #fdc754;
 }
-
 .header button:hover,
 .header button:active {
+    @apply text-[#ffe19c];
     background: #b56d38;
-    color: #ffe19c;
 }
-
-
 button:hover,
-button:active
-
-{
+button:active,
+input[type="button"]:hover,
+input[type="button"]:active {
+    @apply text-[#fdc754];
     background: #c67839;
-    color: #fdc754;
 }
-
 .content {
     @apply flex flex-col items-center justify-between gap-5 text-textColor w-11/12 my-5 mx-auto p-5 rounded-lg;
     background: #edc488;
 }
-
 .card {
+    @apply border-[20px] border-solid border-[#fcedd1];
     @apply text-textColor w-full m-auto md:p-5 p-2 rounded-lg font-medium;
     background: #f7d6a8;
-    border: 20px solid #fcedd1;
 }
-
 .card-dog {
     @apply text-textColor m-auto md:p-5 p-2 rounded-lg items-center gap-5 w-full flex flex-col justify-around text-center md:flex-row;
     background: #fcedd1;
 }
 .card-dog #dog-text {
-    @apply w-1/3 rounded-lg md:p-5 p-2 ;
+    @apply w-1/3 rounded-lg md:p-5 p-2;
     background: #f7d6a8;
 }
-
-th, td{
+th {
+    font-family: "DynaPuff", system-ui;
+}
+th,
+td {
     @apply p-3;
     word-break: break-word;
 }
-
-#descriptionButton, #editDogButton{
+#descriptionButton,
+#editDogButton {
+    @apply text-[#fdedd1];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
     background: #e5a55f;
-    color: #fdedd1;
 }
-
 #descriptionButton:hover,
 #descriptionButton:active,
 #editDogButton:hover,
 #editDogButton:active {
+    @apply text-[#fdc754];
     background: #c67839;
-    color: #fdc754;
 }
-
-#adoptButton, #updateDog{
-    @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
+#adoptButton,
+#updateDog {
+    @apply text-[#5b6439];
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[150px] min-w-[90px] content-center;
     background: #babb91;
-    color: #5b6439;
 }
-
 #adoptButton:hover,
 #adoptButton:active,
 #updateDog:hover,
-#updateDog:active{
+#updateDog:active {
+    @apply text-[#bfcc8a];
     background: #6f7146;
-    color: #bfcc8a;
 }
-
-#deleteDogButton, #deleteDogButton{
+#deleteDogButton,
+#deleteDogButton {
+    @apply text-[#fff3f0];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
-    background: #F0756D;
-    color: #fff3f0;
+    background: #f0756d;
 }
-
 #deleteDogButton:hover,
-#deleteDogButton:active {
+#deleteDogButton:active,
+.x-button:hover,
+.x-button:active {
+    @apply text-[#fcc1b7];
     background: #aa4241;
-    color: #fcc1b7;
 }
-
-
+.x-button {
+    @apply text-[#fff3f0];
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
+    background: #f0756d;
+}
 #requestTable {
     @apply w-full border-collapse border-4 border-textColor text-center;
 }
-
-#requestTable  th{
+#requestTable th {
     @apply bg-secondTextColor text-white text-xl font-light;
 }
-
-#requestTable  td{
+#requestTable td {
     @apply bg-orange-50;
 }
-
-#requestTable  td,
+#requestTable td,
 #requestTable th {
     @apply border-collapse border border-textColor;
 }
-
-.dogUpdateInput{
+.dogUpdateInput {
     @apply border border-textColor p-0.5 bg-orange-50;
 }
-
-.form{
+.form {
     @apply flex flex-row items-center p-2;
 }
-
-
-
-
+.dragAndDropContainer {
+    @apply mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10;
+}
+.imageUpload {
+    @apply col-[1] row-[1] w-full border-textColor border-2 rounded-[3px];
+}
+.hiddenXButton {
+    @apply z-10;
+    @apply hidden col-[1] row-[1] w-[300px] h-[300px];
+}
+.uploadImageContainer {
+    @apply flex flex-wrap flex-row gap-6 pt-5;
+}
+#chatCon {
+    @apply w-1/5 sticky text-[black] left-[3%] bottom-[3%];
+}
+#chatCon .header {
+    @apply bg-[#3fda73] text-white text-xl p-[15px] rounded-[20px_20px_0_0];
+}
+.msg-area {
+    @apply overflow-auto max-h-[330px] p-[5px] rounded-[10px];
+}
+#chatCon .left > span {
+    @apply inline-block text-[17.5px] bg-[#d8d8d8] max-w-[80%] p-2.5 rounded-[15px];
+}
+#chatCon .right {
+    @apply text-right;
+}
+#chatCon .right > span {
+    @apply inline-block text-[white] text-[17.5px] text-left max-w-[80%] p-2.5 rounded-[15px];
+    background: #3fda73;
+}
+#chatCon .footer {
+    @apply inline-flex;
+}
+#chatCon .footer > input {
+    @apply border w-4/5 p-2.5 rounded-[15px] border-solid border-white;
+}
+#chatCon .footer > input:focus {
+    outline: none;
+}
+#chatCon .footer > button {
+    @apply text-[22.5px] bg-[lightgreen] text-[darkgreen] cursor-pointer border-[none];
+}
+#chatCon .pop {
+    @apply w-full h-1/4 cursor-pointer;
+}
+#chatCon .pop p {
+    @apply text-right;
+}
+#chatCon .pop img {
+    @apply w-3/12 rounded-[50%];
+}
+#chatCon .user-area {
+    @apply flex flex-col items-start justify-start gap-[5px] overflow-auto max-h-[330px] p-[5px] rounded-[10px];
+}
+#chatCon .user:nth-child(even) {
+    @apply text-[white] w-full p-2.5 rounded-[10px];
+    background: #3fda73;
+}
+#chatCon .user:nth-child(odd) {
+    @apply text-[white] w-full m-auto p-2.5 rounded-[10px];
+    background: #1f8140;
+}
+#gdpr {
+    @apply relative;
+    @apply max-w-[700px] max-h-[350px] overflow-auto pl-5 pr-5 pt-2 pb-2 m-5 bg-[#f5f5f5] border-b border-4 text-black
+    rounded-s text-sm font-sans grid;
+}
+#gdpr footer {
+    @apply italic text-xs;
+}
+ol > li {
+    @apply m-[1.25em] pt-[0.3em] marker:font-[bold];
+    list-style: decimal outside;
+}
+ul > li {
+    @apply ml-[1.5em] pt-[0.3em];
+    list-style: disc outside;
+}
+.link:link {
+    @apply underline cursor-pointer;
+}
+.link:link:active,
+link:visited:active {
+    @apply text-[rebeccapurple];
+}
+.link:visited {
+    @apply text-[rebeccapurple];
+}
+#gdpr button {
+    @apply sticky;
+    @apply m-auto;
+}
+#gdpr > #x-button {
+    @apply sticky z-10 ml-[97%] top-0;
+}
+.login-register {
+    @apply flex flex-col items-center max-w-3xl;
+}
+#gdpr b {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+b {
+    font-family: "Sour Gummy", sans-serif;
+}
+input {
+    @apply bg-cardBorderColor;
+}
+.login-register input[type="password"],
+.login-register input[type="email"] {
+    @apply w-64 overflow-auto;
+}
+.error {
+    @apply text-red-700 font-bold;
+}
+.imageContainer {
+    @apply flex flex-row flex-wrap items-center justify-center p-3 gap-10;
+}
+.primaryButton {
+    @apply text-[#fff3f0];
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
+}
+.primaryImage {
+    @apply border-red-300 border-opacity-100;
+}

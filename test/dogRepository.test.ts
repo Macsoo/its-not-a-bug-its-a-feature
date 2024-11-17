@@ -1,5 +1,5 @@
-import {Gender, PrismaClient} from '@prisma/client';
-import {afterAll, beforeAll, describe, expect, it} from "@jest/globals";
+import {Gender} from '@prisma/client';
+import {expect, it} from "@jest/globals";
 import {
     addDog,
     getDog,
@@ -8,34 +8,10 @@ import {
     updateDog,
     adoptDog,
     addPictures
-} from "../src/server/dogRepository";
-import {PrismaTestingHelper} from '@chax-at/transactional-prisma-testing';
+} from "@/server/dogRepository";
+import {prismaTest} from "./prismaTest";
 
-const origPrisma = new PrismaClient({log: ["query"]});
-const prismaProxy = new PrismaTestingHelper(origPrisma);
-const prisma = prismaProxy.getProxyClient();
-
-describe('Dog service unit tests', () => {
-    beforeAll(async () => {
-        await prisma.$connect();
-        await prismaProxy.startNewTransaction({
-            timeout: 10000
-        });
-        await prisma.adoptionRequest.deleteMany();
-        await prisma.dogImage.updateMany({
-            data: {
-                dogId: null,
-            }
-        });
-        await prisma.dog.deleteMany();
-        await prisma.dogImage.deleteMany();
-    });
-
-    afterAll(async () => {
-        prismaProxy.rollbackCurrentTransaction();
-        await prisma.$disconnect();
-    });
-
+prismaTest('Dog service unit tests', (prisma) => {
     it('Should create a dog and its corresponding image, then retrieve it', async () => {
         const params = {
             chipId: '123456789ABCDF',

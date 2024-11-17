@@ -1,7 +1,8 @@
 'use server';
 
-import {Gender, PrismaClient} from '@prisma/client';
+import {Gender} from '@prisma/client';
 import type {Dog, DogImage} from '@prisma/client';
+import {getPrisma} from "@/utils";
 
 export async function addDog(params: {
     chipId: string,
@@ -10,14 +11,16 @@ export async function addDog(params: {
     gender: Gender,
     breed: string,
     description: string,
-    adopted: boolean,
-    imgPath: string
-}): Promise<void> {
-    const prisma = new PrismaClient();
-    await prisma.$transaction(async (trx) => {
+    adopted: boolean
+}): Promise<number> {
+    const prisma = getPrisma();
+    return prisma.$transaction(async (trx) => {
+        if (params.chipId === null || params.name === null || params.age < 0) {
+            throw new Error('Not valid info was given: ' + params);
+        }
         const img: DogImage = await trx.dogImage.create({
             data: {
-                path: params.imgPath
+                path: '/theDog.jpg'
             }
         });
         const dog: Dog = await trx.dog.create({
@@ -32,19 +35,12 @@ export async function addDog(params: {
                 primaryImgId: img.id,
             }
         });
-        await trx.dogImage.update({
-            where: {
-                id: img.id
-            },
-            data: {
-                dogId: dog.id
-            }
-        });
+        return dog.id;
     });
 }
 
 export async function getDog(dogId: number): Promise<Dog | null> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
         return trx.dog.findFirst({
             where: {
@@ -55,14 +51,14 @@ export async function getDog(dogId: number): Promise<Dog | null> {
 }
 
 export async function listAllDogs() {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
         return trx.dog.findMany();
     });
 }
 
 export async function deleteDog(dogId: number): Promise<void> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     await prisma.$transaction(async (trx) => {
         await prisma.dogImage.updateMany({
             data: {
@@ -94,8 +90,9 @@ export async function updateDog(params: {
     breed?: string,
     description?: string,
     adopted?: boolean
+    primaryImgId?: number,
 }): Promise<void> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     await prisma.$transaction(async (trx) => {
         await trx.dog.update({
             data: params,
@@ -107,7 +104,7 @@ export async function updateDog(params: {
 }
 
 export async function adoptDog(dogId: number): Promise<void> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
         await trx.dog.update({
             data: {
@@ -121,7 +118,7 @@ export async function adoptDog(dogId: number): Promise<void> {
 }
 
 export async function addPictures(dogId: number, picturesPath: string[]): Promise<void> {
-    const prisma = new PrismaClient();
+    const prisma = getPrisma();
     const selectedDog = await getDog(dogId);
     if (selectedDog === null) {
         throw Error('Not a valid dog was given');

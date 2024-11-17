@@ -1,17 +1,21 @@
 import Link from "next/link";
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {deleteDog} from "@/server/dogRepository";
 import {addRequest} from "@/server/adoptionRequestRepository";
+import {useRouter} from "next/navigation";
 
-
-export function ConfirmDialog({ message, onConfirm, onCancel }: { message: string, onConfirm: () => void, onCancel: () => void }) {
+export function ConfirmDialog({message, onConfirm, onCancel}: {
+    message: string,
+    onConfirm: () => void,
+    onCancel: () => void
+}) {
     return (
         <div className="dialog">
             <div className="dialog-content">
                 <p>{message}</p>
-                <button onClick={onConfirm}>Igen</button>
-                <button onClick={onCancel}>Nem</button>
+                <input type={"button"} onClick={onConfirm} value={"Igen"}/>
+                <input type={"button"} onClick={onCancel} value={"Nem"}/>
             </div>
         </div>
     );
@@ -23,7 +27,7 @@ export function UpdateButton({dog_id}: { dog_id: number }) {
         <>
             {session.isAdmin() && (
                 <div className="flex flex-col gap-5 items-center">
-                    <Link href={`/dogs/dog_update/${dog_id}`}>
+                    <Link href={`/dog_update/${dog_id}`}>
                         <button id="editDogButton">Szerkesztés</button>
                     </Link>
                 </div>
@@ -34,12 +38,15 @@ export function UpdateButton({dog_id}: { dog_id: number }) {
 
 export function DeleteButton({dog_id}: { dog_id: number }) {
     const session = useContext(SessionContext);
+    const router = useRouter()
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const handleDelete = () => {
-        deleteDog(dog_id);
-        setIsDialogOpen(false);
+        deleteDog(dog_id).then(() => {
+            setIsDialogOpen(false);
+            router.push(`/dogs`);
+        });
     };
 
 
@@ -48,7 +55,7 @@ export function DeleteButton({dog_id}: { dog_id: number }) {
             {session.isAdmin() && (
                 <div className="flex flex-col gap-5 items-center">
                     {!isDialogOpen && (
-                    <button id="deleteDogButton" onClick={() => setIsDialogOpen(true)}>Törlés</button>
+                        <button id="deleteDogButton" onClick={() => setIsDialogOpen(true)}>Törlés</button>
                     )
                     }
 
@@ -67,12 +74,15 @@ export function DeleteButton({dog_id}: { dog_id: number }) {
 
 export function AdoptButton({dog_id}: { dog_id: number }) {
     const session = useContext(SessionContext);
+    const router = useRouter()
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const handleAdopt = () => {
-        addRequest({ userId: session.user!.id, dogId: dog_id });
-        setIsDialogOpen(false);
+        addRequest({userId: session.user!.id, dogId: dog_id}).then(() => {
+            setIsDialogOpen(false);
+            router.push(`/account`);
+        } );
     };
 
     return (
@@ -80,7 +90,7 @@ export function AdoptButton({dog_id}: { dog_id: number }) {
             {session.isUser() && (
                 <>
                     {!isDialogOpen && (
-                    <button id="adoptButton" onClick={() => setIsDialogOpen(true)}>Adoptálás</button>
+                        <button id="adoptButton" onClick={() => setIsDialogOpen(true)}>Adoptálás</button>
                     )
                     }
 

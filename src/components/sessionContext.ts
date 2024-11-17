@@ -4,7 +4,8 @@ import {createContext, Dispatch, SetStateAction} from "react";
 export class Session {
     public readonly user?: User;
     public readonly setUser?: Dispatch<SetStateAction<User | undefined>>;
-    constructor(setUser?: Dispatch<SetStateAction<User | undefined>>, user?: User) {
+
+    constructor(user?: User, setUser?: React.Dispatch<React.SetStateAction<User | undefined>>) {
         this.setUser = setUser;
         this.user = user;
     }
@@ -13,7 +14,6 @@ export class Session {
     }
     public isAdmin(): boolean {
         if (this.user === undefined) return false;
-        console.log(this.user.email);
         return this.user.app_metadata["admin"] === true;
     }
     public isUser(): boolean {

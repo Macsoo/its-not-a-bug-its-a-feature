@@ -28,7 +28,7 @@ export async function createServer() {
                 },
                 setAll(cookiesToSet) {
                     try {
-                        cookiesToSet.forEach(({ name, value, options }) =>
+                        cookiesToSet.forEach(({name, value, options}) =>
                             cookieStore.set(name, value, options)
                         )
                     } catch {
@@ -40,4 +40,14 @@ export async function createServer() {
             },
         }
     )
+}
+
+export async function createAdminServer() {
+    const supabase = await createServer();
+    const {data, error} = await supabase.auth.getUser();
+    if (data === null || error !== null)
+        return Promise.reject(error?.message);
+    if (data.user.app_metadata["admin"] !== true)
+        return Promise.reject("NOT ADMIN");
+    return supabase;
 }
