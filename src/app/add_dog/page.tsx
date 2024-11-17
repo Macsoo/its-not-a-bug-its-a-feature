@@ -81,7 +81,7 @@ export default function AddDog() {
                  onMouseLeave={mouseLeaveHandler}>
                 <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} width={80} height={80}/>
                 <div className={`hiddenXButton`}>
-                    <button onClick={removeFile(file)} className={"x-button"}>X</button>
+                    <input type={"button"} onClick={removeFile(file)} className={"x-button"} value={"X"}>X</input>
                 </div>
             </div>
         </div>
@@ -199,14 +199,14 @@ export default function AddDog() {
                                     <Image src="/upload-icon.png" width={30} height={30} alt="upload"/>
                                 </div>
                             </div>
-                            ): (<button onClick={removeAll}>Összes törlése</button>)}
+                            ): (<input type={"button"} onClick={removeAll} value={"Összes törlése"}/>)}
 
                         <div className={`uploadImageContainer`}>
                             {thumbs}
                         </div>
                     </div>
                     <div className={`mt-10 flex flex-row items-center justify-center`}>
-                        <button id={`updateDog`} type="submit">Kutya Hozzáadása</button>
+                        <input id={`updateDog`} type="submit" value={"Kutya Hozzáadása"}/>
                     </div>
                 </form>
             </div>

@@ -48,10 +48,10 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const [description, setDescription] = useState('');
     const [imageFiles, setImageFiles] = useState<Array<FileWithSubmitAction>>([]);
 
-    const [originalName, setOriginalName] = useState('');
-    const [originalAge, setOriginalAge] = useState(0);
-    const [originalGender, setOriginalGender] = useState<Gender>('Male');
-    const [originalDescription, setOriginalDescription] = useState('');
+    //const [originalName, setOriginalName] = useState('');
+    //const [originalAge, setOriginalAge] = useState(0);
+    //const [originalGender, setOriginalGender] = useState<Gender>('Male');
+    //const [originalDescription, setOriginalDescription] = useState('');
     //const [originalImageFiles, setOriginalImageFiles] = useState<Array<FileWithSubmitAction>>();
 
     const [loadingMessage, setLoadingMessage] = useState("Kérjük várjon, a kutyus adatai épp töltődnek...");
@@ -85,10 +85,10 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             setDescription(dog.description);
 
 
-            setOriginalName(dog.name);
-            setOriginalAge(dog.age);
-            setOriginalGender(dog.gender);
-            setOriginalDescription(dog.description);
+            //setOriginalName(dog.name);
+            //setOriginalAge(dog.age);
+            //setOriginalGender(dog.gender);
+            //setOriginalDescription(dog.description);
         }
     }, [dog]);
 
@@ -252,7 +252,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                                className={`imageUpload`} width={80} height={80}/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
-                                                                   className={"x-button"} value={"X"}/>
+                                                                   id={"x-button"} value={"X"}/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -264,7 +264,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                                     height={80}/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
-                                                                   className={"x-button"} value={"X"}/>
+                                                                   id={"x-button"} value={"X"}/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -282,12 +282,10 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     <ConfirmDialog
                                         message="Biztosan elveted a módosításokat?"
                                         onConfirm={() =>{
-                                            setName(originalName);
-                                            setAge(originalAge);
-                                            setGender(originalGender);
-                                            setDescription(originalDescription);
-
-                                            //TODO: upload original pictures, delete new pictures
+                                            //setName(originalName);
+                                            //setAge(originalAge);
+                                            //setGender(originalGender);
+                                            //setDescription(originalDescription);
 
                                             router.push(`/dogs/${dog.id}`);
                                         }}

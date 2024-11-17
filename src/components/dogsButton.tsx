@@ -1,10 +1,9 @@
 import Link from "next/link";
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {deleteDog} from "@/server/dogRepository";
 import {addRequest} from "@/server/adoptionRequestRepository";
 import {useRouter} from "next/navigation";
-
 
 export function ConfirmDialog({message, onConfirm, onCancel}: {
     message: string,
@@ -15,8 +14,8 @@ export function ConfirmDialog({message, onConfirm, onCancel}: {
         <div className="dialog">
             <div className="dialog-content">
                 <p>{message}</p>
-                <button onClick={onConfirm}>Igen</button>
-                <button onClick={onCancel}>Nem</button>
+                <input type={"button"} onClick={onConfirm} value={"Igen"}/>
+                <input type={"button"} onClick={onCancel} value={"Nem"}/>
             </div>
         </div>
     );
