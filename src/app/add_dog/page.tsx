@@ -84,12 +84,12 @@ export default function AddDog() {
 
     const thumbs = files !== undefined ? files.map(file => (
         <div key={file.preview} className={`inline-flex w-[30%]`}>
-            <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
-                 onMouseLeave={mouseLeaveHandler} id={"image"}>
+            <div className={`grid h-max image`} onMouseEnter={mouseEnterHandler}
+                 onMouseLeave={mouseLeaveHandler}>
                 <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} width={80} height={80}/>
                 <div className={`hiddenXButton`}>
-                    <input type={"button"} onClick={removeFile(file)} id={"x-button"} value={"X"}/>
-                    <input type={"button"} id={"primaryButton"} value={String.fromCharCode(9733)}></input>
+                    <input type={"button"} onClick={removeFile(file)} className={"x-button"} value={"X"}/>
+                    <input type={"button"} className={"primaryButton"} value={String.fromCharCode(9733)}></input>
                 </div>
             </div>
         </div>

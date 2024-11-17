@@ -154,11 +154,13 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             setPictureError("Kép feltöltése kötelező!");
             return;
         }
-        if (imageFiles.length == 1) {
-            imageFiles[0].isPrimary = true;
+        const keptImages = imageFiles.filter(f => f.onSend != SubmitAction.DELETE);
+        if (keptImages.length > 2 && !keptImages.some(f => f.isPrimary)) {
+            setPictureError("Selecting a primary image is necessary");
+            return;
         }
-        if (imageFiles.some(f => !f.isPrimary)) {
-            setPictureError("Selecting a primary image is necesarry");
+        if (keptImages.length == 1) {
+            imageFiles[0].isPrimary = true;
         }
         for (const imageFile of imageFiles.filter(f => f.onSend == SubmitAction.UPLOAD)) {
             const formData = new FormData;
@@ -263,8 +265,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                                className={`imageUpload`} fill/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
-                                                                   id={"x-button"} value={"X"}/>
-                                                            <input type={"button"} id={"primaryButton"}
+                                                                   className={"x-button"} value={"X"}/>
+                                                            <input type={"button"} className={"primaryButton"}
                                                                    value={String.fromCharCode(9733)}></input>
                                                         </div>
                                                     </div>
@@ -276,8 +278,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                         <DogPicture src={file.url} className={`imageUpload`} fill/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
-                                                                   id={"x-button"} value={"X"}/>
-                                                            <input type={"button"} id={"primaryButton"}
+                                                                   className={"x-button"} value={"X"}/>
+                                                            <input type={"button"} className={"primaryButton"}
                                                                    value={String.fromCharCode(9733)}></input>
                                                         </div>
                                                     </div>

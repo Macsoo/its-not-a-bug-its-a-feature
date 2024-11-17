@@ -119,12 +119,12 @@ td {
 }
 #deleteDogButton:hover,
 #deleteDogButton:active,
-#x-button:hover,
-#x-button:active {
+.x-button:hover,
+.x-button:active {
     @apply text-[#fcc1b7];
     background: #aa4241;
 }
-#x-button {
+.x-button {
     @apply text-[#fff3f0];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
     background: #f0756d;
@@ -269,7 +269,7 @@ input {
 .imageContainer {
     @apply flex flex-row flex-wrap items-center justify-center p-3 gap-10;
 }
-#primaryButton {
+.primaryButton {
     @apply text-[#fff3f0];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
 }
