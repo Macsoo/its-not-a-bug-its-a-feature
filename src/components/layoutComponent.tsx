@@ -3,7 +3,7 @@ import {User} from "@supabase/supabase-js";
 import Image from "next/image";
 import Link from "next/link";
 import {getUser} from "@/server/supabase";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {Session, SessionContext} from "@/components/sessionContext";
 import {useServerAction} from "@/utils"
 import {PopChat} from "@/components/chatUI";
@@ -19,9 +19,6 @@ export default function Layout(props: { children: React.ReactNode }) {
         console.log("Received message:", message);
         // You can add custom logic here, like updating a message list or sending data to a server
     }
-
-    const session = useContext(SessionContext);
-
     return <>
         <div className={`header-mobile md:header`}>
             <Image src="/theDog.jpg" width={50} height={50} alt="Logo"/>
@@ -71,6 +68,6 @@ export default function Layout(props: { children: React.ReactNode }) {
                 esetleges egyezés teljes mértékben a véletlen műve.
             </footer>
         </div>
-        <PopChat messages={messages} getMessage={getMessage} user_id={0}/>
+        <PopChat messages={messages} getMessage={getMessage} user_id={'0'}/>
     </>;
 }

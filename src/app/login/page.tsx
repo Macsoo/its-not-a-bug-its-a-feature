@@ -19,29 +19,24 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [tryLogin, setTryLogin] = useState(false);
-    const enterPress: KeyboardEventHandler = (e) => {
+    const login = async () => {
+        setError("Kérjük várjon...");
+        const user = await logInUser(email, password);
+        if (!user) {
+            setError("Hiba történt bejelentkezés során.");
+        } else {
+            session.setUser?.call(session, user);
+            router.push('/');
+        }
+    };
+    const enterPress: KeyboardEventHandler = async (e) => {
         if (e.key === "Enter") {
-            setTryLogin(true);
+            await login();
         }
     };
     useEffect(() => {
         setError("");
     }, [email, password]);
-    useEffect(() => {
-        if (!tryLogin) return;
-        setTryLogin(false);
-        (async () => {
-            setError("Kérjük várjon...");
-            const user = await logInUser(email, password);
-            if (!user) {
-                setError("Hiba történt bejelentkezés során.");
-            } else {
-                session.setUser?.call(session, user);
-                router.push('/');
-            }
-        })();
-    }, [tryLogin]);
     return (
         <div className="content">
             <h2>Belépés</h2>
@@ -58,7 +53,7 @@ export default function LoginPage() {
                 </div>
                 <Error error={error}/>
                 <div className={`m-2`}>
-                    <button type={"submit"} className={`btn btn-primary`} onClick={() => setTryLogin(true)}>
+                    <button type={"submit"} className={`btn btn-primary`} onClick={() => login()}>
                         Belépés
                     </button>
                 </div>

@@ -2,14 +2,15 @@
 import React, {FC, useContext, useRef, useState} from 'react'
 import "@/app/globals.css";
 import {SessionContext} from "@/components/sessionContext";
+import Image from "next/image";
 
 interface PopChatProps {
     messages: string[];
     getMessage: (message: string) => void;
-    user_id: number;
+    user_id: string;
 }
 
-export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}) => {
+export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}: PopChatProps) => {
     const hide = {display: 'none'};
     const show = {
         display: 'flex',
@@ -73,7 +74,7 @@ export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}) => {
                 </div>
                 <div className={"pop"}>
                     <p>
-                        <img
+                        <Image
                             onClick={toggle}
                             src="https://p7.hiclipart.com/preview/151/758/442/iphone-imessage-messages-logo-computer-icons-message.jpg"
                             alt="Chat Icon"
@@ -85,7 +86,7 @@ export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}) => {
     );
 };
 
-const Messages = ({messages, user_id}) => {
+const Messages = ({messages, user_id}: { messages: string[], user_id: string }) => {
     //get messages by user_id
 
     //user_id added to msg just to use the variable so IDEA doesn't cry >:c

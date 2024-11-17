@@ -6,7 +6,7 @@ export function useServerAction<T>(serverAction: () => Promise<T>): void {
         (async () => {
             await serverAction();
         })();
-    }, []);
+    }, [serverAction]);
 }
 
 export function getPrisma() {

@@ -77,7 +77,7 @@ export default function AddDog() {
         <div key={file.preview} className={`inline-flex w-[30%]`}>
             <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
                  onMouseLeave={mouseLeaveHandler}>
-                <img src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`}/>
+                <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`}/>
                 <div className={`hiddenXButton`}>
                     <button onClick={removeFile(file)} id="x-button">X</button>
                 </div>

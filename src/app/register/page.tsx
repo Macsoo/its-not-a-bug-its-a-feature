@@ -1,6 +1,6 @@
 'use client';
 import "../globals.css";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {registerUser} from "@/server/userRepository";
 
 function Error({error}: { error?: string }) {
@@ -16,7 +16,6 @@ export default function RegisterPage() {
     const [password, setPassword] = useState("");
     const [otherPassword, setOtherPassword] = useState("");
     const [error, setError] = useState("");
-    const [tryRegister, setTryRegister] = useState(false);
     const [isGdprChecked, setIsGdprChecked] = useState(false);
 
     const [isGdprVisible, setIsGdprVisible] = useState(false);
@@ -31,35 +30,27 @@ export default function RegisterPage() {
         setIsGdprVisible(false)
     };
 
-
-    useEffect(() => {
-        if (!tryRegister) return;
+    const register = async () => {
         if (password.length < 8) {
             setError("A jelszónak legalább 8 karakter hosszúnak kell lennie.");
-            setTryRegister(false);
             return;
         }
         if (password !== otherPassword) {
             setError("A jelszavak nem egyeznek.");
-            setTryRegister(false);
             return;
         }
         if (!isGdprChecked) {
             setError("Az adatvédelmi tájékoztatót el kell fogadni!");
-            setTryRegister(false);
             return;
         }
-        (async () => {
-            setError("Kérjük várjon...");
-            const error = await registerUser(email, password)
-            if (error) {
-                setError(error);
-                setTryRegister(false);
-            } else {
-                setError("A regisztráció sikeres volt. Kérjük, erősítsd meg az email címedet.");
-            }
-        })();
-    }, [tryRegister]);
+        setError("Kérjük várjon...");
+        const error = await registerUser(email, password)
+        if (error) {
+            setError(error);
+        } else {
+            setError("A regisztráció sikeres volt. Kérjük, erősítsd meg az email címedet.");
+        }
+    };
     return (
         <div className="content">
             <h2>Regisztráció</h2>
@@ -177,7 +168,7 @@ export default function RegisterPage() {
                                             </li>
                                             <li><b>Helyesbítési jog:</b> Kérheti adatai módosítását vagy javítását.</li>
                                             <li><b>Törlési jog:</b> Kérheti személyes adatainak törlését
-                                                ("elfeledtetéshez való jog").
+                                                (&quot;elfeledtetéshez való jog&quot;).
                                             </li>
                                             <li><b>Adatkezelés korlátozása:</b> Kérheti adatainak kezelésének
                                                 korlátozását bizonyos esetekben.
@@ -248,7 +239,7 @@ export default function RegisterPage() {
                 )}
                 <Error error={error}/>
                 <div className={`m-2`}>
-                    <button type={"submit"} className={`btn btn-primary`} onClick={() => setTryRegister(true)}>
+                    <button type={"submit"} className={`btn btn-primary`} onClick={() => register()}>
                         Regisztráció
                     </button>
                 </div>
