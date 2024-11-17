@@ -13,7 +13,7 @@ import {
 } from "@/server/pictureRepository";
 import {useDropzone} from "react-dropzone";
 import {DogPicture} from "@/components/dogPicture";
-import Link from "next/link";
+import {ConfirmDialog} from "@/components/dogsButton";
 
 enum SubmitAction {
     NOTHING,
@@ -123,6 +123,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
         router.push(`/dogs/${dogId}`);
     };
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     return <>
         {dog &&
             (
@@ -208,9 +210,15 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                             </div>
                             <div className={`flex flex-row items-center justify-center`}>
                                 <button id={`updateDog`} type="submit">Frissítés</button>
-                                <Link href={`/dogs/${dogId}`}>
-                                    <button>Mégsem</button>
-                                </Link>
+                                {!isDialogOpen &&(
+                                    <button onClick={() => setIsDialogOpen(true)}>Mégsem</button>)}
+                                {isDialogOpen && (
+                                    <ConfirmDialog
+                                        message="Biztosan elveted a módosításokat?"
+                                        onConfirm={()=>router.push(`/dogs/${dog.id}`)}
+                                        onCancel={() => setIsDialogOpen(false)}
+                                    />
+                                )}
                             </div>
                         </form>
                     </div>
