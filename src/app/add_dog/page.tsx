@@ -9,6 +9,14 @@ import {Gender} from "@prisma/client";
 import {useDropzone} from "react-dropzone";
 import Image from "next/image";
 
+function Error({error}: {error?: string}) {
+    if (error) {
+        return <div className={`error text-center pt-5`}>{error}</div>
+    } else {
+        return null;
+    }
+}
+
 export default function AddDog() {
     const router = useRouter();
     const session = useContext(SessionContext);
@@ -20,18 +28,17 @@ export default function AddDog() {
     const [gender, setGender] = useState<Gender>('Male');
     const [description, setDescription] = useState("");
     const [breed, setBreed] = useState("");
-    const [errorMessage, setErrorMessage] = useState('');
+    const [ChipError, setChipError] = useState("");
+    const [pictureError, setPictureError] = useState("");
 
-    const handleValidation = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleChipValidation = (e: React.FormEvent<HTMLInputElement>) => {
         const input = e.currentTarget;
         if (!input.validity.valid) {
             if (input.validity.patternMismatch) {
-                setErrorMessage('Please enter exactly 15 digits for the chip number.');
+                setChipError('Kérjük, pontosan 15 számjegyet adjon meg a chipszámhoz.');
             } else {
-                setErrorMessage('Invalid input.');
+                setChipError('Helytelen bemenet.');
             }
-        } else {
-            setErrorMessage('');
         }
     };
 
@@ -81,7 +88,7 @@ export default function AddDog() {
                  onMouseLeave={mouseLeaveHandler}>
                 <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} width={80} height={80}/>
                 <div className={`hiddenXButton`}>
-                    <input type={"button"} onClick={removeFile(file)} className={"x-button"} value={"X"}>X</input>
+                    <input type={"button"} onClick={removeFile(file)} id={"x-button"} value={"X"}/>
                 </div>
             </div>
         </div>
@@ -98,6 +105,11 @@ export default function AddDog() {
                 <h2>Új kutya hozzáadása</h2>
                 <form onSubmit={async (e) => {
                     e.preventDefault();
+                    if(files == undefined || files.length==0){
+                        setPictureError("Kép feltöltése kötelező!");
+                        return
+                    }
+
                     await addDog({
                         name,
                         chipId,
@@ -120,13 +132,13 @@ export default function AddDog() {
                             pattern={"\\d{15}"}
                             onChange={(e) => setChipId(e.target.value)}
                             autoFocus={true}
-                            onInvalid={handleValidation}
-                            onInput={handleValidation}
+                            onInvalid={handleChipValidation}
+                            onInput={handleChipValidation}
                             required
                         />
                     </div>
 
-                    {errorMessage && <span style={{color: 'red'}}>{errorMessage}</span>}
+                    <Error error={ChipError}/>
 
                     <div className={`form`}>
                         <label htmlFor="name" className={`pr-1 w-[48px]`}>Név:</label>
@@ -139,6 +151,7 @@ export default function AddDog() {
                             required
                         />
                     </div>
+
                     <div className={`form`}>
                         <label htmlFor="age" className={`pr-1 w-[48px]`}>Kor:</label>
                         <input
@@ -151,6 +164,7 @@ export default function AddDog() {
                             required
                         />
                     </div>
+
                     <div className={`form`}>
                         <label htmlFor="gender" className={`pr-1 w-[48px]`}>Nem:</label>
                         <select
@@ -167,6 +181,7 @@ export default function AddDog() {
                             <option value="Female">Nőstény</option>
                         </select>
                     </div>
+
                     <div className={`form`}>
                         <label htmlFor="breed" className={`pr-1 w-[48px]`}>Fajta:</label>
                         <input
@@ -177,6 +192,7 @@ export default function AddDog() {
                             onChange={(e) => setBreed(e.target.value)}
                         />
                     </div>
+
                     <div className={`flex flex-row items-center p-2`}>
                         <label htmlFor="description" className={`pr-1 w-[48px]`}>Leírás:</label>
                         <textarea
@@ -186,6 +202,9 @@ export default function AddDog() {
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
+
+
+
                     <div className={`dragAndDropContainer`}>
                         {(files == undefined || files.length == 0) ? (<div {...getRootProps({className: 'dropzone'})}>
                             <input {...getInputProps()}/>
@@ -205,8 +224,11 @@ export default function AddDog() {
                             {thumbs}
                         </div>
                     </div>
+
+                    <Error error={pictureError}/>
+
                     <div className={`mt-10 flex flex-row items-center justify-center`}>
-                        <input id={`updateDog`} type="submit" value={"Kutya Hozzáadása"}/>
+                        <input id={`updateDog`} type="submit" value={"Hozzáadás"}/>
                     </div>
                 </form>
             </div>

@@ -15,6 +15,15 @@ import {DogPicture} from "@/components/dogPicture";
 import {ConfirmDialog} from "@/components/dogsButton";
 import {SessionContext} from "@/components/sessionContext";
 
+
+function Error({error}: {error?: string}) {
+    if (error) {
+        return <div className={`error text-center pt-5`}>{error}</div>
+    } else {
+        return null;
+    }
+}
+
 enum SubmitAction {
     NOTHING,
     DELETE,
@@ -48,13 +57,9 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const [description, setDescription] = useState('');
     const [imageFiles, setImageFiles] = useState<Array<FileWithSubmitAction>>([]);
 
-    //const [originalName, setOriginalName] = useState('');
-    //const [originalAge, setOriginalAge] = useState(0);
-    //const [originalGender, setOriginalGender] = useState<Gender>('Male');
-    //const [originalDescription, setOriginalDescription] = useState('');
-    //const [originalImageFiles, setOriginalImageFiles] = useState<Array<FileWithSubmitAction>>();
-
     const [loadingMessage, setLoadingMessage] = useState("Kérjük várjon, a kutyus adatai épp töltődnek...");
+
+    const [pictureError, setPictureError] = useState("");
 
     useServerAction(async () => {
         setDog(await getDog(dogId));
@@ -69,7 +74,6 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                 };
                 old.push(withAction);
             }
-            //setOriginalImageFiles(old)
             return old;
         });
         if (dog == null) {
@@ -83,12 +87,6 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             setAge(dog.age);
             setGender(dog.gender);
             setDescription(dog.description);
-
-
-            //setOriginalName(dog.name);
-            //setOriginalAge(dog.age);
-            //setOriginalGender(dog.gender);
-            //setOriginalDescription(dog.description);
         }
     }, [dog]);
 
@@ -148,7 +146,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (imageFiles.filter(f => f.onSend != SubmitAction.DELETE).length == 0) {
-            return; //TODO: ERROR pls
+            setPictureError("Kép feltöltése kötelező!");
+            return;
         }
         await updateDog({
             id: dogId,
@@ -274,6 +273,9 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     })}
                                 </div>
                             </div>
+
+                            <Error error={pictureError}/>
+
                             <div className={`flex flex-row items-center justify-center`}>
                                 <input id={`updateDog`} type="submit" value={"Frissítés"}/>
                                 {!isDialogOpen && (
@@ -282,11 +284,6 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     <ConfirmDialog
                                         message="Biztosan elveted a módosításokat?"
                                         onConfirm={() =>{
-                                            //setName(originalName);
-                                            //setAge(originalAge);
-                                            //setGender(originalGender);
-                                            //setDescription(originalDescription);
-
                                             router.push(`/dogs/${dog.id}`);
                                         }}
                                         onCancel={() => setIsDialogOpen(false)}
