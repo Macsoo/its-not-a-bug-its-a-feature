@@ -1,19 +1,19 @@
 'use client';
 import {useRouter} from 'next/navigation';
 import Image from 'next/image';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {Dog, Gender} from "@prisma/client";
 import {useServerAction} from "@/utils";
 import {getDog, updateDog} from "@/server/dogRepository";
 import {
     uploadPicture,
     listDogPictures,
-    getImageUrl,
     deletePicture
 } from "@/server/pictureRepository";
 import {useDropzone} from "react-dropzone";
 import {DogPicture} from "@/components/dogPicture";
 import {ConfirmDialog} from "@/components/dogsButton";
+import {SessionContext} from "@/components/sessionContext";
 
 enum SubmitAction {
     NOTHING,
@@ -35,7 +35,12 @@ type FileWithSubmitAction = {
 
 export default function UpdateDog({params}: { params: { dog_id: string } }) {
     const router = useRouter();
+    const session = useContext(SessionContext);
     const dogId = parseInt(params.dog_id, 10);
+    if (!session.isSignedIn())
+        router.push('/login');
+    if (!session.isAdmin())
+        router.push(`/dogs/${dogId}`);
     const [dog, setDog] = useState<Dog | null>(null);
     const [name, setName] = useState('');
     const [age, setAge] = useState(0);
@@ -46,27 +51,57 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
 
     useServerAction(async () => {
         setDog(await getDog(dogId));
-        for (const pic of await listDogPictures(dogId)) {
-            const url = await getImageUrl(pic.path);
-            const withAction: FileWithSubmitAction = {
-                url,
-                onSend: SubmitAction.NOTHING
-            };
-            setImageFiles(imageFiles.concat([withAction]));
-        }
-        if(dog == null){
+        const pics = await listDogPictures(dogId);
+        setImageFiles((old) => {
+            old = [];
+            for (const pic of pics) {
+                const url = pic.path;
+                const withAction: FileWithSubmitAction = {
+                    url,
+                    onSend: SubmitAction.NOTHING
+                };
+                old.push(withAction);
+            }
+            return old;
+        });
+        if (dog == null) {
             setLoadingMessage("A keresett kutya nem található!");
         }
     });
 
     useEffect(() => {
-        if(dog !==null){
+        if (dog !== null) {
             setName(dog.name);
             setAge(dog.age);
             setGender(dog.gender);
             setDescription(dog.description);
         }
     }, [dog]);
+
+    const removeFile = (file: FileWithSubmitAction): React.MouseEventHandler => (e) => {
+        e.preventDefault();
+        if (file.onSend == SubmitAction.UPLOAD) {
+            setImageFiles(imageFiles.filter(f => f != file));
+        } else {
+            setImageFiles(imageFiles.map(f => {
+                if (f.onSend == SubmitAction.NOTHING && f.url == file.url) {
+                    return { onSend: SubmitAction.DELETE, url: file.url };
+                } else {
+                    return f;
+                }
+            }));
+        }
+    }
+
+    const mouseEnterHandler: React.MouseEventHandler = ((e) => {
+        e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5)")
+        console.log(e.currentTarget)
+    });
+
+    const mouseLeaveHandler: React.MouseEventHandler = ((e) => {
+        e.currentTarget!.lastElementChild!.setAttribute("style", "display:none")
+        console.log(e.currentTarget)
+    });
 
 
     const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
@@ -97,6 +132,9 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (imageFiles.filter(f => f.onSend != SubmitAction.DELETE).length == 0) {
+            return; //TODO: ERROR pls
+        }
         await updateDog({
             id: dogId,
             name: name,
@@ -113,8 +151,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                     await uploadPicture(formData);
                     break;
                 case SubmitAction.DELETE:
-                    const urlEnd = imageFile.url.match(/\/[^\/]*$/)!;
-                    await deletePicture(urlEnd[0]);
+                    await deletePicture(imageFile.url);
                     break;
                 default:
                     break;
@@ -193,29 +230,43 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     {imageFiles.map(file => {
                                         switch (file.onSend) {
                                             case SubmitAction.UPLOAD:
-                                                return <p className="mb-5" key={file.file.name}>
-                                                    <Image src={file.dataUri} alt="Upload preview" fill={true}
-                                                           objectFit={'contain'}
-                                                           objectPosition={'relative'} className={`imageUpload`}/>
-                                                </p>
+                                                return <div key={file.dataUri} className={`inline-flex w-[30%]`}>
+                                                    <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
+                                                         onMouseLeave={mouseLeaveHandler}>
+                                                        <Image src={file.dataUri} alt="Upload preview"
+                                                               className={`imageUpload`} width={80} height={80}/>
+                                                        <div className={`hiddenXButton`}>
+                                                            <input type={"button"} onClick={removeFile(file)}
+                                                                   className={"x-button"} value={"X"}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             case SubmitAction.NOTHING:
-                                            case SubmitAction.DELETE:
-                                                return <p className="mb-5" key={file.url}>
-                                                    <DogPicture src={file.url} fill={true} objectFit={'contain'}
-                                                                objectPosition={'relative'}/>
-                                                </p>
+                                                return <div key={file.url} className={`inline-flex w-[30%]`}>
+                                                    <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
+                                                         onMouseLeave={mouseLeaveHandler}>
+                                                        <DogPicture src={file.url} className={`imageUpload`} width={80}
+                                                                    height={80}/>
+                                                        <div className={`hiddenXButton`}>
+                                                            <input type={"button"} onClick={removeFile(file)}
+                                                                   className={"x-button"} value={"X"}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            default:
+                                                return <></>
                                         }
                                     })}
                                 </div>
                             </div>
                             <div className={`flex flex-row items-center justify-center`}>
-                                <button id={`updateDog`} type="submit">Frissítés</button>
-                                {!isDialogOpen &&(
-                                    <button onClick={() => setIsDialogOpen(true)}>Mégsem</button>)}
+                                <input id={`updateDog`} type="submit" value={"Frissítés"}/>
+                                {!isDialogOpen && (
+                                    <input type={"button"} onClick={() => setIsDialogOpen(true)} value={"Mégsem"}/>)}
                                 {isDialogOpen && (
                                     <ConfirmDialog
                                         message="Biztosan elveted a módosításokat?"
-                                        onConfirm={()=>router.push(`/dogs/${dog.id}`)}
+                                        onConfirm={() => router.push(`/dogs/${dog.id}`)}
                                         onCancel={() => setIsDialogOpen(false)}
                                     />
                                 )}
@@ -225,6 +276,6 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                 </div>
             )
         }
-        {!dog&& <div className={"content"}>{loadingMessage}</div>}
+        {!dog && <div className={"content"}>{loadingMessage}</div>}
     </>
 };

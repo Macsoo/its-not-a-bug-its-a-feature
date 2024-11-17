@@ -48,21 +48,20 @@ export async function deletePicture(path: string): Promise<void> {
 export async function getImageUrl(path: string): Promise<string> {
     const supabase = await createServer();
     const prisma = getPrisma();
-    const imageUrl = await prisma.$transaction(async (trx) =>
+    return prisma.$transaction(async (trx) =>
         await new Promise<string>(async (resolve, reject) => {
             const picture: DogImage | null = await trx.dogImage.findFirst({
                 where: {
                     path: path,
                 }
             });
-            if (picture === null || picture === undefined) {
+            if (picture === null) {
                 reject("DogImage with given ID not found.");
                 return;
             }
             const {data: {publicUrl}} = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(picture.path);
             resolve(publicUrl);
         }));
-    return imageUrl;
 }
 
 export async function uploadPicture(formData: FormData): Promise<string> {

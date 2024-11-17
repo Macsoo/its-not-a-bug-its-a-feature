@@ -8,7 +8,7 @@ export function DogPicture(props: Omit<ImageProps, 'src'|'alt'> & { src: string 
     useServerAction(async () => {
         setImageSrc(await getImageUrl(props.src));
     });
-    return <Image src={imageSrc} alt={'Image of a dog.'} width={0} height={0}
-                  sizes={`100vw`}
-                  className={`w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-72 image`}/>;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {src: _, ...rest} = props;
+    return <Image src={imageSrc} alt={'Image of a dog.'} {...rest}/>;
 }

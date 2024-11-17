@@ -51,7 +51,8 @@ export default function AddDog() {
         onDrop
     });
 
-    const removeFile = (file: Blob & { preview: string }) => () => {
+    const removeFile = (file: Blob & { preview: string }): React.MouseEventHandler => (e) => {
+        e.preventDefault();
         if (files !== undefined) {
             const newFiles = [...files]
             newFiles.splice(newFiles.indexOf(file), 1)
@@ -59,7 +60,8 @@ export default function AddDog() {
         }
     }
 
-    const removeAll = () => {
+    const removeAll: React.MouseEventHandler = (e) => {
+        e.preventDefault();
         setFiles([])
     }
 
@@ -77,9 +79,9 @@ export default function AddDog() {
         <div key={file.preview} className={`inline-flex w-[30%]`}>
             <div className={`grid h-max`} onMouseEnter={mouseEnterHandler}
                  onMouseLeave={mouseLeaveHandler}>
-                <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`}/>
+                <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} width={80} height={80}/>
                 <div className={`hiddenXButton`}>
-                    <button onClick={removeFile(file)} id="x-button">X</button>
+                    <button onClick={removeFile(file)} className={"x-button"}>X</button>
                 </div>
             </div>
         </div>
