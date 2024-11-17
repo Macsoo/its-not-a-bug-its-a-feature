@@ -98,6 +98,7 @@ export async function updateDog(params: {
     breed?: string,
     description?: string,
     adopted?: boolean
+    primaryImgId?: number,
 }): Promise<void> {
     const prisma = getPrisma();
     await prisma.$transaction(async (trx) => {

@@ -8,7 +8,7 @@ import {getDog, updateDog} from "@/server/dogRepository";
 import {
     uploadPicture,
     listDogPictures,
-    deletePicture
+    deletePicture, getDogProfilePicture
 } from "@/server/pictureRepository";
 import {useDropzone} from "react-dropzone";
 import {DogPicture} from "@/components/dogPicture";
@@ -16,7 +16,7 @@ import {ConfirmDialog} from "@/components/dogsButton";
 import {SessionContext} from "@/components/sessionContext";
 
 
-function Error({error}: {error?: string}) {
+function Error({error}: { error?: string }) {
     if (error) {
         return <div className={`error text-center pt-5`}>{error}</div>
     } else {
@@ -33,13 +33,16 @@ enum SubmitAction {
 type FileWithSubmitAction = {
     url: string;
     onSend: SubmitAction.NOTHING;
+    isPrimary: boolean;
 } | {
     file: File;
     onSend: SubmitAction.UPLOAD;
     dataUri: string;
+    isPrimary: boolean;
 } | {
     url: string;
     onSend: SubmitAction.DELETE;
+    isPrimary: boolean;
 };
 
 export default function UpdateDog({params}: { params: { dog_id: string } }) {
@@ -70,7 +73,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                 const url = pic.path;
                 const withAction: FileWithSubmitAction = {
                     url,
-                    onSend: SubmitAction.NOTHING
+                    onSend: SubmitAction.NOTHING,
+                    isPrimary: dog!.primaryImgId === pic.id,
                 };
                 old.push(withAction);
             }
@@ -98,7 +102,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
         } else {
             setImageFiles(imageFiles.map(f => {
                 if (f.onSend == SubmitAction.NOTHING && f.url == file.url) {
-                    return { onSend: SubmitAction.DELETE, url: file.url };
+                    return {onSend: SubmitAction.DELETE, url: file.url, isPrimary: f.isPrimary};
                 } else {
                     return f;
                 }
@@ -123,7 +127,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             const fileWithInfo: FileWithSubmitAction = {
                 file: file,
                 onSend: SubmitAction.UPLOAD,
-                dataUri: ''
+                dataUri: '',
+                isPrimary: false,
             };
             await new Promise<void>(resolve => {
                 const fileReader = new FileReader();
@@ -149,27 +154,28 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             setPictureError("Kép feltöltése kötelező!");
             return;
         }
-        await updateDog({
-            id: dogId,
-            name: name,
-            age: age,
-            gender: gender,
-            description: description,
-        });
-        for (const imageFile of imageFiles) {
-            switch (imageFile.onSend) {
-                case SubmitAction.UPLOAD:
-                    const formData = new FormData;
-                    formData.set("dogId", dogId.toString());
-                    formData.set("data", imageFile.file);
-                    await uploadPicture(formData);
-                    break;
-                case SubmitAction.DELETE:
-                    await deletePicture(imageFile.url);
-                    break;
-                default:
-                    break;
+        for (const imageFile of imageFiles.filter(f => f.onSend == SubmitAction.UPLOAD)) {
+            const formData = new FormData;
+            formData.set("dogId", dogId.toString());
+            formData.set("data", imageFile.file);
+            await uploadPicture(formData);
+            if (imageFile.isPrimary) {
+                const primaryImage = await getDogProfilePicture(dogId);
+                await updateDog({
+                    id: dog!.id,
+                    chipID: dog!.chipId,
+                    name: dog!.name,
+                    age: dog!.age,
+                    gender: dog!.gender,
+                    breed: dog!.breed,
+                    description: dog!.description,
+                    adopted: dog!.adopted,
+                    primaryImgId: primaryImage!.id,
+                })
             }
+        }
+        for (const imageFile of imageFiles.filter(f => f.onSend == SubmitAction.DELETE)) {
+            await deletePicture(imageFile.url);
         }
         router.push(`/dogs/${dogId}`);
     };
@@ -283,7 +289,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                 {isDialogOpen && (
                                     <ConfirmDialog
                                         message="Biztosan elveted a módosításokat?"
-                                        onConfirm={() =>{
+                                        onConfirm={() => {
                                             router.push(`/dogs/${dog.id}`);
                                         }}
                                         onCancel={() => setIsDialogOpen(false)}
