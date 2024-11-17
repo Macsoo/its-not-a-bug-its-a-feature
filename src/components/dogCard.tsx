@@ -40,7 +40,7 @@ export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
                     </table>
                 </div>
                 <div className={`max-w-[60%] text-left`}>
-                    {dog.description}
+                    {dog.description.split('.')[0] + '.'}
                 </div>
                 <Link href={`/dogs/${dog.id}`}>
                     <button>Tovább...</button>
