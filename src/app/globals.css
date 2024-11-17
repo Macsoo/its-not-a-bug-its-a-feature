@@ -152,12 +152,11 @@ td {
     @apply mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10;
 }
 .imageUpload {
-    @apply col-[1] row-[1] w-full border-textColor border-2;
+    @apply col-[1] row-[1] w-full border-textColor border-2 rounded-[3px];
 }
-
 .hiddenXButton {
+    @apply z-10;
     @apply hidden col-[1] row-[1] w-[300px] h-[300px];
-    z-index:  10;
 }
 .uploadImageContainer {
     @apply flex flex-wrap flex-row gap-6 pt-5;
@@ -267,13 +266,10 @@ input {
 .error {
     @apply text-red-700 font-bold;
 }
-
 .imageContainer {
     @apply flex flex-row flex-wrap items-center justify-center p-3 gap-10;
 }
-
 #primaryButton {
     @apply text-[#fff3f0];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
 }
-

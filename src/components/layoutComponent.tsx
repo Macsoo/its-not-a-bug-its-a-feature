@@ -21,7 +21,13 @@ export default function Layout(props: { children: React.ReactNode }) {
     }
     return <>
         <div className={`header-mobile md:header`}>
-            <Image src="/theDog.jpg" width={50} height={50} alt="Logo"/>
+            <div className={`relative w-[50px] h-[50px] border-textColor border-2 rounded-[3px]`} >
+                <Image src="/theDog.jpg" fill alt="Logo" style={{
+                    objectFit: "cover",
+                    objectPosition: "center"
+                }}/>
+            </div>
+
             <Link href="/">
                 <h1 className={`cursor-pointer text-3xl md:text-5xl md:m-0 m-2 font-bold italic text-center`}>
                     Lakatos Brendonék Menhelye
