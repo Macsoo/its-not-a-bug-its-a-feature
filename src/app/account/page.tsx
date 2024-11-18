@@ -17,16 +17,17 @@ export default function AccountPage() {
             {session.isSignedIn() &&
                 <>
                     <div className="card">
-                        <h2>Jogosultság: {session.isAdmin() ? "Admin" : "Felhasználó"}</h2>
+                        <h2>{session.isAdmin() ? "Műveletek:" : "Adataim:"}</h2>
                         {session.isAdmin() && (
                             <div className={`flex justify-center items-center`}>
                             <Link href="/add_dog"><button>Új Kutya Hozzáadása</button></Link>
                             </div>
                         )}
                     </div>
-                    <div className={`card w-full`}>
+                    <div className={`card `}>
                         <h2>{session.isAdmin() ? "Felhasználók által leadott kérvények:" : "Leadott kérvényeim:"}</h2>
-                        {session.isAdmin() ? <RequestListAdmin/> : <RequestListUser user_id={session.user?.id}/>}
+                            {session.isAdmin() ? <RequestListAdmin/> : <RequestListUser user_id={session.user?.id}/>}
+
                     </div>
                 </>}
         </div>

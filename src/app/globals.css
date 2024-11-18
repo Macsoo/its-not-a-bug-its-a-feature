@@ -28,7 +28,7 @@
     @apply w-8 h-8 text-center;
 }
 h2 {
-    @apply text-3xl pb-2 font-bold;
+    @apply text-3xl pb-2 font-bold max-md:text-[15px];
     font-family: "DynaPuff", system-ui;
 }
 p {
@@ -36,6 +36,7 @@ p {
 }
 body {
     @apply flex flex-col items-start justify-around gap-1 bg-background text-textColor;
+    @apply max-md:text-sm !important;
 }
 .header-mobile {
     @apply text-[#fcecd3];
@@ -63,10 +64,12 @@ input[type="button"]:active {
 .content {
     @apply flex flex-col items-center justify-between gap-5 text-textColor w-11/12 my-5 mx-auto p-5 rounded-lg;
     background: #edc488;
+    @apply max-md:my-1.5 max-md:gap-[10px] max-md:p-[10px] !important;
 }
 .card {
     @apply border-[20px] border-solid border-[#fcedd1];
-    @apply text-textColor w-full m-auto md:p-5 p-2 rounded-lg font-medium;
+    @apply text-textColor w-full m-auto p-5 rounded-lg font-medium;
+    @apply max-md:border-[10px] !important;
     background: #f7d6a8;
 }
 .card-dog {
@@ -104,6 +107,10 @@ td {
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[150px] min-w-[90px] content-center;
     background: #babb91;
 }
+#adoptButton{
+    @apply min-w-[80px] max-w-[100px] w-fit !important;
+}
+
 #adoptButton:hover,
 #adoptButton:active,
 #updateDog:hover,
@@ -114,7 +121,7 @@ td {
 #deleteDogButton,
 #deleteDogButton {
     @apply text-[#fff3f0];
-    @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-fit max-w-[100px] min-w-[90px] content-center;
     background: #f0756d;
 }
 #deleteDogButton:hover,
@@ -129,10 +136,11 @@ td {
     background: #f0756d !important;
 }
 .requestTable {
-    @apply w-full border-collapse border-4 border-textColor text-center;
+    @apply w-full whitespace-nowrap border-collapse text-center max-md:text-[12px] !important;
 }
 .requestTable th {
-    @apply bg-secondTextColor text-white text-xl font-light;
+    @apply bg-secondTextColor text-white text-lg font-light whitespace-break-spaces;
+    @apply max-md:text-[13px]  !important;
 }
 .requestTable td {
     @apply bg-orange-50;
@@ -140,6 +148,10 @@ td {
 .requestTable td,
 .requestTable th {
     @apply border-collapse border border-textColor;
+}
+
+.requestTableContainer {
+    @apply border-4 border-textColor overflow-x-auto max-md:block;
 }
 .dogUpdateInput {
     @apply border border-textColor p-0.5 bg-orange-50;
