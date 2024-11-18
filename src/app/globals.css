@@ -128,17 +128,17 @@ td {
     @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center !important;
     background: #f0756d !important;
 }
-#requestTable {
+.requestTable {
     @apply w-full border-collapse border-4 border-textColor text-center;
 }
-#requestTable th {
+.requestTable th {
     @apply bg-secondTextColor text-white text-xl font-light;
 }
-#requestTable td {
+.requestTable td {
     @apply bg-orange-50;
 }
-#requestTable td,
-#requestTable th {
+.requestTable td,
+.requestTable th {
     @apply border-collapse border border-textColor;
 }
 .dogUpdateInput {

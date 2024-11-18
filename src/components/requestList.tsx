@@ -72,7 +72,7 @@ export function RequestListAdmin() {
 
     return (
         <>
-            <table id="requestTable">
+            <table className="requestTable">
                 <thead>
                 <tr>
                     <th className={`max-w-[130px]`}>Kérelem leadásának ideje</th>
@@ -82,7 +82,7 @@ export function RequestListAdmin() {
                 </tr>
                 </thead>
                 <tbody>
-                {pendingRequests.map((request) => (
+                {pendingRequests.filter((request)=>{if(request.approved==null){return request}}).map((request) => (
                     <tr key={request.id}>
                         <td> {request.requestDate.toDateString()} </td>
                         <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
@@ -119,6 +119,33 @@ export function RequestListAdmin() {
                 ))}
                 </tbody>
             </table>
-            </>
+            <h2>Elbírált kérvények</h2>
+            <table className="requestTable">
+                <thead>
+                <tr>
+                    <th className={`max-w-[130px]`}>Kérelem leadásának ideje</th>
+                    <th className={`max-w-[100px]`}>Kutya neve</th>
+                    <th className={`max-w-[200px]`}>Felhasználó<br/>e-mail</th>
+                    <th>Állapot</th>
+                </tr>
+                </thead>
+                <tbody>
+                {pendingRequests.filter((request)=>{if(request.approved!==null){return request}}).map((request) => (
+                    <tr key={request.id}>
+                        <td> {request.requestDate.toDateString()} </td>
+                        <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
+                        <td> {request.user.email} </td>
+                        <td>
+                            {
+                                request.approved !== null && (
+                                    request.approved ? <span>Elfogadva</span> : <span>Elutasítva</span>
+                                )
+                            }
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </>
     );
 }
