@@ -408,14 +408,24 @@ Chat
 
 ## 8. Architekturális terv
 
+A frontend React használatával készült, és abban is folytatódik az írása.
+Ezt a Next.js támogatja backenddel, és a Supabase-Prisma kombináció
+felelős az adatbázisért és annak eléréséért.
+
 ## 9. Adatbázis terv
+
+Az adatbázis változtatása minimális, mivel migrációkat használunk,
+ezért ezek egyszerűek lesznek, és csak egy új tábla kell a chat
+üzeneteknek. Más változtatás a Supabase használatának hála nem szükséges,
+mivel fel van készítve mind a telefonszámok tárolására, mind az
+authorizáció kezelésére.
 
 ### 9.1 Logikai Adatmodell
 
 ```mermaid
 erDiagram
     Users {
-        SERIAL user_id PK
+        UUID user_id PK
         VARCHAR(100) email
         VARCHAR(20) phone_number
         VARCHAR(255) password
@@ -447,11 +457,22 @@ erDiagram
         INT dog_id FK
         VARCHAR(510) img_path
     }
+    
+    Chat {
+        SERIAL id PK
+        STRING from_user FK
+        STRING to_user FK
+        BOOL seen
+        DATE created_at
+        STRING message
+    }
 
     Users ||--o{ AdoptionRequests: "submit"
     Dogs ||--o{ AdoptionRequests: "has adoption request"
     Dogs ||--|{ DogsImages: "has"
     Dogs ||--|| DogsImages: "has primary"
+    Chat }o--|| Users: "has sender"
+    Chat }o--|| Users: "has receiver"
 ```
 
 #### 9.1.1 Dogs (Kutyák) Tábla
@@ -776,4 +797,12 @@ graph TD
 
 ## 12. Telepítési terv
 
+A rendszer serverless környezetben fut jelenleg, Vercel használatával,
+ami a Next.js-nek hála összedolgozik vele. Az adatbázis Supabase rendszereben van
+hostolva, ez nem változik. Az e-mail küldés Resend használatával készült,
+ez nem változik. A DNS szolgáltatásokat Cloudflare végzi.
+
 ## 13. Karbantartási terv
+
+Változtatások a megrendelő igényei szerint, amennyiben az oldal forgalma megnő,
+a megrendelő előfizethet magasabb sávszélességre és hardverekre a hostoló szolgáltatóknál.
