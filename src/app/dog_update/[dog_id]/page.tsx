@@ -130,7 +130,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
     };
 
     const mouseEnterHandler: React.MouseEventHandler = ((e) => {
-        e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5)")
+        e.currentTarget!.lastElementChild!.setAttribute("style", "display: flex; display: flex; justify-content: center; align-items: center; background-color: rgb(1, 0.984, 0.922, 0.5); width:100%; height: 100%;")
         console.log(e.currentTarget)
     });
 
@@ -284,8 +284,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     {imageFiles.map(file => {
                                         switch (file.onSend) {
                                             case SubmitAction.UPLOAD:
-                                                return <div key={file.dataUri} className={`inline-flex relative w-[300px] h-[300px]`}>
-                                                    <div className={`grid${file.isPrimary ? " primaryImage" : ""}`} onMouseEnter={mouseEnterHandler}
+                                                return <div key={file.dataUri} className={`inline-flex relative w-[300px] h-[300px]  ${file.isPrimary ? " primaryImage" : ""}`}>
+                                                    <div className={`grid w-full h-full`} onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <Image src={file.dataUri} alt="Upload preview"
                                                                className={`imageUpload`} fill/>
@@ -298,8 +298,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                     </div>
                                                 </div>
                                             case SubmitAction.NOTHING:
-                                                return <div key={file.url} className={`inline-flex relative w-[300px] h-[300px]`}>
-                                                    <div className={`grid${file.isPrimary ? " primaryImage" : ""}`} onMouseEnter={mouseEnterHandler}
+                                                return <div key={file.url} className={`inline-flex relative w-[300px] h-[300px]  ${file.isPrimary ? " primaryImage" : ""}`}>
+                                                    <div className={`grid w-full h-full`} onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <DogPicture src={file.url} className={`imageUpload`} fill/>
                                                         <div className={`hiddenXButton`}>

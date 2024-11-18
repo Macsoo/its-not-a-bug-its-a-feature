@@ -121,13 +121,12 @@ td {
 #deleteDogButton:active,
 .x-button:hover,
 .x-button:active {
-    @apply text-[#fcc1b7];
-    background: #aa4241;
+    @apply text-[#fcc1b7] !important;
+    background: #aa4241 !important;
 }
 .x-button {
-    @apply text-[#fff3f0];
-    @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
-    background: #f0756d;
+    @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center !important;
+    background: #f0756d !important;
 }
 #requestTable {
     @apply w-full border-collapse border-4 border-textColor text-center;
@@ -153,10 +152,12 @@ td {
 }
 .imageUpload {
     @apply col-[1] row-[1] w-full border-textColor border-2 rounded-[3px];
+    object-fit: cover;
+    object-position: center;
 }
 .hiddenXButton {
     @apply z-10;
-    @apply hidden col-[1] row-[1] w-[300px] h-[300px];
+    @apply hidden col-[1] row-[1] box-border  h-full w-full;
 }
 .uploadImageContainer {
     @apply flex flex-wrap flex-row gap-6 pt-5;
@@ -242,7 +243,7 @@ link:visited:active {
     @apply sticky;
     @apply m-auto;
 }
-#gdpr > #x-button {
+#gdpr > .x-button {
     @apply sticky z-10 ml-[97%] top-0;
 }
 .login-register {
@@ -271,8 +272,9 @@ input {
 }
 .primaryButton {
     @apply text-[#fff3f0];
-    @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center;
+    @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center !important;
 }
 .primaryImage {
-    @apply border-red-300 border-opacity-100;
+    @apply border-red-300 border-opacity-100 border-4 rounded-md !important;
+
 }
