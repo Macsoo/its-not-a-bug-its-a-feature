@@ -6,19 +6,19 @@ import {getUser} from "@/server/supabase";
 import {useState} from "react";
 import {Session, SessionContext} from "@/components/sessionContext";
 import {useServerAction} from "@/utils"
-//import {PopChat} from "@/components/chatUI";
+import {PopChat} from "@/components/chatUI";
 
 export default function Layout(props: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | undefined>(undefined);
     useServerAction(async () => {
         setUser(await getUser());
     });
-    /*
+
     const messages = ["Hello!", "Hello!", "How can I help you?", "Thank you for reaching out!", "No problem :)", ":)"];
     const getMessage = (message: string) => {
         console.log("Received message:", message);
         // You can add custom logic here, like updating a message list or sending data to a server
-    }*/
+    }
     return <>
         <div className={`header-mobile md:header`}>
             <div className={`relative w-[50px] h-[50px] border-textColor border-2 rounded-[3px]`} >
@@ -74,6 +74,6 @@ export default function Layout(props: { children: React.ReactNode }) {
                 esetleges egyezés teljes mértékben a véletlen műve.
             </footer>
         </div>
-        {/*<PopChat messages={messages} getMessage={getMessage} user_id={'0'}/>*/}
+        <PopChat messages={messages} getMessage={getMessage} user_id={'0'}/>
     </>;
 }
