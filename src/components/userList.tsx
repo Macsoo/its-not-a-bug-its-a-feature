@@ -30,7 +30,7 @@ export default function UserList() {
                             <tr>
                                 <th className={`min-w-[110px]`}>Felhasználó<br/>e-mail</th>
                                 <th className={'min-w-[150px]'}>Jogosultság</th>
-                                <th className={`w-[130px]`}>Chat</th>
+                                <th className={`min-w-[80px]`}>Chat</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -38,7 +38,7 @@ export default function UserList() {
                                 <tr key={user}>
                                     <td>{user}</td>
                                     <td>Felhasználó</td>
-                                    <td>Megnyitás</td>
+                                    <td className={"iconTd"}><button>{String.fromCodePoint(128172)}</button></td>
                                 </tr>
                             ))}
                             </tbody>
@@ -61,9 +61,9 @@ export default function UserList() {
                         <table>
                             <thead>
                             <tr>
-                                <th className={`min-w-[100px]`}>Felhasználó<br/>e-mail</th>
+                                <th className={`min-w-[110px]`}>Felhasználó<br/>e-mail</th>
                                 <th className={'min-w-[150px]'}>Jogosultság</th>
-                                <th className={`min-w-[130px]`}>Törlés</th>
+                                <th className={`min-w-[80px] max-w-[80px]`}>Törlés</th>
                             </tr>
                             </thead>
                             <tbody>

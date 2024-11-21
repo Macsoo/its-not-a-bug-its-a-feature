@@ -150,7 +150,7 @@ td {
     background: #aa4241 !important;
 }
 .x-button {
-    @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center !important;
+    @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-2.5 w-9 h-9 content-center !important;
     background: #f0756d !important;
 }
 .tableContainer > table {
@@ -303,10 +303,15 @@ input {
 }
 .primaryButton {
     @apply text-[#fff3f0];
-    @apply py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center !important;
+    @apply py-1 px-1 rounded-lg m-2.5 w-9 h-9 content-center text-lg !important;
+    background-color: #27884a !important;
+}
+
+.primaryButton:hover {
+    background-color: #46c573 !important;
 }
 .primaryImage {
-    @apply border-red-300 border-opacity-100 border-4 rounded-md !important;
+    @apply border-[#46c573] border-opacity-60 border-8 rounded-md !important;
 
 }
 
@@ -320,4 +325,12 @@ input {
 
 .deleteUserTD{
     @apply m-0 p-0 !important;
+}
+
+.iconTd{
+    @apply p-0 max-sm:text-xl text-3xl !important;
+}
+
+.iconTd > button{
+    @apply p-0 m-0 w-fit !important;
 }

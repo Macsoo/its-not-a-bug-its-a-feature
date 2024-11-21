@@ -293,7 +293,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    className={"x-button"} value={"X"}/>
                                                             <input type={"button"} className={"primaryButton"}
-                                                                   value={String.fromCharCode(9733)} onClick={setPrimary(file)}></input>
+                                                                   value={String.fromCodePoint(128054)} onClick={setPrimary(file)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -306,7 +306,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    className={"x-button"} value={"X"}/>
                                                             <input type={"button"} className={"primaryButton"}
-                                                                   value={String.fromCharCode(9733)} onClick={setPrimary(file)}></input>
+                                                                   value={String.fromCodePoint(128054)} onClick={setPrimary(file)}></input>
                                                         </div>
                                                     </div>
                                                 </div>

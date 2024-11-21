@@ -107,8 +107,8 @@ export default function AddDog() {
                 <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} fill/>
                 <div className={`hiddenXButton`}>
                     <input type={"button"} onClick={removeFile(file)} className={"x-button"} value={"X"}/>
-                    <input type={"button"} className={"primaryButton"} value={String.fromCharCode(9733)}
-                           onClick={setPrimary(file)}></input>
+                    <input type={"button"} className={"primaryButton"} value={String.fromCodePoint(128054)}
+                           onClick={setPrimary(file)}/>
                 </div>
             </div>
         </div>
