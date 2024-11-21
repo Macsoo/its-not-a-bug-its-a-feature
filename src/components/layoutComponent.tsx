@@ -6,6 +6,7 @@ import {getUser} from "@/server/supabase";
 import {useState} from "react";
 import {Session, SessionContext} from "@/components/sessionContext";
 import {useServerAction} from "@/utils"
+import {useRouter} from "next/navigation";
 //import {PopChat} from "@/components/chatUI";
 
 export default function Layout(props: { children: React.ReactNode }) {
@@ -13,15 +14,22 @@ export default function Layout(props: { children: React.ReactNode }) {
     useServerAction(async () => {
         setUser(await getUser());
     });
+    const router = useRouter();
     /*
     const messages = ["Hello!", "Hello!", "How can I help you?", "Thank you for reaching out!", "No problem :)", ":)"];
     const getMessage = (message: string) => {
         console.log("Received message:", message);
         // You can add custom logic here, like updating a message list or sending data to a server
     }*/
+
+    const handleSignOut = ()=>{
+        //TODO: implement signOut function
+        router.push("/login")
+    }
+
     return <>
         <div className={`header-mobile md:header`}>
-            <div className={`relative w-[50px] h-[50px] border-textColor border-2 rounded-[3px]`} >
+            <div className={`relative w-[50px] h-[50px] border-textColor border-2 rounded-[3px]`}>
                 <Image src="/theDog.jpg" fill alt="Logo" style={{
                     objectFit: "cover",
                     objectPosition: "center"
@@ -33,7 +41,7 @@ export default function Layout(props: { children: React.ReactNode }) {
                     Lakatos Brendonék Menhelye
                 </h1>
             </Link>
-            <div>
+            <div className={`md:flex md:flex-col md:justify-center md:items-center`}>
                 {!user && (<>
                     <Link href="/register">
                         <button id="register">Regisztráció</button>
@@ -41,7 +49,11 @@ export default function Layout(props: { children: React.ReactNode }) {
                     <Link href="/login">
                         <button id="login">Belépés</button>
                     </Link>
+
                 </>)}
+                {user && (
+                    <button id={"signOutButton"} onClick={handleSignOut}>Kijelentkezés</button>
+                )}
             </div>
         </div>
 
@@ -55,9 +67,13 @@ export default function Layout(props: { children: React.ReactNode }) {
                 </Link>
             </div>
             {user && (
-                <Link href="/account">
-                    <button id="account">Fiókom</button>
-                </Link>
+                <>
+                    <Link href="/account">
+                        <button id="account">Fiókom</button>
+                    </Link>
+                </>
+
+
             )}
         </div>
 
