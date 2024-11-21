@@ -7,7 +7,8 @@ import {useState} from "react";
 import {Session, SessionContext} from "@/components/sessionContext";
 import {useServerAction} from "@/utils"
 import {useRouter} from "next/navigation";
-//import {PopChat} from "@/components/chatUI";
+
+import {PopChat} from "@/components/chatUI";
 
 export default function Layout(props: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | undefined>(undefined);
@@ -15,12 +16,12 @@ export default function Layout(props: { children: React.ReactNode }) {
         setUser(await getUser());
     });
     const router = useRouter();
-    /*
+
     const messages = ["Hello!", "Hello!", "How can I help you?", "Thank you for reaching out!", "No problem :)", ":)"];
     const getMessage = (message: string) => {
         console.log("Received message:", message);
         // You can add custom logic here, like updating a message list or sending data to a server
-    }*/
+    }
 
     const handleSignOut = ()=>{
         //TODO: implement signOut function
@@ -41,7 +42,7 @@ export default function Layout(props: { children: React.ReactNode }) {
                     Lakatos Brendonék Menhelye
                 </h1>
             </Link>
-            <div className={`md:flex md:flex-col md:justify-center md:items-center`}>
+            <div className={`max-md:flex max-md:flex-col max-md:justify-center max-md:items-center flex flex-row justify-center items-center`}>
                 {!user && (<>
                     <Link href="/register">
                         <button id="register">Regisztráció</button>
@@ -90,6 +91,6 @@ export default function Layout(props: { children: React.ReactNode }) {
                 esetleges egyezés teljes mértékben a véletlen műve.
             </footer>
         </div>
-        {/*<PopChat messages={messages} getMessage={getMessage} user_id={'0'}/>*/}
+        <PopChat messages={messages} getMessage={getMessage} user_id={'0'}/>
     </>;
 }

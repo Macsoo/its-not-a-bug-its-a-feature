@@ -175,7 +175,8 @@ td {
     @apply flex flex-wrap flex-row gap-6 pt-5;
 }
 #chatCon {
-    @apply w-1/5 sticky text-[black] left-[3%] bottom-[3%];
+    @apply w-[30%] sticky text-[black] left-[3%] bottom-[3%];
+    @apply max-md:min-w-[80%] !important;
 }
 #chatCon .header {
     @apply bg-[#3fda73] text-white text-xl p-[15px] rounded-[20px_20px_0_0];
@@ -197,7 +198,7 @@ td {
     @apply inline-flex;
 }
 #chatCon .footer > input {
-    @apply border w-4/5 p-2.5 rounded-[15px] border-solid border-white;
+    @apply border w-4/5 p-2.5 rounded-[15px] border-solid border-white bg-white;
 }
 #chatCon .footer > input:focus {
     outline: none;

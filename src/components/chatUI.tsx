@@ -1,8 +1,9 @@
 'use client';
 import React, {FC, useContext, useRef, useState} from 'react'
 import "@/app/globals.css";
-import {SessionContext} from "@/components/sessionContext";
+
 import Image from "next/image";
+import {SessionContext} from "@/components/sessionContext";
 
 interface PopChatProps {
     messages: string[];
@@ -26,7 +27,6 @@ export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}: PopCh
 
     const textRef = useRef<HTMLInputElement | null>(null);
     const [chatOpen, setChatOpen] = useState<boolean>(false);
-
     const session = useContext(SessionContext);
 
     const toggle = () => {
@@ -46,24 +46,9 @@ export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}: PopCh
                 <div className={"chatBox"} style={chatOpen ? show : hide}>
                     <div className={"header"}>{session.isUser() ? "Admin" : "Chats"}</div>
                     <div className={`h-full bg-[#e4e4e4] rounded-lg mt-3 mb-3`}>
-                        {(<div className={`msg-area`}>
+                        <div className={`msg-area`}>
                             <Messages messages={messages} user_id={user_id}></Messages>
-                        </div>)}
-                        {session.isAdmin() &&
-                            (<div className={`user-area`}>
-                                <div className={`user`}>User1</div>
-                                <div className={`user`}>User2</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                            </div>
-                        )}
+                        </div>
                     </div>
                     <div className={"footer"}>
                         <input type="text" ref={textRef}/>
@@ -72,17 +57,17 @@ export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}: PopCh
                         </button>
                     </div>
                 </div>
-                <div className={"pop"}>
+                {(<div className={"pop"}>
                     <p>
                         <Image
                             onClick={toggle}
-                            src="/chat_img.jpg"
+                            src="/theDog.jpg"
                             alt="Chat Icon"
                             width={20}
                             height={20}
                         />
                     </p>
-                </div>
+                </div>)}
             </div>
         </>
     );
