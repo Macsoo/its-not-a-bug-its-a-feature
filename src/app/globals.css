@@ -118,16 +118,34 @@ td {
     @apply text-[#bfcc8a];
     background: #6f7146;
 }
-#deleteDogButton,
-#deleteDogButton {
+#deleteDogButton{
     @apply text-[#fff3f0];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-fit max-w-[100px] min-w-[90px] content-center;
     background: #f0756d;
 }
+
+#updateUsers{
+    @apply text-[#5b6439];
+    @apply py-1 px-2.5 rounded-lg content-center min-w-[100px] sm:max-w-[150px] w-full m-0 h-fit !important;
+    background: #babb91;
+}
+
+#updateUsers:hover, #updateUsers:active {
+    @apply text-[#bfcc8a];
+    background: #6f7146;
+}
+
+#reset {
+    @apply text-[#fff3f0];
+    @apply py-1 px-2.5 rounded-lg content-center min-w-[100px] sm:max-w-[150px] w-full m-0 h-fit !important;
+    background: #f0756d;
+}
+
 #deleteDogButton:hover,
 #deleteDogButton:active,
 .x-button:hover,
-.x-button:active {
+.x-button:active,
+#reset:hover,#reset:active{
     @apply text-[#fcc1b7] !important;
     background: #aa4241 !important;
 }
@@ -135,22 +153,22 @@ td {
     @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-2.5 w-8 h-8 content-center !important;
     background: #f0756d !important;
 }
-.requestTable {
+.tableContainer > table {
     @apply w-full whitespace-nowrap border-collapse text-center max-md:text-[12px] !important;
 }
-.requestTable th {
+.tableContainer th {
     @apply bg-secondTextColor text-white text-lg font-light whitespace-break-spaces;
     @apply max-md:text-[13px]  !important;
 }
-.requestTable td {
+.tableContainer td {
     @apply bg-orange-50;
 }
-.requestTable td,
-.requestTable th {
+.tableContainer td,
+.tableContainer th {
     @apply border-collapse border border-textColor;
 }
 
-.requestTableContainer {
+.tableContainer {
     @apply border-4 border-textColor overflow-x-auto max-md:block;
 }
 .dogUpdateInput {
@@ -290,4 +308,16 @@ input {
 .primaryImage {
     @apply border-red-300 border-opacity-100 border-4 rounded-md !important;
 
+}
+
+.trashButton{
+    @apply  bg-orange-50 text-black text-2xl font-bold w-fit h-fit m-0 p-0 !important;
+}
+
+.trashButton:hover {
+    @apply bg-orange-50 text-red-700 font-bold !important;
+}
+
+.deleteUserTD{
+    @apply m-0 p-0 !important;
 }

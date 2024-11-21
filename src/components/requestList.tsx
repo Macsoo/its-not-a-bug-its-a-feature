@@ -23,7 +23,7 @@ export function RequestListUser({user_id}: {
     });
 
     return (
-        <div className={`requestTableContainer`}>
+        <div className={`tableContainer`}>
         <table className="requestTable">
             <thead>
             <tr>
@@ -89,12 +89,12 @@ export function RequestListAdmin() {
 
     return (
         <>
-            <div className={`requestTableContainer`}>
-                <table className="requestTable">
+            <div className={`tableContainer`}>
+                <table>
                     <thead>
                     <tr>
                         <th className={`min-w-[110px] max-w-[130px]`}>Kérelem leadásának ideje</th>
-                        <th className={`min-w-[100px] man-w-[100px]`}>Kutya neve</th>
+                        <th className={`min-w-[100px]`}>Kutya neve</th>
                         <th className={`min-w-[100px] max-w-[200px]`}>Felhasználó<br/>e-mail</th>
                         <th className={`min-w-[100px] max-w-[110px]`}>Műveletek</th>
                     </tr>
@@ -142,13 +142,13 @@ export function RequestListAdmin() {
                     </tbody>
                 </table>
             </div>
-            <h2>Elbírált kérvények</h2>
-            <div className={`requestTableContainer`}>
-                <table className="requestTable">
+            <h2 className={"max-sm:text-center m-2.5"}>Elbírált kérvények:</h2>
+            <div className={`tableContainer`}>
+                <table>
                     <thead>
                     <tr>
                         <th className={`min-w-[110px] max-w-[130px]`}>Kérelem leadásának ideje</th>
-                        <th className={`min-w-[100px] man-w-[100px]`}>Kutya neve</th>
+                        <th className={`min-w-[100px]`}>Kutya neve</th>
                         <th className={`min-w-[100px] max-w-[200px]`}>Felhasználó<br/>e-mail</th>
                         <th className={`min-w-[100px] max-w-[110px]`}>Állapot</th>
                     </tr>
