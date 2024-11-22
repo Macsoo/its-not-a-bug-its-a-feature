@@ -56,17 +56,17 @@ export default function RegisterPage() {
             <h2>Regisztráció</h2>
             <div className={`card login-register`}>
                 <div className={`m-2 flex flex-col items-start`}>
-                    <label htmlFor={"email"}>Email</label>
+                    <label className={`max-sm:text-center max-sm:w-full max-sm:mb-1`} htmlFor={"email"}>Email</label>
                     <input type={"email"} id={"email"} value={email}
                            onChange={(e) => setEmail(e.target.value)}/>
                 </div>
                 <div className={`m-2 flex flex-col items-start`}>
-                    <label htmlFor={"password"}>Jelszó</label>
+                    <label className={`max-sm:text-center max-sm:w-full max-sm:mb-1`} htmlFor={"password"}>Jelszó</label>
                     <input type={"password"} id={"password"} value={password}
                            onChange={(e) => setPassword(e.target.value)}/>
                 </div>
                 <div className={`m-2 flex flex-col items-start`}>
-                    <label htmlFor={"otherPassword"}>Jelszó mégegyszer</label>
+                    <label className={`max-sm:text-center max-sm:w-full max-sm:mb-1`} htmlFor={"otherPassword"}>Jelszó mégegyszer</label>
                     <input type={"password"} id={"otherPassword"} value={otherPassword}
                            onChange={(e) => setOtherPassword(e.target.value)}/>
                 </div>
@@ -83,7 +83,7 @@ export default function RegisterPage() {
                 {isGdprVisible && (
                     <div
                         id={"gdpr"}>
-                        <button id={"x-button"} onClick={()=>setIsGdprVisible(false)}>X</button>
+                        <button className={"x-button"} onClick={()=>setIsGdprVisible(false)}>X</button>
                         <p>
                             <b>Adatvédelmi Tájékoztató<br/></b><br/>
 
