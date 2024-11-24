@@ -46,12 +46,13 @@ export async function getAllMessagesFromUser(user: string) {
                 ]
             },
             orderBy: {
-                createdAt: 'desc',
+                    createdAt: 'asc',
             },
             select: {
                 id: true,
                 message: true,
                 fromUser: true,
+                createdAt: true,
             },
             take: 50,
         }));
@@ -76,12 +77,13 @@ export async function getUnseenMessagesFromUser(user: string) {
                 }
             },
             orderBy: {
-                createdAt: 'desc',
+                createdAt: 'asc',
             },
             select: {
                 id: true,
                 message: true,
                 fromUser: true,
+                createdAt: true,
             },
         }));
     })
