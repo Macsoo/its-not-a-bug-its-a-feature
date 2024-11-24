@@ -1,29 +1,40 @@
 'use client';
 
 import React, {useState} from "react";
+import {useServerAction} from "@/utils";
+import {getAllUsers} from "@/server/userRepository";
+
+type User = {
+    id: string,
+    email: string,
+}
 
 export default function UserList() {
-    const users = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const [editable, setEditable] = useState<boolean>(false);
+    const [users, setUsers] = useState<User[]>([])
+
+    useServerAction(async () => {
+        setUsers(await getAllUsers());
+    })
 
     const handleSubmit = () => {
         setEditable(false);
     }
 
-    const handleCancel = ()=>{
+    const handleCancel = () => {
         setEditable(false);
     }
-
+    
     return (
         <div className="card">
             {!editable && (
                 <div className={`sm:grid`}>
-                        <h2 className={`pt-2 sm:col-[1] sm:row-[1] max-sm:text-center`}> Felhasználók kezelése: </h2>
-                        <button
-                            className={`sm:col-[2] sm:row-[1] sm:justify-self-end sm:self-center max-sm:pt-0 mt-0 max-sm:w-full
+                    <h2 className={`pt-2 sm:col-[1] sm:row-[1] max-sm:text-center`}> Felhasználók kezelése: </h2>
+                    <button
+                        className={`sm:col-[2] sm:row-[1] sm:justify-self-end sm:self-center max-sm:pt-0 mt-0 max-sm:w-full
                             max-sm:m-0 max-sm:mb-2.5`}
-                            onClick={() => setEditable(true)}>Szerkesztés
-                        </button>
+                        onClick={() => setEditable(true)}>Szerkesztés
+                    </button>
                     <div className={"tableContainer row-[2] col-span-2"}>
                         <table>
                             <thead>
@@ -34,13 +45,7 @@ export default function UserList() {
                             </tr>
                             </thead>
                             <tbody>
-                            {users.map((user) => (
-                                <tr key={user}>
-                                    <td>{user}</td>
-                                    <td>Felhasználó</td>
-                                    <td className={"iconTd"}><button>{String.fromCodePoint(128172)}</button></td>
-                                </tr>
-                            ))}
+                            <Users users={users} editable={editable}/>
                             </tbody>
                         </table>
                     </div>
@@ -67,21 +72,7 @@ export default function UserList() {
                             </tr>
                             </thead>
                             <tbody>
-                            {users.map((user) => (
-                                <tr key={user}>
-                                    <td>{user}</td>
-                                    <td>
-                                        <input list={"roles"}/>
-                                        <datalist id="roles">
-                                            <option value="Felhasználó"/>
-                                            <option value="Adminisztrátor"/>
-                                        </datalist>
-                                    </td>
-                                    <td className={`deleteUserTD`}>
-                                        <input type="checkbox"/>
-                                    </td>
-                                </tr>
-                            ))}
+                            <Users users={users} editable={editable}/>
                             </tbody>
                         </table>
                     </div>
@@ -89,4 +80,34 @@ export default function UserList() {
             )}
         </div>
     )
-}
+
+    function Users(params: { users: User[], editable: boolean }) {
+        return (
+            <>
+                {params.users.map((user) => (
+                    <tr key={user.id}>
+                        <td>{user.email}</td>
+                        <td>
+                            <input list={"roles"}/>
+                            <datalist id="roles">
+                                <option value="Felhasználó"/>
+                                <option value="Adminisztrátor"/>
+                            </datalist>
+                        </td>
+                        {params.editable && (
+                            <td className={`deleteUserTD`}>
+                                <input type="checkbox"/>
+                            </td>
+                        )}
+                        {!params.editable && (
+                            <td className={`deleteUserTD`}>
+                                <button/>
+                            </td>
+                        )}
+                    </tr>
+                ))}
+            </>
+        )
+    }
+};
+

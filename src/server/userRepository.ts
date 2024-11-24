@@ -2,6 +2,7 @@
 
 import {createServer} from '@/server/supabase';
 import {User} from "@supabase/supabase-js";
+import {getPrisma} from "@/utils";
 
 export async function registerUser(email: string, password: string) {
     const supabase = await createServer();
@@ -26,4 +27,16 @@ export async function logInUser(email: string, password: string): Promise<User |
         return null;
     }
     return data.user;
+}
+
+export async function getAllUsers() {
+    const prisma = getPrisma();
+    return prisma.$transaction(async (trx) => {
+        return (await trx.users.findMany({
+            select: {
+                id: true,
+                email: true,
+            }
+        })).map(item => ({ id: item.id, email: item.email as string }));
+    })
 }
