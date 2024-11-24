@@ -7,6 +7,7 @@ import {getAllUsers} from "@/server/userRepository";
 type User = {
     id: string,
     email: string,
+    isAdmin: boolean,
 }
 
 export default function UserList() {
@@ -24,7 +25,7 @@ export default function UserList() {
     const handleCancel = () => {
         setEditable(false);
     }
-    
+
     return (
         <div className="card">
             {!editable && (
@@ -88,11 +89,16 @@ export default function UserList() {
                     <tr key={user.id}>
                         <td>{user.email}</td>
                         <td>
-                            <input list={"roles"}/>
-                            <datalist id="roles">
-                                <option value="Felhasználó"/>
-                                <option value="Adminisztrátor"/>
-                            </datalist>
+                            <select
+                                className={`dogUpdateInput`}
+                                value={user.isAdmin ? "admin" : "user"}
+                                onChange={(e) => {
+                                    e.target.value === 'admin' ? user.isAdmin = true : user.isAdmin = false
+                                }}
+                            >
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                            </select>
                         </td>
                         {params.editable && (
                             <td className={`deleteUserTD`}>

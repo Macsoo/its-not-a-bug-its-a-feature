@@ -3,6 +3,7 @@
 import {createServer} from '@/server/supabase';
 import {User} from "@supabase/supabase-js";
 import {getPrisma} from "@/utils";
+import {JsonObject} from "type-fest";
 
 export async function registerUser(email: string, password: string) {
     const supabase = await createServer();
@@ -32,11 +33,18 @@ export async function logInUser(email: string, password: string): Promise<User |
 export async function getAllUsers() {
     const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
-        return (await trx.users.findMany({
+        const users = await trx.users.findMany({
             select: {
                 id: true,
                 email: true,
-            }
-        })).map(item => ({ id: item.id, email: item.email as string }));
-    })
+                raw_app_meta_data: true,
+            },
+        });
+
+        return users.map(user => ({
+            id: user.id,
+            email: user.email as string,
+            isAdmin: (user.raw_app_meta_data as JsonObject)?.admin === true,
+        }));
+    });
 }
