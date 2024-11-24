@@ -10,8 +10,7 @@ type DogWithImage = { dog: Dog, image: DogImage };
 export default function DogList() {
     const [dogsWithImages, setDogsWithImages] = useState<DogWithImage[]>([]);
     useServerAction(async () => {
-        //TODO: Replace listAllDogs() ! Adopted dog's is showed!
-        const dogs = await listAllDogs();
+        const dogs = await listAllDogs(false);
         const dogsWithImage = [];
         for (const dog of dogs) {
             dogsWithImage.push({

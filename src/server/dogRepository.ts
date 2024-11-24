@@ -50,10 +50,16 @@ export async function getDog(dogId: number): Promise<Dog | null> {
     });
 }
 
-export async function listAllDogs() {
+export async function listAllDogs(includeAdopted: boolean = true): Promise<Dog[]> {
     const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
-        return trx.dog.findMany();
+        if (includeAdopted)
+            return trx.dog.findMany();
+        return trx.dog.findMany({
+            where: {
+                adopted: false,
+            }
+        });
     });
 }
 
