@@ -1,12 +1,12 @@
 'use client';
 import {UpdateButton, DeleteButton, AdoptButton} from "@/components/dogsButton";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {getDog} from "@/server/dogRepository";
 import {listDogPictures} from "@/server/pictureRepository";
 import {Dog, DogImage} from "@prisma/client";
 import {useServerAction} from "@/utils";
-import {DogPicture} from "@/components/dogPicture";
+import {DogPicture} from "@/components/dogPicture"
 
 export default function DogUpdate({params}: { params: { dog_id: string } }) {
     const session = useContext(SessionContext);
@@ -14,13 +14,22 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
     const [dog, setDog] = useState<Dog | null>(null);
     const [images, setImages] = useState<DogImage[]>([]);
     const [loadingMessage, setLoadingMessage] = useState("Kérjük várjon, a kutyus adatai épp töltődnek...");
+    const [loaded, setLoaded] = useState(0);
+    const [showPictures, setShowPictures] = useState(false);
     useServerAction(async () => {
         setDog(await getDog(dogId));
         setImages(await listDogPictures(dogId));
-        if(dog == null){
+        setLoaded(0);
+        setShowPictures(false);
+        if (dog == null) {
             setLoadingMessage("A keresett kutya nem található!");
         }
     });
+    useEffect(() => {
+        if (images.length == loaded) {
+            setShowPictures(true);
+        }
+    }, [images, loaded]);
 
     return <>
         {dog &&
@@ -42,11 +51,15 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                         </table>
                         <p>{dog.description}</p>
                         <b className={`py-2 text-center`}>{dog.name} képei:</b>
-                        <div className={`imageContainer`}>
+                        <div className={`${showPictures && 'imageContainer'}`}>
+                            {!showPictures && <div>
+                                Images are loading...
+                            </div>}
                             {images.map(image => {
-                                return <DogPicture key={image.id} src={image.path} width={80} height={80}
+                                return (<DogPicture key={image.id} src={image.path} width={80} height={80}
                                                    sizes={`100vw`}
-                                                   className={`border-[#fcedd1] border-[10px] rounded-md w-auto h-full max-h-60 md:max-h-full md:w-full md:h-auto md:max-w-60`}/>
+                                                   className={`${showPictures && 'border-[#fcedd1] border-[10px] max-h-60 md:max-h-full rounded-md w-auto h-full md:w-full md:h-auto md:max-w-60'} ${!showPictures && 'size-0'}`}
+                                                   onLoad={() => setLoaded(x => x + 1)}/>)
                             })}
                         </div>
                         {session.isSignedIn() && (
@@ -60,6 +73,6 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                 </div>
             </div>)
         }
-        {!dog&& <div className={"content"}>{loadingMessage}</div>}
+        {!dog && <div className={"content"}>{loadingMessage}</div>}
     </>;
 }
