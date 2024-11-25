@@ -7,6 +7,7 @@ import {SessionContext} from "@/components/sessionContext";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 import UserList from "@/components/userList";
+import Image from "next/image";
 
 export default function AccountPage() {
     const router = useRouter();
@@ -14,6 +15,8 @@ export default function AccountPage() {
 
     const [showRequests, setShowRequests] = useState<boolean>(false);
     const [showUsers, setShowUsers] = useState<boolean>(false);
+
+    const [phoneEdit, setPhoneEdit] = useState<boolean>(false);
 
     if (!session.isSignedIn())
         router.push('/login');
@@ -25,29 +28,73 @@ export default function AccountPage() {
                         <h2>{session.isAdmin() ? "Műveletek:" : "Adataim:"}</h2>
                         {session.isAdmin() && (
                             <div className={`flex flex-row gap-5 max-md:flex-col max-md:gap-2.5 items-center`}>
-                                <button onClick={()=>{
+                                <button onClick={() => {
                                     setShowRequests(true);
                                     setShowUsers(false);
-                                }}>Kérvények Kezelése</button>
-                                <button onClick={()=>{
+                                }}>Kérvények Kezelése
+                                </button>
+                                <button onClick={() => {
                                     setShowRequests(false);
                                     setShowUsers(true);
-                                }}>Felhasználók Szerkesztése</button>
+                                }}>Felhasználók Szerkesztése
+                                </button>
                                 <Link href="/add_dog">
                                     <button>Új Kutya Hozzáadása</button>
                                 </Link>
                             </div>
                         )}
+                        {session.isUser() && (
+                            <div className={`flex flex-row gap-5 max-md:flex-col max-md:gap-2.5 items-center`}>
+                                <table className={`userData`}>
+                                    <tbody>
+                                    <tr>
+                                        <td><b>Email:</b></td>
+                                        <td>[Email helye]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Tel:</b>
+                                        </td>
+                                        <td>
+                                            {!phoneEdit && "[Telefonszám helye]"
+                                            }
+                                            {phoneEdit && (
+                                                <>
+                                                    <form>
+                                                        <input type={"phone"} onSubmit={()=>{
+                                                            setPhoneEdit(false)
+                                                        }}/>
+                                                        <input type="submit" value={String.fromCodePoint(10003)}/>
+                                                        <input type={"reset"} value={"X"} onClick={() => {setPhoneEdit(false)}}/>
+                                                    </form>
+                                                </>
+                                            )}
+                                        </td>
+                                        <td className={"w-fit"}>
+                                            {!phoneEdit &&
+                                                (
+                                                    <button className={"w-fit h-fit p-0"}
+                                                            onClick={() => setPhoneEdit(true)}><Image
+                                                        src={"/edit-icon.png"}
+                                                        alt={"edit-icon"} width={30}
+                                                        height={30}/></button>
+                                                )}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
                     </div>
-                    {showRequests && (<div className={`card`}>
-                        <h2 className={"max-sm:text-center"}>{session.isAdmin() ? "Felhasználók által leadott kérvények:" : "Leadott kérvényeim:"}</h2>
-                        {session.isAdmin() ? <RequestListAdmin/> : <RequestListUser user_id={session.user?.id}/>}
-
-                    </div>)}
-                    {showUsers && session.isAdmin() && (
+                    {(session.isAdmin() && showRequests &&
+                            <RequestListAdmin/>
+                        )
+                        || (session.isAdmin() && showUsers && (
                             <UserList/>
+                        ))}
+                    {session.isUser() && (
+                        <RequestListUser user_id={session.user?.id}/>
                     )}
-
                 </>}
         </div>
     );

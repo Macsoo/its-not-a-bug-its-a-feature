@@ -23,36 +23,39 @@ export function RequestListUser({user_id}: {
     });
 
     return (
-        <div className={`tableContainer`}>
-        <table className="requestTable">
-            <thead>
-            <tr>
-                <th className={`min-w-[110px] max-w-[130px]`}>Kérelem leadásának ideje</th>
-                <th className={`min-w-[100px] man-w-[100px]`}>Kutya Neve</th>
-                <th className={`min-w-[110px] max-w-[200px]`}>Státusz</th>
-            </tr>
-            </thead>
-            <tbody>
-            {userRequests.map((request) => (
-                <tr key={request.id}>
-                    <td>{request.requestDate.toDateString()}</td>
-                    <td>
-                        <Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link>
-                    </td>
-                    <td>
-                        {request.approved === null
-                            ? 'Eredményre vár'
-                            : request.approved
-                                ? 'Elfogadva'
-                                : 'Elutasítva'}
-                    </td>
-                </tr>
-            ))}
-            </tbody>
-        </table></div>
+        <div className={"card"}>
+            <h2 className={"max-sm:text-center"}>Kérvényeim:</h2>
+            <div className={`tableContainer`}>
+                <table className="requestTable">
+                    <thead>
+                    <tr>
+                        <th className={`min-w-[110px] max-w-[130px]`}>Kérelem leadásának ideje</th>
+                        <th className={`min-w-[100px] man-w-[100px]`}>Kutya Neve</th>
+                        <th className={`min-w-[110px] max-w-[200px]`}>Státusz</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {userRequests.map((request) => (
+                        <tr key={request.id}>
+                            <td>{request.requestDate.toDateString()}</td>
+                            <td>
+                                <Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link>
+                            </td>
+                            <td>
+                                {request.approved === null
+                                    ? 'Eredményre vár'
+                                    : request.approved
+                                        ? 'Elfogadva'
+                                        : 'Elutasítva'}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }
-
 
 
 // RequestListAdmin Component
@@ -71,24 +74,25 @@ export function RequestListAdmin() {
         await approveRequest(id);
         setPendingRequests((prev) =>
             prev.map((request) =>
-                request.id === id ? { ...request, approved: true } : request
+                request.id === id ? {...request, approved: true} : request
             )
         );
-        setDialogState({ requestId: null, type: null });
+        setDialogState({requestId: null, type: null});
     };
 
     const handleReject = async (id: number) => {
         await rejectRequest(id);
         setPendingRequests((prev) =>
             prev.map((request) =>
-                request.id === id ? { ...request, approved: false } : request
+                request.id === id ? {...request, approved: false} : request
             )
         );
-        setDialogState({ requestId: null, type: null });
+        setDialogState({requestId: null, type: null});
     };
 
     return (
-        <>
+        <div className={"card"}>
+            <h2 className={"max-sm:text-center"}>Felhasználók által leadott kérvények:</h2>
             <div className={`tableContainer`}>
                 <table>
                     <thead>
@@ -175,6 +179,6 @@ export function RequestListAdmin() {
                     </tbody>
                 </table>
             </div>
-            </>
-            );
-            }
+        </div>
+    );
+}

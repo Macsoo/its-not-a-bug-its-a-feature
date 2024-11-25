@@ -335,3 +335,35 @@ input {
 .iconTd > button{
     @apply p-0 m-0 w-fit !important;
 }
+.userData {
+    @apply w-fit justify-self-start;
+}
+
+.userData td{
+    @apply p-0 pr-1.5;
+}
+.userData tr{
+    @apply h-[50px];
+}
+
+.userData input[type="submit"], .userData input[type="reset"] {
+    @apply w-[30px] h-[30px] mx-1.5 rounded-lg;
+}
+
+.userData input[type="submit"]{
+    @apply font-bold text-[#5b6439] bg-[#babb91] ml-2 mr-0;
+}
+
+.userData input[type="reset"]{
+    @apply text-[#fff3f0] bg-[#f0756d];
+}
+
+.userData input[type="submit"]:hover,
+.userData input[type="submit"]:active{
+    @apply text-[#bfcc8a] bg-[#6f7146];
+}
+
+.userData input[type="reset"]:hover,
+.userData input[type="reset"]:active{
+    @apply text-[#fcc1b7] bg-[#aa4241];
+}
