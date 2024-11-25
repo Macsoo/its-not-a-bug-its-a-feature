@@ -367,3 +367,11 @@ input {
 .userData input[type="reset"]:active{
     @apply text-[#fcc1b7] bg-[#aa4241];
 }
+
+#phone{
+    @apply px-0.5 w-[100px];
+}
+
+input::placeholder{
+    @apply text-textColor opacity-65;
+}

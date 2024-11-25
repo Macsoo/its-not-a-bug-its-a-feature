@@ -61,7 +61,7 @@ export default function AccountPage() {
                                             {phoneEdit && (
                                                 <>
                                                     <form>
-                                                        <input type={"phone"} onSubmit={()=>{
+                                                        +36-<input type="tel" id="phone" pattern="[0-9]{2} [0-9]{3} [0-9]{4}" placeholder={"20 123 456"} required onSubmit={()=>{
                                                             setPhoneEdit(false)
                                                         }}/>
                                                         <input type="submit" value={String.fromCodePoint(10003)}/>
