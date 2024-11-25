@@ -6,19 +6,18 @@ import {getUser} from "@/server/supabase";
 import React, {useState} from "react";
 import {Session, SessionContext} from "@/components/sessionContext";
 import {useServerAction} from "@/utils"
-import {useRouter} from "next/navigation";
 import {PopChat} from "@/components/chatUI";
+import {logOutUser} from "@/server/userRepository";
 
 export default function Layout(props: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | undefined>(undefined);
     useServerAction(async () => {
         setUser(await getUser());
     });
-    const router = useRouter();
 
-    const handleSignOut = () => {
-        //TODO: implement signOut function
-        router.push("/login")
+    const handleSignOut = async () => {
+        await logOutUser();
+        location.reload();
     }
 
     return <>

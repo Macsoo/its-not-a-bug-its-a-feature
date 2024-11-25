@@ -30,6 +30,14 @@ export async function logInUser(email: string, password: string): Promise<User |
     return data.user;
 }
 
+export async function logOutUser() {
+    const supabase = await createServer();
+    const error = await supabase.auth.signOut();
+    if (error) {
+        console.log(error);
+    }
+}
+
 export async function getAllUsers() {
     const prisma = getPrisma();
     return prisma.$transaction(async (trx) => {
@@ -45,6 +53,6 @@ export async function getAllUsers() {
             id: user.id,
             email: user.email as string,
             isAdmin: (user.raw_app_meta_data as JsonObject)?.admin === true,
-        }));
+        })).sort((a, b) => a.email.localeCompare(b.email));
     });
 }
