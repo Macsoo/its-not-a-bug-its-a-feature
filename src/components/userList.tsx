@@ -89,16 +89,21 @@ export default function UserList() {
                     <tr key={user.id}>
                         <td>{user.email}</td>
                         <td>
-                            <select
+                            {!params.editable && (
+                                <>
+                                    {user.isAdmin ? "Adminisztrátor" : "Felhasználó"}
+                                </>
+                            )}
+                            {params.editable && (<select
                                 className={`dogUpdateInput`}
-                                value={user.isAdmin ? "admin" : "user"}
+                                value={user.isAdmin ? "Adminisztrátor" : "Felhasználó"}
                                 onChange={(e) => {
-                                    e.target.value === 'admin' ? user.isAdmin = true : user.isAdmin = false
+                                    e.target.value === 'Adminisztrátor' ? user.isAdmin = true : user.isAdmin = false
                                 }}
                             >
-                                <option value="admin">Admin</option>
-                                <option value="user">User</option>
-                            </select>
+                                <option value="Adminisztrátor">Adminisztrátor</option>
+                                <option value="Felhasználó">Felhasználó</option>
+                            </select>)}
                         </td>
                         {params.editable && (
                             <td className={`deleteUserTD`}>

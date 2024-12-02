@@ -174,8 +174,15 @@ td {
 .dogUpdateInput {
     @apply border border-textColor p-0.5 bg-orange-50;
 }
+.tableContainer .dogUpdateInput{
+    @apply bg-white !important;
+}
 .form {
     @apply flex flex-row items-center p-2;
+}
+
+select{
+    @apply font-mono !important;
 }
 .dragAndDropContainer {
     @apply mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10;
@@ -289,8 +296,8 @@ link:visited:active {
 b {
     font-family: "Sour Gummy", sans-serif;
 }
-input {
-    @apply bg-cardBorderColor;
+input:not([type="button"]):not([type="submit"]):not([type="reset"]), textarea{
+    @apply font-mono text-sm bg-orange-50;
 }
 .login-register input[type="password"],
 .login-register input[type="email"] {
