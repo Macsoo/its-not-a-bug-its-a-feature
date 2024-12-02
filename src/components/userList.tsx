@@ -106,8 +106,8 @@ export default function UserList() {
                             </td>
                         )}
                         {!params.editable && (
-                            <td className={`deleteUserTD`}>
-                                <button/>
+                            <td className={"iconTd"}>
+                                <button>{String.fromCodePoint(128172)}</button>
                             </td>
                         )}
                     </tr>

@@ -193,7 +193,7 @@ td {
     @apply flex flex-wrap flex-row gap-6 pt-5;
 }
 #chatCon {
-    @apply w-[30%] sticky text-[black] left-[3%] bottom-[3%];
+    @apply w-[30%] fixed text-[black] left-[3%] bottom-[3%];
     @apply max-md:min-w-[80%] !important;
 }
 #chatCon .header {
