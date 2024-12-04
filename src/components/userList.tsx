@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {useServerAction} from "@/utils";
-import {getAllUsers} from "@/server/userRepository";
+import {deleteUser, getAllUsers, upgradeUser} from "@/server/userRepository";
 
 type User = {
     id: string,
@@ -12,18 +12,30 @@ type User = {
 
 export default function UserList() {
     const [editable, setEditable] = useState<boolean>(false);
-    const [users, setUsers] = useState<User[]>([])
+    const [users, setUsers] = useState<User[]>([]);
+    const [changedUsers, setChangedUsers] = useState<User[]>([]);
+    const [shouldDelete, setShouldDelete] = useState<User[]>([]);
 
     useServerAction(async () => {
         setUsers(await getAllUsers());
     })
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setEditable(false);
+        for (const user of changedUsers) {
+            if (!user.isAdmin) continue;
+            await upgradeUser(user.id);
+        }
+        for (const user of shouldDelete) {
+            await deleteUser(user.id);
+        }
+        setUsers(await getAllUsers());
     }
 
     const handleCancel = () => {
         setEditable(false);
+        setChangedUsers([]);
+        setShouldDelete([]);
     }
 
     return (
@@ -98,7 +110,8 @@ export default function UserList() {
                                 className={`dogUpdateInput`}
                                 value={user.isAdmin ? "Adminisztrátor" : "Felhasználó"}
                                 onChange={(e) => {
-                                    e.target.value === 'Adminisztrátor' ? user.isAdmin = true : user.isAdmin = false
+                                    e.target.value === 'Adminisztrátor' ? user.isAdmin = true : user.isAdmin = false;
+                                    setChangedUsers([...changedUsers.filter(u => u.id !== user.id), user]);
                                 }}
                             >
                                 <option value="Adminisztrátor">Adminisztrátor</option>
@@ -107,7 +120,13 @@ export default function UserList() {
                         </td>
                         {params.editable && (
                             <td className={`deleteUserTD`}>
-                                <input type="checkbox"/>
+                                <input type="checkbox" onClick={(e) => {
+                                    if (e.currentTarget.checked) {
+                                        setShouldDelete([...shouldDelete, user]);
+                                    } else {
+                                        setShouldDelete([...shouldDelete.filter(u => u.id !== user.id)]);
+                                    }
+                                }} checked={shouldDelete.includes(user)}/>
                             </td>
                         )}
                         {!params.editable && (
