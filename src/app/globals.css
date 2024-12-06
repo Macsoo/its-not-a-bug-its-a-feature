@@ -394,7 +394,7 @@ input::placeholder{
 }
 
 #filter select{
-    @apply w-full;
+    @apply w-full bg-orange-50 !important;
 }
 #filter label{
     @apply w-[40px] pr-3;

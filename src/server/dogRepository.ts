@@ -141,3 +141,35 @@ export async function addPictures(dogId: number, picturesPath: string[]): Promis
         await Promise.all(picturePromises);
     });
 }
+
+export async function getBreeds(): Promise<string[]> {
+    const prisma = getPrisma();
+    return prisma.$transaction(async (trx) => {
+        const breeds = await trx.dog.findMany({
+            where: {
+                adopted: false,
+            },
+            select: {
+                breed: true,
+            },
+            distinct: ['breed'],
+        });
+        return breeds.map((dog) => dog.breed);
+    });
+}
+
+export async function getAges(): Promise<number[]> {
+    const prisma = getPrisma();
+    return prisma.$transaction(async (trx) => {
+        const breeds = await trx.dog.findMany({
+            where: {
+                adopted: false,
+            },
+            select: {
+                age: true,
+            },
+            distinct: ['age'],
+        });
+        return breeds.map((dog => dog.age)).sort((a,b)=>a-b);
+    });
+}
