@@ -49,14 +49,14 @@ export default function AccountPage() {
                                     <tbody>
                                     <tr>
                                         <td><b>Email:</b></td>
-                                        <td>[Email helye]</td>
+                                        <td>{session.user?.email}</td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <b>Tel:</b>
                                         </td>
                                         <td>
-                                            {!phoneEdit && "[Telefonszám helye]"
+                                            {!phoneEdit && session.user?.phone?.length == 0 ? "Nincs megadva." : session.user?.phone
                                             }
                                             {phoneEdit && (
                                                 <>
