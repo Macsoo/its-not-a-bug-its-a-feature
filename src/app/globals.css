@@ -18,7 +18,8 @@
         background: #df9348;
     }
     button,
-    input[type="button"] {
+    input[type="button"],
+    #search {
         @apply text-[#fdedd1];
         @apply py-1 px-2.5 rounded-lg m-2.5 w-32 content-center;
         background: #e5a55f;
@@ -57,7 +58,9 @@ body {
 button:hover,
 button:active,
 input[type="button"]:hover,
-input[type="button"]:active {
+input[type="button"]:active,
+#search:hover,
+#search:active {
     @apply text-[#fdc754];
     background: #c67839;
 }
@@ -381,4 +384,22 @@ input:not([type="button"]):not([type="submit"]):not([type="reset"]), textarea{
 
 input::placeholder{
     @apply text-textColor opacity-65;
+}
+
+#filter{
+    @apply flex flex-row gap-5 items-center max-lg:flex-col;
+}
+#filter > div{
+@apply flex flex-row w-1/4 max-sm:w-10/12 max-lg:w-1/2;
+}
+
+#filter select{
+    @apply w-full;
+}
+#filter label{
+    @apply w-[40px] pr-3;
+}
+
+#filter input[type="submit"]{
+    @apply m-0 !important;
 }
