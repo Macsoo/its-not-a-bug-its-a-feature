@@ -138,12 +138,16 @@ export const PopChat: FC<PopChatProps> = ({user_id}: PopChatProps) => {
 function Messages(params: { messagesToShow: Messages[] }) {
     return (
         <>
-            {params.messagesToShow.map((msg, i) => (
-                <p key={i} className={msg.fromUser === NIL_UUID ? "right" : "left"}>
-                    <span>{msg.createdAt.toISOString()}</span>
-                    <span>{msg.message}</span>
-                </p>
-            ))}
+            {params.messagesToShow.map((msg, i) => {
+                const date = new Date(msg.createdAt);
+                const formattedDate = `${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")}/${date.getFullYear().toString().slice(2)} - ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+
+                return (
+                    <p key={i} className={msg.fromUser === NIL_UUID ? "right" : "left"}>
+                        <span>{msg.message} <p>{formattedDate}</p></span>
+                    </p>
+                );
+            })}
         </>
-    )
+    );
 }

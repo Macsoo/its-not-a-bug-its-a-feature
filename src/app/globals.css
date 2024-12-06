@@ -212,11 +212,19 @@ select{
 .msg-area {
     @apply overflow-auto max-h-[330px] p-[5px] rounded-[10px];
 }
+#chatCon span{
+    @apply w-10/12;
+}
+
+#chatCon p{
+    @apply w-full text-right text-xs text-gray-600 m-0 !important;
+}
+
 #chatCon .left > span {
-    @apply inline-block text-[17.5px] bg-[#d8d8d8] max-w-[80%] p-2.5 rounded-[15px];
+    @apply inline-block text-[17.5px] bg-[#d8d8d8] max-w-[80%] p-2.5 rounded-[15px] text-black text-left;
 }
 #chatCon .right {
-    @apply text-right;
+    @apply text-right text-black;
 }
 #chatCon .right > span {
     @apply inline-block text-[white] text-[17.5px] text-left max-w-[80%] p-2.5 rounded-[15px];
