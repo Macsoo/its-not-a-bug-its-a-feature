@@ -1,5 +1,5 @@
 import DogCard from "@/components/dogCard";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Dog, DogImage} from "@prisma/client";
 import {useServerAction} from "@/utils";
 import {getAges, getBreeds, listAllDogs} from "@/server/dogRepository";
@@ -62,7 +62,7 @@ export default function DogList() {
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchDogs();
+        fetchDogs().then();
     };
 
     const handleClearFilters = () => {
@@ -72,7 +72,7 @@ export default function DogList() {
             gender: "null",
         };
         setFilters(defaultFilters);
-        fetchDogs(defaultFilters);
+        fetchDogs(defaultFilters).then();
     };
 
     return (
