@@ -47,6 +47,10 @@ export default function DogUpdate({params}: { params: { dog_id: string } }) {
                                 <td className={`w-16`}><b>Nem:</b></td>
                                 <td>{dog.gender === 'Male' ? 'Hím' : 'Nőstény'}</td>
                             </tr>
+                            <tr>
+                                <td><b>Fajta:</b></td>
+                                <td>{dog.breed}</td>
+                            </tr>
                             </tbody>
                         </table>
                         <p>{dog.description}</p>

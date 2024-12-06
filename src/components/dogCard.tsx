@@ -36,6 +36,10 @@ export default function DogCard({dog, dogImage}:{dog:Dog, dogImage: DogImage}) {
                             <td><b>Nem:</b></td>
                             <td>{dog.gender === 'Male' ? 'Hím' : 'Nőstény'}</td>
                         </tr>
+                        <tr>
+                            <td><b>Fajta:</b></td>
+                            <td>{dog.breed}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
