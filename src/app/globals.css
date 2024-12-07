@@ -156,6 +156,17 @@ td {
     @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-2.5 w-9 h-9 content-center !important;
     background: #f0756d !important;
 }
+
+.x-buttonWide:hover,
+.x-buttonWide:active{
+    @apply text-[#fcc1b7] !important;
+    background: #aa4241 !important;
+}
+.x-buttonWide{
+    @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-auto w-[250px] h-8 content-center !important;
+    background: #f0756d !important;
+}
+
 .tableContainer > table {
     @apply w-full whitespace-nowrap border-collapse text-center max-md:text-[12px] !important;
 }
@@ -201,66 +212,6 @@ select{
 }
 .uploadImageContainer {
     @apply flex flex-wrap flex-row gap-6 pt-5;
-}
-#chatCon {
-    @apply w-[30%] fixed text-[black] left-[3%] bottom-[3%];
-    @apply max-md:min-w-[80%] !important;
-}
-#chatCon .header {
-    @apply bg-[#3fda73] text-white text-xl p-[15px] rounded-[20px_20px_0_0];
-}
-.msg-area {
-    @apply overflow-auto max-h-[330px] p-[5px] rounded-[10px];
-}
-#chatCon span{
-    @apply w-10/12;
-}
-
-#chatCon p{
-    @apply w-full text-right text-xs text-gray-600 m-0 !important;
-}
-
-#chatCon .left > span {
-    @apply inline-block text-[17.5px] bg-[#d8d8d8] max-w-[80%] p-2.5 rounded-[15px] text-black text-left;
-}
-#chatCon .right {
-    @apply text-right text-black;
-}
-#chatCon .right > span {
-    @apply inline-block text-[white] text-[17.5px] text-left max-w-[80%] p-2.5 rounded-[15px];
-    background: #3fda73;
-}
-#chatCon .footer {
-    @apply inline-flex;
-}
-#chatCon .footer > input {
-    @apply border w-4/5 p-2.5 rounded-[15px] border-solid border-white bg-white;
-}
-#chatCon .footer > input:focus {
-    outline: none;
-}
-#chatCon .footer > button {
-    @apply text-[22.5px] bg-[lightgreen] text-[darkgreen] cursor-pointer border-[none];
-}
-#chatCon .pop {
-    @apply w-full h-1/4 cursor-pointer;
-}
-#chatCon .pop p {
-    @apply text-right;
-}
-#chatCon .pop img {
-    @apply w-3/12 rounded-[50%];
-}
-#chatCon .user-area {
-    @apply flex flex-col items-start justify-start gap-[5px] overflow-auto max-h-[330px] p-[5px] rounded-[10px];
-}
-#chatCon .user:nth-child(even) {
-    @apply text-[white] w-full p-2.5 rounded-[10px];
-    background: #3fda73;
-}
-#chatCon .user:nth-child(odd) {
-    @apply text-[white] w-full m-auto p-2.5 rounded-[10px];
-    background: #1f8140;
 }
 #gdpr {
     @apply relative;
@@ -410,4 +361,70 @@ input::placeholder{
 
 #filter input[type="submit"]{
     @apply m-0 !important;
+}
+
+#chatCon {
+    @apply w-[30%] fixed text-[black] left-[3%] bottom-[3%];
+    @apply max-md:min-w-[80%] !important;
+}
+#chatCon .header {
+    @apply bg-[#3fda73] text-white text-xl p-[15px] rounded-[20px_20px_0_0];
+}
+.msg-area {
+    @apply overflow-auto max-h-[330px] p-[5px] rounded-[10px];
+}
+#chatCon span{
+    @apply w-10/12;
+}
+
+#chatCon p{
+    @apply w-full text-right text-xs text-gray-600 m-0 !important;
+}
+
+#chatCon .left > span {
+    @apply inline-block text-[17.5px] bg-[#d8d8d8] max-w-[80%] p-2.5 rounded-[15px] text-black text-left;
+}
+#chatCon .right {
+    @apply text-right text-black;
+}
+#chatCon .right > span {
+    @apply inline-block text-[white] text-[17.5px] text-left max-w-[80%] p-2.5 rounded-[15px];
+    background: #3fda73;
+}
+#chatCon .footer {
+    @apply inline-flex;
+}
+#chatCon .footer > input {
+    @apply border w-4/5 p-2.5 rounded-[15px] border-solid border-white bg-white;
+}
+#chatCon .footer > input:focus {
+    outline: none;
+}
+#chatCon .footer > button {
+    @apply text-[22.5px] bg-[lightgreen] text-[darkgreen] cursor-pointer border-[none];
+}
+#chatCon .pop {
+    @apply w-full h-1/4 cursor-pointer;
+}
+#chatCon .pop p {
+    @apply text-right;
+}
+#chatCon .pop img {
+    @apply w-3/12 rounded-[50%];
+}
+#chatCon .user-area {
+    @apply flex flex-col items-start justify-start gap-[5px] overflow-auto max-h-[330px] p-[5px] rounded-[10px];
+}
+#chatCon .user:nth-child(even) {
+    @apply text-[white] w-full p-2.5 rounded-[10px];
+    background: #3fda73;
+}
+#chatCon .user:nth-child(odd) {
+    @apply text-[white] w-full m-auto p-2.5 rounded-[10px];
+    background: #1f8140;
+}
+
+.chatBoxNonPop {
+    position: inherit !important;
+    @apply max-lg:w-full my-1.5 m-auto !important;
 }

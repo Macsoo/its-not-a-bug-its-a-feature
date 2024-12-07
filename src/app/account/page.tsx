@@ -9,6 +9,7 @@ import Link from "next/link";
 import UserList from "@/components/userList";
 import Image from "next/image";
 
+
 export default function AccountPage() {
     const router = useRouter();
     const session = useContext(SessionContext);
@@ -89,9 +90,10 @@ export default function AccountPage() {
                     {(session.isAdmin() && showRequests &&
                             <RequestListAdmin/>
                         )
-                        || (session.isAdmin() && showUsers && (
-                            <UserList/>
-                        ))}
+                        || (session.isAdmin() && (
+                            <UserList show={showUsers}/>
+                        ))
+                    }
                     {session.isUser() && (
                         <RequestListUser user_id={session.user?.id}/>
                     )}

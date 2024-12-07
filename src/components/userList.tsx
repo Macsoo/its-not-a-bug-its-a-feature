@@ -3,6 +3,7 @@
 import React, {useState} from "react";
 import {useServerAction} from "@/utils";
 import {deleteUser, getAllUsers, upgradeUser} from "@/server/userRepository";
+import {PopChat} from "@/components/chatUI";
 
 type User = {
     id: string,
@@ -10,11 +11,15 @@ type User = {
     isAdmin: boolean,
 }
 
-export default function UserList() {
+export default function UserList(params: { show: boolean }) {
     const [editable, setEditable] = useState<boolean>(false);
     const [users, setUsers] = useState<User[]>([]);
     const [changedUsers, setChangedUsers] = useState<User[]>([]);
     const [shouldDelete, setShouldDelete] = useState<User[]>([]);
+    const [chatId, setChatId] = useState<string>("");
+    const [contact, setContact] = useState<string>("");
+
+    const [showChat, setShowChat] = useState<boolean>(false);
 
     useServerAction(async () => {
         setUsers(await getAllUsers());
@@ -40,7 +45,20 @@ export default function UserList() {
 
     return (
         <div className="card">
-            {!editable && (
+            {showChat && (
+                <div className={`flex flex-col gap-2.5`}>
+                    <button
+                        className={`x-buttonWide m-auto`}
+                        onClick={() => setShowChat(false)}
+                    >Chat Bezárása
+                    </button>
+                    <div>
+                        <PopChat user_id={chatId} pops={false} contact={contact}></PopChat>
+                    </div>
+                </div>
+
+            )}
+            {params.show && !editable && (
                 <div className={`sm:grid`}>
                     <h2 className={`pt-2 sm:col-[1] sm:row-[1] max-sm:text-center`}> Felhasználók kezelése: </h2>
                     <button
@@ -64,7 +82,7 @@ export default function UserList() {
                     </div>
                 </div>
             )}
-            {editable && (
+            {params.show && editable && (
                 <form className={`sm:grid`} onSubmit={handleSubmit}>
                     <h2 className={`pt-2 sm:col-[1] sm:row-[1] max-sm:text-center`}> Felhasználók kezelése: </h2>
                     <div
@@ -131,7 +149,11 @@ export default function UserList() {
                         )}
                         {!params.editable && (
                             <td className={"iconTd"}>
-                                <button>{String.fromCodePoint(128172)}</button>
+                                <button onClick={() => {
+                                    setShowChat(true)
+                                    setChatId(user.id)
+                                    setContact(user.email)
+                                }}>{String.fromCodePoint(128172)}</button>
                             </td>
                         )}
                     </tr>

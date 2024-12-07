@@ -1,14 +1,15 @@
 'use client';
-import React, {FC, KeyboardEventHandler, useContext, useEffect, useRef, useState} from 'react'
+import React, {FC, KeyboardEventHandler, useEffect, useRef, useState} from 'react'
 import "@/app/globals.css";
 import Image from "next/image";
-import {SessionContext} from "@/components/sessionContext";
 import {getAllMessagesFromUser, sendMessage} from "@/server/chatRepository";
 import {NIL as NIL_UUID} from 'uuid';
 import {useServerAction} from "@/utils";
 
 interface PopChatProps {
     user_id: string;
+    pops: boolean;
+    contact: string;
 }
 
 type Messages = {
@@ -18,7 +19,7 @@ type Messages = {
     createdAt: Date;
 }
 
-export const PopChat: FC<PopChatProps> = ({user_id}: PopChatProps) => {
+export const PopChat: FC<PopChatProps> = ({ user_id, pops, contact}) => {
     const hide = {display: 'none'};
     const show = {
         display: 'flex',
@@ -32,9 +33,8 @@ export const PopChat: FC<PopChatProps> = ({user_id}: PopChatProps) => {
         background: '#eee',
     };
     const textRef = useRef<HTMLInputElement | null>(null);
-    const [chatOpen, setChatOpen] = useState<boolean>(false);
+    const [chatOpen, setChatOpen] = pops ? useState<boolean>(false) : useState<boolean>(true);
     const [messages, setMessages] = useState<Messages[]>([]);
-    const session = useContext(SessionContext);
     const messagesEndRef = useRef<null | HTMLDivElement>(null)
 
     const enterPress: KeyboardEventHandler = (e) => {
@@ -103,9 +103,9 @@ export const PopChat: FC<PopChatProps> = ({user_id}: PopChatProps) => {
 
     return (
         <>
-            <div id="chatCon">
+            <div id="chatCon" className={`${!pops ? "chatBoxNonPop" : ""}`}>
                 <div className={"chatBox"} style={chatOpen ? show : hide}>
-                    <div className={"header"}>{session.isUser() ? "Admin" : "Chats"}</div>
+                    <div className={"header"}>{contact}</div>
                     <div className={`h-full bg-[#e4e4e4] rounded-lg mt-3 mb-3`}>
                         <div className={`msg-area`}>
                             <Messages messagesToShow={messages}></Messages>
@@ -119,7 +119,7 @@ export const PopChat: FC<PopChatProps> = ({user_id}: PopChatProps) => {
                         </button>
                     </div>
                 </div>
-                {(<div className={"pop"}>
+                {pops && (<div className={"pop"}>
                     <p>
                         <Image
                             onClick={toggle}
@@ -142,6 +142,7 @@ function Messages(params: { messagesToShow: Messages[] }) {
                 const date = new Date(msg.createdAt);
                 const formattedDate = `${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")}/${date.getFullYear().toString().slice(2)} - ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 
+                //TODO: fix css class on messages
                 return (
                     <p key={i} className={msg.fromUser === NIL_UUID ? "right" : "left"}>
                         <span>{msg.message} <p>{formattedDate}</p></span>
