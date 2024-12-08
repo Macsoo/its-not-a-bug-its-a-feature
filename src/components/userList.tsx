@@ -53,7 +53,7 @@ export default function UserList(params: { show: boolean }) {
                             onClick={() => setShowChat(false)}
                         >Chat Bezárása
                         </button>
-                        <PopChat user_id={chatId} pops={false} contact={contact}></PopChat>
+                        <PopChat user_id={chatId} pops={showChat} contact={contact}></PopChat>
                     </div>
                 </div>
             )}
