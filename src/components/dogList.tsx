@@ -110,7 +110,7 @@ export default function DogList() {
                         </select>
                     </div>
                     <div className={`flex justify-center items-center flex-row`}>
-                        <input id="search" type="submit" value="Keresés"/>
+                        <input id="search" type="submit" value="Szűrés"/>
                         <input type="button" value="Mégsem" onClick={handleClearFilters}/>
                     </div>
                 </form>
