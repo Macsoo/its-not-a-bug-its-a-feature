@@ -104,7 +104,7 @@ export const PopChat: FC<PopChatProps> = ({user_id, pops, contact, is_admin}) =>
                 <div className={"header"}>{contact}
                 </div>
                 <div className={`msg-area`}>
-                    <Messages messagesToShow={messages}></Messages>
+                    <Messages messagesToShow={messages} isAdmin={is_admin}></Messages>
                     <div ref={messagesEndRef}/>
                 </div>
                 <div className={"footer"}>
@@ -132,7 +132,7 @@ export const PopChat: FC<PopChatProps> = ({user_id, pops, contact, is_admin}) =>
     );
 };
 
-function Messages(params: { messagesToShow: Messages[] }) {
+function Messages(params: { messagesToShow: Messages[], isAdmin: boolean }) {
     return (
         <>
             {params.messagesToShow.map((msg, i) => {
@@ -140,8 +140,14 @@ function Messages(params: { messagesToShow: Messages[] }) {
                 const formattedDate = `${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")}/${date.getFullYear().toString().slice(2)} - ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 
                 //TODO: fix css class on messages
+                if (params.isAdmin)
+                    return (
+                        <p key={i} className={msg.fromUser === NIL_UUID ? "right" : "left"}>
+                            <span>{msg.message} <p>{formattedDate}</p></span>
+                        </p>
+                    );
                 return (
-                    <p key={i} className={msg.fromUser === NIL_UUID ? "right" : "left"}>
+                    <p key={i} className={msg.fromUser === NIL_UUID ? "left" : "right"}>
                         <span>{msg.message} <p>{formattedDate}</p></span>
                     </p>
                 );
