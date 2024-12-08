@@ -433,7 +433,7 @@ input::placeholder {
 
 #chatCon .header {
     height: 50px;
-    @apply bg-[#3fda73] text-white text-xl py-1 px-[15px] rounded-[20px_20px_0_0] overflow-x-auto;
+    @apply bg-[#3fda73] text-white text-xl py-1 px-[15px] rounded-[20px_20px_0_0];
 }
 
 

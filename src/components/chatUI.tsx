@@ -101,8 +101,7 @@ export const PopChat: FC<PopChatProps> = ({user_id, pops, contact, is_admin}) =>
     return (
         <div id="chatCon" className={`${!pops ? "chatBoxNonPop" : ""}`}>
             <div id={`${!pops ? "adminChat" : ""}`} className={"chatBox"} style={chatOpen ? show : hide}>
-                <div className={"header"}>{contact}
-                </div>
+                <div className={"header"}>{contact}</div>
                 <div className={`msg-area`}>
                     <Messages messagesToShow={messages} isAdmin={is_admin}></Messages>
                     <div ref={messagesEndRef}/>
