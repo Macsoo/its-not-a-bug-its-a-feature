@@ -74,7 +74,8 @@ export default function AccountPage() {
                                             <b>Tel:</b>
                                         </td>
                                         <td>
-                                            {!phoneEdit && phone.length == 0 ? "Nincs megadva." : phone}
+                                            {!phoneEdit && phone.length === 0 && "Nincs megadva."}
+                                            {!phoneEdit && phone.length > 0 && phone}
                                             {phoneEdit && (
                                                 <>
                                                     <form onSubmit={async (e) => {
