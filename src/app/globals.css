@@ -442,18 +442,21 @@ input::placeholder {
 }
 
 #chatCon p {
-    @apply w-full text-right max-lg:text-xs text-gray-600 m-0 !important;
+    @apply w-full max-lg:text-xs text-gray-600 m-0 !important;
+}
+.left{
+ @apply m-0;
 }
 
-#chatCon .left > span {
+.left > span {
     @apply inline-block text-[15px] bg-[#d8d8d8] max-w-[80%] p-2.5 rounded-[15px] text-black text-left;
 }
 
-#chatCon .right {
+.right {
     @apply text-right text-black;
 }
 
-#chatCon .right > span {
+.right > span {
     @apply inline-block text-[white] text-[15px] text-left max-w-[80%] p-2.5 rounded-[15px];
     background: #3fda73;
 }
