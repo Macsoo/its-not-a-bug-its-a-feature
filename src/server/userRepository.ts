@@ -74,3 +74,11 @@ export async function deleteUser(user_id: string) {
     const { error } = await supabase.rpc('delete_user', { user_id });
     if (error !== null) return Promise.reject(error);
 }
+
+export async function changeUserPhone(user_id: string, phone_number: string) {
+    const supabase = await createServer();
+    const { data: { user }, error: user_error } = await supabase.auth.getUser();
+    if (user === null || user_error !== null) return Promise.reject("NOT LOGGED IN");
+    const { error } = await supabase.rpc('user_change_phone', { user_id, phone_number });
+    if (error !== null) return Promise.reject(error);
+}

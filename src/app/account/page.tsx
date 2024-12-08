@@ -2,12 +2,15 @@
 import "../globals.css";
 
 import {RequestListAdmin, RequestListUser} from "@/components/requestList";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {SessionContext} from "@/components/sessionContext";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 import UserList from "@/components/userList";
 import Image from "next/image";
+import {changeUserPhone} from "@/server/userRepository";
+import {getUser} from "@/server/supabase";
+import {useServerAction} from "@/utils";
 
 
 export default function AccountPage() {
@@ -17,7 +20,21 @@ export default function AccountPage() {
     const [showRequests, setShowRequests] = useState<boolean>(false);
     const [showUsers, setShowUsers] = useState<boolean>(false);
 
+    const [phone, setPhone] = useState("");
     const [phoneEdit, setPhoneEdit] = useState<boolean>(false);
+
+    useServerAction(async () => {
+        setPhone(session.user?.phone ?? "");
+    });
+
+    useEffect(() => {
+        (async () => {
+            if (phoneEdit) return;
+            const user = await getUser();
+            if (user === undefined) return;
+            setPhone(session.user?.phone ?? "");
+        })();
+    }, [phoneEdit, session]);
 
     if (!session.isSignedIn())
         router.push('/login');
@@ -57,14 +74,16 @@ export default function AccountPage() {
                                             <b>Tel:</b>
                                         </td>
                                         <td>
-                                            {!phoneEdit && session.user?.phone?.length == 0 ? "Nincs megadva." : session.user?.phone
-                                            }
+                                            {!phoneEdit && phone.length == 0 ? "Nincs megadva." : phone}
                                             {phoneEdit && (
                                                 <>
-                                                    <form>
-                                                        +36-<input type="tel" id="phone" pattern="[0-9]{2} [0-9]{3} [0-9]{4}" placeholder={"20 123 456"} required onSubmit={()=>{
-                                                            setPhoneEdit(false)
-                                                        }}/>
+                                                    <form onSubmit={async (e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        await changeUserPhone(session.user!.id, "+36-" + (e.currentTarget.querySelector("#phone") as HTMLInputElement).value);
+                                                        setPhoneEdit(false);
+                                                    }}>
+                                                        +36-<input type="tel" id="phone" pattern="[0-9]{2} [0-9]{3} [0-9]{4}" placeholder={"20 123 4567"} required/>
                                                         <input type="submit" value={String.fromCodePoint(10003)}/>
                                                         <input type={"reset"} value={"X"} onClick={() => {setPhoneEdit(false)}}/>
                                                     </form>
