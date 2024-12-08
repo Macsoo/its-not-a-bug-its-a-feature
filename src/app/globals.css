@@ -76,7 +76,7 @@ input[type="button"]:active,
     background: #f7d6a8;
 }
 .card-dog {
-    @apply text-textColor m-auto md:p-5 p-2 rounded-lg items-center gap-5 w-full flex flex-col justify-around text-center md:flex-row;
+    @apply text-textColor m-auto md:p-5 p-2 rounded-lg items-center gap-5 w-full flex max-lg:flex-col justify-around text-center flex-row;
     background: #fcedd1;
 }
 .card-dog #dog-text {
@@ -195,23 +195,32 @@ td {
     @apply flex flex-row items-center p-2;
 }
 
+.dogForm{
+    @apply flex flex-row items-center p-2 max-lg:flex-col max-lg:items-start;
+}
+
 select{
     @apply font-mono !important;
 }
 .dragAndDropContainer {
-    @apply mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10;
+    @apply mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10 max-lg:px-0.5 pb-10 h-fit;
 }
 .imageUpload {
     @apply col-[1] row-[1] w-full border-textColor border-2 rounded-[3px];
     object-fit: cover;
     object-position: center;
 }
+
 .hiddenXButton {
     @apply z-10;
     @apply hidden col-[1] row-[1] box-border  h-full w-full;
 }
 .uploadImageContainer {
-    @apply flex flex-wrap flex-row gap-6 pt-5;
+    @apply flex flex-wrap flex-row gap-6 pt-5 max-lg:flex-col max-lg:items-center m-auto;
+}
+
+.uploadImagesCon {
+    @apply inline-flex min-w-[150px] min-h-[150px] items-center;
 }
 #gdpr {
     @apply relative;
