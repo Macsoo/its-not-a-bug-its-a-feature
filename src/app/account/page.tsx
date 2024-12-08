@@ -81,8 +81,10 @@ export default function AccountPage() {
                                                     <form onSubmit={async (e) => {
                                                         e.preventDefault();
                                                         e.stopPropagation();
-                                                        await changeUserPhone(session.user!.id, "+36-" + (e.currentTarget.querySelector("#phone") as HTMLInputElement).value);
+                                                        const phoneVal = "+36-" + (e.currentTarget.querySelector("#phone") as HTMLInputElement).value;
+                                                        await changeUserPhone(session.user!.id, phoneVal);
                                                         setPhoneEdit(false);
+                                                        setPhone(phoneVal);
                                                     }}>
                                                         +36-<input type="tel" id="phone" pattern="[0-9]{2} [0-9]{3} [0-9]{4}" placeholder={"20 123 4567"} required/>
                                                         <input type="submit" value={String.fromCodePoint(10003)}/>
