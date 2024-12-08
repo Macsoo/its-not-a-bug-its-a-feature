@@ -86,7 +86,7 @@ export default function Layout(props: { children: React.ReactNode }) {
         </div>
         {
             user && user.app_metadata["admin"] !== true && (
-                <PopChat user_id={user.id} pops={true} contact={"Admin"}/>)
+                <PopChat user_id={user.id} pops={true} contact={"Admin"} is_admin={false}/>)
         }
     </>;
 }

@@ -10,6 +10,7 @@ interface PopChatProps {
     user_id: string;
     pops: boolean;
     contact: string;
+    is_admin: boolean;
 }
 
 type Messages = {
@@ -19,7 +20,7 @@ type Messages = {
     createdAt: Date;
 }
 
-export const PopChat: FC<PopChatProps> = ({user_id, pops, contact}) => {
+export const PopChat: FC<PopChatProps> = ({user_id, pops, contact, is_admin}) => {
     const hide = {display: 'none'};
     const show = {
         padding: '0.625rem',
@@ -91,7 +92,7 @@ export const PopChat: FC<PopChatProps> = ({user_id, pops, contact}) => {
     const handleSend = () => {
         if (textRef.current) {
             if (textRef.current.value === '') return;
-            sendMessage(user_id, NIL_UUID, textRef.current.value);
+            sendMessage(is_admin ? NIL_UUID : user_id, is_admin ? user_id : NIL_UUID, textRef.current.value);
             textRef.current.value = '';
             updateChat();
         }
