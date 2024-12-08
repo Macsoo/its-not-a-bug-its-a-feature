@@ -2,6 +2,7 @@
 import "../globals.css";
 
 import React, { useState, useEffect } from 'react';
+import dynamic from "next/dynamic";
 
 const ResponsiveTable = () => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
@@ -98,6 +99,10 @@ const ResponsiveTable = () => {
     );
 };
 
+const DynamicTable = dynamic(async () => ({
+    default: ResponsiveTable
+}), { ssr: false });
+
 export default function AboutPage() {
     return (
         <div className="content">
@@ -109,7 +114,7 @@ export default function AboutPage() {
                     találnak. Személyzetünk minden nap azon dolgozik, hogy a menhelyen élő kutyáknak a lehető legjobb
                     ellátást nyújtsuk, valamint hogy a felelős örökbefogadás fontosságára felhívjuk a figyelmet.
                 <h2 className={`text-center`}>Kapcsolat</h2>
-                <ResponsiveTable/>
+                <DynamicTable/>
                 <p className={`text-center`}>
                     Látogass el hozzánk, ha örökbefogadnál egy hűséges társat, vagy ha szeretnél többet megtudni
                     arról, hogyan segíthetsz a rászoruló állatokon!<br/> és érdeklődésedet előre is köszönjük!
