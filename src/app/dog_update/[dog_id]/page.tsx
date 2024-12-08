@@ -19,7 +19,7 @@ import {SessionContext} from "@/components/sessionContext";
 
 function Error({error}: { error?: string }) {
     if (error) {
-        return <div className={`error text-center pt-5`}>{error}</div>
+        return <span className={`error pl-8 max-lg:pl-0`}>Hiba: {error}</span>
     } else {
         return null;
     }
@@ -273,7 +273,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                 <div {...getRootProps()}>
                                     <input {...getInputProps()} />
                                     <div className={`flex flex-col justify-center items-center m-auto`}>
-                                        <p className={`font-bold max-lg:text-center`}> <b> Képek feltöltése:</b></p>
+                                        <p className={`font-bold max-lg:text-center`}><b> Képek feltöltése:</b></p>
                                         {isDragActive ?
                                             <p className={`italic text-sm text-center`}>Húzza ide a fájlokat ...</p> :
                                             <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy
@@ -284,8 +284,10 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     {imageFiles.map(file => {
                                         switch (file.onSend) {
                                             case SubmitAction.UPLOAD:
-                                                return <div key={file.dataUri} className={`uploadImagesCon relative ${file.isPrimary ? " primaryImage" : ""}`}>
-                                                    <div className={`grid w-full h-full`} onMouseEnter={mouseEnterHandler}
+                                                return <div key={file.dataUri}
+                                                            className={`uploadImagesCon relative ${file.isPrimary ? " primaryImage" : ""}`}>
+                                                    <div className={`grid w-full h-full`}
+                                                         onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <Image src={file.dataUri} alt="Upload preview"
                                                                className={`imageUpload`} fill/>
@@ -293,20 +295,24 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    className={"x-button"} value={"X"}/>
                                                             <input type={"button"} className={"primaryButton"}
-                                                                   value={String.fromCodePoint(128054)} onClick={setPrimary(file)}></input>
+                                                                   value={String.fromCodePoint(128054)}
+                                                                   onClick={setPrimary(file)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
                                             case SubmitAction.NOTHING:
-                                                return <div key={file.url} className={`uploadImagesCon relative ${file.isPrimary ? " primaryImage" : ""}`}>
-                                                    <div className={`grid w-full h-full`} onMouseEnter={mouseEnterHandler}
+                                                return <div key={file.url}
+                                                            className={`uploadImagesCon relative ${file.isPrimary ? " primaryImage" : ""}`}>
+                                                    <div className={`grid w-full h-full`}
+                                                         onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <DogPicture src={file.url} className={`imageUpload`} fill/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    className={"x-button"} value={"X"}/>
                                                             <input type={"button"} className={"primaryButton"}
-                                                                   value={String.fromCodePoint(128054)} onClick={setPrimary(file)}></input>
+                                                                   value={String.fromCodePoint(128054)}
+                                                                   onClick={setPrimary(file)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -317,7 +323,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                 </div>
                             </div>
 
-                            <Error error={pictureError}/>
+                            <div className={"w-full flex items-center justify-center"}><Error error={pictureError}/>
+                            </div>
 
                             <div className={`flex flex-row items-center justify-center max-lg:flex-col`}>
                                 <input id={`updateDog`} type="submit" value={"Frissítés"}/>

@@ -269,7 +269,8 @@ export default function AddDog() {
                         </div>
                     </div>
 
-                    <Error error={pictureError}/>
+                    <div className={"w-full flex items-center justify-center"}><Error error={pictureError}/></div>
+
 
                     <div className={`mt-10 flex flex-row items-center justify-center`}>
                         <input id={`updateDog`} type="submit" value={"Hozzáadás"}/>
