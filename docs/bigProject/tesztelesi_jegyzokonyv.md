@@ -45,44 +45,44 @@
 |---------------------------|----------------------------------|
 | Verzió: 2.0               | Kliens: Lakatos Brendon Menhelye |
 
-| Teszteset | Várt eredmény | Kapott eredmény | Sikeres | Hibaüzenet | Megjegyzés |
-|-----------|---------------|-----------------|---------|------------|------------|
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
-|           |               |                 |         |            |            |
+| Teszteset                                | Várt eredmény                                                                  | Kapott eredmény                                      | Sikeres | Hibaüzenet | Megjegyzés                                                                                |
+|------------------------------------------|--------------------------------------------------------------------------------|------------------------------------------------------|---------|------------|-------------------------------------------------------------------------------------------|
+| Update dog profile                       | The already existing data is loaded in when updating a dog                     | The dog data loaded in                               | True    | None       |                                                                                           |
+| Chat is not showing up for admin users   | The chat bubble what is showing up for regular users not showing up for admins | Chat bubble only shows up for single users logged in | True    | None       |                                                                                           |
+| Chat refresh                             | The chat refreshes in reasonable time                                          | The chat refreshes                                   | True    | None       |                                                                                           |
+| Chat opening scroll                      | When opening the chat it scrolls to the most recent messages                   | The chat scrolls                                     | True    | None       |                                                                                           |
+| Chat shows the correct messages          | The chat only shows the users and the admins resonse                           | It does                                              | True    | None       |                                                                                           |
+| Admin chat shows in profile              | The admin chat opens up when the users chat clicked                            | It opens up                                          | True    | None       |                                                                                           |
+| The admin chat shows the correct message | The admin chat shows the correct messages between the user and admin           | It does                                              | True    | None       |                                                                                           |
+| The admin profile user edit-ability      | The admins user profile section shows the correct data from the users          | It does                                              | True    | None       |                                                                                           |
+| Database procedures                      | The database procedures are correctly used                                     | They do                                              | True    | None       |                                                                                           |
+| Admin profile auto updating data         | The admin profile shows the correct data after updating it                     | The correct data shown                               | True    | None       | It might take a bit longer sometimes to show up but it is due to the db server slow speed |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
+|                                          |                                                                                |                                                      |         |            |                                                                                           |
 
 | Tesztelő: File Tibor | Idő: 2024. 12. 08.               |
 |----------------------|----------------------------------|
