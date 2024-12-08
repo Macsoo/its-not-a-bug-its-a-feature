@@ -19,7 +19,7 @@ type Messages = {
     createdAt: Date;
 }
 
-export const PopChat: FC<PopChatProps> = ({ user_id, pops, contact}) => {
+export const PopChat: FC<PopChatProps> = ({user_id, pops, contact}) => {
     const hide = {display: 'none'};
     const show = {
         display: 'flex',
@@ -33,7 +33,7 @@ export const PopChat: FC<PopChatProps> = ({ user_id, pops, contact}) => {
         background: '#eee',
     };
     const textRef = useRef<HTMLInputElement | null>(null);
-    const [chatOpen, setChatOpen] = pops ? useState<boolean>(false) : useState<boolean>(true);
+    const [chatOpen, setChatOpen] = useState<boolean>(false);
     const [messages, setMessages] = useState<Messages[]>([]);
     const messagesEndRef = useRef<null | HTMLDivElement>(null)
 
@@ -48,22 +48,18 @@ export const PopChat: FC<PopChatProps> = ({ user_id, pops, contact}) => {
     })
 
     const scrollToBottom = () => {
-        // TODO: bugfix the main page scrolling down issue
         messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
     }
 
-    useEffect(() => {
-        scrollToBottom()
-    }, [messages]);
-
     const toggle = () => {
         setChatOpen(!chatOpen);
-        // TODO: check autofocus and send with enter
         chatOpen ? textRef.current?.focus() : textRef.current?.blur();
     }
 
     useEffect(() => {
         startUpdateTimer(chatOpen ? 3 : 10);
+        if (chatOpen)
+            scrollToBottom();
     }, [chatOpen]);
 
 
