@@ -23,26 +23,40 @@ export function RequestListUser({user_id}: {
     });
 
     return (
-        <table id="requestTable">
-            <thead>
-            <tr>
-                <th>Kérelem leadásának ideje</th>
-                <th>Kutya Neve</th>
-                <th>Státusz</th>
-            </tr>
-            </thead>
-            <tbody>
-            {userRequests.map((request) => (
-                <tr key={request.id}>
-                    <td> {request.requestDate.toDateString()} </td>
-                    <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
-                    <td> {request.approved === null ? 'Eredményre vár' : (request.approved ? 'Elfogadva' : 'Elutasítva')} </td>
-                </tr>
-            ))}
-            </tbody>
-        </table>
+        <div className={"card"}>
+            <h2 className={"max-sm:text-center"}>Kérvényeim:</h2>
+            <div className={`tableContainer`}>
+                <table className="requestTable">
+                    <thead>
+                    <tr>
+                        <th className={`min-w-[110px] max-w-[130px]`}>Kérelem leadásának ideje</th>
+                        <th className={`min-w-[100px] man-w-[100px]`}>Kutya Neve</th>
+                        <th className={`min-w-[110px] max-w-[200px]`}>Státusz</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {userRequests.map((request) => (
+                        <tr key={request.id}>
+                            <td>{request.requestDate.toDateString()}</td>
+                            <td>
+                                <Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link>
+                            </td>
+                            <td>
+                                {request.approved === null
+                                    ? 'Eredményre vár'
+                                    : request.approved
+                                        ? 'Elfogadva'
+                                        : 'Elutasítva'}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }
+
 
 // RequestListAdmin Component
 export function RequestListAdmin() {
@@ -56,69 +70,115 @@ export function RequestListAdmin() {
         setPendingRequests(await listAllRequest());
     });
 
-    const handleApprove = (id: number) => {
-        approveRequest(id).then(() => {
-            // Request state update or refresh logic
-            setDialogState({requestId: null, type: null});
-        });
+    const handleApprove = async (id: number) => {
+        await approveRequest(id);
+        setPendingRequests((prev) =>
+            prev.map((request) =>
+                request.id === id ? {...request, approved: true} : request
+            )
+        );
+        setDialogState({requestId: null, type: null});
     };
 
-    const handleReject = (id: number) => {
-        rejectRequest(id).then(() => {
-            // Request state update or refresh logic
-            setDialogState({requestId: null, type: null});
-        });
+    const handleReject = async (id: number) => {
+        await rejectRequest(id);
+        setPendingRequests((prev) =>
+            prev.map((request) =>
+                request.id === id ? {...request, approved: false} : request
+            )
+        );
+        setDialogState({requestId: null, type: null});
     };
 
     return (
-        <>
-            <table id="requestTable">
-                <thead>
-                <tr>
-                    <th className={`max-w-[130px]`}>Kérelem leadásának ideje</th>
-                    <th className={`max-w-[100px]`}>Kutya neve</th>
-                    <th className={`max-w-[200px]`}>Felhasználó<br/>e-mail</th>
-                    <th>Műveletek</th>
-                </tr>
-                </thead>
-                <tbody>
-                {pendingRequests.map((request) => (
-                    <tr key={request.id}>
-                        <td> {request.requestDate.toDateString()} </td>
-                        <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
-                        <td> {request.user.email} </td>
-                        <td>
-                            {request.approved == null && dialogState.requestId !== request.id && (
-                                <>
-                                    <button id="adoptButton" onClick={() => setDialogState({
-                                        requestId: request.id,
-                                        type: 'approve'
-                                    })}>Elfogad
-                                    </button>
-                                    <button id="deleteDogButton" onClick={() => setDialogState({
-                                        requestId: request.id,
-                                        type: 'reject'
-                                    })}>Elutasít
-                                    </button>
-                                </>
-                            )}
-                            {dialogState.requestId === request.id && (
-                                <ConfirmDialog
-                                    message={dialogState.type === 'approve' ? 'Biztosan elfogadod ezt a kérelmet?' : 'Biztosan elutasítod ezt a kérelmet?'}
-                                    onConfirm={() => dialogState.type === 'approve' ? handleApprove(dialogState.requestId!) : handleReject(dialogState.requestId!)}
-                                    onCancel={() => setDialogState({requestId: null, type: null})}
-                                />
-                            )}
-                            {
-                                request.approved!==null && (
-                                    request.approved ? <span>Elfogadva</span> : <span>Elutasítva</span>
-                                )
-                            }
-                        </td>
+        <div className={"card"}>
+            <h2 className={"max-sm:text-center"}>Felhasználók által leadott kérvények:</h2>
+            <div className={`tableContainer`}>
+                <table>
+                    <thead>
+                    <tr>
+                        <th className={`min-w-[110px] max-w-[130px]`}>Kérelem leadásának ideje</th>
+                        <th className={`min-w-[100px]`}>Kutya neve</th>
+                        <th className={`min-w-[100px] max-w-[200px]`}>Felhasználó<br/>e-mail</th>
+                        <th className={`min-w-[100px] max-w-[110px]`}>Műveletek</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
-            </>
+                    </thead>
+                    <tbody>
+                    {pendingRequests.filter((request) => {
+                        if (request.approved == null) {
+                            return request
+                        }
+                    }).map((request) => (
+                        <tr key={request.id}>
+                            <td> {request.requestDate.toDateString()} </td>
+                            <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
+                            <td> {request.user.email} </td>
+                            <td>
+                                {request.approved == null && dialogState.requestId !== request.id && (
+                                    <div className={`flex flex-col w-full items-center justify-center`}>
+                                        <button id="adoptButton" onClick={() => setDialogState({
+                                            requestId: request.id,
+                                            type: 'approve'
+                                        })}>Elfogad
+                                        </button>
+                                        <button id="deleteDogButton" onClick={() => setDialogState({
+                                            requestId: request.id,
+                                            type: 'reject'
+                                        })}>Elutasít
+                                        </button>
+                                    </div>
+                                )}
+                                {dialogState.requestId === request.id && (
+                                    <ConfirmDialog
+                                        message={dialogState.type === 'approve' ? 'Biztosan elfogadod ezt a kérelmet?' : 'Biztosan elutasítod ezt a kérelmet?'}
+                                        onConfirm={() => dialogState.type === 'approve' ? handleApprove(dialogState.requestId!) : handleReject(dialogState.requestId!)}
+                                        onCancel={() => setDialogState({requestId: null, type: null})}
+                                    />
+                                )}
+                                {
+                                    request.approved !== null && (
+                                        request.approved ? <span>Elfogadva</span> : <span>Elutasítva</span>
+                                    )
+                                }
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+            <h2 className={"max-sm:text-center m-2.5"}>Elbírált kérvények:</h2>
+            <div className={`tableContainer`}>
+                <table>
+                    <thead>
+                    <tr>
+                        <th className={`min-w-[110px] max-w-[130px]`}>Kérelem leadásának ideje</th>
+                        <th className={`min-w-[100px]`}>Kutya neve</th>
+                        <th className={`min-w-[100px] max-w-[200px]`}>Felhasználó<br/>e-mail</th>
+                        <th className={`min-w-[100px] max-w-[110px]`}>Állapot</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {pendingRequests.filter((request) => {
+                        if (request.approved !== null) {
+                            return request
+                        }
+                    }).map((request) => (
+                        <tr key={request.id}>
+                            <td> {request.requestDate.toDateString()} </td>
+                            <td><Link href={`/dogs/${request.dogId}`}>{request.dog.name}</Link></td>
+                            <td> {request.user.email} </td>
+                            <td>
+                                {
+                                    request.approved !== null && (
+                                        request.approved ? <span>Elfogadva</span> : <span>Elutasítva</span>
+                                    )
+                                }
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }

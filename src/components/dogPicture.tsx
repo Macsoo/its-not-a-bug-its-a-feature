@@ -1,14 +1,16 @@
 import {getImageUrl} from "@/server/pictureRepository";
-import {useServerAction} from "@/utils";
-import {useState} from "react";
 import Image, {ImageProps} from "next/image";
+import {useState} from "react";
+import {useServerAction} from "@/utils";
 
 export function DogPicture(props: Omit<ImageProps, 'src'|'alt'> & { src: string }) {
-    const [imageSrc, setImageSrc] = useState("/theDog.jpg");
+    const [imageSrc, setImageSrc] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(true);
+    const {src, ...rest} = props;
     useServerAction(async () => {
-        setImageSrc(await getImageUrl(props.src));
+        const image = await getImageUrl(src);
+        setImageSrc(image);
+        setLoading(false);
     });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const {src: _, ...rest} = props;
-    return <Image src={imageSrc} alt={'Image of a dog.'} {...rest}/>;
+    return (!loading && <Image src={imageSrc} alt={'Image of a dog.'} {...rest} placeholder={'empty'}/>);
 }

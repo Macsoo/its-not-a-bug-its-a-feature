@@ -12,7 +12,7 @@ import {deleteTempPictures, getPictureByPath, uploadPicture} from "@/server/pict
 
 function Error({error}: { error?: string }) {
     if (error) {
-        return <div className={`error text-center pt-5`}>{error}</div>
+        return <span className={`error pl-8 max-lg:pl-0`}>Hiba: {error}</span>
     } else {
         return null;
     }
@@ -101,14 +101,14 @@ export default function AddDog() {
     };
 
     const thumbs = files !== undefined ? files.map(file => (
-        <div key={file.preview} className={`inline-flex relative w-[300px] h-[300px] ${file.primary ? " primaryImage" : ""}`}>
+        <div key={file.preview} className={`uploadImagesCon relative ${file.primary ? " primaryImage" : ""}`}>
             <div className={`grid w-full h-full`} onMouseEnter={mouseEnterHandler}
                  onMouseLeave={mouseLeaveHandler}>
                 <Image src={URL.createObjectURL(file)} alt={file.preview} className={`imageUpload`} fill/>
                 <div className={`hiddenXButton`}>
                     <input type={"button"} onClick={removeFile(file)} className={"x-button"} value={"X"}/>
-                    <input type={"button"} className={"primaryButton"} value={String.fromCharCode(9733)}
-                           onClick={setPrimary(file)}></input>
+                    <input type={"button"} className={"primaryButton"} value={String.fromCodePoint(128054)}
+                           onClick={setPrimary(file)}/>
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@ export default function AddDog() {
     return (
         <div className="content">
             <div className={`card`}>
-                <h2>Új kutya hozzáadása</h2>
+                <h2 className={`max-lg:text-center`}>Új kutya hozzáadása</h2>
                 <form onSubmit={async (e) => {
                     e.preventDefault();
                     if (files == undefined || files.length == 0) {
@@ -165,26 +165,28 @@ export default function AddDog() {
                     await deleteTempPictures();
                     router.push('/dogs');
                 }}>
-                    <div className={`form`}>
-                        <label htmlFor="chipId" className={`pr-1 w-[48px]`}>Chip szám:</label>
-                        <input
-                            className={`dogUpdateInput`}
-                            id="chipId"
-                            type="text"
-                            value={chipId}
-                            pattern={"\\d{15}"}
-                            onChange={(e) => setChipId(e.target.value)}
-                            autoFocus={true}
-                            onInvalid={handleChipValidation}
-                            onInput={handleChipValidation}
-                            required
-                        />
+                    <div className={`dogForm`}>
+                        <label htmlFor="chipId" className={`pr-1 w-[48px]`}><b>Chip szám:</b></label>
+                        <div className={'block max-lg:flex flex-col'}>
+                            <input
+                                className={`dogUpdateInput`}
+                                id="chipId"
+                                type="text"
+                                value={chipId}
+                                pattern={"\\d{15}"}
+                                onChange={(e) => setChipId(e.target.value)}
+                                autoFocus={true}
+                                onInvalid={handleChipValidation}
+                                onInput={handleChipValidation}
+                                required
+                            />
+                            <Error error={ChipError}/>
+                        </div>
                     </div>
 
-                    <Error error={ChipError}/>
 
-                    <div className={`form`}>
-                        <label htmlFor="name" className={`pr-1 w-[48px]`}>Név:</label>
+                    <div className={`dogForm`}>
+                        <label htmlFor="name" className={`pr-1 w-[48px]`}><b>Név:</b></label>
                         <input
                             className={`dogUpdateInput`}
                             id="name"
@@ -195,8 +197,8 @@ export default function AddDog() {
                         />
                     </div>
 
-                    <div className={`form`}>
-                        <label htmlFor="age" className={`pr-1 w-[48px]`}>Kor:</label>
+                    <div className={`dogForm`}>
+                        <label htmlFor="age" className={`pr-1 w-[48px]`}><b>Kor:</b></label>
                         <input
                             className={`dogUpdateInput`}
                             id="age"
@@ -208,8 +210,8 @@ export default function AddDog() {
                         />
                     </div>
 
-                    <div className={`form`}>
-                        <label htmlFor="gender" className={`pr-1 w-[48px]`}>Nem:</label>
+                    <div className={`dogForm`}>
+                        <label htmlFor="gender" className={`pr-1 w-[48px]`}><b>Nem:</b></label>
                         <select
                             className={`dogUpdateInput`}
                             id="gender"
@@ -225,8 +227,8 @@ export default function AddDog() {
                         </select>
                     </div>
 
-                    <div className={`form`}>
-                        <label htmlFor="breed" className={`pr-1 w-[48px]`}>Fajta:</label>
+                    <div className={`dogForm`}>
+                        <label htmlFor="breed" className={`pr-1 w-[48px]`}><b>Fajta:</b></label>
                         <input
                             className={`dogUpdateInput`}
                             id="breed"
@@ -236,8 +238,8 @@ export default function AddDog() {
                         />
                     </div>
 
-                    <div className={`flex flex-row items-center p-2`}>
-                        <label htmlFor="description" className={`pr-1 w-[48px]`}>Leírás:</label>
+                    <div className={`dogForm`}>
+                        <label htmlFor="description" className={`pr-1 w-[48px]`}><b>Leírás:</b></label>
                         <textarea
                             className={`dogUpdateInput w-full h-[150px]`}
                             id="description"
@@ -252,7 +254,7 @@ export default function AddDog() {
                                 <input {...getInputProps()}/>
 
                                 <div className={`flex flex-col justify-center items-center m-auto`}>
-                                    <p className={`font-bold`}> Képek feltöltése:</p>
+                                    <p className={`font-bold max-lg:text-center`}> Képek feltöltése:</p>
                                     {isDragActive ?
                                         <p className={`italic text-sm text-center`}>Húzza ide a fájlokat ...</p> :
                                         <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy
@@ -267,7 +269,8 @@ export default function AddDog() {
                         </div>
                     </div>
 
-                    <Error error={pictureError}/>
+                    <div className={"w-full flex items-center justify-center"}><Error error={pictureError}/></div>
+
 
                     <div className={`mt-10 flex flex-row items-center justify-center`}>
                         <input id={`updateDog`} type="submit" value={"Hozzáadás"}/>

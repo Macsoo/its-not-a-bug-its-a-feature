@@ -19,7 +19,7 @@ import {SessionContext} from "@/components/sessionContext";
 
 function Error({error}: { error?: string }) {
     if (error) {
-        return <div className={`error text-center pt-5`}>{error}</div>
+        return <span className={`error pl-8 max-lg:pl-0`}>Hiba: {error}</span>
     } else {
         return null;
     }
@@ -221,10 +221,10 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
             (
                 <div className={`content`}>
                     <div className={`card`}>
-                        <h2>{dog.name} adatainak szerkesztése</h2>
+                        <h2 className={`max-lg:text-center`}>{dog.name} adatainak szerkesztése</h2>
                         <form onSubmit={handleSubmit}>
-                            <div className={`form`}>
-                                <label htmlFor="name" className={`pr-1 w-[48px]`}>Név:</label>
+                            <div className={`dogForm`}>
+                                <label htmlFor="name" className={`pr-1 w-[48px]`}><b>Név:</b></label>
                                 <input
                                     className={`dogUpdateInput`}
                                     id="name"
@@ -233,8 +233,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     value={name}
                                 />
                             </div>
-                            <div className={`form`}>
-                                <label htmlFor="age" className={`pr-1 w-[48px]`}>Kor:</label>
+                            <div className={`dogForm`}>
+                                <label htmlFor="age" className={`pr-1 w-[48px]`}><b>Kor:</b></label>
                                 <input
                                     className={`dogUpdateInput`}
                                     id="age"
@@ -244,8 +244,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     onChange={(e) => setAge(parseInt(e.target.value))}
                                 />
                             </div>
-                            <div className={`form`}>
-                                <label htmlFor="gender" className={`pr-1 w-[48px]`}>Nem:</label>
+                            <div className={`dogForm`}>
+                                <label htmlFor="gender" className={`pr-1 w-[48px]`}><b>Nem:</b></label>
                                 <select
                                     className={`dogUpdateInput`}
                                     id="gender"
@@ -260,8 +260,8 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     <option value="Female">Nőstény</option>
                                 </select>
                             </div>
-                            <div className={`flex flex-row items-center p-2`}>
-                                <label htmlFor="description" className={`pr-1 w-[48px]`}>Leírás:</label>
+                            <div className={`dogForm`}>
+                                <label htmlFor="description" className={`pr-1 w-[48px]`}><b>Leírás:</b></label>
                                 <textarea
                                     className={`dogUpdateInput w-full h-[150px]`}
                                     id="description"
@@ -273,7 +273,7 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                 <div {...getRootProps()}>
                                     <input {...getInputProps()} />
                                     <div className={`flex flex-col justify-center items-center m-auto`}>
-                                        <p className={`font-bold`}> Képek feltöltése:</p>
+                                        <p className={`font-bold max-lg:text-center`}><b> Képek feltöltése:</b></p>
                                         {isDragActive ?
                                             <p className={`italic text-sm text-center`}>Húzza ide a fájlokat ...</p> :
                                             <p className={`italic text-sm text-center`}>Húzza be a fájlokat,<br/> vagy
@@ -284,8 +284,10 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                     {imageFiles.map(file => {
                                         switch (file.onSend) {
                                             case SubmitAction.UPLOAD:
-                                                return <div key={file.dataUri} className={`inline-flex relative w-[300px] h-[300px]  ${file.isPrimary ? " primaryImage" : ""}`}>
-                                                    <div className={`grid w-full h-full`} onMouseEnter={mouseEnterHandler}
+                                                return <div key={file.dataUri}
+                                                            className={`uploadImagesCon relative ${file.isPrimary ? " primaryImage" : ""}`}>
+                                                    <div className={`grid w-full h-full`}
+                                                         onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <Image src={file.dataUri} alt="Upload preview"
                                                                className={`imageUpload`} fill/>
@@ -293,20 +295,24 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    className={"x-button"} value={"X"}/>
                                                             <input type={"button"} className={"primaryButton"}
-                                                                   value={String.fromCharCode(9733)} onClick={setPrimary(file)}></input>
+                                                                   value={String.fromCodePoint(128054)}
+                                                                   onClick={setPrimary(file)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
                                             case SubmitAction.NOTHING:
-                                                return <div key={file.url} className={`inline-flex relative w-[300px] h-[300px]  ${file.isPrimary ? " primaryImage" : ""}`}>
-                                                    <div className={`grid w-full h-full`} onMouseEnter={mouseEnterHandler}
+                                                return <div key={file.url}
+                                                            className={`uploadImagesCon relative ${file.isPrimary ? " primaryImage" : ""}`}>
+                                                    <div className={`grid w-full h-full`}
+                                                         onMouseEnter={mouseEnterHandler}
                                                          onMouseLeave={mouseLeaveHandler}>
                                                         <DogPicture src={file.url} className={`imageUpload`} fill/>
                                                         <div className={`hiddenXButton`}>
                                                             <input type={"button"} onClick={removeFile(file)}
                                                                    className={"x-button"} value={"X"}/>
                                                             <input type={"button"} className={"primaryButton"}
-                                                                   value={String.fromCharCode(9733)} onClick={setPrimary(file)}></input>
+                                                                   value={String.fromCodePoint(128054)}
+                                                                   onClick={setPrimary(file)}></input>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -317,9 +323,10 @@ export default function UpdateDog({params}: { params: { dog_id: string } }) {
                                 </div>
                             </div>
 
-                            <Error error={pictureError}/>
+                            <div className={"w-full flex items-center justify-center"}><Error error={pictureError}/>
+                            </div>
 
-                            <div className={`flex flex-row items-center justify-center`}>
+                            <div className={`flex flex-row items-center justify-center max-lg:flex-col`}>
                                 <input id={`updateDog`} type="submit" value={"Frissítés"}/>
                                 {!isDialogOpen && (
                                     <input type={"button"} onClick={() => setIsDialogOpen(true)} value={"Mégsem"}/>)}

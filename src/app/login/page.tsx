@@ -42,12 +42,12 @@ export default function LoginPage() {
             <h2>Belépés</h2>
             <div className={`card login-register`}>
                 <div className={`m-2 flex flex-col items-start`}>
-                    <label htmlFor={"email"}>Email</label>
+                    <label className={`max-sm:text-center max-sm:w-full max-sm:mb-1`} htmlFor={"email"}>Email</label>
                     <input type={"email"} id={"email"} value={email} className={`bg-cardBorderColor`}
                            onChange={(e) => setEmail(e.target.value)} onKeyDown={enterPress}/>
                 </div>
                 <div className={`m-2 flex flex-col items-start`}>
-                    <label htmlFor={"password"}>Jelszó</label>
+                    <label className={`max-sm:text-center max-sm:w-full max-sm:mb-1`} htmlFor={"password"}>Jelszó</label>
                     <input type={"password"} id={"password"} value={password} className={`bg-cardBorderColor`}
                            onChange={(e) => setPassword(e.target.value)} onKeyDown={enterPress}/>
                 </div>

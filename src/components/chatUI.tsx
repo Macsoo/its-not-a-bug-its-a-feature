@@ -1,104 +1,156 @@
 'use client';
-import React, {FC, useContext, useRef, useState} from 'react'
+import React, {FC, KeyboardEventHandler, useEffect, useRef, useState} from 'react'
 import "@/app/globals.css";
-import {SessionContext} from "@/components/sessionContext";
 import Image from "next/image";
+import {getAllMessagesFromUser, sendMessage} from "@/server/chatRepository";
+import {NIL as NIL_UUID} from 'uuid';
+import {useServerAction} from "@/utils";
 
 interface PopChatProps {
-    messages: string[];
-    getMessage: (message: string) => void;
     user_id: string;
+    pops: boolean;
+    contact: string;
+    is_admin: boolean;
 }
 
-export const PopChat: FC<PopChatProps> = ({messages, getMessage, user_id}: PopChatProps) => {
+type Messages = {
+    id: number;
+    message: string;
+    fromUser: string;
+    createdAt: Date;
+}
+
+export const PopChat: FC<PopChatProps> = ({user_id, pops, contact, is_admin}) => {
     const hide = {display: 'none'};
     const show = {
+        padding: '0.625rem',
+        width: '33.333333%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: '10px',
-        width: '100%',
-        height: '500px',
-        maxHeight: '500px',
+        height: '460px',
         borderRadius: '25px',
         background: '#eee',
-    };
 
+    };
     const textRef = useRef<HTMLInputElement | null>(null);
     const [chatOpen, setChatOpen] = useState<boolean>(false);
+    const [messages, setMessages] = useState<Messages[]>([]);
+    const messagesEndRef = useRef<null | HTMLDivElement>(null)
 
-    const session = useContext(SessionContext);
+    const enterPress: KeyboardEventHandler = (e) => {
+        if (e.key === "Enter" && chatOpen) {
+            handleSend();
+            console.log('sent via enter');
+        }
+    };
+    useServerAction(async () => {
+        setMessages(await getAllMessagesFromUser(user_id));
+    })
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
+    }
 
     const toggle = () => {
         setChatOpen(!chatOpen);
+        chatOpen ? textRef.current?.focus() : textRef.current?.blur();
+    }
+
+    useEffect(() => {
+        startUpdateTimer(chatOpen ? 3 : 10);
+        if (chatOpen)
+            scrollToBottom();
+    }, [chatOpen]);
+
+
+    function startUpdateTimer(time: number) {
+        setInterval(async () => {
+            await updateChat();
+        }, time * 1000);
+    }
+
+    async function updateChat(): Promise<void> {
+        // const newMessages: Messages[] = await getUnseenMessagesFromUser(user_id);
+        // const oldMessages = messages;
+        // let changed = false;
+        // newMessages.forEach(message => {
+        //     seenMessage(message.id);
+        //     if (!oldMessages.map(x => x.id).includes(message.id)) {
+        //         console.log("Old messages" + oldMessages);
+        //         console.log("New message coming in" + message)
+        //         oldMessages.push(message);
+        //         changed = true;
+        //     }
+        // });
+        // if (changed) {
+        //     setMessages(oldMessages);
+        // }
+        setMessages(await getAllMessagesFromUser(user_id));
     }
 
     const handleSend = () => {
         if (textRef.current) {
-            getMessage(textRef.current.value);
-            textRef.current.value = ''; // Clear input after sending
+            if (textRef.current.value === '') return;
+            sendMessage(is_admin ? NIL_UUID : user_id, is_admin ? user_id : NIL_UUID, textRef.current.value);
+            textRef.current.value = '';
+            updateChat();
         }
     };
 
     return (
-        <>
-            <div id="chatCon">
-                <div className={"chatBox"} style={chatOpen ? show : hide}>
-                    <div className={"header"}>{session.isUser() ? "Admin" : "Chats"}</div>
-                    <div className={`h-full bg-[#e4e4e4] rounded-lg mt-3 mb-3`}>
-                        {(<div className={`msg-area`}>
-                            <Messages messages={messages} user_id={user_id}></Messages>
-                        </div>)}
-                        {session.isAdmin() &&
-                            (<div className={`user-area`}>
-                                <div className={`user`}>User1</div>
-                                <div className={`user`}>User2</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                                <div className={`user`}>User3</div>
-                            </div>
-                        )}
-                    </div>
-                    <div className={"footer"}>
-                        <input type="text" ref={textRef}/>
-                        <button onClick={handleSend}>
-                            Küldés
-                        </button>
-                    </div>
+        <div id="chatCon" className={`${!pops ? "chatBoxNonPop" : ""}`}>
+            <div id={`${!pops ? "adminChat" : ""}`} className={"chatBox"} style={chatOpen ? show : hide}>
+                <div className={"header"}>{contact}</div>
+                <div className={`msg-area`}>
+                    <Messages messagesToShow={messages} isAdmin={is_admin}></Messages>
+                    <div ref={messagesEndRef}/>
                 </div>
-                <div className={"pop"}>
-                    <p>
-                        <Image
-                            onClick={toggle}
-                            src="/chat_img.jpg"
-                            alt="Chat Icon"
-                            width={20}
-                            height={20}
+                <div className={"footer"}>
+                        <textarea
+                            id={"chatInput"}
+                            ref={textRef as React.RefObject<HTMLTextAreaElement>}
+                            rows={4}
+                            placeholder="Írj egy üzenetet..."
                         />
-                    </p>
+                    <button onClick={handleSend} onKeyDown={enterPress}>
+                        Küldés
+                    </button>
                 </div>
             </div>
-        </>
+            {pops && (<div className={"pop relative"}>
+                <Image
+                    id={`chatIcon`}
+                    onClick={toggle}
+                    src="/chat-icon.jpg"
+                    alt="Chat Icon"
+                    fill
+                />
+            </div>)}
+        </div>
     );
 };
 
-const Messages = ({messages, user_id}: { messages: string[], user_id: string }) => {
-    //get messages by user_id
-
-    //user_id added to msg just to use the variable so IDEA doesn't cry >:c
+function Messages(params: { messagesToShow: Messages[], isAdmin: boolean }) {
     return (
         <>
-            {messages.map((msg, i) => (
-                <p key={i} className={i % 2 ? "right" : "left"}>
-                    <span>{msg} {user_id}</span>
-                </p>
-            ))}
+            {params.messagesToShow.map((msg, i) => {
+                const date = new Date(msg.createdAt);
+                const formattedDate = `${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")}/${date.getFullYear().toString().slice(2)} - ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+
+                //TODO: fix css class on messages
+                if (params.isAdmin)
+                    return (
+                        <p key={i} className={msg.fromUser === NIL_UUID ? "right" : "left"}>
+                            <span>{msg.message} <p>{formattedDate}</p></span>
+                        </p>
+                    );
+                return (
+                    <p key={i} className={msg.fromUser === NIL_UUID ? "left" : "right"}>
+                        <span>{msg.message} <p>{formattedDate}</p></span>
+                    </p>
+                );
+            })}
         </>
-    )
+    );
 }

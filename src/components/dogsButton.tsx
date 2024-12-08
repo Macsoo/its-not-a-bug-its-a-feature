@@ -11,9 +11,9 @@ export function ConfirmDialog({message, onConfirm, onCancel}: {
     onCancel: () => void
 }) {
     return (
-        <div className="dialog">
-            <div className="dialog-content">
-                <p>{message}</p>
+        <div className="">
+            <div className="flex flex-col items-center justify-center">
+                <p className={`text-center`}>{message}</p>
                 <input type={"button"} onClick={onConfirm} value={"Igen"}/>
                 <input type={"button"} onClick={onCancel} value={"Nem"}/>
             </div>

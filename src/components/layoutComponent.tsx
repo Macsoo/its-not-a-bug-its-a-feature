@@ -3,25 +3,26 @@ import {User} from "@supabase/supabase-js";
 import Image from "next/image";
 import Link from "next/link";
 import {getUser} from "@/server/supabase";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Session, SessionContext} from "@/components/sessionContext";
 import {useServerAction} from "@/utils"
-//import {PopChat} from "@/components/chatUI";
+import {PopChat} from "@/components/chatUI";
+import {logOutUser} from "@/server/userRepository";
 
 export default function Layout(props: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | undefined>(undefined);
     useServerAction(async () => {
         setUser(await getUser());
     });
-    /*
-    const messages = ["Hello!", "Hello!", "How can I help you?", "Thank you for reaching out!", "No problem :)", ":)"];
-    const getMessage = (message: string) => {
-        console.log("Received message:", message);
-        // You can add custom logic here, like updating a message list or sending data to a server
-    }*/
+
+    const handleSignOut = async () => {
+        await logOutUser();
+        location.reload();
+    }
+
     return <>
         <div className={`header-mobile md:header`}>
-            <div className={`relative w-[50px] h-[50px] border-textColor border-2 rounded-[3px]`} >
+            <div className={`relative w-[50px] h-[50px] border-textColor border-2 rounded-[3px]`}>
                 <Image src="/theDog.jpg" fill alt="Logo" style={{
                     objectFit: "cover",
                     objectPosition: "center"
@@ -33,7 +34,8 @@ export default function Layout(props: { children: React.ReactNode }) {
                     Lakatos Brendonék Menhelye
                 </h1>
             </Link>
-            <div>
+            <div
+                className={`max-md:flex max-md:flex-col max-md:justify-center max-md:items-center flex flex-row justify-center items-center`}>
                 {!user && (<>
                     <Link href="/register">
                         <button id="register">Regisztráció</button>
@@ -41,7 +43,11 @@ export default function Layout(props: { children: React.ReactNode }) {
                     <Link href="/login">
                         <button id="login">Belépés</button>
                     </Link>
+
                 </>)}
+                {user && (
+                    <button id={"signOutButton"} onClick={handleSignOut}>Kijelentkezés</button>
+                )}
             </div>
         </div>
 
@@ -55,9 +61,13 @@ export default function Layout(props: { children: React.ReactNode }) {
                 </Link>
             </div>
             {user && (
-                <Link href="/account">
-                    <button id="account">Fiókom</button>
-                </Link>
+                <>
+                    <Link href="/account">
+                        <button id="account">Fiókom</button>
+                    </Link>
+                </>
+
+
             )}
         </div>
 
@@ -74,6 +84,9 @@ export default function Layout(props: { children: React.ReactNode }) {
                 esetleges egyezés teljes mértékben a véletlen műve.
             </footer>
         </div>
-        {/*<PopChat messages={messages} getMessage={getMessage} user_id={'0'}/>*/}
+        {
+            user && user.app_metadata["admin"] !== true && (
+                <PopChat user_id={user.id} pops={true} contact={"Admin"} is_admin={false}/>)
+        }
     </>;
 }
