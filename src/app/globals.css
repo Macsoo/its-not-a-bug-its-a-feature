@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=DynaPuff&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,15 +9,18 @@
         @apply flex flex-row items-center justify-between py-1 px-5 w-full;
         background: #df9348;
     }
+
     .header {
         @apply text-[#fcecd3];
         @apply w-full p-5 flex flex-row items-center justify-between;
         background: #e2a669;
     }
+
     .menu-mobile {
         @apply flex flex-col items-center justify-between py-1 px-5 w-full;
         background: #df9348;
     }
+
     button,
     input[type="button"],
     #search {
@@ -25,36 +29,44 @@
         background: #e5a55f;
     }
 }
+
 #menu-toggle {
     @apply w-8 h-8 text-center;
 }
+
 h2 {
     @apply text-3xl pb-2 font-bold max-md:text-[15px];
     font-family: "DynaPuff", system-ui;
 }
+
 p {
     @apply p-1 cursor-default;
 }
+
 body {
     @apply flex flex-col items-start justify-around gap-1 bg-background text-textColor;
     @apply max-md:text-sm !important;
 }
+
 .header-mobile {
     @apply text-[#fcecd3];
     @apply w-full p-5 flex flex-col items-center justify-between;
     background: #e2a669;
 }
+
 .header button,
 .header-mobile button {
     @apply text-[#fdc754];
     @apply p-2.5 rounded-lg m-1 w-32 text-lg;
     background: #d07d32;
 }
+
 .header button:hover,
 .header button:active {
     @apply text-[#ffe19c];
     background: #b56d38;
 }
+
 button:hover,
 button:active,
 input[type="button"]:hover,
@@ -64,39 +76,47 @@ input[type="button"]:active,
     @apply text-[#fdc754];
     background: #c67839;
 }
+
 .content {
     @apply flex flex-col items-center justify-between gap-5 text-textColor w-11/12 my-5 mx-auto p-5 rounded-lg;
     background: #edc488;
     @apply max-md:my-1.5 max-md:gap-[10px] max-md:p-[10px] !important;
 }
+
 .card {
     @apply border-[20px] border-solid border-[#fcedd1];
     @apply text-textColor w-full m-auto p-5 rounded-lg font-medium;
     @apply max-md:border-[10px] !important;
     background: #f7d6a8;
 }
+
 .card-dog {
     @apply text-textColor m-auto md:p-5 p-2 rounded-lg items-center gap-5 w-full flex max-lg:flex-col justify-around text-center flex-row;
     background: #fcedd1;
 }
+
 .card-dog #dog-text {
     @apply w-1/3 rounded-lg md:p-5 p-2;
     background: #f7d6a8;
 }
+
 th {
     font-family: "DynaPuff", system-ui;
 }
+
 th,
 td {
     @apply p-3;
     word-break: break-word;
 }
+
 #descriptionButton,
 #editDogButton {
     @apply text-[#fdedd1];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[90px] min-w-[100px] content-center;
     background: #e5a55f;
 }
+
 #descriptionButton:hover,
 #descriptionButton:active,
 #editDogButton:hover,
@@ -104,13 +124,15 @@ td {
     @apply text-[#fdc754];
     background: #c67839;
 }
+
 #adoptButton,
 #updateDog {
     @apply text-[#5b6439];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-full max-w-[150px] min-w-[90px] content-center;
     background: #babb91;
 }
-#adoptButton{
+
+#adoptButton {
     @apply min-w-[80px] max-w-[100px] w-fit !important;
 }
 
@@ -121,13 +143,14 @@ td {
     @apply text-[#bfcc8a];
     background: #6f7146;
 }
-#deleteDogButton{
+
+#deleteDogButton {
     @apply text-[#fff3f0];
     @apply py-1 px-2.5 rounded-lg m-2.5 w-fit max-w-[100px] min-w-[90px] content-center;
     background: #f0756d;
 }
 
-#updateUsers{
+#updateUsers {
     @apply text-[#5b6439];
     @apply py-1 px-2.5 rounded-lg content-center min-w-[100px] sm:max-w-[150px] w-full m-0 h-fit !important;
     background: #babb91;
@@ -148,35 +171,40 @@ td {
 #deleteDogButton:active,
 .x-button:hover,
 .x-button:active,
-#reset:hover,#reset:active{
+#reset:hover, #reset:active {
     @apply text-[#fcc1b7] !important;
     background: #aa4241 !important;
 }
+
 .x-button {
     @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-2.5 w-9 h-9 content-center !important;
     background: #f0756d !important;
 }
 
 .x-buttonWide:hover,
-.x-buttonWide:active{
+.x-buttonWide:active {
     @apply text-[#fcc1b7] !important;
     background: #aa4241 !important;
 }
-.x-buttonWide{
-    @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-auto w-[250px] h-8 content-center !important;
+
+.x-buttonWide {
+    @apply text-[#fff3f0] py-1 px-2.5 rounded-lg m-auto w-[250px] max-lg:w-full h-8 content-center !important;
     background: #f0756d !important;
 }
 
 .tableContainer > table {
     @apply w-full whitespace-nowrap border-collapse text-center max-md:text-[12px] !important;
 }
+
 .tableContainer th {
     @apply bg-secondTextColor text-white text-lg font-light whitespace-break-spaces;
     @apply max-md:text-[13px]  !important;
 }
+
 .tableContainer td {
     @apply bg-orange-50;
 }
+
 .tableContainer td,
 .tableContainer th {
     @apply border-collapse border border-textColor;
@@ -185,26 +213,31 @@ td {
 .tableContainer {
     @apply border-4 border-textColor overflow-x-auto max-md:block;
 }
+
 .dogUpdateInput {
     @apply border border-textColor p-0.5 bg-orange-50;
 }
-.tableContainer .dogUpdateInput{
+
+.tableContainer .dogUpdateInput {
     @apply bg-white !important;
 }
+
 .form {
     @apply flex flex-row items-center p-2;
 }
 
-.dogForm{
+.dogForm {
     @apply flex flex-row items-center p-2 max-lg:flex-col max-lg:items-start;
 }
 
-select{
+select {
     @apply font-mono !important;
 }
+
 .dragAndDropContainer {
     @apply mt-10 border-textColor border-dashed border-[2px] bg-[#fcedd1] min-h-[150px] flex flex-col justify-center items-center p-10 max-lg:px-0.5 pb-10 h-fit;
 }
+
 .imageUpload {
     @apply col-[1] row-[1] w-full border-textColor border-2 rounded-[3px];
     object-fit: cover;
@@ -215,6 +248,7 @@ select{
     @apply z-10;
     @apply hidden col-[1] row-[1] box-border  h-full w-full;
 }
+
 .uploadImageContainer {
     @apply flex flex-wrap flex-row gap-6 pt-5 max-lg:flex-col max-lg:items-center m-auto;
 }
@@ -222,39 +256,49 @@ select{
 .uploadImagesCon {
     @apply inline-flex min-w-[150px] min-h-[150px] items-center;
 }
+
 #gdpr {
     @apply relative;
     @apply w-[80%] max-w-[700px] max-h-[350px] overflow-x-auto pl-5 pr-5 pt-2 pb-2 m-5 bg-[#f5f5f5] border-b border-4 text-black
     rounded-s text-sm font-sans grid;
     @apply max-sm:w-full max-sm:text-[10px] max-sm:m-1 max-sm:p-2 !important;
 }
+
 #gdpr footer {
     @apply italic text-xs max-sm:text-[10px];
 }
+
 ol > li {
     @apply max-sm:m-0.5 m-[1.25em] pt-[0.3em] marker:font-[bold];
     list-style: decimal outside;
 }
+
 ul > li {
     @apply ml-[1.5em] pt-[0.3em];
     list-style: disc outside;
 }
+
 .link:link {
     @apply underline cursor-pointer;
 }
+
 .link:link:active,
 link:visited:active {
     @apply text-[rebeccapurple];
 }
+
 .link:visited {
     @apply text-[rebeccapurple];
 }
+
 #gdpr button {
     @apply m-auto;
 }
+
 #gdpr > .x-button {
     @apply sticky z-10 top-0 justify-self-end mr-[10px] max-sm:w-6 max-sm:h-6 p-0 !important;
 }
+
 .login-register {
     @apply flex flex-col items-center max-w-3xl;
 }
@@ -264,22 +308,28 @@ link:visited:active {
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
+
 b {
     font-family: "Sour Gummy", sans-serif;
 }
-input:not([type="button"]):not([type="submit"]):not([type="reset"]), textarea{
+
+input:not([type="button"]):not([type="submit"]):not([type="reset"]), textarea {
     @apply font-mono text-sm bg-orange-50;
 }
+
 .login-register input[type="password"],
 .login-register input[type="email"] {
     @apply max-sm:w-full w-64 overflow-auto;
 }
+
 .error {
     @apply text-red-700 font-bold;
 }
+
 .imageContainer {
     @apply flex flex-row flex-wrap items-center justify-center p-3 gap-10;
 }
+
 .primaryButton {
     @apply text-[#fff3f0];
     @apply py-1 px-1 rounded-lg m-2.5 w-9 h-9 content-center text-lg !important;
@@ -289,38 +339,41 @@ input:not([type="button"]):not([type="submit"]):not([type="reset"]), textarea{
 .primaryButton:hover {
     background-color: #46c573 !important;
 }
+
 .primaryImage {
     @apply border-[#46c573] border-opacity-60 border-8 rounded-md !important;
 
 }
 
-.trashButton{
-    @apply  bg-orange-50 text-black text-2xl font-bold w-fit h-fit m-0 p-0 !important;
+.trashButton {
+    @apply bg-orange-50 text-black text-2xl font-bold w-fit h-fit m-0 p-0 !important;
 }
 
 .trashButton:hover {
     @apply bg-orange-50 text-red-700 font-bold !important;
 }
 
-.deleteUserTD{
+.deleteUserTD {
     @apply m-0 p-0 !important;
 }
 
-.iconTd{
+.iconTd {
     @apply p-0 max-sm:text-xl text-3xl !important;
 }
 
-.iconTd > button{
+.iconTd > button {
     @apply p-0 m-0 w-fit !important;
 }
+
 .userData {
     @apply w-fit justify-self-start;
 }
 
-.userData td{
+.userData td {
     @apply p-0 pr-1.5;
 }
-.userData tr{
+
+.userData tr {
     @apply h-[50px];
 }
 
@@ -328,106 +381,117 @@ input:not([type="button"]):not([type="submit"]):not([type="reset"]), textarea{
     @apply w-[30px] h-[30px] mx-1.5 rounded-lg;
 }
 
-.userData input[type="submit"]{
+.userData input[type="submit"] {
     @apply font-bold text-[#5b6439] bg-[#babb91] ml-2 mr-0;
 }
 
-.userData input[type="reset"]{
+.userData input[type="reset"] {
     @apply text-[#fff3f0] bg-[#f0756d];
 }
 
 .userData input[type="submit"]:hover,
-.userData input[type="submit"]:active{
+.userData input[type="submit"]:active {
     @apply text-[#bfcc8a] bg-[#6f7146];
 }
 
 .userData input[type="reset"]:hover,
-.userData input[type="reset"]:active{
+.userData input[type="reset"]:active {
     @apply text-[#fcc1b7] bg-[#aa4241];
 }
 
-#phone{
+#phone {
     @apply px-0.5 w-[100px];
 }
 
-input::placeholder{
+input::placeholder {
     @apply text-textColor opacity-65;
 }
 
-#filter{
+#filter {
     @apply flex flex-row gap-5 items-center max-lg:flex-col;
 }
-#filter > div{
-@apply flex flex-row w-1/4 max-sm:w-10/12 max-lg:w-1/2;
+
+#filter > div {
+    @apply flex flex-row w-1/4 max-sm:w-10/12 max-lg:w-1/2;
 }
 
-#filter select{
+#filter select {
     @apply w-full bg-orange-50 !important;
 }
-#filter label{
+
+#filter label {
     @apply w-[40px] pr-3;
 }
 
-#filter input[type="submit"]{
+#filter input[type="submit"] {
     @apply m-0 !important;
 }
 
 #chatCon {
-    @apply w-[30%] fixed text-[black] left-[3%] bottom-[3%];
-    @apply max-md:min-w-[80%] !important;
+    @apply w-full fixed text-[black] left-[3%] bottom-[8%] max-sm:bottom-[3%] max-sm:left-0;
 }
+
 #chatCon .header {
+    height: 50px;
     @apply bg-[#3fda73] text-white text-xl p-[15px] rounded-[20px_20px_0_0];
 }
-.msg-area {
-    @apply overflow-auto max-h-[330px] p-[5px] rounded-[10px];
-}
-#chatCon span{
+
+
+#chatCon span {
     @apply w-10/12;
 }
 
-#chatCon p{
-    @apply w-full text-right text-xs text-gray-600 m-0 !important;
+#chatCon p {
+    @apply w-full text-right max-lg:text-xs text-gray-600 m-0 !important;
 }
 
 #chatCon .left > span {
-    @apply inline-block text-[17.5px] bg-[#d8d8d8] max-w-[80%] p-2.5 rounded-[15px] text-black text-left;
+    @apply inline-block text-[15px] bg-[#d8d8d8] max-w-[80%] p-2.5 rounded-[15px] text-black text-left;
 }
+
 #chatCon .right {
     @apply text-right text-black;
 }
+
 #chatCon .right > span {
-    @apply inline-block text-[white] text-[17.5px] text-left max-w-[80%] p-2.5 rounded-[15px];
+    @apply inline-block text-[white] text-[15px] text-left max-w-[80%] p-2.5 rounded-[15px];
     background: #3fda73;
 }
+
 #chatCon .footer {
-    @apply inline-flex;
+    height: 100px;
+    @apply inline-flex items-center justify-center w-full max-sm:flex-col h-max;
 }
+
 #chatCon .footer > input {
     @apply border w-4/5 p-2.5 rounded-[15px] border-solid border-white bg-white;
 }
+
 #chatCon .footer > input:focus {
     outline: none;
 }
+
 #chatCon .footer > button {
-    @apply text-[22.5px] bg-[lightgreen] text-[darkgreen] cursor-pointer border-[none];
+    @apply text-[22.5px] bg-[lightgreen] text-[darkgreen] cursor-pointer border-[none] h-[80%] max-lg:text-[15px] max-lg:h-[40%];
 }
+
 #chatCon .pop {
-    @apply w-full h-1/4 cursor-pointer;
+    @apply w-[100px] h-[100px] cursor-pointer ;
 }
-#chatCon .pop p {
-    @apply text-right;
+
+#chatIcon {
+    @apply rounded-[50%] my-5 border-textColor border-4 max-sm:my-2 max-sm:ml-2;
 }
-#chatCon .pop img {
-    @apply w-3/12 rounded-[50%];
-}
+
 #chatCon .user-area {
     @apply flex flex-col items-start justify-start gap-[5px] overflow-auto max-h-[330px] p-[5px] rounded-[10px];
 }
+
 #chatCon .user:nth-child(even) {
     @apply text-[white] w-full p-2.5 rounded-[10px];
     background: #3fda73;
 }
+
 #chatCon .user:nth-child(odd) {
     @apply text-[white] w-full m-auto p-2.5 rounded-[10px];
     background: #1f8140;
@@ -437,3 +501,34 @@ input::placeholder{
     position: inherit !important;
     @apply max-lg:w-full my-1.5 m-auto !important;
 }
+
+.chatBox {
+    @apply w-4/12 max-sm:min-w-[90%] max-lg:w-10/12 max-sm:m-auto bg-gray-200 rounded-[20px] p-2.5;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+#adminChat {
+    @apply max-sm:w-full w-[50%] m-auto !important;
+}
+
+#chatInput {
+    @apply resize-none overflow-y-auto border w-full p-2 rounded-[10px] border-solid border-gray-300 bg-white h-[100px];
+}
+
+.msg-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    @apply my-1 h-auto;
+}
+

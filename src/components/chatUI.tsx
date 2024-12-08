@@ -22,15 +22,15 @@ type Messages = {
 export const PopChat: FC<PopChatProps> = ({user_id, pops, contact}) => {
     const hide = {display: 'none'};
     const show = {
+        padding: '0.625rem',
+        width: '33.333333%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: '10px',
-        width: '100%',
-        height: '500px',
-        maxHeight: '500px',
+        height: '460px',
         borderRadius: '25px',
         background: '#eee',
+
     };
     const textRef = useRef<HTMLInputElement | null>(null);
     const [chatOpen, setChatOpen] = useState<boolean>(false);
@@ -98,36 +98,36 @@ export const PopChat: FC<PopChatProps> = ({user_id, pops, contact}) => {
     };
 
     return (
-        <>
-            <div id="chatCon" className={`${!pops ? "chatBoxNonPop" : ""}`}>
-                <div className={"chatBox"} style={chatOpen ? show : hide}>
-                    <div className={"header"}>{contact}</div>
-                    <div className={`h-full bg-[#e4e4e4] rounded-lg mt-3 mb-3`}>
-                        <div className={`msg-area`}>
-                            <Messages messagesToShow={messages}></Messages>
-                            <div ref={messagesEndRef}/>
-                        </div>
-                    </div>
-                    <div className={"footer"}>
-                        <input type="text" ref={textRef}/>
-                        <button onClick={handleSend} onKeyDown={enterPress}>
-                            Küldés
-                        </button>
-                    </div>
+        <div id="chatCon" className={`${!pops ? "chatBoxNonPop" : ""}`}>
+            <div id={`${!pops ? "adminChat" : ""}`} className={"chatBox"} style={chatOpen ? show : hide}>
+                <div className={"header"}>{contact}
                 </div>
-                {pops && (<div className={"pop"}>
-                    <p>
-                        <Image
-                            onClick={toggle}
-                            src="/theDog.jpg"
-                            alt="Chat Icon"
-                            width={20}
-                            height={20}
+                <div className={`msg-area`}>
+                    <Messages messagesToShow={messages}></Messages>
+                    <div ref={messagesEndRef}/>
+                </div>
+                <div className={"footer"}>
+                        <textarea
+                            id={"chatInput"}
+                            ref={textRef as React.RefObject<HTMLTextAreaElement>}
+                            rows={4}
+                            placeholder="Írj egy üzenetet..."
                         />
-                    </p>
-                </div>)}
+                    <button onClick={handleSend} onKeyDown={enterPress}>
+                        Küldés
+                    </button>
+                </div>
             </div>
-        </>
+            {pops && (<div className={"pop relative"}>
+                <Image
+                    id={`chatIcon`}
+                    onClick={toggle}
+                    src="/chat-icon.jpg"
+                    alt="Chat Icon"
+                    fill
+                />
+            </div>)}
+        </div>
     );
 };
 
