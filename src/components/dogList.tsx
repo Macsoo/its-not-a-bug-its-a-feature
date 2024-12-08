@@ -109,8 +109,10 @@ export default function DogList() {
                             <option value="Female">Nőstény</option>
                         </select>
                     </div>
-                    <input id="search" type="submit" value="Keresés"/>
-                    <input type="button" value="Mégsem" onClick={handleClearFilters}/>
+                    <div className={`flex justify-center items-center flex-row`}>
+                        <input id="search" type="submit" value="Keresés"/>
+                        <input type="button" value="Mégsem" onClick={handleClearFilters}/>
+                    </div>
                 </form>
             </div>
             {loading ? (
